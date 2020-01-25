@@ -1,0 +1,55 @@
+﻿<productSearchResponse>
+<status>SUCCESS</status>
+<products>
+<product>
+<language>en</language>
+<itemNumber>900621</itemNumber>
+<itemName>MOLSON CANADIAN</itemName>
+<price>$ 12.50</price>
+<productSize>6x341 mL</productSize>
+<isDiscontinued>false</isDiscontinued>
+<isLimited>false</isLimited>
+<am>N</am>
+<amBonusMiles/>
+<amExpiration>N/A</amExpiration>
+<kosher>N</kosher>
+<lto>N</lto>
+<ltoExpiration>N/A</ltoExpiration>
+<ltoRegularPrice>$ 0.00</ltoRegularPrice>
+<ltoSavings>$ 0.00</ltoSavings>
+<releaseDate>N/A</releaseDate>
+<upcNumber>056327072534</upcNumber>
+<sccNumber>80056327072530</sccNumber>
+<vao>N</vao>
+<vaoDescription/>
+<vaoExpiration>N/A</vaoExpiration>
+<vqa>N</vqa>
+<productQuantity>9957</productQuantity>
+<producer>Molson'S Brewery Of Canada Limited</producer>
+<producingSubregion/>
+<producingRegion>Ontario</producingRegion>
+<producingCountry>Canada</producingCountry>
+<alcoholPercentage>5.0%</alcoholPercentage>
+<sugarContent/>
+<tastingNotes>
+Made from the very best ingredients and always preservative free. Pours a light golden colour with a soft fluffy head. Delicate floral and barley aromas with notes of citrus, grain and sweet fruit. Crisp, clean, medium bodied and smooth on the palate. Flavours of light hops, sweet malt and citrus. Pleasant hoppy finish.
+</tastingNotes>
+<pairings>
+Great on its own. Will also complement grilled white meats, seafood and sausage. Of course, always great with bar snacks.
+</pairings>
+<itemDescription/>
+<liquorType>Beer</liquorType>
+<categoryName>Lager</categoryName>
+<stockType>LCBO</stockType>
+<subCategoryName>Pale Lager</subCategoryName>
+<sellingPackage>bottle</sellingPackage>
+<sweetnessDescriptor/>
+<wineStyle>Light &amp; Malty</wineStyle>
+<wineVarietal>North American Lager</wineVarietal>
+<styleBody>Light</styleBody>
+<styleBody_fr>Légère</styleBody_fr>
+<styleFlavour>Malty</styleFlavour>
+<styleFlavour_fr>maltée</styleFlavour_fr>
+</product>
+</products>
+</productSearchResponse>

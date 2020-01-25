@@ -1,0 +1,55 @@
+﻿<productSearchResponse>
+<status>SUCCESS</status>
+<products>
+<product>
+<language>en</language>
+<itemNumber>198069</itemNumber>
+<itemName>CHIMAY PREMIERE</itemName>
+<price>$ 7.90</price>
+<productSize>750 mL</productSize>
+<isDiscontinued>false</isDiscontinued>
+<isLimited>false</isLimited>
+<am>N</am>
+<amBonusMiles/>
+<amExpiration>N/A</amExpiration>
+<kosher>N</kosher>
+<lto>N</lto>
+<ltoExpiration>N/A</ltoExpiration>
+<ltoRegularPrice>$ 0.00</ltoRegularPrice>
+<ltoSavings>$ 0.00</ltoSavings>
+<releaseDate>N/A</releaseDate>
+<upcNumber>081706000044</upcNumber>
+<sccNumber>10081706000041</sccNumber>
+<vao>N</vao>
+<vaoDescription/>
+<vaoExpiration>N/A</vaoExpiration>
+<vqa>N</vqa>
+<productQuantity>2931</productQuantity>
+<producer>Bieres De Chimay</producer>
+<producingSubregion/>
+<producingRegion>Region Not Specified</producingRegion>
+<producingCountry>Belgium</producingCountry>
+<alcoholPercentage>7.0%</alcoholPercentage>
+<sugarContent/>
+<tastingNotes>
+This premium Belgian Dubbel brew boasts grassy aromas, a creamy texture and a bread-dough taste. Soft and satisfying, it's a real beer- lover's indulgence.
+</tastingNotes>
+<pairings>
+A pleasurable indulgence for the ale lover and a fantastic complement to the Chimay cheeses.
+</pairings>
+<itemDescription/>
+<liquorType>Beer</liquorType>
+<categoryName>Ale</categoryName>
+<stockType>LCBO</stockType>
+<subCategoryName>Belgian Strong Ale</subCategoryName>
+<sellingPackage>bottle</sellingPackage>
+<sweetnessDescriptor/>
+<wineStyle/>
+<wineVarietal>Belgian Dubbel</wineVarietal>
+<styleBody/>
+<styleBody_fr/>
+<styleFlavour/>
+<styleFlavour_fr/>
+</product>
+</products>
+</productSearchResponse>

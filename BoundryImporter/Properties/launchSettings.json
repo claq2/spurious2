@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BoundryImporter": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\users\\jmclachlan\\Downloads\\lcsd000a16g_e\\subdiv2.csv"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Spurious2.Core\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GeoJSON.Net" Version="1.2.14" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ServiceStack" Version="5.8.0" />
+    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL.Core" Version="5.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Spurious2.Core\Spurious2.Core.csproj" />
+    <ProjectReference Include="..\Spurious2.Web.ServiceModel\Spurious2.Web.ServiceModel.csproj" />
+  </ItemGroup>
+
+</Project>

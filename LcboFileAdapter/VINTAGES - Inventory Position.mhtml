@@ -1,0 +1,3487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0109)http://www.foodanddrink.ca/lcbo-ear/vintages/product/inventory/searchResults.do?language=EN&itemNumber=198069 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	<meta property="fb:admins" content="595541334">
+    <meta property="og:title" content="LCBO | Store Information">
+    <meta property="og:description" content="I found my favourite LCBO store!  Use the LCBO Store Search tool and find your favourite LCBO store.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://www.lcbo.com/lcbo.jpg">
+    <meta property="og:site_name" content="LCBO.com">
+    <meta property="og:url" content="http://www.lcbo.com/">
+
+<title>VINTAGES - Inventory Position</title>
+<script async="" src="./VINTAGES - Inventory Position_files/analytics.js.download"></script><script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script async="" src="http://www.googletagmanager.com/gtm.js?id=GTM-BSNS"></script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">
+        stLight.options({
+                publisher:'12345'
+        });
+</script>
+
+<link href="./VINTAGES - Inventory Position_files/vintages.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+	<div id="topNav">
+
+	
+<noscript><div style="position: absolute; top: 0; background-color: #EEEEEE; width: 800px; text-align: center; font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif; padding: 5px 0px; color: #193105;">Please note: JavaScript (scripting) must be enabled for this site to work as intended.</div></noscript>
+<table width="800" border="0" cellspacing="0" cellpadding="0" height="120">
+  <tbody><tr>
+    <td>
+
+        <div id="logo">
+                    <a href="http://www.vintages.com/index.shtml"><img src="./VINTAGES - Inventory Position_files/Vintages_logo_new.jpg" title="VINTAGES" width="260" height="60" border="0"></a>
+        </div>
+        
+        <div id="nav2">
+    <!--    	<p class="order">ORDER NOW 1-800-282-2197</p>-->
+            <ul class="nav2">
+            <li><a href="https://mylcbo.com/app/vintages/register/?topnavSign"> Sign-up</a></li><img src="./VINTAGES - Inventory Position_files/verticalline-grey.gif" width="9" height="10"><li><a href="https://mylcbo.com/app/subctr/LCBO/profile/?topnavAccount">My Account</a></li><img src="./VINTAGES - Inventory Position_files/verticalline-grey.gif" width="9" height="10"><li><a href="http://www.vintages.com/frame_stores.html">Store Search</a></li><img src="./VINTAGES - Inventory Position_files/verticalline-grey.gif" width="9" height="10"><li><a href="http://www.vintages.com/frame_search.html">Advanced Product Search</a></li><img src="./VINTAGES - Inventory Position_files/verticalline-grey.gif" width="9" height="10"><li><a href="http://www.vintages.com/fr/index_fr.shtml">Français</a></li>
+            </ul>
+        </div>
+    
+       <!-- <div id="mainNav">
+            <ul class="nav" id="nav">
+            <li id="nav-new">
+            <a href="http://www.vintages.com/circular/circ_main.shtml?topnav" id="nr">&nbsp;New Arrivals&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" width="1" height="14" /><a href="http://www.vintages.com/circular/ontario.shtml?topnav" id="ow">&nbsp;Ontario Wines&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="http://www.vintages.com/essentials/essentials.shtml?topnav" id="es">&nbsp;Essentials&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="http://www.vintages.com/classics/cc_main.shtml?topnav" id="cl">&nbsp;Classics&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="http://www.vintages.com/futures/futures_main_intro.shtml?topnav" id="so">&nbsp;Special Offers&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="http://www.vintages.com/events.shtml?topnav" id="ev">&nbsp;Events&nbsp;</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="https://www.vintagesshoponline.com/vintages/Home.aspx?lang=en&utm_source=vintagescom&utm_medium=OnlineAd&utm_campaign=VSOHomepageTop" onclick="_gaq.push(['_trackPageview', '/goal/orderHP/en/VSOHomepageTop']);"><!--<a href="/wine-information-faq/vso-faq.shtml" target="_blank">-->
+            <!--&nbsp;Shop&nbsp;--><!--</a><img src="http://www.vintages.com/images/verticalline.gif" alt="" width="1" height="14" /><a href="https://wwws.givex.com/cws/lcbo/consumer/purchase/select_cards.py?Vtopnav" id="gc" target="_blank">&nbsp;Gift Cards&nbsp;</a>
+            </li>
+            </ul>
+        </div>-->
+        
+        <div id="subNav">
+            <div id="searchForm">
+            <form name="quickSearchForm" id="quickSearchForm" action="http://www.vintages.com/lcbo-ear/vintages/product/searchResults.do" onsubmit="quickSearchForm_checkNameOrNumber()" target="_top" method="get">
+            <div style="position:relative;overflow:visible;cursor:pointer; z-index: 10;">
+        	<input name="ITEM_NAME" id="ITEM_NAME" value="Product Name or Item #" type="text" autocomplete="off" style="border: 1px solid black; font-size: 9px; height: 14px; padding-top: 2px; padding-left: 4px; font-family: arial;" size="32" onfocus="this.value=&#39;&#39;">
+            	<div id="theDiv" style="padding:4px;position:absolute;left:0px;top:21px;visibility:hidden;border:solid #EEEEEE 1px;background-color:white;z-index:1;font-family:arial;font-size:10px;"> 
+				</div> 
+            </div>
+			<input name="ITEM_NUMBER" type="hidden" value="">
+			<input name="language" type="hidden" value="EN">
+			<input name="style" type="hidden" value="Vintages">
+			</form>
+            </div>
+            <div id="searchButton"><a href="http://www.foodanddrink.ca/lcbo-ear/vintages/product/inventory/searchResults.do?language=EN&amp;itemNumber=198069#" onclick="quickSearchForm_checkNameOrNumber(); quickSearchForm.submit()" target="_self"><img src="./VINTAGES - Inventory Position_files/150918-search_en.jpg" title="Search" width="76" height="20" border="0"></a></div>
+			<div id="banner"><a href="https://mylcbo.com/app/vintages/register/?banner"><img src="./VINTAGES - Inventory Position_files/150918-Vmail_banner_en.jpg" title="Become a VINTAGES insider..." width="314" height="35" border="0"></a></div>
+        </div>
+</td>
+  </tr>
+</tbody></table>
+        
+
+
+<script type="text/javascript" src="./VINTAGES - Inventory Position_files/Http.js.download"></script>
+<script type="text/javascript" src="./VINTAGES - Inventory Position_files/QuickSearchForm.js.download"></script>
+<script type="text/javascript"> 
+quickSearchForm_setLanguage("EN"); 
+quickSearchForm_setItemnameResults("15"); 
+quickSearchForm_setItemnameLength("36"); 
+var set_inputForm_setItemnameResults = false; 
+</script> 
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-BSNS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-BSNS');</script>
+<!-- End Google Tag Manager -->
+
+	</div>
+
+    <div style="float: left;">
+        <span class="breadcrumb"><a href="http://www.foodanddrink.ca/index.shtml">Home</a> &gt; <strong>Inventory Position</strong></span>
+    </div>    
+    <div style="float: right; margin-top: 10px; margin-bottom: 10px;">
+		<span class="st_sharethis"></span><span class="st_facebook"></span><span class="st_twitter"></span><span class="st_email"></span>
+	</div>
+
+<div id="IBM">
+
+<form method="post" name="inventoryresults" action="http://www.foodanddrink.ca/lcbo-ear/vintages/product/inventory/searchResults.do">
+
+
+<input name="sort" value="sortedQuantity" type="hidden">
+<input name="order" value="-1" type="hidden">
+<input name="action" value="result" type="hidden">
+<input name="language" value="EN" type="hidden">
+<input name="style" value="LCBO.css" type="hidden">
+
+<input name="itemNumber" value="198069" type="hidden">
+<input name="price" value="7.9" type="hidden">
+<input name="store type" value="with stock" type="hidden">
+<input name="city" value="All Cities" type="hidden">
+<input name="itemName" value="CHIMAY PREMIERE" type="hidden">
+<input name="inventorySize" value="176" type="hidden">
+<input name="stock type" value="LCBO" type="hidden">
+
+<script>
+function ToSort(sort) {
+	document.forms['inventoryresults'].action.value="inventory";
+	
+	// click the current sorted column reverse the sorting order
+	if (document.forms['inventoryresults'].sort.value==sort){		
+		document.forms['inventoryresults'].order.value = "1";
+	}
+	// click other column will reset the sorting order to ascending
+	else{
+		document.forms['inventoryresults'].sort.value=sort
+		document.forms['inventoryresults'].order.value = "1";
+	}
+	//alert("PARAM_SORT = " + document.forms['inventoryresults'].sort.value);
+	document.forms['inventoryresults'].submit();
+}
+</script>
+
+	<p class="searchHead">Inventory Position</p>
+	
+	
+	<table class="search" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tbody><tr>
+			<td valign="top" style="padding-right:10px;">
+			
+			<!--  PRODUCT IMAGE -->
+            								
+                   	 
+				<img name="food_drink_r1_c1" src="./VINTAGES - Inventory Position_files/0198069.jpg" alt="CHIMAY PREMIERE" width="234" height="234" style="border-style: solid; border-width: 1px 1px 1px 1px; border-color: #3E0E40; display:block;">
+			
+			</td>
+			<td valign="top" style="padding-right:20px;">
+	            <p class="mainFont">
+		            <span style="font-weight: bold;">CHIMAY PREMIERE</span>
+		            <br>
+					LCBO 198069 | 750 mL bottle
+				</p>
+				<br>
+			
+			<p class="mainFont">
+				<span style="font-weight: bold;">Price: $ 7.90</span>
+			</p>
+			<br>
+
+
+
+    <p class="mainFont"><span style="font-weight: bold;">The Quantity on Hand displayed is as of the Inventory Date indicated.&nbsp;Please contact the store to confirm quantity.</span></p>
+    <br>
+
+	<p class="mainFont">
+	Click on the store address for detailed store information and store hours.<br><br>
+    Click on column heading to sort results.</p>
+    <br>
+	<p class="mainFont">Results sorted by 
+		<span style="font-weight: bold;">
+			
+				Quantity On Hand: 
+			
+		</span>
+		
+			Descending.
+		
+	</p>
+    <br>
+	<p class="vintagesTextJustLeft"><a href="http://www.foodanddrink.ca/lcbo-ear/vintages/product/details.do?language=EN&amp;itemNumber=198069" class="VButton">Product Info</a></p>
+	<br><br>	
+
+		</td>
+	</tr>
+</tbody></table>
+
+	<!--Table-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="5">
+	<tbody>
+		<tr bgcolor="#2e008b">
+
+		
+			<th align="left" nowrap="" width="80" valign="bottom"><p class="mainFont"><span style="font-weight: bold;"><a href="javascript:ToSort(&#39;sortedCity&#39;)" class="head">
+			City
+			</a></span></p></th>
+		
+
+			<th nowrap="" align="left" width="200" valign="bottom"><p class="mainFont"><span style="color: #FFF; font-weight: bold;">
+			Address and Intersection
+			</span></p></th>
+            
+			<th align="left" nowrap="" width="110" valign="bottom"><p class="mainFont"><span style="font-weight: bold;"><a href="javascript:ToSort(&#39;sortedDate&#39;)" class="head">
+			Inventory Date
+			</a></span></p></th>
+
+			<th align="left" nowrap="" width="80" valign="bottom"><p class="mainFont"><span style="font-weight: bold;"><a href="javascript:ToSort(&#39;sortedQuantity&#39;)" class="head">
+			Qty. On Hand
+			</a></span></p></th>
+
+		</tr>
+
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KINGSTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=40&amp;language=EN" class="bodylink">34 BARRACK STREET</a><br>
+                		BARRACK &amp; KING<br>
+                		613-549-5092
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">67</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BRACEBRIDGE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=130&amp;language=EN" class="bodylink">125 MUSKOKA ROAD 118 WEST</a><br>
+                		WELLINGTON STREET &amp; MUSKOKA ROAD<br>
+                		705-645-6956
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">52</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=15&amp;language=EN" class="bodylink">232 DUPONT STREET</a><br>
+                		DUPONT &amp; SPADINA<br>
+                		416-922-7066
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">51</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=177&amp;language=EN" class="bodylink">22 POYNTZ AVENUE</a><br>
+                		YONGE &amp; SHEPPARD<br>
+                		416-730-8230
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">42</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BARRIE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=187&amp;language=EN" class="bodylink">534 BAYFIELD STREET</a><br>
+                		BAYFIELD &amp; HANMER<br>
+                		705-722-1046
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">38</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">THORNHILL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=523&amp;language=EN" class="bodylink">180 PROMENADE CIRCLE</a><br>
+                		BATHURST AND CENTRE (THE PROMENADE)<br>
+                		905-889-7787
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">37</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-SCARBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=660&amp;language=EN" class="bodylink">2963 KINGSTON ROAD</a><br>
+                		KINGSTON &amp; MCCOWAN<br>
+                		416-266-6401
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">36</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=243&amp;language=EN" class="bodylink">1980 BANK STREET</a><br>
+                		BANK &amp; WALKLEY<br>
+                		613-523-7763
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">35</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=511&amp;language=EN" class="bodylink">49 SPADINA AVENUE</a><br>
+                		FRONT &amp; SPADINA<br>
+                		416-598-1482
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">33</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">AJAX</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=771&amp;language=EN" class="bodylink">40 KINGSTON ROAD - EAST</a><br>
+                		KINGSTON &amp; HARWOOD (DURHAM CENTRE)<br>
+                		905-683-5306
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">33</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MARKHAM</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=580&amp;language=EN" class="bodylink">3991 HIGHWAY 7</a><br>
+                		HWY 7 &amp; BIRCHMOUNT/VILLAGE PKWY<br>
+                		905-479-9612
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">32</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PICKERING</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=776&amp;language=EN" class="bodylink">1899 BROCK RD UNIT K3</a><br>
+                		BROCK &amp; KINGSTON (HWY 2)<br>
+                		905-427-9830
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">32</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=164&amp;language=EN" class="bodylink">65 WICKSTEED AVENUE</a><br>
+                		EGLINTON &amp; LAIRD<br>
+                		416-425-6282
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">31</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">THORNBURY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=537&amp;language=EN" class="bodylink">105 ARTHUR ST W</a><br>
+                		ARTHUR ST W &amp; ELMA ST N<br>
+                		519-599-3545
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">31</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-ORLEANS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=624&amp;language=EN" class="bodylink">4220 INNES RD</a><br>
+                		INNES &amp; TENTH LINE<br>
+                		613-837-5527
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">30</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=38&amp;language=EN" class="bodylink">275 RIDEAU STREET</a><br>
+                		RIDEAU &amp; KING EDWARD<br>
+                		613-789-5226
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">29</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=214&amp;language=EN" class="bodylink">125 THE QUEENSWAY</a><br>
+                		QUEENSWAY &amp; PARK LAWN<br>
+                		416-259-6476
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">29</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-KANATA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=556&amp;language=EN" class="bodylink">499 TERRY FOX DRIVE</a><br>
+                		TERRY FOX &amp; CAMPEAU<br>
+                		613-592-1849
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">29</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BURLINGTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=573&amp;language=EN" class="bodylink">2000 APPLEBY LINE</a><br>
+                		APPLEBY &amp; UPPER MIDDLE RD (MILLCROFT)<br>
+                		905-336-6200
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">29</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KINGSTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=743&amp;language=EN" class="bodylink">1218 HWY 15</a><br>
+                		HWY#15 &amp; WATERSIDE WAY<br>
+                		613-547-2972
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">27</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=18&amp;language=EN" class="bodylink">85 HANNA AVENUE, UNIT 103</a><br>
+                		KING &amp; DUFFERIN (LIBERTY VILLAGE)<br>
+                		416-538-9200
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">25</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ORILLIA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=579&amp;language=EN" class="bodylink">293 COLDWATER ROAD</a><br>
+                		HWY. 12B &amp; 11<br>
+                		705-325-9413
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">25</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BOWMANVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=263&amp;language=EN" class="bodylink">2344 HIGHWAY #2</a><br>
+                		HWY 2 &amp; WAVERLY  RD<br>
+                		905-623-2391
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">GODERICH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=270&amp;language=EN" class="bodylink">520 HURON ROAD</a><br>
+                		HURON ROAD &amp; SUNCOAST DR E<br>
+                		519-524-9053
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KINGSVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=286&amp;language=EN" class="bodylink">410 MAIN STREET EAST</a><br>
+                		MAIN &amp; JASPERSON<br>
+                		519-733-5223
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BARRIE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=288&amp;language=EN" class="bodylink">37 CAPLAN AVENUE</a><br>
+                		MAPLEVIEW &amp; BRYNE DRIVE<br>
+                		705-726-6220
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=295&amp;language=EN" class="bodylink">3520 DUNDAS STREET WEST</a><br>
+                		DUNDAS &amp; JANE<br>
+                		416-762-8215
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OSHAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=378&amp;language=EN" class="bodylink">400 GIBB ST.</a><br>
+                		GIBB &amp; STEVENSON (OSHAWA CENTRE)<br>
+                		905-723-5721
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OAKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=445&amp;language=EN" class="bodylink">251 OAK WALK DR.</a><br>
+                		DUNDAS &amp; TRAFALGAR (OAK PARK)<br>
+                		905-257-6300
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OAKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=486&amp;language=EN" class="bodylink">321 CORNWALL ROAD</a><br>
+                		CORNWALL &amp; TRAFALGAR<br>
+                		905-845-8100
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=500&amp;language=EN" class="bodylink">953 BANK STREET</a><br>
+                		BANK &amp; HOLMWOOD (LANSDOWNE PK)<br>
+                		613-238-5614
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=553&amp;language=EN" class="bodylink">1750 THE QUEENSWAY</a><br>
+                		QUEENSWAY &amp; 427 (NEAR SHERWAY)<br>
+                		416-620-5390
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=568&amp;language=EN" class="bodylink">595 BAY STREET</a><br>
+                		YONGE &amp; DUNDAS (ATRIUM ON BAY)<br>
+                		416-979-9978
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MARKHAM</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=590&amp;language=EN" class="bodylink">3075 HIGHWAY 7 EAST</a><br>
+                		HWY 7 &amp; WOODBINE<br>
+                		905-940-2768
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">24</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">STONEY CREEK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=545&amp;language=EN" class="bodylink">75 CENTENNIAL PARKWAY NORTH</a><br>
+                		CENTENNIAL &amp; QUEENSTON (EASTGATE SQ)<br>
+                		905-560-4970
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">23</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=360&amp;language=EN" class="bodylink">675 WILSON AVENUE</a><br>
+                		WILSON &amp; DUFFERIN<br>
+                		416-636-5349
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=452&amp;language=EN" class="bodylink">1838-1844 AVENUE ROAD</a><br>
+                		AVENUE &amp; LAWRENCE<br>
+                		416-785-6389
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BURLINGTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=551&amp;language=EN" class="bodylink">3041 WALKERS LINE</a><br>
+                		WALKERS LINE &amp; DUNDAS ST<br>
+                		905-331-5792
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=575&amp;language=EN" class="bodylink">1073 WELLINGTON ROAD SOUTH</a><br>
+                		WELLINGTON &amp; BRADLEY<br>
+                		519-681-4242
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BRAMPTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=661&amp;language=EN" class="bodylink">11785 BRAMALEA RD, BUILDING C2</a><br>
+                		BRAMALEA &amp; MAYFIELD<br>
+                		905-458-6327
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KOMOKA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=674&amp;language=EN" class="bodylink">10166 GLENDON DRIVE</a><br>
+                		GLENDON &amp; TUNKS<br>
+                		519-472-5343
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">22</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">DUNDAS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=25&amp;language=EN" class="bodylink">119 OSLER DRIVE</a><br>
+                		OSLER AND MAIN WEST<br>
+                		905-628-2042
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">21</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PETERBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=45&amp;language=EN" class="bodylink">196 SHERBROOKE STREET</a><br>
+                		SHERBROOKE &amp; GEORGE<br>
+                		705-745-1333
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">21</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PARRY SOUND</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=80&amp;language=EN" class="bodylink">19 SEGUIN STREET</a><br>
+                		SEQUIN &amp; MILLER<br>
+                		705-746-5591
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">21</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">HAMILTON-WINONA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=150&amp;language=EN" class="bodylink">1342 SOUTH SERVICE ROAD</a><br>
+                		QEW &amp; FIFTY RD<br>
+                		905-643-4529
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">21</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BURLINGTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=497&amp;language=EN" class="bodylink">2025 GUELPH LINE</a><br>
+                		GUELPH LINE &amp; UPPER MIDDLE RD<br>
+                		905-335-0640
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">21</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TECUMSEH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=278&amp;language=EN" class="bodylink">15 AMY CROFT DRIVE</a><br>
+                		E.C. ROW &amp; MANNING<br>
+                		519-735-2661
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">20</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KITCHENER</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=381&amp;language=EN" class="bodylink">655 FAIRWAY ROAD SOUTH</a><br>
+                		FAIRWAY &amp; MANITOU<br>
+                		519-894-0710
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">20</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-GLOUCESTER</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=443&amp;language=EN" class="bodylink">1130 BLAIR ROAD</a><br>
+                		BLAIR &amp; OGILVIE<br>
+                		613-745-9906
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">20</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=17&amp;language=EN" class="bodylink">222 FRONT STREET EAST</a><br>
+                		FRONT &amp; SHERBOURNE<br>
+                		416-214-0311
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SMITHS FALLS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=70&amp;language=EN" class="bodylink">123 LOMBARD STREET</a><br>
+                		LOMBARD ST &amp; FERRARA DR<br>
+                		613-283-2358
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">CARLETON PLACE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=132&amp;language=EN" class="bodylink">525 MCNEELY AVENUE</a><br>
+                		MCNEELY AVE &amp; TRANS-CANADA HWY<br>
+                		613-257-1646
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WINDSOR</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=367&amp;language=EN" class="bodylink">3165 HOWARD AVENUE</a><br>
+                		HOWARD &amp; E.C. ROW EXPWY (ROUNDHOUSE CTR)<br>
+                		519-972-1772
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SUDBURY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=652&amp;language=EN" class="bodylink">1099 MARCUS DRIVE</a><br>
+                		KINGSWAY &amp; BARRYDOWNE RD.<br>
+                		705-560-4652
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=698&amp;language=EN" class="bodylink">65 SQUARE ONE DRIVE</a><br>
+                		SQUARE ONE DR &amp; RATHBURN<br>
+                		905-897-7500
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">19</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">STRATFORD</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=60&amp;language=EN" class="bodylink">91 WELLINGTON STREET</a><br>
+                		WELLINGTON &amp; ST. PATRICK<br>
+                		519-271-1343
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">18</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ESPANOLA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=103&amp;language=EN" class="bodylink">139 BARBER STREET</a><br>
+                		HWY. 6 &amp; BARBER STREET<br>
+                		705-869-1950
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">18</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=234&amp;language=EN" class="bodylink">211 LLOYD MANOR ROAD</a><br>
+                		EGLINTON &amp; KIPLING<br>
+                		416-244-1179
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">18</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-KANATA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=638&amp;language=EN" class="bodylink">858 MARCH ROAD</a><br>
+                		MARCH &amp; MAXWELL BRIDGE<br>
+                		613-592-1594
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">18</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=217&amp;language=EN" class="bodylink">2 COOPER STREET</a><br>
+                		QUEENS QUAY &amp; YONGE<br>
+                		416-864-6777
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ST. CATHARINES</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=252&amp;language=EN" class="bodylink">343 GLENDALE AVE.</a><br>
+                		GLENDALE &amp; MERRITT<br>
+                		905-641-1169
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=438&amp;language=EN" class="bodylink">3050 WONDERLAND ROAD SOUTH</a><br>
+                		WONDERLAND &amp; SOUTHDALE (POWER CENTRE)<br>
+                		519-471-4930
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MAPLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=536&amp;language=EN" class="bodylink">2943 MAJOR MACKENZIE DRIVE</a><br>
+                		MAJOR MACKENZIE &amp; JANE<br>
+                		905-832-1367
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">RICHMOND HILL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=554&amp;language=EN" class="bodylink">12300 YONGE STREET</a><br>
+                		YONGE STREET &amp; STOUFFVILLE ROAD<br>
+                		905-773-5275
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=643&amp;language=EN" class="bodylink">808 YORK MILLS ROAD</a><br>
+                		YORK MILLS &amp; LESLIE (YORK MILLS GARDENS)<br>
+                		416-444-3700
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">17</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WATERLOO</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=115&amp;language=EN" class="bodylink">115 KING STREET SOUTH</a><br>
+                		KING S. &amp; WILLIAM (WATERLOO TOWN SQ)<br>
+                		519-886-4970
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SEAFORTH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=273&amp;language=EN" class="bodylink">50 MAIN STREET NORTH</a><br>
+                		MAIN ST. N &amp; HWY 8 W<br>
+                		519-527-0970
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=542&amp;language=EN" class="bodylink">3020 ELMCREEK RD.</a><br>
+                		DUNDAS &amp; MAVIS<br>
+                		905-949-6100
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BUCKHORN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=561&amp;language=EN" class="bodylink">1976 LAKEHURST ROAD</a><br>
+                		KINGS HWY. 36 &amp; 507<br>
+                		705-657-3211
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">RICHMOND HILL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=623&amp;language=EN" class="bodylink">8783 YONGE STREET</a><br>
+                		YONGE &amp; HWY 7<br>
+                		905-886-3511
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=627&amp;language=EN" class="bodylink">1520 DUNDAS STREET EAST</a><br>
+                		DIXIE &amp; DUNDAS ST E<br>
+                		905-566-8359
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MILTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=649&amp;language=EN" class="bodylink">1025 BRONTE STREET SOUTH</a><br>
+                		BRONTE ST S. &amp; LOUIS ST LAURENT<br>
+                		905-636-7691
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">16</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=19&amp;language=EN" class="bodylink">2151 ST. CLAIR AVE. W.</a><br>
+                		ST CLAIR &amp; KEELE (THE STOCKYARDS)<br>
+                		416-653-8202
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">NIAGARA FALLS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=33&amp;language=EN" class="bodylink">7481 OAKWOOD DRIVE</a><br>
+                		MCLEOD &amp; QEW<br>
+                		905-354-7621
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OAKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=179&amp;language=EN" class="bodylink">1011 UPPER MIDDLE ROAD EAST</a><br>
+                		UPPER MIDDLE &amp; 8TH LINE<br>
+                		905-849-9934
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BROOKLIN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=237&amp;language=EN" class="bodylink">11 WINCHESTER ROAD EAST</a><br>
+                		WINCHESTER &amp; BALDWIN<br>
+                		905-655-7300
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=253&amp;language=EN" class="bodylink">195 THE DONWAY WEST</a><br>
+                		LAWRENCE &amp; DON MILLS<br>
+                		416-447-0491
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">NEWMARKET</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=453&amp;language=EN" class="bodylink">17365 LESLIE STREET</a><br>
+                		LESLIE &amp; DAVIS<br>
+                		905-898-1062
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MAPLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=635&amp;language=EN" class="bodylink">9310 BATHURST STREET</a><br>
+                		BATHURST &amp; RUTHERFORD<br>
+                		905-303-9290
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BURLINGTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=641&amp;language=EN" class="bodylink">501 APPLEBY LINE</a><br>
+                		APPLEBY LINE &amp; NEW STREET<br>
+                		905-639-0337
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=672&amp;language=EN" class="bodylink">340 QUEENS PLATE DR.</a><br>
+                		HWY 27 AND QUEENS PLATE DR.<br>
+                		416-748-2812
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=699&amp;language=EN" class="bodylink">4460 LIMEBANK RD.</a><br>
+                		LIMEBANK &amp; SPRATT<br>
+                		613-822-9232
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">15</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SARNIA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=202&amp;language=EN" class="bodylink">1142 LAKESHORE ROAD</a><br>
+                		LAKESHORE &amp; MURPHY NW CORNER<br>
+                		519-542-7410
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">NORTH BAY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=363&amp;language=EN" class="bodylink">536 LAKESHORE DRIVE</a><br>
+                		LAKESHORE &amp; MARSHALL PARK<br>
+                		705-472-0540
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-NEPEAN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=388&amp;language=EN" class="bodylink">1811 ROBERTSON ROAD</a><br>
+                		ROBERTSON &amp; STAFFORD (BELLS CORNERS)<br>
+                		613-828-5714
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">EAST GWILLIMBURY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=391&amp;language=EN" class="bodylink">180 GREEN LANE EAST</a><br>
+                		YONGE ST &amp; GREEN LANE<br>
+                		905-836-7945
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-NEPEAN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=412&amp;language=EN" class="bodylink">543 WEST HUNT CLUB RD.</a><br>
+                		HUNT CLUB &amp; MERIVALE (NEPEAN CROSSROADS)<br>
+                		613-224-4333
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OAKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=437&amp;language=EN" class="bodylink">1527 REBECCA STREET</a><br>
+                		3RD LINE &amp; REBECCA (HOPEDALE MALL)<br>
+                		905-827-5072
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">CALEDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=599&amp;language=EN" class="bodylink">16000 AIRPORT ROAD</a><br>
+                		CHURCH ST &amp; AIRPORT RD<br>
+                		905-584-9455
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=619&amp;language=EN" class="bodylink">5100 ERIN MILLS PARKWAY</a><br>
+                		ERIN MILLS &amp; EGLINTON<br>
+                		905-607-7900
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=633&amp;language=EN" class="bodylink">3730 LAKESHORE BLVD. WEST</a><br>
+                		LAKESHORE BLVD WEST &amp; BROWNS LINE<br>
+                		416-368-5024
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-ORLEANS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=694&amp;language=EN" class="bodylink">5150 INNES ROAD</a><br>
+                		INNES &amp; TRIM RD<br>
+                		613-834-9228
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=697&amp;language=EN" class="bodylink">1986 QUEEN STREET EAST</a><br>
+                		QUEEN &amp; BELLEFAIR (BEACHES)<br>
+                		416-690-9876
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">14</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=26&amp;language=EN" class="bodylink">71 YORK STREET</a><br>
+                		YORK &amp; RIDOUT<br>
+                		519-432-1831
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=41&amp;language=EN" class="bodylink">665 INDUSTRIAL AVENUE</a><br>
+                		INDUSTRIAL &amp; ST LAURENT (TRAINYARDS)<br>
+                		613-738-0937
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BARRY'S BAY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=113&amp;language=EN" class="bodylink">18 DUNN STREET</a><br>
+                		HWY. 60 &amp; 62<br>
+                		613-756-2022
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ORANGEVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=298&amp;language=EN" class="bodylink">40 B BROADWAY</a><br>
+                		BROADWAY &amp; TOWNLINE<br>
+                		519-942-0188
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ST. CATHARINES</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=467&amp;language=EN" class="bodylink">115 LAKESHORE ROAD</a><br>
+                		LAKESHORE ROAD &amp; GENEVA STREET<br>
+                		905-934-4822
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ROSSMORE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=474&amp;language=EN" class="bodylink">5503-H, HWY 62,PRINCE EDWARD SQUARE</a><br>
+                		BAYBRIDGE ROAD &amp; HWY 28<br>
+                		613-969-9947
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">13</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">HAMILTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=23&amp;language=EN" class="bodylink">1149 BARTON STREET EAST</a><br>
+                		BARTON &amp; KENILWORTH (CENTRE MALL)<br>
+                		905-544-8010
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PORT HOPE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=79&amp;language=EN" class="bodylink">15 ONTARIO STREET</a><br>
+                		WALTON STREET &amp; PETER STREET<br>
+                		905-885-5668
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">HAMILTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=143&amp;language=EN" class="bodylink">233 DUNDURN STREET SOUTH</a><br>
+                		DUNDURN &amp; CHARLTON<br>
+                		905-529-8761
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-ETOBICOKE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=149&amp;language=EN" class="bodylink">2946 BLOOR STREET WEST</a><br>
+                		BLOOR &amp; ROYAL YORK (KINGSWAY)<br>
+                		416-239-3065
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">CAMPBELLFORD</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=178&amp;language=EN" class="bodylink">37 FRONT STREET SOUTH</a><br>
+                		BRIDGE STREET &amp; FRONT STREET<br>
+                		705-653-3000
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">AJAX</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=191&amp;language=EN" class="bodylink">1979 SALEM ROAD NORTH</a><br>
+                		SALEM &amp; TAUNTON<br>
+                		905-427-2920
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">GRAND BEND</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=196&amp;language=EN" class="bodylink">49 MAIN STREET EAST, BUILDING A</a><br>
+                		HWY 81 &amp; HWY 21<br>
+                		519-238-2191
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OMEMEE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=281&amp;language=EN" class="bodylink">4 KING STREET</a><br>
+                		KING &amp; STURGEON STREET<br>
+                		705-799-5212
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OWEN SOUND</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=300&amp;language=EN" class="bodylink">1613 9TH AVENUE EAST</a><br>
+                		9TH AVENUE &amp; 16TH STREET<br>
+                		519-376-0761
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=355&amp;language=EN" class="bodylink">2901 BAYVIEW AVENUE - UNIT #125</a><br>
+                		BAYVIEW &amp; SHEPPARD (BAYVIEW VILLAGE)<br>
+                		416-222-7658
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=411&amp;language=EN" class="bodylink">547 YONGE STREET</a><br>
+                		YONGE &amp; WELLESLEY<br>
+                		416-923-8498
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KITCHENER</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=617&amp;language=EN" class="bodylink">721 OTTAWA STREET SOUTH</a><br>
+                		OTTAWA &amp; HOMER WATSON (ALPINE CENTRE)<br>
+                		519-576-4523
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">AURORA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=630&amp;language=EN" class="bodylink">15830 BAYVIEW AVE.</a><br>
+                		BAYVIEW &amp; ST JOHN<br>
+                		905-727-7288
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=642&amp;language=EN" class="bodylink">1115 LODESTAR ROAD</a><br>
+                		ALLEN RD &amp; RIMROCK<br>
+                		416-633-6197
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=657&amp;language=EN" class="bodylink">502 LAWRENCE AVENUE WEST</a><br>
+                		BATHURST AND LAWRENCE<br>
+                		416-785-8851
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=673&amp;language=EN" class="bodylink">776 QUEEN STREET EAST</a><br>
+                		QUEEN &amp; BROADVIEW<br>
+                		416-465-6943
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">12</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=10&amp;language=EN" class="bodylink">10 SCRIVENER SQUARE</a><br>
+                		YONGE &amp; SUMMERHILL<br>
+                		416-922-0403
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PARIS</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=88&amp;language=EN" class="bodylink">25 MECHANIC STREET</a><br>
+                		MECHANIC ST. AND BROADWAY ST.<br>
+                		519-442-2541
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WESTPORT</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=111&amp;language=EN" class="bodylink">15 CHURCH STREET</a><br>
+                		CHURCH &amp; BEDFORD<br>
+                		613-273-2853
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OAKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=148&amp;language=EN" class="bodylink">270 NORTH SERVICE ROAD WEST</a><br>
+                		N SERVICE RD &amp; DORVAL (TOWN CTR WEST)<br>
+                		905-338-1039
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">HAMILTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=233&amp;language=EN" class="bodylink">657 UPPER JAMES STREET</a><br>
+                		UPPER JAMES &amp; FENNELL<br>
+                		905-383-9344
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=310&amp;language=EN" class="bodylink">681 WONDERLAND NORTH</a><br>
+                		WONDERLAND AND OXFORD<br>
+                		519-432-7951
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">VAUGHAN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=383&amp;language=EN" class="bodylink">9970 DUFFERIN STREET</a><br>
+                		DUFFERIN &amp; MAJOR MACKENZIE<br>
+                		905-879-1139
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=393&amp;language=EN" class="bodylink">109 FANSHAWE PARK ROAD</a><br>
+                		RICHMOND &amp; FANSHAWE PK (MASONVILLE)<br>
+                		519-660-1366
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-NEPEAN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=431&amp;language=EN" class="bodylink">1363 WOODROFFE AVENUE - UNIT A</a><br>
+                		WOODROFFE &amp; BASELINE (COLLEGE SQUARE)<br>
+                		613-224-4611
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WHITBY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=432&amp;language=EN" class="bodylink">170 TAUNTON ROAD WEST</a><br>
+                		TAUNTON &amp; BROCK<br>
+                		905-655-6090
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SCHOMBERG</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=612&amp;language=EN" class="bodylink">17240 HWY 27</a><br>
+                		HWY. 27 &amp; 9<br>
+                		905-939-8191
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">ANCASTER</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=665&amp;language=EN" class="bodylink">1191 WILSON ST. W</a><br>
+                		HWY. 2 &amp; MCCLURE RD.<br>
+                		905-648-5301
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">KING CITY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=671&amp;language=EN" class="bodylink">1700 KING ROAD</a><br>
+                		KING ROAD &amp; DUFFERIN STREET<br>
+                		905-833-0641
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">11</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-KANATA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=36&amp;language=EN" class="bodylink">457 HAZELDEAN RD.</a><br>
+                		HAZELDEAN &amp; CASTLEFRANK (MARKET SQUARE)<br>
+                		613-592-5416
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">GUELPH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=51&amp;language=EN" class="bodylink">16 WELLINGTON ST WEST -BUILDING B</a><br>
+                		WELLINGTON &amp; GORDON<br>
+                		519-822-4831
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PENETANG</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=77&amp;language=EN" class="bodylink">UNIT #116</a><br>
+                		POYNTZ STREET &amp; PENETANG ROAD<br>
+                		705-549-2526
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SUTTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=139&amp;language=EN" class="bodylink">20954 DALTON RD</a><br>
+                		DALTON &amp; BLACK RIVER RD<br>
+                		905-722-3641
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BANCROFT</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=208&amp;language=EN" class="bodylink">315 HASTINGS STREET NORTH</a><br>
+                		HWY. 62 &amp; HWY 28<br>
+                		613-332-2660
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">GUELPH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=325&amp;language=EN" class="bodylink">378 SPEEDVALE AVENUE EAST</a><br>
+                		SPEEDVALE &amp; STEVENSON<br>
+                		519-824-7900
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=334&amp;language=EN" class="bodylink">6975 MEADOWVALE TOWN CENTRE</a><br>
+                		WINSTON CHURCHILL &amp; AQUITAINE/BATTLEFORD<br>
+                		905-286-0188
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">PETERBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=343&amp;language=EN" class="bodylink">400 LANSDOWNE STREET EAST</a><br>
+                		LANSDOWNE EAST &amp; ASHBURNHAM<br>
+                		705-745-0372
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SAULT STE. MARIE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=359&amp;language=EN" class="bodylink">616 GREAT NORTHERN ROAD</a><br>
+                		GREAT NORTHERN &amp; SECOND LINE<br>
+                		705-759-7740
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">LONDON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=593&amp;language=EN" class="bodylink">1240 COMMISSIONERS ROAD WEST</a><br>
+                		COMMISSIONERS WEST &amp; BOLER (BYRON)<br>
+                		519-473-9612
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">AURORA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=658&amp;language=EN" class="bodylink">94 FIRST COMMERCE DRIVE</a><br>
+                		LESLIE &amp; WELLINGTON<br>
+                		905-751-0684
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">HAMILTON</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=667&amp;language=EN" class="bodylink">1550 UPPER JAMES ST</a><br>
+                		UPPER JAMES &amp; RYMAL<br>
+                		905-385-3106
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">10</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=1&amp;language=EN" class="bodylink">2625D WESTON ROAD</a><br>
+                		HWY 401 &amp; WESTON (CROSSROADS)<br>
+                		416-243-3320
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=394&amp;language=EN" class="bodylink">2164 CARLING AVENUE</a><br>
+                		CARLING &amp; WOODROFFE (FAIRLAWN PLAZA)<br>
+                		613-828-7145
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">STOUFFVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=404&amp;language=EN" class="bodylink">5710 MAIN STREET UNIT 1</a><br>
+                		MAIN ST &amp; MOSTAR ST<br>
+                		905-640-3771
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WINDSOR</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=490&amp;language=EN" class="bodylink">7640 TECUMSEH RD. E.</a><br>
+                		TECUMSEH &amp; LAUZON<br>
+                		519-944-4014
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=528&amp;language=EN" class="bodylink">55 BLOOR STREET WEST</a><br>
+                		BAY &amp; BLOOR (MANULIFE CENTRE)<br>
+                		416-925-5266
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">INNISFIL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=605&amp;language=EN" class="bodylink">1465 INNISFIL BEACH ROAD</a><br>
+                		INNISFIL BEACH RD &amp; 20TH SR<br>
+                		705-436-7182
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=618&amp;language=EN" class="bodylink">2181 STEELES AVE W UNIT 17</a><br>
+                		STEELES &amp; DUFFERIN<br>
+                		416-736-8495
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">9</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=425&amp;language=EN" class="bodylink">1125 BLOOR STREET EAST</a><br>
+                		BLOOR &amp; TOMKEN ROAD<br>
+                		905-279-2041
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">8</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=436&amp;language=EN" class="bodylink">7205 GOREWAY DR UNIT 85</a><br>
+                		DERRY RD &amp; GOREWAY DR<br>
+                		905-677-5977
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">8</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BAYSVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=516&amp;language=EN" class="bodylink">2641 MUSKOKA ROAD 117 EAST</a><br>
+                		BRUNEL RD &amp; REGIONAL RD 117<br>
+                		705-767-3866
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">8</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">BARRIE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=684&amp;language=EN" class="bodylink">587 CUNDLES ROAD EAST</a><br>
+                		CUNDLES RD E &amp; HIGHWAY 400<br>
+                		705-722-7699
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">8</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">WHITBY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=695&amp;language=EN" class="bodylink">629 VICTORIA ST W</a><br>
+                		VICTORIA STREET &amp; GORDON STREET<br>
+                		905-665-2613
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">8</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">THUNDER BAY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=155&amp;language=EN" class="bodylink">100 NORTH CUMBERLAND STREET</a><br>
+                		CUMBERLAND &amp; WATER STREET<br>
+                		807-345-1550
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">7</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-SCARBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=198&amp;language=EN" class="bodylink">4525 KINGSTON ROAD</a><br>
+                		KINGSTON &amp; MORNINGSIDE<br>
+                		416-282-2034
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">7</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">CHELMSFORD</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=236&amp;language=EN" class="bodylink">3468 ERRINGTON AVENUE</a><br>
+                		ERRINGTON &amp; HWY.144, 1/2 MILE<br>
+                		705-855-4964
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">6</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SHELBURNE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=419&amp;language=EN" class="bodylink">702 MAIN STREET EAST</a><br>
+                		HWY. 10, 19 &amp; 24<br>
+                		519-925-3803
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">6</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=485&amp;language=EN" class="bodylink">1009 COXWELL AVE</a><br>
+                		COXWELL AVENUE &amp; O'CONNOR<br>
+                		416-423-5213
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">6</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SUDBURY-DOWNTOWN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=50&amp;language=EN" class="bodylink">190 CEDAR STREET</a><br>
+                		ELM &amp; PARIS STREET<br>
+                		705-675-5391
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">5</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MERRICKVILLE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=119&amp;language=EN" class="bodylink">205 ELGIN STREET</a><br>
+                		ELGIN &amp; WELLINGTON ST<br>
+                		613-269-4623
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">5</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-SCARBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=228&amp;language=EN" class="bodylink">55 ELLESMERE ROAD</a><br>
+                		ELLESMERE &amp; VICTORIA PARK (PARKWAY MALL)<br>
+                		416-447-1941
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">5</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=384&amp;language=EN" class="bodylink">22 ISABELLA STREET</a><br>
+                		METCALFE &amp; ISABELLA<br>
+                		613-232-9689
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">5</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MARKHAM</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=390&amp;language=EN" class="bodylink">192 BULLOCK DRIVE</a><br>
+                		MCCOWAN &amp; HWY 7<br>
+                		905-472-8600
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">5</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=6&amp;language=EN" class="bodylink">1357 QUEEN ST. W.</a><br>
+                		QUEEN &amp; LANSDOWNE<br>
+                		416-532-7283
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">4</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">SUDBURY-NEW SUDBURY</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=287&amp;language=EN" class="bodylink">1467 LASALLE BOULEVARD</a><br>
+                		LASALLE &amp; BARRYDOWNE (SUPERMALL)<br>
+                		705-566-3882
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">4</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=532&amp;language=EN" class="bodylink">87 FRONT STREET E.</a><br>
+                		FRONT ST &amp; JARVIS ST<br>
+                		416-368-0521
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">4</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-NORTH YORK</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=546&amp;language=EN" class="bodylink">1800 SHEPPARD AVENUE EAST</a><br>
+                		DON MILLS &amp; SHEPPARD (FAIRVIEW MALL)<br>
+                		416-491-0470
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">4</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">COURTICE</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=653&amp;language=EN" class="bodylink">1437 KING STREET EAST</a><br>
+                		KING ST E &amp; DARLINGTON<br>
+                		905-576-8074
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">4</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=4&amp;language=EN" class="bodylink">200 DANFORTH AVENUE</a><br>
+                		DANFORTH &amp; BROADVIEW<br>
+                		416-469-4724
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">3</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">MISSISSAUGA</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=385&amp;language=EN" class="bodylink">5925 RODEO DRIVE</a><br>
+                		MAVIS &amp; BRITANNIA (HEARTLAND TOWN CTR)<br>
+                		905-568-4064
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">3</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">DORSET</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=399&amp;language=EN" class="bodylink">1059 MAIN STREET</a><br>
+                		HWY. 117 &amp; 35<br>
+                		705-766-2471
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">3</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=457&amp;language=EN" class="bodylink">2300 YONGE STREET</a><br>
+                		YONGE &amp; EGLINTON (YONGE EGLINTON CTR)<br>
+                		416-487-4858
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">3</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=685&amp;language=EN" class="bodylink">2803 DUNDAS ST W</a><br>
+                		DUNDAS ST W &amp; KEELE ST<br>
+                		416-762-0384
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">3</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">OTTAWA-NEPEAN</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=499&amp;language=EN" class="bodylink">120 RIOCAN AVENUE</a><br>
+                		STRANDHERD &amp; GREENBANK (BARRHAVEN)<br>
+                		613-825-1160
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">2</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-SCARBOROUGH</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=533&amp;language=EN" class="bodylink">5508 LAWRENCE AVENUE EAST</a><br>
+                		LAWRENCE &amp; PT UNION RD<br>
+                		416-284-3969
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 4, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">2</p>
+                </td>
+            </tr>
+	
+            <tr>
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">TORONTO-CENTRAL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=7&amp;language=EN" class="bodylink">101 EGLINTON AVENUE EAST</a><br>
+                		EGLINTON &amp; DUNFIELD<br>
+                		416-482-1800
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">1</p>
+                </td>
+            </tr>
+	
+            <tr bgcolor="#f0f0f0">
+				
+					<td nowrap="" align="left" width="80" valign="top"><p class="mainFont">RICHMOND HILL</p></td>
+				
+
+				<td nowrap="" align="left" width="200" valign="top">
+                	<p class="mainFont">
+                		<a href="http://www.foodanddrink.ca/lcbo-ear/jsp/vin_storeinfo.jsp?STORE=248&amp;language=EN" class="bodylink">10375 YONGE STREET NORTH</a><br>
+                		YONGE STREET &amp; CROSBY AVE<br>
+                		905-884-7321
+                	</p>
+				</td>
+                
+				<td nowrap="" align="left" width="110" valign="top"><p class="mainFont">Aug 5, 2019</p></td>
+                <td align="left" nowrap="" width="80" valign="top"><p class="mainFont">1</p>
+                </td>
+            </tr>
+	
+			
+	</tbody>
+	</table>
+	<br>
+
+</form>
+
+</div>
+
+<div id="bottomText">
+
+<p class="vintagesBottomText">Prices include container deposit fees where applicable.<br>
+Select products may be available to customers in limited quantity.&nbsp;Please see store personnel for details.<br>
+<span style="color: #F00;">Note:</span>&nbsp;The inventory shown in for VINTAGES products may include items pre-paid that have not been picked up by customers, such as CLASSICS, Bordeaux Futures and other direct offer products. Please contact the respective store to confirm with store staff that the product is available for sale. We are currently working on a solution to filter out such inventory and will alert product search engine users when it has been implemented.</p>
+
+</div>
+
+
+	<div id="footerTertiaryNav">
+        	<!--<ul class="footerTertiaryNav">
+      		<li><a href="http://www.vintages.com/fr/index_fr.shtml">Fran&ccedil;ais</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.vintages.com/about_vintages.shtml">About VINTAGES</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.vintages.com/wine-information-faq/wine-faq-vintages.shtml">FAQ</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.vintages.com/glossary/index.shtml">Glossary of Terms</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.doingbusinesswithlcbo.com" target="_blank">Trade</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a id="accessibility" href="http://www.lcbo.com/content/lcbo/en/corporate-pages/accessibility.html" target="_blank">Accessibility</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.lcbo.com/content/lcbo/en/responsibility.html" target="_blank">Responsibility</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://www.vintages.com/frame_stores.html">Store Search</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10"  alt="verticalline-grey"><li><a href="http://www.vintages.com/sitemap.shtml">Site Map</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li><a href="http://hellolcbo.com/" target="_blank">Contact Us</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><li>
+      		--><!--<a href="http://lcboconnect.com/app/vintages/english/register/?utm_source=bottomvintages&utm_medium=web&utm_campaign=newsletter">E-mail Sign-up</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" /><li>-->
+      		<!--<a href="https://mylcbo.com/app/subctr/LCBO/profile/?bottomnavAccount">My Account</a></li>
+    		</ul>-->
+           <!-- <ul class="footerTertiaryNav">
+      		<li><span style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; color: #000000">&copy; 2000/2019 LCBO</span>&nbsp;&nbsp;<a href="http://www.lcbo.com/content/lcbo/en/corporate-pages/privacy.html" target="_blank">Privacy Policy</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><a href="http://www.lcbo.com/content/lcbo/en/corporate-pages/terms-and-conditions.html" target="_blank">Terms & Conditions</a></li><img src="http://www.vintages.com/images/verticalline-grey.gif" width="9" height="10" alt="verticalline-grey"><a href="http://www.lcbo.com/content/lcbo/en/corporate-pages/social-media.html" target="_blank">Social Media</a></li>
+    		</ul>-->
+            <!--<p style="text-align: center; padding-top: 20px;"><a href="http://essentialaccessibility.com" target="_blank"><img src="/images/eaccess.jpg" width="59" height="22" title="eSSENTIAL Accessibility"></a></p>-->
+</div>
+
+
+
+
+<script type="text/javascript"> 
+if (set_inputForm_setItemnameResults) { 
+        inputForm_setItemnameResults("15"); 
+        inputForm_setItemnameLength("50"); 
+} 
+</script>
+
+
+
+   <script type="text/javascript">
+       var _gaq = _gaq || [];
+       _gaq.push(['_setAccount', 'UA-553500-5']);
+       _gaq.push(['_trackPageview']);
+   </script>
+   <script type="text/javascript">  (function() {
+       var ga = document.createElement('script');     ga.type =
+   'text/javascript'; ga.async = true;
+       ga.src = ('https:'   == document.location.protocol ?
+   'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+   s.parentNode.insertBefore(ga, s);
+       })();
+   </script>
+   <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-553500-35', 'vintages.com');
+  ga('send', 'pageview');
+
+   </script>
+
+
+
+
+</div>
+
+
+
+
+</body></html>
