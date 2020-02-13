@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F475
 		sqlsetup.sql = sqlsetup.sql
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LcboFileAdapter", "LcboFileAdapter\LcboFileAdapter.csproj", "{F89DD664-BCA6-4284-94F6-D2F153006C98}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LcboWebsiteAdapter", "LcboWebsiteAdapter\LcboWebsiteAdapter.csproj", "{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{66939FD5-B2CD-4D10-9D64-E62B0A1D622C}"
@@ -72,10 +70,6 @@ Global
 		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F89DD664-BCA6-4284-94F6-D2F153006C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F89DD664-BCA6-4284-94F6-D2F153006C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F89DD664-BCA6-4284-94F6-D2F153006C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F89DD664-BCA6-4284-94F6-D2F153006C98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LcboFileAdapter\LcboFileAdapter.csproj" />
     <ProjectReference Include="..\LcboWebsiteAdapter\LcboWebsiteAdapter.csproj" />
     <ProjectReference Include="..\Spurious2.Core\Spurious2.Core.csproj" />
     <ProjectReference Include="..\Spurious2.Repositories\Spurious2.Repositories.csproj" />
