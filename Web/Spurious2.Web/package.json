@@ -67,7 +67,7 @@
     "karma-typescript-preprocessor": "^0.4.0",
     "karma-webpack": "^4.0.2",
     "minimatch": "^3.0.4",
-    "nps": "^5.9.5",
+    "nps": "^5.9.12",
     "nps-utils": "^1.7.0",
     "opn": "^6.0.0",
     "style-loader": "^0.23.1",
