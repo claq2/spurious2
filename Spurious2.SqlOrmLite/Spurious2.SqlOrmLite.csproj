@@ -13,16 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GeoJSON.Net" Version="1.2.14" />
-    <PackageReference Include="GeoJSON.Net.Contrib.MsSqlSpatial" Version="0.3.4" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+    <PackageReference Include="GeoJSON.Net" Version="1.2.19" />
+    <PackageReference Include="GeoJSON.Net.Contrib.MsSqlSpatial" Version="0.3.6" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
-    <PackageReference Include="ServiceStack" Version="5.8.0" />
-    <PackageReference Include="ServiceStack.OrmLite" Version="5.8.0" />
-    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.8.0" />
+    <PackageReference Include="ServiceStack" Version="5.13.2" />
+    <PackageReference Include="ServiceStack.OrmLite" Version="5.13.2" />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.13.2" />
   </ItemGroup>
 
   <ItemGroup>

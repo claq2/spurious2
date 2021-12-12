@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿//using LcboFileAdapter;
+using CommandLine;
 using LcboWebsiteAdapter;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,8 @@ using Npgsql;
 using Spurious2.Core.LcboImporting.Domain;
 using Spurious2.Core.LcboImporting.Services;
 using Spurious2.Core.SubdivisionImporting.Domain;
+//using Spurious2.Repositories.LcboImporting.Repositories;
+//using Spurious2.SqlRepositories.LcboImporting.Repositories;
 using StructureMap;
 using System;
 using System.Data.SqlClient;
