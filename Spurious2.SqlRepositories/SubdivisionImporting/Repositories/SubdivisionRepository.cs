@@ -43,7 +43,7 @@ namespace Spurious2.SqlRepositories.SubdivisionImporting.Repositories
                         var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
                         var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
                         var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.Name);
-                        
+
                         command.Parameters.Add(idParam);
                         command.Parameters.Add(wktParam);
                         command.Parameters.Add(subdivNameParam);

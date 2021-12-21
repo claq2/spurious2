@@ -99,7 +99,6 @@ namespace Spurious2.SqlRepositories.LcboImporting.Repositories
             var transaction = this.connection.BeginTransaction();
             try
             {
-                
                 using (var bulkCopy = new SqlBulkCopy(this.connection, SqlBulkCopyOptions.Default, transaction))
                 {
                     bulkCopy.DestinationTableName = "InventoryIncoming";

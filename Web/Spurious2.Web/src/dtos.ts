@@ -15,59 +15,52 @@ BaseUrl: http://localhost:5000
 */
 
 
-export interface IReturn<T>
-{
+export interface IReturn<T> {
     createResponse(): T;
 }
 
-export interface IReturnVoid
-{
+export interface IReturnVoid {
     createResponse(): void;
 }
 
-export class DensityInfo
-{
-    public shortName: string;
-    public title: string;
-    public address: string;
+export class DensityInfo {
+    public shortName!: string;
+    public title!: string;
+    public address!: string;
 
     public constructor(init?: Partial<DensityInfo>) { (Object as any).assign(this, init); }
 }
 
-export class Subdivision
-{
-    public name: string;
-    public population: number;
-    public density: number;
-    public boundaryLink: string;
-    public centreCoordinates: string;
-    public storesLink: string;
+export class Subdivision {
+    public name!: string;
+    public population!: number;
+    public density!: number;
+    public boundaryLink!: string;
+    public centreCoordinates!: string;
+    public storesLink!: string;
 
     public constructor(init?: Partial<Subdivision>) { (Object as any).assign(this, init); }
 }
 
-export enum AlcoholType
-{
+export enum AlcoholType {
     All = 'All',
     Beer = 'Beer',
     Spirits = 'Spirits',
     Wine = 'Wine',
 }
 
-export class Inventory
-{
-    public alcoholType: AlcoholType;
-    public volume: number;
+export class Inventory {
+    public alcoholType!: AlcoholType;
+    public volume!: number;
 
     public constructor(init?: Partial<Inventory>) { (Object as any).assign(this, init); }
 }
 
-export class Store
-{
-    public id: number;
-    public locationCoordinates: string;
-    public name: string;
-    public inventories: Inventory[];
+export class Store {
+    public id!: number;
+    public locationCoordinates!: string;
+    public name!: string;
+    public inventories!: Inventory[];
 
     public constructor(init?: Partial<Store>) { (Object as any).assign(this, init); }
 }
@@ -84,7 +77,7 @@ export class Densities implements IReturn<DensityInfo[]>
 // @Route("/densities/{Name}/subdivisions")
 export class DensitySubdivisions implements IReturn<Subdivision[]>
 {
-    public name: string;
+    public name!: string;
 
     public constructor(init?: Partial<DensitySubdivisions>) { (Object as any).assign(this, init); }
     public createResponse() { return new Array<Subdivision>(); }
@@ -94,7 +87,7 @@ export class DensitySubdivisions implements IReturn<Subdivision[]>
 // @Route("/subdivisions/{Id}/boundary")
 export class BoundaryRequest implements IReturn<string>
 {
-    public id: number;
+    public id!: number;
 
     public constructor(init?: Partial<BoundaryRequest>) { (Object as any).assign(this, init); }
     public createResponse() { return ''; }
@@ -104,7 +97,7 @@ export class BoundaryRequest implements IReturn<string>
 // @Route("/subdivisions/{Id}/stores")
 export class StoresInSubdivisionRequest implements IReturn<Store[]>
 {
-    public id: number;
+    public id!: number;
 
     public constructor(init?: Partial<StoresInSubdivisionRequest>) { (Object as any).assign(this, init); }
     public createResponse() { return new Array<Store>(); }

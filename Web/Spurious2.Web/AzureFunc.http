@@ -1,0 +1,5 @@
+ GET http://localhost:7071/api/Function1_HttpStart
+
+###
+
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/2bed8a6899654b2cb682dfda75759464?taskHub=TestHubName&connection=Storage&code=dDeoN4Q05cKDJt6nIOh18Y7PaHaHmvkVicES647ffkSjFSdHnUidNQ==

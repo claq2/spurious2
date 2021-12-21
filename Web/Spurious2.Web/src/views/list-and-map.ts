@@ -7,18 +7,19 @@ import { Subdivision, Store, Inventory } from '../dtos';
 
 @inject(HttpClient)
 export class ListAndMap {
-    private container: HTMLElement;
-    private map: Map;
-    private viewChangeHandler: () => void;
-    private densityLink: string;
-    private datasource: source.DataSource;
+    private container!: HTMLElement;
+    private map!: Map;
+    private viewChangeHandler!: () => void;
+    private densityLink!: string;
+    private datasource!: source.DataSource;
 
     subdivisions: Subdivision[] = [];
     @bindable apiKey: string = "UHo_yP7VRSrUF-ZA_GFnT7YOz1b-MoRMT90xMbDybzs";
     @bindable height: string = '400px';
     @bindable width: string = '';
 
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) location: data.Position | string;
+    @bindable({ defaultBindingMode: bindingMode.twoWay })
+    location!: data.Position | string | undefined;
 
     constructor(private http: HttpClient) {
         http.defaults = { headers: { "Accept": "application/json" } };
@@ -49,8 +50,8 @@ export class ListAndMap {
             this.datasource = new source.DataSource();
             this.map.sources.add(this.datasource);
             //Add a layer for rendering the outline of polygons.
-            let lineLayer = new layer.LineLayer(this.datasource, null, { strokeColor: 'black', strokeWidth: 0.7 });
-            let polygonLayer = new layer.PolygonLayer(this.datasource, null, {
+            let lineLayer = new layer.LineLayer(this.datasource, undefined, { strokeColor: 'black', strokeWidth: 0.7 });
+            let polygonLayer = new layer.PolygonLayer(this.datasource, undefined, {
                 fillOpacity: 0.3,
                 filter: ['any', ['==', ['geometry-type'], 'Polygon'], ['==', ['geometry-type'], 'MultiPolygon']]	//Only render Polygon or MultiPolygon in this layer.
             });
@@ -82,12 +83,15 @@ export class ListAndMap {
             let bounds = shapes[0].getBounds();
             let centre = data.BoundingBox.getCenter(bounds);
             this.map.setCamera({ bounds: bounds, center: centre });
-            this.map.setCamera({ zoom: this.map.getCamera().zoom - 1 });
+            const currentZoom = this.map.getCamera().zoom;
+            if (currentZoom) {
+                this.map.setCamera({ zoom: currentZoom - 1 });
+            }
             //console.log('shapes: ', shapes);
 
             let stores = await client.get<Store[]>(densities[0].storesLink);
             //console.log("stores: ", stores);
-            stores.forEach(s => {
+            stores.forEach((s: Store) => {
                 let f = new data.Feature(
                     new data.Point(
                         new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
@@ -134,7 +138,7 @@ export class ListAndMap {
                         content: content,
 
                         //Update the popup's position with the symbol's coordinate.
-                        position: coordinate
+                        position: coordinate as data.Position
 
                     });
                     //Open the popup.
@@ -160,11 +164,14 @@ export class ListAndMap {
         let bounds = shapes[0].getBounds();
         let centre = data.BoundingBox.getCenter(bounds);
         this.map.setCamera({ bounds: bounds, center: centre });
-        this.map.setCamera({ zoom: this.map.getCamera().zoom - 1 });
+        const currentZoom = this.map.getCamera().zoom;
+        if (currentZoom) {
+            this.map.setCamera({ zoom: currentZoom - 1 });
+        }
 
         let stores = await client.get<Store[]>(subdiv.storesLink);
         //console.log("stores: ", stores);
-        stores.forEach(s => {
+        stores.forEach((s: Store) => {
             let f = new data.Feature(
                 new data.Point(
                     new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
@@ -182,7 +189,6 @@ export class ListAndMap {
 
         if (this.map) {
             this.map.dispose();
-            this.map = null;
         }
     }
 }

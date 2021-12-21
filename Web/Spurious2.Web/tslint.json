@@ -1,5 +1,9 @@
 {
-  "rules": {
-
-  }
+    "linterOptions": {
+        "exclude": [
+            "src/dtos.ts",
+            "src/api/*.ts"
+        ]
+    },
+    "rules": {}
 }

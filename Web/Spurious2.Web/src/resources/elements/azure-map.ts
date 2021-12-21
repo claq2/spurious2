@@ -1,10 +1,9 @@
 import { bindable, bindingMode } from 'aurelia-framework';
 import { Map, data, AuthenticationType, control, ControlPosition } from 'azure-maps-control';
-import { RouteConfig } from 'aurelia-router';
 
 export class AzureMapCustomElement {
-    private container: HTMLElement;
-    private map: Map;
+    private container!: HTMLElement;
+    private map!: Map;
     private viewChangeHandler: () => void = () => {
         this.location = this.map.getCamera().center;
         //console.log("map location: " + this.location);
@@ -14,7 +13,8 @@ export class AzureMapCustomElement {
     @bindable height: string = '600px';
     @bindable width: string = '';
 
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) location: data.Position | string;
+    @bindable({ defaultBindingMode: bindingMode.twoWay })
+    location!: data.Position | string | undefined;
     attached() {
         //console.log('attached');
         this.map = new Map(this.container, {
@@ -48,7 +48,6 @@ export class AzureMapCustomElement {
 
         if (this.map) {
             this.map.dispose();
-            this.map = null;
         }
     }
 }

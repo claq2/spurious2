@@ -73,14 +73,17 @@ namespace Spurious2.Core.SubdivisionImporting.Services
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.Context.Record.Length >= 1)
+                    if (csv.TryGetField<int>("CSDUID", out var csduid)
+                        && csv.TryGetField<string>("WKT", out var wkt)
+                        && csv.TryGetField<string>("CSDNAME", out var csdname)
+                        && csv.TryGetField<string>("PRNAME", out var prnname))
                     {
                         boundaries.Add(new SubdivisionBoundary
                         (
-                            csv.GetField<int>("CSDUID"),
-                            csv.GetField("WKT"),
-                            csv.GetField("CSDNAME"),
-                            csv.GetField("PRNAME")
+                            csduid,
+                            wkt,
+                            csdname,
+                            prnname
                         ));
                     }
                 }
@@ -101,14 +104,15 @@ namespace Spurious2.Core.SubdivisionImporting.Services
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.Context.Record.Length >= 10)
+                    if (csv.TryGetField<int>("Geographic code", out var id)
+                        && csv.TryGetField<string>("Geographic name, english", out var name))
                     {
                         var populationString = csv.GetField("Population, 2016");
                         var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
                         records.Add(new SubdivisionPopulation
                         {
-                            Id = csv.GetField<int>("Geographic code"),
-                            Name = csv.GetField("Geographic name, english"),
+                            Id = id,
+                            Name = name,
                             Population = population,
                         });
                     }

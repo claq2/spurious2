@@ -1,9 +1,6 @@
 using GeoJSON.Net.Geometry;
 using Newtonsoft.Json;
 using ServiceStack;
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-using ServiceStack.Text;
 using Spurious2.Core.Reading.Domain;
 using Spurious2.Web.ServiceModel;
 using System;

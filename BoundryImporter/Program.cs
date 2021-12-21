@@ -1,7 +1,6 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using Spurious2.Core.LcboImporting.Domain;
 using Spurious2.Core.SubdivisionImporting.Domain;
 using Spurious2.Core.SubdivisionImporting.Services;
@@ -11,8 +10,6 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Xml;
 
 namespace BoundaryImporter
 {
@@ -49,22 +46,11 @@ namespace BoundaryImporter
                     config.Populate(services);
                     var configuration = LoadConfiguration();
                     config.For<IConfiguration>().Use(configuration);
-                    if (configuration.GetValue<string>("DbToUse")?.ToUpperInvariant() == "POSTGRES")
-                    {
-                        config.For<IStoreRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.StoreRepository>();
-                        config.For<IProductRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.ProductRepository>();
-                        config.For<IInventoryRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.InventoryRepository>();
-                        config.For<ISubdivisionRepository>().Use<Spurious2.Repositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
-                    }
-                    else
-                    {
-                        config.For<IStoreRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.StoreRepository>();
-                        config.For<IProductRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.ProductRepository>();
-                        config.For<IInventoryRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.InventoryRepository>();
-                        config.For<ISubdivisionRepository>().Use<Spurious2.SqlRepositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
-                    }
-                    config.For<NpgsqlConnection>().Use((c) => new NpgsqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousDb")));
-                    config.For<SqlConnection>().Use((c) => new SqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousSqlDb")));
+                    config.For<IStoreRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.StoreRepository>();
+                    config.For<IProductRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.ProductRepository>();
+                    config.For<IInventoryRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.InventoryRepository>();
+                    config.For<ISubdivisionRepository>().Use<Spurious2.SqlRepositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
+                    config.For<SqlConnection>().Use((c) => new SqlConnection(c.GetInstance<IConfiguration>()["SpuriousSqlDb"]));
                 });
 
                 using (var importer = container.GetInstance<IImportingService>())
@@ -78,7 +64,7 @@ namespace BoundaryImporter
                     else if (options.Value.BoundaryFile.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
                     {
                         nodes = importer.ImportBoundaryFromCsvFile(options.Value.BoundaryFile);
-                            //"D:\\Downloads\\lcsd000a16g_e\\subdiv2.csv");
+                        //"D:\\Downloads\\lcsd000a16g_e\\subdiv2.csv");
                     }
                     else
                     {

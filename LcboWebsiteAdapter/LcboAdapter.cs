@@ -55,11 +55,13 @@ namespace LcboWebsiteAdapter
 
         public Product ReadProductS(int id)
         {
-            var productsString = hc.GetStringAsync($"{baseUrl}productdetail.do?itemNumber={id}").Result;//198069
+            var url = $"{baseUrl}productdetail.do?itemNumber={id}";
+            var productsString = hc.GetStringAsync(url).Result;//198069
 
+            var xmlSettings = new XmlReaderSettings { CheckCharacters = false };
             using (var tr = new StringReader(productsString))
             {
-                using (var xr = XmlReader.Create(tr))
+                using (var xr = XmlReader.Create(tr, xmlSettings))
                 {
                     var serializer = new XmlSerializer(typeof(ProductSearchResponse));
                     var productSearchResponse = serializer.Deserialize(xr) as ProductSearchResponse;

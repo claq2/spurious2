@@ -1,14 +1,10 @@
-﻿//using LcboFileAdapter;
-using CommandLine;
+﻿using CommandLine;
 using LcboWebsiteAdapter;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using Spurious2.Core.LcboImporting.Domain;
 using Spurious2.Core.LcboImporting.Services;
 using Spurious2.Core.SubdivisionImporting.Domain;
-//using Spurious2.Repositories.LcboImporting.Repositories;
-//using Spurious2.SqlRepositories.LcboImporting.Repositories;
 using StructureMap;
 using System;
 using System.Data.SqlClient;
@@ -75,27 +71,12 @@ namespace LcboScraper
                     config.Populate(services);
                     var configuration = LoadConfiguration();
                     config.For<IConfiguration>().Use(configuration);
-                    if (configuration.GetValue<string>("DbToUse")?.ToUpperInvariant() == "POSTGRES")
-                    {
-                        config.For<IStoreRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.StoreRepository>();
-                        config.For<IProductRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.ProductRepository>();
-                        config.For<IInventoryRepository>().Use<Spurious2.Repositories.LcboImporting.Repositories.InventoryRepository>();
-                        config.For<ISubdivisionRepository>().Use<Spurious2.Repositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
-                    }
-                    else
-                    {
-                        config.For<IStoreRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.StoreRepository>();
-                        config.For<IProductRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.ProductRepository>();
-                        config.For<IInventoryRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.InventoryRepository>();
-                        config.For<ISubdivisionRepository>().Use<Spurious2.SqlRepositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
-                    }
-
-                    config.For<NpgsqlConnection>().Use((c) => new NpgsqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousDb")));
-                    Expression<Func<IContext, Func<NpgsqlConnection>>> connFactory = (c) => () => new NpgsqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousDb"));
-                    config.For<Func<NpgsqlConnection>>().Use(connFactory);
-
-                    config.For<SqlConnection>().Use((c) => new SqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousSqlDb")));
-                    Expression<Func<IContext, Func<SqlConnection>>> sqlConnFactory = (c) => () => new SqlConnection(c.GetInstance<IConfiguration>().GetValue<string>("SpuriousSqlDb"));
+                    config.For<IStoreRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.StoreRepository>();
+                    config.For<IProductRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.ProductRepository>();
+                    config.For<IInventoryRepository>().Use<Spurious2.SqlRepositories.LcboImporting.Repositories.InventoryRepository>();
+                    config.For<ISubdivisionRepository>().Use<Spurious2.SqlRepositories.SubdivisionImporting.Repositories.SubdivisionRepository>();
+                    config.For<SqlConnection>().Use((c) => new SqlConnection(c.GetInstance<IConfiguration>()["SpuriousSqlDb"]));
+                    Expression<Func<IContext, Func<SqlConnection>>> sqlConnFactory = (c) => () => new SqlConnection(c.GetInstance<IConfiguration>()["SpuriousSqlDb"]);
                     config.For<Func<SqlConnection>>().Use(sqlConnFactory);
                 });
 

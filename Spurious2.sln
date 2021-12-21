@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LcboScraper", "LcboScraper\LcboScraper.csproj", "{B97B4429-6E5F-4784-819A-0BE08E04B501}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Core", "Spurious2.Core\Spurious2.Core.csproj", "{B8612108-085F-425B-ABC7-712D16D7BBFE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Repositories", "Spurious2.Repositories\Spurious2.Repositories.csproj", "{0394401C-71EE-4502-AFA7-42C3C7855A56}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PopulationImporter", "PopulationImporter\PopulationImporter.csproj", "{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}"
 EndProject
@@ -33,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Web.ServiceModel"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Web.Tests", "Web\Spurious2.Web.Tests\Spurious2.Web.Tests.csproj", "{E956CA87-3CA5-49BB-AF3A-41ADFCDE9AE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.OrmLite", "Spurious2.OrmLite\Spurious2.OrmLite.csproj", "{44D2A324-8ECD-4215-8E21-CD3D34B6FBB4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.SqlRepositories", "Spurious2.SqlRepositories\Spurious2.SqlRepositories.csproj", "{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{478FA7C7-DDEC-418D-8696-3482B059C76F}"
@@ -43,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.SqlOrmLite", "Spurious2.SqlOrmLite\Spurious2.SqlOrmLite.csproj", "{6DE63F7A-309F-4C55-9B47-9CED15BC7B50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Function", "Spurious2.Function\Spurious2.Function.csproj", "{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,10 +56,6 @@ Global
 		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0394401C-71EE-4502-AFA7-42C3C7855A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0394401C-71EE-4502-AFA7-42C3C7855A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0394401C-71EE-4502-AFA7-42C3C7855A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0394401C-71EE-4502-AFA7-42C3C7855A56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -90,10 +84,6 @@ Global
 		{E956CA87-3CA5-49BB-AF3A-41ADFCDE9AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E956CA87-3CA5-49BB-AF3A-41ADFCDE9AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E956CA87-3CA5-49BB-AF3A-41ADFCDE9AE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44D2A324-8ECD-4215-8E21-CD3D34B6FBB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44D2A324-8ECD-4215-8E21-CD3D34B6FBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44D2A324-8ECD-4215-8E21-CD3D34B6FBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44D2A324-8ECD-4215-8E21-CD3D34B6FBB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -102,6 +92,10 @@ Global
 		{6DE63F7A-309F-4C55-9B47-9CED15BC7B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DE63F7A-309F-4C55-9B47-9CED15BC7B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DE63F7A-309F-4C55-9B47-9CED15BC7B50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

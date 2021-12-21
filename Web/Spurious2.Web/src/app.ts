@@ -4,7 +4,7 @@ import { client } from "shared";
 import { Densities, DensityInfo } from "dtos";
 
 export class App {
-    router: Router;
+    router!: Router;
 
     async configureRouter(config: RouterConfiguration, router: Router) {
         let req: Densities = new Densities();
@@ -19,7 +19,7 @@ export class App {
             activationStrategy: "replace",
             settings: { densityLink: rx.address }
         });
-        routes = routes.concat([{ route: "about", name: "about", moduleId: PLATFORM.moduleName('views/about'), nav: true, title: "About"}])
+        routes = routes.concat([{ route: "about", name: "about", moduleId: PLATFORM.moduleName('views/about'), nav: true, title: "About" }])
         //console.log(routes);
         config.title = 'Spurious Alcohol Statistics';
         config.options.pushState = true;

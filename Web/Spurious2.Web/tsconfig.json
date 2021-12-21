@@ -10,6 +10,9 @@
         "sourceMap": true,
         "allowJs": true,
         "baseUrl": "src",
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "strict": true,
         "typeRoots": [
             "./node_modules/@types"
         ],
@@ -24,7 +27,8 @@
         "node_modules",
         "aurelia_project",
         "wwwroot",
-        "obj"
+        "obj",
+        "bin"
     ],
     "filesGlob": [
         "./src/**/*.ts",
