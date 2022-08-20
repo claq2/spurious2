@@ -1,0 +1,595 @@
+﻿
+
+		<div class="col-xs-12 col-md-5 inventory-section">
+			<!-- BEGIN InventoryAvailability.jsp -->
+<input type="hidden" name="pdId" value="54702" id="pdId">
+<!-- setting qtyMultiple start-->
+	<input type="hidden" name="productType" value="" id="productType">
+<!-- setting qtyMultiple end--><!-- Ended --><!-- Code to choose the Fulfillment Center Value if the user has already choosen -->
+				    <input type="hidden" id="availabilityOnlineStore_54702" name="availabilityOnlineStore_54702" value="">
+				    <input type="hidden" id="availabilityOnlineStore" name="availabilityOnlineStore" value="">
+				    <input type="hidden" id="onlineInventoryStatus_54702" name="onlineInventoryStatus_54702" value="Available">
+
+<span id="aria-text" aria-live="polite"></span>
+<input id="storeIdentifier" type="hidden" value='LCBO'>
+
+		<script>
+			InventoryStatusJS_54702 = new InventoryStatusJS({storeId: '10203',catalogId: '10051',langId: '-1'}, {id: '54702', type: 'ItemBean', skus: []}, [], '54702');
+
+			wcTopic.subscribe('DefiningAttributes_Resolved_54702', function(catEntryId, productId){
+				eval("InventoryStatusJS_54702.setCatEntry(catEntryId, productId)");
+			});
+
+			wcTopic.subscribe('DefiningAttributes_Changed_54702', function(catEntryId, productId){
+				eval("InventoryStatusJS_54702.restoreDefaultState(catEntryId, productId)");
+			});
+
+			//Declare a service for retrieving inventory status for an item...
+			wcService.declare({
+				id: "getInventoryStatus_54702",
+				actionId: "getInventoryStatus",
+				url: getAbsoluteURL() + appendWcCommonRequestParameters("GetInventoryStatusByIDViewV2"),
+				formId: ""
+
+				,successHandler: function(serviceResponse, ioArgs ) {
+					InventoryStatusJS_54702.populateInvDetails(serviceResponse, ioArgs );
+				}
+
+				,failureHandler: function(serviceResponse, ioArgs ) {
+					MessageHelper.displayErrorMessage(Utils.getLocalizationMessage("INV_STATUS_RETRIEVAL_ERROR"));
+					cursor_clear();
+
+				// hiding the show availability link
+					$("#InventoryStatus_ShowLink_Section_54702").show();
+				}
+			});
+
+			//Delcare a service for retrieving physical store details...
+			wcService.declare({
+				id: "getPhysicalStoreDetails_54702",
+				actionId: "getPhysicalStoreDetails",
+				url: getAbsoluteURL() + appendWcCommonRequestParameters("GetStoreDetailsByIDViewV2"),
+				formId: ""
+
+				,successHandler: function(serviceResponse, ioArgs ) {
+					InventoryStatusJS_54702.populateStoreDetails(serviceResponse, ioArgs );
+				}
+
+				,failureHandler: function(serviceResponse, ioArgs ) {
+					MessageHelper.displayErrorMessage(Utils.getLocalizationMessage("INV_STATUS_RETRIEVAL_ERROR"));
+					cursor_clear();
+				}
+			});
+		</script>
+
+
+
+		<script type="text/javascript">
+			function inventorySectionToggleExpand(inventory, id) {
+				var section = null;
+				var icon = null;
+				var ariaExpandedElem = null;
+
+				if (inventory == 'homeDelivery') {             // Home delivery section
+					section = byId(id + "_homeDeliveryDetails");
+					icon = byId(id + "_homeDeliveryIcon");
+					ariaExpandedElem = byId(id + "_homeDeliveryBtn");
+				} else if (inventory == 'storePickup') {      // Store pickup section
+					section = byId(id + "_storePickupDetails");
+					icon = byId(id + "_storePickupIcon");
+					ariaExpandedElem = byId("InventoryStatus_InStore_Heading_" + id)
+				} else if (inventory == 'walkIn')  { // Walk in section
+					section = byId(id + "_walkInDetails");
+					icon = byId(id + "_walkInIcon");
+					ariaExpandedElem = byId(id + "_walkInBtn");
+				}
+
+				if (!!icon) {
+					// Set the icon
+					if (icon.className == "minus glyphicon glyphicon-minus") {
+						icon.className = "minus glyphicon glyphicon-plus";
+						$(section).attr("aria-expanded", "false");
+						$(ariaExpandedElem).attr("aria-expanded", "false");
+						section.style.display = "none";
+					} else {
+						icon.className = "minus glyphicon glyphicon-minus";
+						$(section).attr("aria-expanded", "true");
+						$(ariaExpandedElem).attr("aria-expanded", "true");
+						section.style.display = "block";
+					}
+				}
+			}
+
+			$(document).ready(function() {
+
+				MessageHelper.setMessage("ERROR_InvalidCharacters", "Please enter a valid postal code.");
+
+				MessageHelper.setMessage("ERROR_POSTALCODE_EMPTY", "Please enter a postal code.");
+
+				MessageHelper.setMessage("ERROR_POSTALCODE_CHECKOUT", "Please enter your postal code above before proceeding to checkout.");
+
+				MessageHelper.setMessage("ERROR_SERVICE", "We are sorry, we cannot complete your request at this time. Please try again later.");
+
+				MessageHelper.setMessage("FIRST_NAME_LENGTH_ERROR", "First name cannot exceed 13 characters.");
+
+				MessageHelper.setMessage("LAST_NAME_LENGTH_ERROR", "Last name cannot exceed 16 characters.");
+
+				MessageHelper.setMessage("ADDRESS_POBOX", "Orders cannot be delivered to a PO Box. Please provide a physical street address or choose Deliver to Store or Same-Day Pickup.");
+
+				MessageHelper.setMessage("ADDRESS_PHONE_NUMBER_SHIPPING", "Please enter a phone number with 10 or 11 digits.");
+				MessageHelper.setMessage("POSTALCODE_ON", "Invalid postal code. Delivery only within Ontario.");
+
+				MessageHelper.setMessage("ADDRESS1_LENGTH", "Address line 1 cannot exceed 30 characters.");
+				MessageHelper.setMessage("ADDRESS2_LENGTH", "Address line 2 cannot exceed 25 characters.");
+
+				MessageHelper.setMessage("ADDRESS_LENGTH_GENERIC_ERR", "Your address exceeds the maximum allowed characters.");
+
+				MessageHelper.setMessage("ADDRESS12_LENGTH", "Address line 1 cannot exceed 30 characters. Address line 2 cannot exceed 25 characters. Please correct both fields.");
+
+                MessageHelper.setMessage("ERROR_POW", "This product does not qualify for our Next Business Day shipping service.");
+
+                MessageHelper.setMessage("STANDARD", "Standard");
+				var standardDeliveryEspot_Content = document.getElementById('standardDeliveryMessage');
+				if (standardDeliveryEspot_Content != undefined && standardDeliveryEspot_Content != null){
+				var STANDARD_TAX_WIDGET = standardDeliveryEspot_Content.textContent;
+                MessageHelper.setMessage("STANDARD_TAX_WIDGET", STANDARD_TAX_WIDGET);
+				}
+
+                MessageHelper.setMessage("NEXT_DAY", "Next Business Day");
+
+                MessageHelper.setMessage("TAX_COLON", "+ tax");
+
+                MessageHelper.setMessage("BUSINESSDAY_1", "1 Business Day");
+
+                MessageHelper.setMessage("BUSINESSDAY_2", "2 Business Days");
+
+                MessageHelper.setMessage("INVALIDZIPCODE", "Please enter a valid postal code.");
+
+				if (typeof getCookie("userData") !== 'undefined') {
+					var jsonuserdata = JSON.parse(getCookie("userData"));
+					var chkZipCode = new RegExp(/(^(?!.*[DFIOQUdfioqu])[a-vxy]|[A-VXY]\d[a-z]|[A-Z] ?\d[a-z]|[A-Z]\d$)/);
+					var zipCode = "";
+					if (typeof jsonuserdata.zipCode === "string") {
+						zipCode = jsonuserdata.zipCode;
+					} else if (typeof jsonuserdata.zipCode === "object" && jsonuserdata.zipCode[0]) {
+						zipCode = jsonuserdata.zipCode[0];
+					}
+
+					if (jsonuserdata && jsonuserdata != '') {
+						$(".nextDayDiv").removeClass("disabled");
+						$(".inventory-wrapper").each(function() {
+							var thiswrapper = $(this);
+							if (jsonuserdata.invalidZipValue && jsonuserdata.invalidZipValue != '') {
+								thiswrapper.find("#containerDiv").hide();
+								thiswrapper.find(".searchDiv").show();
+								$('input[name="zipCode"]').attr("value", zipCode);
+								if (!zipCode || zipCode && !chkZipCode.test(zipCode)) {
+									thiswrapper.find(".homeDeliveryForm").find('.error-description').show().html(MessageHelper.messages["ERROR_InvalidCharacters"]);
+								} else {
+									thiswrapper.find(".homeDeliveryForm").find('.error-description').show().html(MessageHelper.messages["POSTALCODE_ON"]);
+								}
+							} else {
+								if (thiswrapper.find(".homeDeliveryForm").length > 0) {
+									if (jsonuserdata.zipCode[0] && jsonuserdata.zipCode[0] != ''){
+										var id = thiswrapper.attr("data-productid");
+										section = thiswrapper.find("#"+id+"_homeDeliveryDetails");
+										icon = thiswrapper.find("#"+id+"_homeDeliveryIcon");
+										$(icon).removeClass('minus glyphicon glyphicon-plus').addClass('minus glyphicon glyphicon-minus');
+										$(section).attr("aria-expanded", "true");
+										$(section).show();
+									}
+									var postalcodeinput = thiswrapper.find("#WC_CheckHomeDeliveryForm_code");
+									thiswrapper.find(".searchDiv").hide();
+									thiswrapper.find("#containerDiv").show();
+									if (thiswrapper.find("#zipCode button").length > 0){
+										if (thiswrapper.find("#zipCode button").html().trim() == ""){
+											thiswrapper.find("#zipCode button").html(jsonuserdata.zipCode[0]);
+										}
+									}
+									thiswrapper.find("#zipCode button").off("click").on("click", function(){
+										thiswrapper.find(".searchDiv").show();
+										thiswrapper.find("#containerDiv").hide();
+										$(postalcodeinput).val("");
+										thiswrapper.find(".error-description").hide();
+									});
+									if(getCookie("isNextDayEnabled") === "true") {
+										thiswrapper.find("#nextDayDiv").show();
+										if(getCookie("isStrikedOut") === "true") {
+											thiswrapper.find("#nextDayDiv").addClass("disabled");
+										}
+									}
+									var jsonUserData = JSON.parse(getCookie("userData"));
+									jsonUserData.shippingModesByZipCode && jsonUserData.shippingModesByZipCode.forEach(function(ele) {
+										if (ele.shippingSpeedType.toUpperCase() === 'STANDARD' && ele.enabled) {
+											isStandardEnabled = true;
+											var standardDeliveryText=document.getElementById('standardDeliveryMessage');
+											if(standardDeliveryText != undefined && standardDeliveryText != null){
+											thiswrapper.find("#standardDiv").html(MessageHelper.messages['STANDARD']+" ("+ele.price+" "+MessageHelper.messages['TAX_COLON']+"):" +" "+ standardDeliveryText.textContent);
+											}
+
+										}
+										if (getCookie("prodType") === "POW" || getCookie("prodType") === "IP") {
+												thiswrapper.find("#nextDayDiv").html(MessageHelper.messages['NEXT_DAY']+" ("+ele.price+" "+MessageHelper.messages['TAX_COLON']+")");
+												thiswrapper.find("#nextDayEligible").hide();
+												thiswrapper.find("#instructions").hide();
+												thiswrapper.find("#instructions #cpNextDayDelivery").hide();
+												thiswrapper.find("#nextDayEligiblePOW").show();
+										} else if (ele.shippingSpeedType.toUpperCase() === 'NEXT_DAY_DELIVERY') {
+												isNextDayEnabled = true;
+												getCookie("isStrikedOut",false);
+												thiswrapper.find("#nextDayDiv").show();
+												thiswrapper.find("#nextDayDiv").html(MessageHelper.messages['NEXT_DAY']+" ("+ele.price+" "+MessageHelper.messages['TAX_COLON']+")");
+												thiswrapper.find("#instructions").show();
+												thiswrapper.find("#instructions #cpNextDayDelivery").show();
+											if(ele.enabled===false) {
+												thiswrapper.find("#nextDayDiv").addClass("disabled");
+												thiswrapper.find("#instructions").hide();
+												thiswrapper.find("#instructions #cpNextDayDelivery").hide();
+												if(ele.isEligible && ele.isEligible != ''){
+													thiswrapper.find("#nextDayEligible").show();
+												}
+											} else if(ele.enabled===true && getCookie("isStrikedOut") === false) {
+												thiswrapper.find("#nextDayEligible").hide();
+												getCookie("isStrikedOut",false);
+											}
+										}
+									});
+								}
+							}
+						});
+					}
+				}
+			});
+		</script>
+
+		<div id="InventoryStatus_Availability_Section_54702" data-productid="54702" class="inventory-wrapper">
+
+
+			<div class="homeDelivery productDelivery">
+				<button id="54702_homeDeliveryBtn" class="header" tabindex="0" onclick="javascript: inventorySectionToggleExpand('homeDelivery', '54702');" aria-expanded="false">
+					<div class="status_icon">
+
+								<span class="icon-close glyphicon glyphicon-remove"></span>
+
+					</div>
+					<p role="button" aria-label="use enter key to expand / minimize,
+						Home Delivery, Unavailable" class="inventoryOption">
+						Home Delivery
+						(Unavailable)
+					</p>
+					<div class="accordion_icon">
+						<span id="54702_homeDeliveryIcon" class="minus glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</div>
+				</button>
+
+				<div id="54702_homeDeliveryDetails" class="homeDeliveryDetails" style="display: none;">
+					<div class="row">
+						<div class="onlineAvailability subHeading col-xs-4"></div>
+						<div class="sublist col-xs-8">
+
+						</div>
+					</div>
+
+					<div class="homeDeliveryFields">
+						<p>
+							Sorry, there is no inventory available.
+						</p>
+
+							<input type="hidden" value="curShipMode" value="{" field2":"2="" -="" 4="" business="" days","shipmodecode":"standard","shipmodedescription":"standard="" ($11.95="" +="" tax)","shipmodeid":"715844934","field1":""}"/="">
+
+							<input type="hidden" value="curShipMode" value="{" field2":"1="" business="" day","shipmodecode":"next="" day","shipmodedescription":"next="" day="" ($16.95="" +="" tax)","shipmodeid":"715844935","field1":""}"/="">
+
+							<input type="hidden" value="curShipMode" value="{" field2":"","shipmodecode":"pickupinstore","shipmodedescription":"pickupinstore","shipmodeid":"715844936","field1":""}"/="">
+
+					</div>
+				</div>
+			</div>
+
+				<div class="storePickup">
+					<button id="InventoryStatus_InStore_Heading_54702" tabindex="0" class="nearStoresLabel header" onclick="javascript: inventorySectionToggleExpand('storePickup', '54702');" aria-expanded="false">
+						<div class="status_icon">
+
+									<span class="icon-close glyphicon glyphicon-remove"></span>
+
+						</div>
+						<p role="button" aria-label="use enter key to expand / minimize, Deliver to Store, Unavailable" class="inventoryOption">
+							Deliver to Store
+							(Unavailable)
+						</p>
+
+						<div class="accordion_icon">
+							<span id="54702_storePickupIcon" class="minus glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</div>
+					</button>
+
+					<div id="54702_storePickupDetails" class="storePickupDetails" style="display: none;" tabindex="0">
+
+						<div id="InventoryStatus_InStore_Section_54702" class="sublist col6">
+
+						</div>
+
+						<div class="inStorePickupDetails">
+
+									<div>
+										Sorry, there is no inventory available.
+									</div>
+
+						</div>
+					 </div>
+				</div>
+
+			<div class="walkIn">
+				<button id="54702_walkInBtn" class="header" tabindex="0" onclick="javascript: inventorySectionToggleExpand('walkIn', '54702');" aria-expanded="false">
+
+					<div class="status_icon">
+
+					</div>
+					<p role="button" aria-label="use enter key to expand / minimize,
+						Inventory at Selected Store, Unavailable" class="inventoryOption">
+						Inventory at Selected Store
+					</p>
+
+					<div class="accordion_icon">
+						<span id="54702_walkInIcon" class="minus glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</div>
+				</button>
+
+				<div id="54702_walkInDetails" class="walkInDetails" style="display: none;">
+
+							<div>
+								<span>
+									You have not selected a store.
+								</span>
+							</div>
+
+					<button id="InventoryStatus_SelectStoreLink_54702" onclick="javaScript:lcbo.StoreFinder.setShowStoresByInventory(true);lcbo.StoreFinder.setProductId('54702');shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');" class="check_stores button">Select a Store</button>
+
+
+
+					<button type="button" id="allStoresInventory" onclick="location.href='https://www.lcbo.com/webapp/wcs/stores/servlet/PhysicalStoreInventoryView?langId=-1&storeId=10203&catalogId=10051&productId=54702'" class="check_stores">
+						<span>Check All Stores</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="InventoryStatus_ShowLink_Section_54702" class="left available" style="display:none;">
+			<span class="text">
+			 	Select attributes to see availability
+			</span>
+		</div>
+
+	<div id="InventoryStatus_Store_Details_54702" data-widget-type="wc.WCDialog" data-widget-options="{&#034;close_button_selector&#034;: &#034;a.close&#034;}" style="display:none;">
+		<div class="widget_store_details_popup">
+			<!-- Top Border Styling -->
+			<div class="top">
+				<div class="left_border"></div>
+				<div class="middle"></div>
+				<div class="right_border"></div>
+			</div>
+			<div class="clear_float"></div>
+			<!-- Main Content Area -->
+			<div class="middle">
+				<div class="content_left_border">
+					<div class="content_right_border">
+						<div class="content">
+							<div class="header">
+								<span>Store Details</span>
+								<a id="WC_InventoryStatus_Link_54702_2" href="javascript:void(0);" class="close" title='Close button'></a>
+								<div class="clear_float"></div>
+							</div>
+							<div id="Store_Details_Template_54702" style="display:none;">
+								<div class="container_store_address">
+									<div class="header">
+										Store Name and Address
+									</div>
+									<div class="item_spacer_10px"></div>
+									<div class="item_spacer_3px"></div>
+									<p>{address.name}</p>
+									<p>{address.addressLine}</p>
+									<p>{address.city}, {address.stateOrProvinceName}, {address.postalCode}</p>
+									<p>{address.country}</p>
+									<p>{address.telephone}</p>
+								</div>
+
+								<div class="container_hours">
+									<div class="header">
+										Hours
+									</div>
+									<div class="item_spacer_10px"></div>
+									<div class="item_spacer_3px"></div>
+									<p>{hours}</p>
+								</div>
+
+								<div class="container_availability">
+									<div class="header">
+										Availability
+									</div>
+									<div class="item_spacer_10px"></div>
+									<div class="item_spacer_3px"></div>
+									<span class="status_img_div">{imageTag}</span><span>{statusText} {availabilityDetails}</span>
+								</div>
+
+								<div class="clear_float"></div>
+							</div>
+							<div id="Store_Details_54702" class="body"></div>
+							<div class="clear_float"></div>
+						<!-- End content Section -->
+						</div>
+					<!-- End content_right_border -->
+					</div>
+				<!-- End content_left_border -->
+				</div>
+			</div>
+			<div class="clear_float"></div>
+			<!-- Bottom Border Styling -->
+			<div class="bottom">
+				<div class="left_border"></div>
+				<div class="middle"></div>
+				<div class="right_border"></div>
+			</div>
+			<div class="clear_float"></div>
+		</div>
+	</div>
+	<div class="clear_float"></div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var shop_cart = document.getElementsByClassName('shop_cart')[0];
+
+		if (shop_cart != undefined && $('#storeIdentifier').val().toLowerCase() != 'clickcollect') {
+			$('.walkIn').addClass('hide');
+		}
+	});
+</script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                if (typeof productDisplayJS != 'undefined') {
+                    productDisplayJS.setCommonParameters('-1', '10203', '10051', 'G', '$');
+                }
+            });
+
+        </script>
+        <!-- END InventoryAvailability.jsp -->
+		</div>
+
+	<div class="col-xs-12 col-md-7 Fav_inventory">
+		<!-- START CatalogEntryDisplay_ListView_UI.jsp -->
+<input type="hidden" name="maxQuantity" id="maxQuantity" value="480">
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		MessageHelper.setMessage("MAX_QUANTITY_ITEM_ERROR", "We are sorry, the maximum quantity you can add to your cart is 480 items. Please adjust your quantity and try again.");
+		MessageHelper.setMessage("ERROR_ADDTOCART_QUANTITY", "We are sorry,LCBO of this item are currently available in selected store, but the quantity selected can be delivered to the store in 5 days or more at no extra cost.");
+		MessageHelper.setMessage("ERROR_ADDTOCART_QUANTITY_STORE", "We are sorry, only null of this item are available. Please adjust your quantity and try again.");
+		MessageHelper.setMessage("ERROR_ADDTOCART_QUANTITY_STORE_54702", "We are sorry, only null of this item are available. Please adjust your quantity and try again.");
+		MessageHelper.setMessage("ERROR_ADDTOCART_QUANTITY_ECOM_54702", "We are sorry, only null of this item are available. Please adjust your quantity and try again.");
+		MessageHelper.setMessage("ERROR_ADDTOCART_QUANTITY_ECOM", "We are sorry, only null of this item are available. Please adjust your quantity and try again.");
+		MessageHelper.setMessage("CNC_PROD_NOT_AVAIL", "We're sorry, this product is no longer available.");
+	});
+</script>
+
+<div itemscope="" itemtype="http://schema.org/Product" class="row">
+	<div dataci_product="3074457345618267766_84426" id="ci_product_3074457345618267766_84426" class="col-xs-5 product_image " onmouseout="if(!$('#comparebox_54702').checked){
+				hideSection('compare_54702');
+			}">
+		<a itemprop="image" id="CatalogEntryDisplayLink_54702" href="https://www.lcbo.com/webapp/wcs/stores/servlet/en/lcbo/wine-14/domaine-chanson-beaune-teurons-1er-cru-2013-84426" onkeydown="if(!$('#comparebox_54702').checked){shiftTabHideSection('compare_54702',event);}" onfocus="showSection('compare_54702');">
+			<img id="productThumbNailImage_54702" src="/content/dam/lcbo/products/084426.jpg/jcr:content/renditions/cq5dam.web.319.319.jpeg" alt="Domaine Chanson Beaune Teurons 1er Cru 2013" class="plp-prod-image">
+
+		</a>
+
+
+			<div style="cursor: pointer;">
+				<div data-bv-show="inline_rating" data-bv-product-id="84426">
+				</div>
+			</div>
+
+			<div id="compare_54702" class="compare_target" style="display: none;">
+				<input id="comparebox_54702" type="checkbox" name="comparebox_54702" value="54702" onchange="javascript:shoppingActionsJS.addOrRemoveFromCompare('54702',this.checked)">
+				<label for="comparebox_54702">Compare</label>
+				<a id="compareButton_54702" href="javascript:shoppingActionsJS.compareProducts({top_category: '', parent_category_rn: '', categoryId: '3074457345616679268'},'');" role="button" aria-label="Compare">Compare</a>
+			</div>
+
+				<script>
+					if($("#comparebox_54702").checked){
+						$( document ).ready(function() {
+							$("#comparebox_54702").checked = '';
+						});
+					}
+				</script>
+
+	</div>
+
+
+	<div class="col-xs-7 product_info product-info-section">
+		<div class="productChart">
+
+			<div itemprop="name" id="product_name_54702" class="product_name">
+
+				<a tabindex="0" id="CatalogEntryViewDetailsLink_54702" href="https://www.lcbo.com/webapp/wcs/stores/servlet/en/lcbo/wine-14/domaine-chanson-beaune-teurons-1er-cru-2013-84426">Domaine Chanson Beaune Teurons 1er Cru 2013</a>
+			</div>
+			<script>
+				if (highlightMap != null && highlightMap !='undefined'){
+					if (highlightMap["54702"] != null && highlightMap["54702"] != ""){
+						$("#CatalogEntryViewDetailsLink_54702").html($('<div />').html(highlightMap["54702"]).text());
+					}
+				}
+			</script>
+
+		<div class="other_details">
+
+				<span>
+					750 mL&nbsp;
+					<span class="package-type">bottle</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+				</span>
+
+			<span>
+				VINTAGES#:
+						&nbsp;<span itemprop="sku">84426</span>
+
+			</span>
+		</div>
+
+
+		<div id="price_display_54702" class="product_price">
+			<!-- BEGIN PriceDisplay.jspf --><!--  If leverage price rule to get the price, get the contract unit price. -->
+
+		<span id="offerPrice_54702" class="price" itemprop="price">
+			$70.00
+		</span>
+		<div itemprop="offers" itemtype="http://schema.org/Offer" itemscope="">
+        	<meta itemprop="price" content="70.0">
+        	<meta itemprop="priceCurrency" content="CAD">
+       	</div>
+
+		<input type="hidden" id="ProductInfoPrice_54702" value="$70.00">
+		<!-- END PriceDisplay.jspf -->
+		</div>
+
+		<!-- BEGIN ProductScore.jsp -->
+    <div class="product_score" data-toggle="tooltip" data-placement="top" title="Wine Enthusiast">
+        <div class="critic">
+            WE
+        </div>
+        <div class="score">
+            93
+
+        </div>
+    </div>
+
+    <script>
+        $('[data-toggle="tooltip"]').tooltip()
+    </script>
+<!-- END ProductScore.jsp -->
+		<div class="region hidden-sm">
+
+				<span>
+
+							Burgundy, France
+
+				</span>
+
+		</div>
+
+
+
+		<div class="hidden-sm">
+			<span>
+
+			</span>
+		</div>
+
+			</div>
+		</div>
+		<div class="plpQuantityCartField col-xs-12 col-sm-7 col-sm-offset-5">
+
+		<input type="hidden" id="ProductInfoName_54702" value="Domaine Chanson Beaune Teurons 1er Cru 2013">
+		<input type="hidden" id="ProductInfoImage_54702" value="/wcsstore/LCBOStorefrontAssetStore/images/NoImageIcon_sm.jpg">
+	</div>
+</div>
+<!-- END CatalogEntryDisplay_ListView_UI.jsp -->
+	</div>

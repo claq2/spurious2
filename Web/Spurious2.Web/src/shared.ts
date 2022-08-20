@@ -1,5 +1,5 @@
 import { JsonServiceClient } from "@servicestack/client";
 
-declare var global: { BaseUrl: any; }; //populated from package.json/jest
+declare let global: { BaseUrl: string; }; //populated from package.json/jest
 
-export var client = new JsonServiceClient(global.BaseUrl || '/');
+export const client = new JsonServiceClient(global.BaseUrl || '/');

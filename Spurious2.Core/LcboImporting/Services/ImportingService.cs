@@ -1,190 +1,145 @@
-﻿using HtmlAgilityPack;
-using Fizzler.Systems.HtmlAgilityPack;
+﻿using Microsoft.Extensions.Logging;
 using Spurious2.Core.LcboImporting.Adapters;
 using Spurious2.Core.LcboImporting.Domain;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Globalization;
+using Spurious2.Core.SubdivisionImporting.Domain;
 
-namespace Spurious2.Core.LcboImporting.Services
+namespace Spurious2.Core.LcboImporting.Services;
+
+public class ImportingService : IImportingService
 {
-    public class ImportingService : IImportingService
+    private readonly IStoreRepository storeRepository;
+    private readonly IProductRepository productRepository;
+    private readonly IInventoryRepository inventoryRepository;
+    private readonly ISubdivisionRepository subdivisionRepository;
+    private readonly ILcboAdapterPaged2 lcboAdapter;
+    private readonly IStorageAdapter storageAdapter;
+    private readonly ILogger<ImportingService> logger;
+
+    public ImportingService(
+        IStoreRepository storeRepository,
+        ILcboAdapterPaged2 lcboAdapter,
+        IProductRepository productRepository,
+        IInventoryRepository inventoryRepository,
+        ISubdivisionRepository subdivisionRepository,
+        IStorageAdapter storageAdapter,
+        ILogger<ImportingService> logger)
     {
-        private readonly IStoreRepository storeRepository;
-        private readonly IProductRepository productRepository;
-        private readonly IInventoryRepository inventoryRepository;
-        private readonly ILcboAdapter lcboAdapter;
-        private readonly Regex storeRegex = new Regex("STORE=([0-9]+)");
+        this.storageAdapter = storageAdapter;
+        this.storeRepository = storeRepository;
+        this.lcboAdapter = lcboAdapter;
+        this.productRepository = productRepository;
+        this.inventoryRepository = inventoryRepository;
+        this.subdivisionRepository = subdivisionRepository;
+        this.logger = logger;
+    }
 
-        public ImportingService(IStoreRepository storeRepository, ILcboAdapter lcboAdapter, IProductRepository productRepository, IInventoryRepository inventoryRepository)
-        {
-            this.storeRepository = storeRepository;
-            this.lcboAdapter = lcboAdapter;
-            this.productRepository = productRepository;
-            this.inventoryRepository = inventoryRepository;
-        }
+    public async Task StartImporting()
+    {
+        // Clear incoming tables
+        await this.storeRepository.ClearIncomingStores().ConfigAwait();
+        await this.productRepository.ClearIncomingProducts().ConfigAwait();
+        await this.inventoryRepository.ClearIncomingInventory().ConfigAwait();
+        await this.storageAdapter.ClearStorage();
+    }
 
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    public async Task SignalLastProductDone()
+    {
+        await this.storageAdapter.WriteLastProduct("Done products!");
+    }
 
-        protected virtual void Dispose(bool disposing)
+    public async Task GetProductPages(ProductType productType)
+    {
+        await foreach (var products in this.lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
         {
-            if (disposing)
+            await this.productRepository.ImportAFew(products).ConfigAwait();
+            foreach (Product product2 in products)
             {
-                this.storeRepository?.Dispose();
-                this.lcboAdapter?.Dispose();
-                this.productRepository?.Dispose();
-                this.inventoryRepository?.Dispose();
+                await this.storageAdapter.WriteProductId(product2.Id.ToString());
+            }
+        }
+    }
+
+    public async Task ProcessProductBlob(string productId)
+    {
+        var contents = await this.lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
+        await this.storageAdapter.WriteInventory(productId, contents).ConfigAwait();
+        this.logger.LogInformation("Processed product {productId}", productId);
+    }
+
+    public async Task ProcessInventoryBlob(string productId, Stream inventoryStream)
+    {
+        // Add store info if blob doesn't exist
+        // Mark prod-inv done
+        var inventories = await this.lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryStream).ConfigAwait();
+        this.logger.LogInformation("Found {count} inventory items for product {productId}",
+            inventories.Count,
+            productId);
+        var storeIds = inventories.Select(i => i.Item1.StoreId).ToList();
+        await this.storeRepository.AddIncomingStoreIds(storeIds).ConfigAwait();
+        await this.inventoryRepository.AddIncomingInventories(inventories.Select(i => i.Item1));
+        foreach (var (inventory, uri) in inventories)
+        {
+            if (!await this.storageAdapter.StoreExists(inventory.StoreId.ToString()).ConfigAwait())
+            {
+                var storePage = await this.lcboAdapter.GetStorePage(uri).ConfigAwait();
+                // _ = this.storageAdapter.WriteStore(inventory.StoreId.ToString(), storePage).ConfigAwait();
+                await this.storageAdapter.WriteStore(inventory.StoreId.ToString(), storePage).ConfigAwait();
             }
         }
 
-        public async Task<int> ImportStores()
-        {
-            var storeInfos = await this.lcboAdapter.ReadStores().ConfigureAwait(false);
-            await this.storeRepository.Import(storeInfos).ConfigureAwait(false);
-            return storeInfos.Count();
-        }
+        await this.productRepository.MarkIncomingProductDone(productId).ConfigAwait();
 
-        public async Task<int> ImportProducts()
-        {
-            var products = new ConcurrentBag<Product>();
-            var productIds = await this.lcboAdapter.ReadProductIds().ConfigureAwait(false);
-            var productIdsToQuery = productIds;
+        this.logger.LogInformation("Processed inventory {productId}", productId);
+    }
 
-            Parallel.ForEach(productIdsToQuery, productId =>
-            {
-                var product = this.lcboAdapter.ReadProductS(productId);
-                products.Add(product);
-            });
+    public async Task ProcessStoreBlob(string storeId, Stream storeStream)
+    {
+        var store = await this.lcboAdapter.GetStoreInfo(storeId, storeStream);
+        // Write store to StoreIncoming, mark as done
+        await this.storeRepository.UpdateIncomingStore(store).ConfigAwait();
+        this.logger.LogInformation("Processed store {storeId}", storeId);
+    }
 
-            await this.productRepository.Import(products.Where(p => p.LiquorType.ToUpperInvariant() == "BEER"
-            || p.LiquorType.ToUpperInvariant() == "WINE"
-            || p.LiquorType.ToUpperInvariant() == "SPIRITS"))
-                .ConfigureAwait(false);
-            return products.Count;
-        }
+    public async Task ProcessLastProductBlob(string contents)
+    {
+        // Get volume info and prod IDs, put in DB
+        // Get inv contents, write to end prod-inv blob
+        // Mark prod done
+        await this.storageAdapter.WriteLastInventory(contents).ConfigAwait();
+        this.logger.LogInformation("Processed last product {contents}", contents);
+    }
 
-        public async Task<int> ReadInventoryHtmlsIntoDatabase()
-        {
-            var productIds = await this.productRepository.GetProductIds().ConfigureAwait(false);
-            await this.inventoryRepository.ClearInventoryPages().ConfigureAwait(false);
-            const int skipInterval = 6;
-            var skip = 0;
-            var getAllStopwatch = Stopwatch.StartNew();
-            while (skip < productIds.Count())
-            {
-                var toGet = productIds.Skip(skip).Take(skipInterval).ToList();
-                var htmlTasks = new Task<string>[toGet.Count];
+    public async Task ProcessLastInventoryBlob(string contents)
+    {
+        // Add store info if blob doesn't exist
+        // Mark prod-inv done
+        // Loop checking for all prod and prod-inv and store pages to be done
+        // Call EndImporting, or just do it
 
-                for (var i = 0; i < toGet.Count; i++)
-                {
-                    htmlTasks[i] = this.lcboAdapter.ReadInventoryHtmlAsync(toGet[i]);
-                }
+        // Prods all done => inventories all done => all stores discovered
 
-                Task.WaitAll(htmlTasks);
+        await this.EndImporting().ConfigAwait();
+        this.logger.LogInformation("Processed last inventory {contents}", contents);
+    }
 
-                var dbImportTasks = new Task[toGet.Count];
-                for (var i = 0; i < toGet.Count; i++)
-                {
-                    dbImportTasks[i] = this.inventoryRepository.ImportHtml(htmlTasks[i].Result, toGet[i]);
-                }
+    public async Task EndImporting()
+    {
+        // Do final update
+        this.logger.LogInformation("Ended importing, doing DB update (no, not really :)");
+    }
 
-                Task.WaitAll(dbImportTasks);
-
-                skip += skipInterval;
-            }
-
-            getAllStopwatch.Stop();
-            Console.WriteLine($"Took {getAllStopwatch.Elapsed} to get all htmls");
-            return productIds.Count();
-        }
-
-        public async Task<int> UpdateInventoriesFromDatabase(int skip = 0, int take = 100000)
-        {
-            var readAllStopwatch = Stopwatch.StartNew();
-            var productsStopwatch = Stopwatch.StartNew();
-            var productIds = await this.productRepository.GetProductIds().ConfigureAwait(false);
-            productsStopwatch.Stop();
-            Console.WriteLine($"Took {productsStopwatch.Elapsed} to get all product IDs");
-            const int skipInterval = 2;
-            var skipForThreads = 0;
-            var inventories = new List<Inventory>(); //await this.inventoryRepository.GetInventories().ConfigureAwait(false);
-            //var inventoryDict = inventories.ToDictionary(i => $"{i.ProductId}_{i.StoreId}", i => i);
-            productIds = productIds.Skip(skip).Take(take);
-            if (skip == 0)
-            {
-                await this.inventoryRepository.ClearIncomingInventory().ConfigureAwait(false);
-            }
-
-            while (skipForThreads < productIds.Count())
-            {
-                var productIdsToGet = productIds.Skip(skipForThreads).Take(skipInterval).ToList();
-                var readInventoryTasks = new Task<List<Inventory>>[productIdsToGet.Count];
-                var parsestopwatch = Stopwatch.StartNew();
-                for (var i = 0; i < productIdsToGet.Count; i++)
-                {
-                    readInventoryTasks[i] = this.ReadInventoriesFromDatabase(productIdsToGet[i]);
-                }
-
-                Task.WaitAll(readInventoryTasks);
-                parsestopwatch.Stop();
-                //Console.WriteLine($"Took {parsestopwatch.Elapsed} to parse {productIdsToGet.Count} product inventories");
-                for (var i = 0; i < productIdsToGet.Count; i++)
-                {
-                    inventories.AddRange(readInventoryTasks[i].Result);
-                    //Console.WriteLine($"There are now {inventories.Count} inventories");
-                }
-
-                skipForThreads += skipInterval;
-            }
-
-            var writestopwatch = Stopwatch.StartNew();
-            await this.inventoryRepository.Import(inventories).ConfigureAwait(false);
-            writestopwatch.Stop();
-            Console.WriteLine($"Took {writestopwatch.Elapsed} to import {inventories.Count} inventories");
-            if (productIds.Count() < take)
-            {
-                var updatestopwatch = Stopwatch.StartNew();
-                await this.inventoryRepository.UpdateInventoriesFromIncoming().ConfigureAwait(false);
-                updatestopwatch.Stop();
-                Console.WriteLine($"Took {updatestopwatch.Elapsed} to update inventories from incoming");
-            }
-
-            readAllStopwatch.Stop();
-            Console.WriteLine($"Took {readAllStopwatch.Elapsed} to read all htmls");
-            return productIds.Count();
-        }
-
-        private async Task<List<Inventory>> ReadInventoriesFromDatabase(int productId)
-        {
-            var html = await this.inventoryRepository.GetHtmlForIdAsync(productId).ConfigureAwait(false);
-            // Parse html
-            var collection = new List<Inventory>(); // parse html
-            var doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            var trNodes = doc.DocumentNode.QuerySelectorAll("form[name=\"inventoryresults\"] table[border=\"0\"][width=\"100%\"][cellpadding=\"5\"] tr");
-            foreach (var tr in trNodes)
-            {
-                var tdPNodes = tr.QuerySelectorAll("td p");
-                if (tdPNodes.Count() == 4)
-                {
-                    var storeLinkAttribute = tdPNodes.ElementAt(1).QuerySelector("a").Attributes["href"];
-                    var r = storeRegex.Match(storeLinkAttribute.Value);
-                    var storeId = Convert.ToInt32(r.Groups[1].Value, CultureInfo.InvariantCulture);
-                    var quantity = Convert.ToInt32(tdPNodes.ElementAt(3).InnerText, CultureInfo.InvariantCulture);
-                    collection.Add(new Inventory { ProductId = productId, Quantity = quantity, StoreId = storeId });
-                }
-            }
-
-            return collection;
-        }
+    public async Task UpdateAll()
+    {
+        // UpdateStoresFromIncoming
+        await this.storeRepository.UpdateStoresFromIncoming().ConfigAwait();
+        // UpdateProductsFromIncoming
+        await this.productRepository.UpdateProductsFromIncoming().ConfigAwait();
+        // UpdateInventoriesFromIncoming
+        await this.inventoryRepository.UpdateInventoriesFromIncoming().ConfigAwait();
+        // UpdateStoreVolumes
+        await this.storeRepository.UpdateStoreVolumes().ConfigAwait();
+        // UpdateSubdivisionVolumes
+        await this.subdivisionRepository.UpdateSubdivisionVolumes().ConfigAwait();
+        this.logger.LogInformation("Ended DB update");
     }
 }

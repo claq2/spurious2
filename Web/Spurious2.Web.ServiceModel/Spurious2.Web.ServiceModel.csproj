@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\..\Spurious2.Core\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
+    <Using Include="ServiceStack" />
   </ItemGroup>
 
   <ItemGroup>
@@ -13,7 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ServiceStack.Interfaces" Version="5.13.2" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>

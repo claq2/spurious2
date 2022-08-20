@@ -1,40 +1,39 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "target": "es5",
+        "esModuleInterop": true,
         "module": "esnext",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "sourceRoot": "src",
-        "sourceMap": true,
-        "allowJs": true,
-        "baseUrl": "src",
-        "forceConsistentCasingInFileNames": true,
-        "importHelpers": true,
-        "strict": true,
         "typeRoots": [
             "./node_modules/@types"
         ],
-        "skipLibCheck": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "target": "es5",
         "lib": [
-            "es2017",
+            "es2015",
             "dom"
         ],
+        "moduleResolution": "node",
+        "baseUrl": "src",
+        "resolveJsonModule": true,
+        "importHelpers": true,
+        "allowJs": true,
         "outDir": "blah"
     },
     "exclude": [
         "node_modules",
         "aurelia_project",
         "wwwroot",
-        "obj",
-        "bin"
-    ],
-    "filesGlob": [
+        "bin",
+        "obj"
+      ],
+      "filesGlob": [
         "./src/**/*.ts",
         "./test/**/*.ts",
         "./custom_typings/**/*.d.ts"
-    ],
+      ],
     "atom": {
         "rewriteTsconfig": false
     }

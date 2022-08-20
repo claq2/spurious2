@@ -1,11 +1,7 @@
-using ServiceStack;
-using System;
+namespace Spurious2.Web.ServiceModel;
 
-namespace Spurious2.Web.ServiceModel
+[Route("/subdivisions/{Id}/boundary")]
+public class BoundaryRequest : IReturn<string>
 {
-    [Route("/subdivisions/{Id}/boundary")]
-    public class BoundaryRequest : IReturn<string>
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

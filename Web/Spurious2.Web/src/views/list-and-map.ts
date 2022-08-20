@@ -44,7 +44,7 @@ export class ListAndMap {
         });
 
         var alcoholTemplate = '<div>{alcoholType}: {volume} L</div>'
-        var popupTemplate = '<div class="customInfobox"><div class="name">{name}</div>{alcoholTypes}</div>';
+        var popupTemplate = '<div class="customInfobox"><div class="name">{name}</div><div class="name">{city}</div>{alcoholTypes}</div>';
 
         this.map.events.addOnce("ready", async () => {
             this.datasource = new source.DataSource();
@@ -95,7 +95,7 @@ export class ListAndMap {
                 let f = new data.Feature(
                     new data.Point(
                         new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
-                            parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, inventories: s.inventories });
+                            parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
                 //console.log('f');
                 //console.log(f);
                 this.datasource.add(f);
@@ -122,10 +122,11 @@ export class ListAndMap {
                     //console.log('x.prop');
                     //console.log(x.properties['name']);
                     let storeName: string = s.getProperties()['name'] as string;
+                    let cityName: string = s.getProperties()['city'] as string;
                     let inventories: Inventory[] = s.getProperties()['inventories'] as Inventory[];
                     let inventoryDiv: string = '';
                     inventories.forEach(i => inventoryDiv += alcoholTemplate.replace(/{alcoholType}/g, i.alcoholType).replace(/{volume}/g, i.volume.toString()));
-                    content = popupTemplate.replace(/{name}/g, storeName).replace(/{alcoholTypes}/g, inventoryDiv);
+                    content = popupTemplate.replace(/{name}/g, storeName).replace(/{city}/g, cityName).replace(/{alcoholTypes}/g, inventoryDiv);
                     //console.log('s.getProp');
                     //console.log(s.getProperties()['name']);
                     //console.log(s.getProperties()['inventories']);
@@ -175,7 +176,7 @@ export class ListAndMap {
             let f = new data.Feature(
                 new data.Point(
                     new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
-                        parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, inventories: s.inventories });
+                        parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
             //console.log('f');
             //console.log(f);
             this.datasource.add(f);

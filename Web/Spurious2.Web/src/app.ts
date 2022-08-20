@@ -7,7 +7,7 @@ export class App {
     router!: Router;
 
     async configureRouter(config: RouterConfiguration, router: Router) {
-        let req: Densities = new Densities();
+        const req: Densities = new Densities();
         const r: DensityInfo[] = await client.get(req);
 
         let routes: RouteConfig[] = r.map(rx => <RouteConfig>{

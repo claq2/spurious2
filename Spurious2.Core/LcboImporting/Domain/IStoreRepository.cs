@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace Spurious2.Core.LcboImporting.Domain;
 
-namespace Spurious2.Core.LcboImporting.Domain
+public interface IStoreRepository : IDisposable
 {
-    public interface IStoreRepository : IDisposable
-    {
-        Task UpdateStoreVolumes();
-        Task Import(IEnumerable<StoreInfo> storeInfos);
-    }
+    Task UpdateIncomingStore(Store store);
+    Task UpdateStoreVolumes();
+    Task ClearIncomingStores();
+    Task AddIncomingStoreIds(List<int> storeIds);
+    Task UpdateStoresFromIncoming();
 }

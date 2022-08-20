@@ -13,10 +13,13 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <UserSecretsId>b9433cb9-c230-4b20-802e-92e473a7296b</UserSecretsId>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\..\Spurious2.Core\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
+    <Using Include="Spurious2.Web" />
+    <Using Include="ServiceStack" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,8 +31,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ServiceStack" Version="5.13.2" />
-    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.13.2" />
+    <PackageReference Include="ServiceStack" Version="6.*" />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>

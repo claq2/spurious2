@@ -1,0 +1,3540 @@
+﻿<!DOCTYPE HTML>
+
+
+<html>
+	<head>
+	<!-- BEGIN CommonCSSToInclude.jspf -->
+<script type="text/javascript" src="//static.queue-it.net/script/queueclient.min.js"></script>
+<script data-queueit-c="lcbo" type="text/javascript" src="//static.queue-it.net/script/queueconfigloader.min.js">
+</script>
+
+
+	    <link rel="stylesheet" href="/etc/designs/lcbo/clientlib-all.d2a55817ad023c93592fc17d83cab4ad.css" type="text/css"><link href="//cloud.webtype.com/css/e097fdd2-519a-4632-863b-60bbd21d2030.css" rel="stylesheet" type="text/css"/>     <script type="text/javascript" src="/etc/designs/lcbo/clientlib-all.e423ff506401cb43267a1b5a3fb9c977.js"></script><!-- <script src="//assets.adobedtm.com/245d2c3f729a2296336e14470fca4340c923c59e/satelliteLib-16ae77db310d9dbbbcf766dfdc08bb309914a3aa.js"></script> <script type="text/javascript">    var _getURLParameter = function (name) {        var regex = new RegExp('[?&]' + name.replace(/[\[\]]/g, '\\$&') + '(=([^&#]*)|&|#|$)'),                results = regex.exec(window.location.href);        if (results && results.length > 2) {            return decodeURIComponent(results[2].replace(/\+/g, ' '));        }    };    var _srcDTM = "//assets.adobedtm.com/245d2c3f729a2296336e14470fca4340c923c59e/satelliteLib-f7aa00985a2ca01861a3287b85a57df88f67df84-staging.js";    if (_getURLParameter("dtm8")) {        _srcDTM = "//assets.adobedtm.com/245d2c3f729a2296336e14470fca4340c923c59e/satelliteLib-16ae77db310d9dbbbcf766dfdc08bb309914a3aa-staging.js"    }    document.write('<scr' + 'ipt type="text\/javascript" src="' + _srcDTM + '"><\/sc' + 'ript>');</script> --><script type="text/javascript">	function getCookie(name) {		var cookieArr = document.cookie.split(";");		for(var i = 0; i < cookieArr.length; i++) {			var cookiePair = cookieArr[i].split("=");			if(name == cookiePair[0].trim()) {				return decodeURIComponent(cookiePair[1]);			}		}		return "en";	}		var full = window.location.host;	var bv_environment = "production";    var _srcDTM = "//assets.adobedtm.com/37524775a72e/61f333e39711/launch-b378e278a978.min.js";	var bv_lang = getCookie("lang").toLowerCase();	var bv_locale= bv_lang === "fr" ? "fr_CA" : "en_CA";    /* load staging analytics script if host is not PROD */	if ((full.indexOf("localhost") > -1) ||         (full.indexOf("dev01.") > -1) ||         (full.indexOf("staging.") > -1) ||         (full.indexOf("qa.") > -1) ||         (full.indexOf("sit.") > -1) ||         (full.indexOf("lx071.") > -1) ||	        (full.indexOf("qastg-wc.") > -1) ||        (full.indexOf("qae.") > -1) ||        (full.indexOf("qalive-wc.") > -1) ||		(full.indexOf("qalive-wc1.") > -1) ||		(full.indexOf("qalive-wc2.") > -1) ||        (full.indexOf("qaestg.") > -1)) {            _srcDTM = "//assets.adobedtm.com/37524775a72e/61f333e39711/launch-5b2b7d3687e7-staging.min.js";			bv_environment = "staging";        }		if((full.indexOf("lx227.") > -1)||         (full.indexOf("lx083.") > -1) ||		(full.indexOf("lx226.") > -1) ) {			_srcDTM = "//assets.adobedtm.com/37524775a72e/fc98f6fa2aa8/launch-d4e291dc8242-staging.min.js";			bv_environment = "staging";		}						document.write('<scr' + 'ipt type="text\/javascript" src="' + _srcDTM + '" async><\/sc' + 'ript>');					var url = "https://apps.bazaarvoice.com/deployments/lcbo/main_site/" + bv_environment +"/" + bv_locale + "/bv.js";	if(!!document.getElementById("bv-script")) {		document.getElementById("bv-script").src = url;	}else{		var s = document.createElement('script');		s.type = 'text/javascript';		s.id = 'bv-script';		s.async = true;		document.head.appendChild(s);		document.getElementById("bv-script").src = url;	}</script><!-- bazaarvoice js call --><script async src="" id="bv-script"></script><!-- Medallia Feedback form --><script type="text/javascript" src="https://resources.digital-cloud.medallia.ca/wdccan/752/onsite/embed.js" async></script><!-- QueueIT Script For AEM Content pages--><script type="text/javascript" src="//static.queue-it.net/script/queueclient.min.js"></script><script data-queueit-c="lcbo" type="text/javascript" src="//static.queue-it.net/script/queueconfigloader.min.js"></script>
+<!-- Style sheet for MyAccount, Checkout, Error, QuickOrder, AdvanceSearch, Store Locator -->
+
+<link rel="stylesheet" href="/wcsstore/LCBOStorefrontAssetStore/css/store.css" type="text/css" />
+
+<!-- Third-party libraries -->
+<link rel="stylesheet" href="/wcsstore/LCBOStorefrontAssetStore/css/vendor.css" type="text/css" />
+
+<!--[if IE 8]>
+<link rel="stylesheet" href="/wcsstore/LCBOStorefrontAssetStore/css/stylesIE8.css" type="text/css" />
+<![endif]-->
+<link rel="stylesheet" href="/wcsstore/LCBOStorefrontAssetStore/css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="/wcsstore/LCBOStorefrontAssetStore/css/custom-styles.css" type="text/css" />
+<!-- END CommonCSSToInclude.jspf --><!-- BEGIN CommonJSToInclude.jspf -->
+
+<script>
+	var flowEnabled = {};
+</script>
+
+
+	<script>
+		flowEnabled.SideBySideIntegration = true;
+	</script>
+
+
+<script type="text/javascript" src="/wcsstore/JQuery/vendor.js"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta name="CommerceSearch" content="storeId_10203" />
+
+<link rel="shortcut icon" href="/wcsstore/LCBOStorefrontAssetStore/images/icon-favicon.ico" mce_href="/wcsstore/LCBOStorefrontAssetStore/images/icon-favicon.ico"/>
+
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-60x60.png" sizes="60x60"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-72x72.png" sizes="72x72"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-76x76.png" sizes="76x76"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-114x114.png" sizes="114x114"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-120x120.png" sizes="120x120"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-144x144.png" sizes="144x144"/>
+		<link rel="apple-touch-icon-precomposed" href="/content/dam/lcbo/header/LCBO-CREST-English-152x152.png" sizes="152x152"/>
+
+
+<script type="text/javascript">
+	// Convert the WCParam object which contains request properties into javascript object
+	var WCParamJS = {
+		"storeId":'10203',
+		"catalogId":'10051',
+		"langId":'-1',
+		"pageView":'',
+		"orderBy":'',
+		"orderByContent":'',
+		"searchTerm":'',
+		"homePageURL" : 'https://www.lcbo.com/webapp/wcs/stores/servlet/en/lcbo',
+		"commandContextCurrency": "CAD",
+		"urlPrefixForHTTPS":"https://www.lcbo.com",
+		"urlPrefixForHTTP":"http://www.lcbo.com",
+		"wcc_integration_origin":""
+	};
+	var absoluteURL = "https://www.lcbo.com/webapp/wcs/stores/servlet/";
+	var absoluteBaseURL = "";
+	var imageDirectoryPath = "/wcsstore/LCBOStorefrontAssetStore/";
+	var styleDirectoryPath = "images/colors/color1/";
+	var supportPaymentTypePromotions = false;
+
+	var subsFulfillmentFrequencyAttrName = "fulfillmentFrequency";
+	var subsPaymentFrequencyAttrName = "paymentFrequency";
+	var subsTimePeriodAttrName = "timePeriod";
+
+	var storeNLS = null;
+	var storeUserType = "G";
+	var ios = false;
+	var android = false;
+	var multiSessionEnabled = true;
+
+	// Store the amount of time of inactivity before a re-login is required, this value is retrieved from wc-server.xml, default is 30 mins
+	var inactivityTimeout = 900000;
+
+	// Store the amount of time the inactivity warning dialog will be displayed before it closes itself, default is 20 seconds
+	var inactivityWarningDialogDisplayTimer = 20000;
+
+	// Store the amount of time to display a inactivity warning dialog before a re-login is required, default is 30 seconds
+	var inactivityWarningDialogBuffer = 30000;
+
+	// Store the timing event to display the inactivity dialog
+	var inactivityTimeoutTracker = null;
+
+	// Store the timing event to close the inactivity dialog
+	var dialogTimeoutTracker = null;
+
+	//browse only mode for Web Call Centre integration
+	var browseOnly = false;
+
+	//Summary: Returns the absolute URL to use for prefixing any Ajax URL call.
+	//Returns: The absolute URL to use for prefixing any Ajax URL call.
+	function getAbsoluteURL() {
+		if (absoluteURL != "") {
+			var currentURL = document.URL;
+			var currentProtocol = "";
+
+			if (currentURL.indexOf("://") != -1) {
+				currentProtocol = currentURL.substring(0, currentURL.indexOf("://"));
+			}
+
+			var savedProtocol = "";
+			if (absoluteURL.indexOf("://") != -1) {
+				savedProtocol = absoluteURL.substring(0, absoluteURL.indexOf("://"));
+			}
+
+			if (currentProtocol != savedProtocol) {
+				absoluteURL = currentProtocol + absoluteURL.substring(absoluteURL.indexOf("://"));
+			}
+		}
+
+		return absoluteURL;
+	}
+	function getAbsoluteBaseURL() {
+		if (absoluteBaseURL != "") {
+			var currentURL = document.URL;
+			var currentProtocol = "";
+
+			if (currentURL.indexOf("://") != -1) {
+				currentProtocol = currentURL.substring(0, currentURL.indexOf("://"));
+			}
+
+			var savedProtocol = "";
+			if (absoluteBaseURL.indexOf("://") != -1) {
+				savedProtocol = absoluteBaseURL.substring(0, absoluteURL.indexOf("://"));
+			}
+
+			if (currentProtocol != savedProtocol) {
+				absoluteBaseURL = currentProtocol + absoluteBaseURL.substring(absoluteBaseURL.indexOf("://"));
+			}
+		}
+
+		return absoluteBaseURL;
+	}
+	//Summary: Returns the path pointing to the shared image directory.
+	//Description: In order to get the image directory path in any javascript file, this function can be used.
+	//Returns: The path to reference images.
+	function getImageDirectoryPath() {
+		return imageDirectoryPath;
+	}
+	//Summary: Returns the path pointing to the directory containing color-dependant image files.
+	//Description: In order to get the directory containing color-dependant image files in any javascript file, this function can be used.
+	//Returns: The path to reference color-dependant image files.
+	function getStyleDirectoryPath() {
+		return styleDirectoryPath;
+	}
+
+
+</script>
+<script>lcbo = typeof(lcbo) === "undefined" ? {} : lcbo;</script>
+
+		<script>
+			dynamicGoogleMapsEnabled = false;
+		</script>
+
+<script type="text/javascript" src="/wcsstore/LCBOStorefrontAssetStore/javascript/bootstrap.js"></script>
+<script type="text/javascript" src="/wcsstore/LCBOStorefrontAssetStore/javascript/store.js"></script>
+
+
+<script>
+$(document).ready(function() {
+	if (typeof window.renderMegaMenu !== 'function') {
+		var head = document.getElementsByTagName('head')[0];
+
+		var runtimeJs = document.createElement('script');
+		runtimeJs.type = 'text/javascript';
+		runtimeJs.defer = true;
+		runtimeJs.src = '/wcsstore/LCBOStorefrontAssetStore/MegaMenu/build/js/runtime.megamenu.js';
+
+		var vendorJs = document.createElement('script');
+		vendorJs.type = 'text/javascript';
+		vendorJs.defer = true;
+		vendorJs.src = '/wcsstore/LCBOStorefrontAssetStore/MegaMenu/build/js/vendor.megamenu.js';
+
+		var indexJs = document.createElement('script');
+		indexJs.type = 'text/javascript';
+		indexJs.defer = true;
+		indexJs.src = '/wcsstore/LCBOStorefrontAssetStore/MegaMenu/build/js/index.megamenu.js';
+
+		head.appendChild(runtimeJs);
+		head.appendChild(vendorJs);
+		head.appendChild(indexJs);
+	}
+});
+</script>
+<script>
+$(document).ready(function() {
+	lcbo.mapsUtils.apiKey = "AIzaSyA_KFvSAoGiOweuOGtmBo7I5pW-CXafHFE";
+});
+</script>
+
+		<script type="text/javascript" src="/wcsstore/LCBOWidgets/Common/javascript/widgets.js"></script>
+
+<script type="text/javascript" src="/wcsstore/LCBOStorefrontAssetStore/nls/en_US/StoreText.js"></script>
+<script type="text/javascript" src="/wcsstore/LCBOStorefrontAssetStore/nls/en_US/NumberFormattingData.js"></script>
+<script type="text/javascript" src="/wcsstore/LCBOStorefrontAssetStore/javascript/custom.js"></script>
+
+<script type="text/javascript">
+/*! jquery.cookie v1.4.1 | MIT */
+!function(a){"function"==typeof define&&define.amd?define(["jquery"],a):"object"==typeof exports?a(require("jquery")):a(jQuery)}(function(a){function b(a){return h.raw?a:encodeURIComponent(a)}function c(a){return h.raw?a:decodeURIComponent(a)}function d(a){return b(h.json?JSON.stringify(a):String(a))}function e(a){0===a.indexOf('"')&&(a=a.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\"));try{return a=decodeURIComponent(a.replace(g," ")),h.json?JSON.parse(a):a}catch(b){}}function f(b,c){var d=h.raw?b:e(b);return a.isFunction(c)?c(d):d}var g=/\+/g,h=a.cookie=function(e,g,i){if(void 0!==g&&!a.isFunction(g)){if(i=a.extend({},h.defaults,i),"number"==typeof i.expires){var j=i.expires,k=i.expires=new Date;k.setTime(+k+864e5*j)}return document.cookie=[b(e),"=",d(g),i.expires?"; expires="+i.expires.toUTCString():"",i.path?"; path="+i.path:"",i.domain?"; domain="+i.domain:"",i.secure?"; secure":""].join("")}for(var l=e?void 0:{},m=document.cookie?document.cookie.split("; "):[],n=0,o=m.length;o>n;n++){var p=m[n].split("="),q=c(p.shift()),r=p.join("=");if(e&&e===q){l=f(r,g);break}e||void 0===(r=f(r))||(l[q]=r)}return l};h.defaults={},a.removeCookie=function(b,c){return void 0===a.cookie(b)?!1:(a.cookie(b,"",a.extend({},c,{expires:-1})),!a.cookie(b))}});
+</script>
+
+
+
+<script type="text/javascript">
+	if(typeof Globalize !== 'undefined') {
+		var locale = "en_US";
+		var GlobalizeLoaded = false;
+
+		Globalize.load( cldrData );
+		Globalize.loadMessages( nlsMessages );
+		Globalize.locale( locale );
+		GlobalizeLoaded = true;
+	 }
+
+ initializeInactivityWarning();
+ var ie6 = false;
+ var ie7 = false;
+ if (navigator != null && navigator.userAgent != null) {
+	 ie6 = (navigator.userAgent.toLowerCase().indexOf("msie 6.0") > -1);
+	 ie7 = (navigator.userAgent.toLowerCase().indexOf("msie 7.0") > -1);
+ }
+ if (location.href.indexOf('UnsupportedBrowserErrorView') == -1 && (ie6 || ie7)) {
+	 document.write('<meta http-equiv="Refresh" content="0;URL=http://www.lcbo.com/webapp/wcs/stores/servlet/UnsupportedBrowserErrorView?catalogId=10051&amp;langId=-1&amp;storeId=10203"/>');
+ }
+</script>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		shoppingActionsJS.setCommonParameters('-1','10203','10051','G','$');
+
+		if (isChrome() || isSafari()) {
+			var hiddenFields = $('input[type=\"hidden\"]');
+			for (var i = 0; i < hiddenFields.length; i++) {
+				hiddenFields[i].autocomplete="off"
+			}
+		}
+        var isAndroid = /(android)/i.test(navigator.userAgent);
+        var isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+        if(isAndroid || isIOS) {
+            $("body").attr("data-wc-device","mobile");
+		}
+		if($('#lcbo').find('#clickcollecttopbanner').length > 0){
+			$('#lcbo #page').addClass('clickcollecttopmargin');
+		}else{
+			$('#lcbo #page').removeClass('clickcollecttopmargin');
+		}
+	});
+</script>
+
+
+<script async src="https://apps.bazaarvoice.com/deployments/lcbo/main_site/production/en_CA/bv.js"></script>
+
+<!-- END CommonJSToInclude.jspf -->
+	</head>
+	<!-- BEGIN CommonJSPFToInclude.jspf --><!-- BEGIN ProgressBar.jspf -->
+<div id="progress_bar_dialog" data-widget-type="wc.WCDialog" data-widget-options="{}" style="display: none;">
+	<div id="progress_bar">
+		<!-- <div id="loading_popup"> -->
+
+				<img src="/wcsstore/LCBOStorefrontAssetStore/images/lcbo-logo.png" alt="Your request is being processed."/>
+		    	<div class="sp-mt-10">Your request is being processed</div>
+		    <!-- </div>
+			</div>
+			<div class="footer" id="WC_StoreCommonUtilities_div_6">
+				 <div class="bot_left" id="WC_StoreCommonUtilities_div_7"></div>
+				 <div class="bot_right" id="WC_StoreCommonUtilities_div_8"></div>
+			</div> -->
+		<!-- </div> -->
+	</div>
+</div>
+<!-- END ProgressBar.jspf --><!-- BEGIN MessageDisplay.jspf -->
+
+<span class="spanacce" style="display:none" id="MessageArea_ACCE_Title">Message Dialog</span>
+
+<span class="spanacce" id="ariaMessage_ACCE_Label" style="display:none">Display Update Message</span>
+<span class="spanacce" role="region" aria-labelledby="ariaMessage_ACCE_Label" id="ariaMessage" aria-live="assertive" aria-atomic="true" aria-relevant="additions"></span>
+<!-- END MessageDisplay.jspf --><!-- BEGIN CSRFProtection.jspf -->
+
+<form id="CSRFProtectionForm" method="post" name="CSRFProtectionForm">
+	<input id="csrf_authToken" type="hidden" value="-1002%2CetYHJunN2fPHnqWYb6iXk2V4thGGKMCP7yRvypmsoac%3D" name="csrf_authToken"/>
+</form>
+
+<!-- END CSRFProtection.jspf -->
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+
+			//handle Ajax global login
+			var showMergeCartError = getCookie("MERGE_CART_FAILED_SHOPCART_THRESHOLD");
+			if (showMergeCartError == "1") {
+				setCookie("MERGE_CART_FAILED_SHOPCART_THRESHOLD", null, {expires: -1, path: "/", domain: cookieDomain});
+
+				MessageHelper.setMessage("MERGE_CART_FAILED_SHOPCART_THRESHOLD", "Your shopping cart failed to merge with the existing items from your account. Review the items in your shopping cart before proceeding to checkout.");
+				MessageHelper.displayErrorMessage(MessageHelper.messages["MERGE_CART_FAILED_SHOPCART_THRESHOLD"]);
+			}
+		});
+	</script>
+
+
+	<div class="addToCartBanner" id="addToCartBanner" style="transform: translate(0px, -500px);">
+		<div class="col-md-10">
+			<div id="quantityAdded"></div>
+			<div>
+				Important: You must be 19 years of age to purchase alcohol.
+			</div>
+		</div>
+		<div class="col-md-2">
+			<a id="goToCartButton" href="https://www.lcbo.com/webapp/wcs/stores/servlet/RESTOrderCalculate?updatePrices=1&amp;calculationUsageId=-1&amp;errorViewName=AjaxOrderItemDisplayView&amp;catalogId=10051&amp;langId=-1&amp;URL=AjaxOrderItemDisplayView&amp;storeId=10203&amp;orderId=." class="btn btn-primary view_cart_btn">
+				View Cart
+			</a>
+		</div>
+		<div class="glyphicon glyphicon-chevron-up" id="closeBanner"></div>
+	</div>
+
+
+	<div class="container wcs-aem-content wcs-aem-content--broadcast-message">
+		<div class="row">                <div class="broadcastmessage"><div class="row cq-component">	<div class="broadcast">	    	<div class=" grey  broadcastText">	    		<div style="background-color: rgb(217,217,214);padding: 2.0px 8.0px 2.0px 14.0px;margin-bottom: 0.0px;"><p style="color: rgb(34,34,34);text-align: center;text-transform: none;">Choose <strong>Same-Day Pickup</strong> – orders ready in 3 hours with express lines and checkout available! <strong>Home Delivery</strong> orders delivered in 2-3 business days in the Greater Toronto &amp; Hamilton areas and 3-5 business days in all other areas.</p></div>	    	</div>    </div></div></div>            <div class="newpar new section"></div></div>
+	</div>
+<!-- END CommonJSPFToInclude.jspf -->
+
+	<body id="lcbo" >
+		<div id="page" class="container physicalStoreInventoryPage">
+			<div id="headerWrapper">
+				<!-- Header Widget -->
+				<div class="header_wrapper_position" id="headerWidget">
+					<!-- BEGIN Header.jsp -->
+	<div id="shoppingListItemAddedPopup" data-widget-type="wc.WCDialog" data-widget-options="{&#034;close_button_selector&#034;: &#034;#shoppingListItemAddedClose&#034;, &#034;primary_button_selector&#034;: &#034;#shoppingListItemAddedContinue&#034;}" style="display:none;" title="This item has been added to your list">
+
+        <!-- BEGIN ItemAddedPopup.jspf (Store) -->
+		<div class="widget_site_popup LCBOfile">
+			<!-- Main Content Area -->
+			<div class="middle">
+				<div class="content_left_border">
+					<div class="content_right_border">
+						<div class="content">
+							<div class="header">
+								<div class="line-strike"><span>Added to Your List</span></div>
+								<a role="button" id="shoppingListItemAddedClose" href="javascript:ShoppingListDialogJS.close();location.reload();" class="close tlignore" title="Close" aria-label="Close" >
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</div>
+							<div class="body row">
+
+								<div class="product_image col-xs-12 col-md-5">
+									<a href="https://www.lcbo.com/webapp/wcs/stores/servlet/Product2_10203_10051__-1____" id="catalogEntry_img_" title="">
+										 <img id="shoppingListItemAddedImg" src="" alt="This item has been added to your list"/>
+									</a>
+								</div>
+								<div id="shoppingListItemAddedListName" class="product_Message col-md-7">
+									 This item has been added to your list
+								</div>
+								<div id="wishListName" class="product_Listname col-md-7">
+								</div>
+								<div id="shoppingListItemAddedName" class="product_name col-md-7 sp-mt-20">
+								</div>
+							</div>
+							<div class="footer">
+								<div class="button_container ">
+									<a id="shoppingListItemAddedContinue" href="javascript:ShoppingListDialogJS.close();location.reload();" class="btn-primary">
+										Continue Shopping
+									</a>
+								</div>
+							</div>
+						<!-- End content Section -->
+						</div>
+					<!-- End content_right_border -->
+					</div>
+				<!-- End content_left_border -->
+				</div>
+			</div>
+		</div>
+        <!-- END ItemAddedPopup.jspf (Store) -->
+	</div>
+
+
+<input type="hidden" id="loginDisplayName" value=""/>
+
+
+<input type="hidden" name="pilotStoreCode" id="pilotStoreCode" value="0"/>
+<input type="hidden" name="storeIdentifier" id="storeIdentifier" value="LCBO"/>
+
+	<header>
+
+			<div id="header" role="banner" class="lcboHeader">
+				<div id="headerRow1" class="row">
+
+<script>var isGuest = true;</script>
+
+<script type="text/javascript">
+    // Convert the WCParam object which contains request properties into javascript object for CSR
+    var CSRWCParamJS = {
+        "env_shopOnBehalfSessionEstablished" : 'false',
+        "env_shopOnBehalfEnabled_CSR" : 'false'
+    };
+	$(document).ready(function(){
+
+		MessageHelper.setMessage("HEADER_CHANGE_STORE", "Change Store");
+
+		MessageHelper.setMessage("CNC_AEM_LANDING_PAGE_URL", "/content/lcbo/en/sdp-home.html");
+
+		MessageHelper.setMessage("CNC_AEM_CATEGORY_PAGE_URL", "/content/lcbo/en/product-category-selection.html");
+
+		MessageHelper.setMessage("HEADER_ATSELECTED_STORE", "at your selected store");
+
+		MessageHelper.setMessage("HEADER_NEARYOUR_STORE", "near your location");
+
+		MessageHelper.setMessage("HEADER_TRY_NOW", "Try Now");
+
+		MessageHelper.setMessage("HEADER_LEARN_MORE", "Learn More");
+    });
+</script>
+
+<a id="jump-to-content-btn" href="javaScript:shoppingActionsJS.skipToMainContent()">Skip to Main Content</a>
+
+
+<div class="col-xs-4 visible-sm">
+	<a href="javascript:void(0);" class="hb-icon" onclick="javascript: MegaMenuJS.toggleMenu();" role="button" title="main navigation" aria-label="main navigation">
+       	<i class="glyphicon customIcon-menu"></i>
+		<i id="searchIconMob" class="glyphicon customIcon-search"></i>
+	</a>
+</div>
+<div class="col-xs-4 hidden-sm" id="quickLinksBar">
+ 	<div class="signinSection">
+ 		<div class="signinLink">
+ 			<!-- BEGIN GlobalLogin.jsp --><!-- BEGIN GlobalLogin_Data.jspf --><!-- END GlobalLogin_Data.jspf -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			GlobalLoginJS.setCommonParameters('-1','10203','10051');
+			GlobalLoginShopOnBehalfJS.setBuyerSearchURL('/wcs/resources/store/10203/person?q=usersICanAdmin');
+		});
+	</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        GlobalLoginJS.registerWidget('Header_GlobalLogin');
+        GlobalLoginShopOnBehalfJS.registerShopOnBehalfPanel('Header_GlobalLogin_WC_B2B_ShopOnBehalf', 'Header_GlobalLogin_WC_B2B_ShopForSelf');
+    });
+</script>
+
+<!-- BEGIN GlobalLoginSignIn_UI.jspf -->
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2000", "Type a logon ID in the Logon ID field.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2010", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2020", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2030", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2110", "Due to 6 unsuccessful password attempts, you will be unable to sign in.  Contact a store representative to enable your user account.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2300", "Wait a few seconds before attempting to sign in again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2400", "Your organization is locked. You cannot sign in at this time. ");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2410", "You do not have the proper authority to sign in. Contact the store for further information.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2420", "You account is pending approval. Contact your site administrator regarding your access.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2430", "Your password has been reset. Retrieve the temporary password from your email and try signing in again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2440", "Your account registration is not approved. Contact our store for assistance.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2450", "Your account is not activated. Check your email to active your account. If you already activated your account, contact our store for assistance.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2340", "You are not allowed to login from an external network.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2610", "Due to 3 unsuccessful password attempts, your LDAP account is locked.  Contact your LDAP administrator to enable your user account.");
+    });
+</script>
+<span id="Header_GlobalLogin_signInQuickLink"  class="panelLinkSelected" aria-hidden="true"></span>
+
+</a>
+
+<a href="#" class="menu-login-link" onClick= "javascript:setFromURL('https://www.lcbo.com/webapp/wcs/stores/servlet/AjaxLogonForm?myAcctMain=1&amp;catalogId=10051&amp;langId=-1&amp;storeId=10203')">
+
+	<span>
+		Sign In / Register
+	</span>
+</a>
+
+<!-- END GlobalLoginSignIn_UI.jspf --><!-- END GlobalLogin.jsp -->
+  		</div>
+  	</div>
+  	<div class="subscribeLocatorLink">
+  		<a class="subscribe" href='https://mylcbo.com/app/register'>Sign Up for Email</a>
+  		<br>
+
+			<input type="hidden" class="radiusValue" name="radiusValue" value="10" />
+
+					<a id="storeLocatorQuickLink" href="javaScript:lcbo.StoreFinder.setShowStoresByInventory(false);shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');">
+						<span id="storeLocatorLinkSpan">Store Locator</span>
+						<span id="storeLocatorLinkSpan_alt" style="display:none">Change Store</span>
+					</a>
+					<br>
+					<a href="https://www.lcbo.com/webapp/wcs/stores/servlet/PhysicalStoreDetailsDisplayView?catalogId=10051&langId=-1&storeId=10203" id="header-current-location" class="current-location" style="display:none"></a>
+
+ 		<div id="icon_showSelectedStoreDetails" class="arrow"></div>
+ 		<div id="section_list_showSelectedStoreDetails" class="nodisplay selectedStoreInfoField" tabindex="0">
+ 			<div class="store-triangle"></div>
+			<div class="closeSelectedStoreTooltip" onclick="javaScript: SearchBasedNavigationDisplayJS.toggleExpand('showSelectedStoreDetails');">x</div>
+			<div class="col-xs-12">
+				<div class="col-xs-2">
+					<span class="glyphicon glyphicon-map-marker store-markericon"></span>
+				</div>
+				<div class="col-xs-9" tabindex="0">
+					<div>Your nearest store:</div>
+               		<div class="selectedStoreName"></div>
+               		<div class="selectedStoreAddress"></div>
+               		<div class="selectedStoreTimings"></div>
+               		<div>
+               			<a class="selectedStoreDetailsLink btn-primary stores-btn margint20">
+							See Store Details
+						</a>
+               		</div>
+					<div>
+						<a class="changeSelectedStore"onclick="javaScript: SearchBasedNavigationDisplayJS.toggleExpand('showSelectedStoreDetails'); javaScript: shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');">
+							Change Store
+						</a>
+					</div>
+             	</div>
+             </div>
+		</div>
+  	</div>
+
+		<input type="hidden" name="displayCNCLinkFlag" id="displayCNCLinkFlag" value="NO"/>
+
+				<div class="clickNCollectLink">
+					<a class="clickCollectLink" style="display: none" href="/content/lcbo/en/product-category-selection.html">Try Same-Day Pickup</a>
+				</div>
+
+</div>
+
+
+<div class="col-xs-4 text-center" id="logo1">
+
+			<a data-ga-type="event" data-ga-category="header" data-ga-actionkey="logo click" href="#" onclick= "setPageLocation('https://www.lcbo.com/webapp/wcs/stores/servlet/en/lcbo')" class="logo">
+				LCBO
+			</a>
+
+</div>
+<div class="col-xs-4 shopping-cart text-right">
+
+
+	<div class="quick-links hidden-xs">
+    	<a class="sustainability-link" href="/content/lcbo/en/sustainability.html"> <svg width="25px" class="menu-svg-icon menu-sustainability-icon" height="18px" viewBox="0 0 32 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>SoS-colour</title>
+    <defs>
+        <linearGradient x1="0.00220215811%" y1="50.0049037%" x2="100%" y2="50.0049037%" id="linearGradient-1">
+            <stop stop-color="#3DAE2B" offset="0%"></stop>
+            <stop stop-color="#3DAE2B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header---Sustainability-Banner" transform="translate(-511.000000, -62.000000)" fill-rule="nonzero">
+            <g id="Sustainability-Banner" transform="translate(187.000000, 55.000000)">
+                <g id="Messaging" transform="translate(324.000000, 7.000000)">
+                    <g id="SoS-colour" transform="translate(0.000000, 0.000000)">
+                        <path d="M19.2927336,4.98269896 C18.8588235,5.22768166 18.4145329,5.45951557 17.9515571,5.66989619 C16.967474,6.11626298 15.9820069,6.56401384 14.967474,6.9384083 C13.015917,7.66020761 10.9536332,8.04567474 8.88719723,7.63737024 C7.45121107,7.35224913 6.11903114,6.63737024 4.85051903,5.89342561 C3.21937716,4.94048443 1.64567474,3.89065744 0.0553633218,2.87058824 C0.0325259516,3.22076125 0,3.8283737 0,4.18546713 C0,12.8934256 7.05882353,19.9536332 15.7688581,19.9536332 C24.4788927,19.9536332 31.5384104,12.8948097 31.5384104,4.18408304 C31.5390025,3.03292504 31.4136899,1.88515494 31.1647059,0.761245675 C30.6871972,0.77716263 30.1647059,0.795155709 29.5944637,0.815916955 C28.0138408,0.87266436 26.116955,1.31211073 24.6733564,1.92318339 C23.4754325,2.42629758 22.3529412,3.08373702 21.2553633,3.78062284 C20.6089965,4.19307958 19.9605536,4.60622837 19.2927336,4.98269896 Z" id="Path" fill="#007382" opacity="0.6"></path>
+                        <path d="M25.5598616,7.33564014 C21.0048443,7.49550173 16.1017301,3.48027682 14.8235294,2.44152249 C13.5453287,1.40276817 9.30934256,-1.23460208 3.95847751,0.843598616 C2.59393596,1.37331561 1.28723385,2.04139171 0.0588235294,2.83737024 C0.0214532872,3.28304498 0,3.73148789 0,4.18477509 C0,12.8941176 7.05882353,19.9543253 15.7702422,19.9543253 C23.8366782,19.9543253 30.4878893,13.8968858 31.4256055,6.08235294 C29.8269896,6.96055363 27.4532872,7.27128028 25.5598616,7.33564014 Z" id="Path" fill="url(#linearGradient-1)" opacity="0.7"></path>
+                        <path d="M21.1211073,8.02768166 C18.1515571,11.1965398 14.4851211,12.8775087 9.75224913,13.0214533 C7.30588235,13.0961938 4.18477509,12.3114187 1.42076125,10.7377163 C3.98697544,16.3539969 9.59475782,19.9560248 15.7695502,19.9543259 C24.3508651,19.9543259 31.3321799,13.0982699 31.533564,4.56401384 C29.6816609,3.7716263 25.2359862,3.63391003 21.1211073,8.02768166 Z" id="Path" fill="#3D9C4A" opacity="0.7"></path>
+                        <path d="M10.0602076,9.45397924 C15.5965398,10.7958478 15.0477509,11.2989619 21.5979239,11.1245675 C25.2788927,11.0269896 29.2906574,9.17508651 31.0705882,8.01038062 C29.3598616,14.8692042 23.1591696,19.9515571 15.7702422,19.9515571 C9.09965398,19.9515571 3.39584775,15.8096886 1.09204152,9.95640138 C3.59307958,8.98685121 6.95778547,8.7017301 10.0602076,9.45397924 Z" id="Path" fill="#0075C9" opacity="0.4"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>Sustainability</a>
+
+		<a href="#" class="choose-language" data-lang="fr">
+			Français
+		</a>
+	</div>
+	 <div class="chooseShoppingCart">
+
+<span id="MiniShoppingCart_Label" class="spanacce" aria-hidden="true">Shopping Cart</span>
+<div id="MiniShoppingCart" wcType='RefreshArea' refreshurl='https://www.lcbo.com/webapp/wcs/stores/servlet/MiniShopCartDisplayView?catalogId=10051&langId=-1&storeId=10203' declareFunction='declareMiniShoppingCartRefreshArea()' widgetId='MiniShoppingCart' ariaMessage='Shopping Cart Display Updated' ariaLiveId='ariaMessage' role='region'  aria-labelledby="MiniShoppingCart_Label">
+
+<input type="hidden" id="isCheckOutEnabled" value="true" />
+
+	<a id="widget_minishopcart" href="https://www.lcbo.com/webapp/wcs/stores/servlet/RESTOrderCalculate?updatePrices=1&amp;doConfigurationValidation=Y&amp;calculationUsageId=-1&amp;errorViewName=AjaxOrderItemDisplayView&amp;catalogId=10051&amp;langId=-1&amp;URL=https%3A%2F%2Fwww.lcbo.com%2Fwebapp%2Fwcs%2Fstores%2Fservlet%2FAjaxOrderItemDisplayView&amp;storeId=10203&amp;orderId=." role="button" aria-labelledby="MiniShoppingCart_quantity">
+		<div id="minishopcart_total" >
+			0
+		</div>
+		<div id="minishopcart_total_icon"></div>
+		<div id="MiniShoppingCart_quantity" role="alert" aria-live="polite" aria-atomic="true" class="spanacce">
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			var quantity = $("#minishopcart_total").html();
+			$("#MiniShoppingCart_quantity").html($('#quantityAdded').text() + ". " + quantity + " ITEM(S) IN THE SHOPPING CART");
+			});
+		</script>
+		<img id="minishopcart_lock" class="nodisplay" src="/wcsstore/LCBOStorefrontAssetStore//images/icon_lock_shopping_cart.png" alt=""/>
+	</a>
+
+<div id="placeHolder"></div>
+
+
+
+<script>
+$(document).ready(function () {
+	// In order to address caching in CatalogEntryDisplay_ListView_UI.jspf for the add to cart button, the logic to render
+	// the shipmode selection popup vs the vanilla add to cart button is moved to this section.
+    if (  $('#currentOrderId').val() && $('#deliveryId').val() && $('#deliveryModeValue').val()) {
+    	$('.productListingWidget').find('.add_to_cart').find('.add_to_cart_btn').each(function(i){
+    		var deliveryModeId = $('#deliveryId').val();
+    		var deliveryMode = $('#deliveryModeValue').val();
+
+    		// Replace the placeholder values with the correct shipmode - variables can be found in CatalogEntryDisplay_ListView_UI.jspf
+    		// under element with class "add_to_cart"
+    		var js ='' + $(this).attr('href') + '';
+    		js = js.replace('DELIVERY_MODE', deliveryMode);
+    		js = js.replace('DELIVERYMODE_ID', deliveryModeId);
+    		$(this).attr('href', js);
+    	});
+
+    	$('.productListingWidget').find('.delivery_selection').addClass('hidden');
+    	$('.productListingWidget').find('.dropdown-menu').addClass('hidden');
+    	$('.productListingWidget').find('.add_to_cart').removeClass('hidden');
+    }
+});
+</script>
+
+</div>
+
+<div id ="MiniShopCartContents" wcType="RefreshArea" refreshurl="" declareFunction="declareMiniShopCartContentsRefreshArea()" widgetId="MiniShopCartContents" aria-labelledby="MiniShoppingCart_Label">
+</div>
+
+
+			<span class="right-banner-text">Delivery Order</span>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+        var passwordForm = document.getElementById("WC_PasswordUpdateForm_div_1");
+        var miniCartContent = "false";
+        var enableToLoad = "true";
+        if (miniCartContent == "true" || miniCartContent == true || passwordForm != null){
+            $('#MiniShoppingCart').refreshWidget("updateUrl", getAbsoluteURL()+'MiniShopCartDisplayView?storeId=10203&catalogId=10051&langId=-1&miniCartContent=true');
+            $('#MiniShopCartContents').refreshWidget("updateUrl", getAbsoluteURL()+'MiniShopCartDisplayView?storeId=10203&catalogId=10051&langId=-1&page_view=dropdown&miniCartContent=true');
+        }else{
+            $('#MiniShoppingCart').refreshWidget("updateUrl", getAbsoluteURL()+'MiniShopCartDisplayView?storeId=10203&catalogId=10051&langId=-1');
+            $('#MiniShopCartContents').refreshWidget("updateUrl", getAbsoluteURL()+'MiniShopCartDisplayView?storeId=10203&catalogId=10051&langId=-1&page_view=dropdown');
+        }
+
+
+        if($('#MiniShoppingCart').length && (enableToLoad == "true" || enableToLoad == true) && passwordForm == null){
+            setDeleteCartCookie();
+            loadMiniCart("CAD","-1");
+			var quantity = $("#minishopcart_total").html();
+			$("#MiniShoppingCart_quantity").html(quantity + " ITEM(S) IN THE SHOPPING CART");
+        }
+    });
+</script>
+
+	</div>
+</div>
+<div class="hidden-xs col-sm-4 searchBarContainer">
+    <div id="searchBarField" class="searchBarField">
+		<!-- BEGIN Search.jsp -->
+
+		<meta name="CommerceSearch" content="storeId_10203" />
+
+
+<script>
+$(document).ready(function() {
+    SearchJS.init();
+    SearchJS.setAutoSuggestURL("SearchComponentAutoSuggestView?langId=-1&storeId=10203&catalogId=10051");
+    document.forms["searchBox"].action = getAbsoluteURL() + "SearchDisplay";
+});
+var staticContent = [];
+var staticContentHeaders = [];
+</script>
+
+
+
+<div id="searchBar" class="searchBar" data-parent="header" role="search">
+
+    <form id="searchBox" class="searchBox" name="CatalogSearchForm" method="get" action="/webapp/wcs/stores/servlet/SearchDisplay">
+        <input name="categoryId" id="categoryId" type="hidden"/>
+        <input name="storeId" value="10203" type="hidden"/>
+        <input name="catalogId" value="10051" type="hidden"/>
+        <input name="langId" value="-1" type="hidden"/>
+        <input name="sType" value="SimpleSearch" type="hidden"/>
+        <input name="resultCatEntryType" value="2" type="hidden"/>
+        <input name="showResultsPage" value="true" type="hidden"/>
+        <input name="searchSource" value="Q" type="hidden"/>
+        <input name="pageView" value="" type="hidden"/>
+        <input name="beginIndex" value="0" type="hidden"/>
+        <input name="pageSize" value="12" type="hidden"/>
+
+        <div id="searchTermWrapper" class="searchTermWrapper" role="search">
+        	<label class="sr-only" for="SimpleSearchForm_SearchTerm">SEARCH</label>
+        	<input id="SimpleSearchForm_SearchTerm" class="SimpleSearchForm_SearchTerm" type="text" title="Press the Up or Down Arrow keys to navigate through the search suggestions. Suggested site content and search history, if any, are included after the suggestions. Press the Enter key for all search results." name="searchTerm" autocomplete="off" onkeyup="handleTextDirection(this);" oncut="handleTextDirection(this);" onpaste="handleTextDirection(this);"
+            ontouchstart="handleFocus(event)" />
+			<button class="search_submit" type="button" id="search_submit" aria-label="Search Site">
+				<svg class="menu-svg-icon menu-search-icon" width="16px" height="16px" viewBox="0 0 16 16">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-180.000000, -581.000000)" fill="#000000" fill-rule="nonzero">
+            <g transform="translate(180.000000, 581.000000)">
+                <path d="M15.8816141,15.1671494 L11.558497,10.8359592 C13.8512923,8.1550603 13.6166262,4.14172597 11.0270106,1.74630944 C8.43739507,-0.6491071 4.41796778,-0.570845527 1.92356113,1.92356113 C-0.570845527,4.41796778 -0.6491071,8.43739507 1.74630944,11.0270106 C4.14172597,13.6166262 8.1550603,13.8512923 10.8359592,11.558497 L15.1671494,15.8816141 C15.2428618,15.9574108 15.3456004,16 15.4527335,16 C15.5598665,16 15.6626052,15.9574108 15.7383175,15.8816141 L15.8816141,15.7383175 C15.9574108,15.6626052 16,15.5598665 16,15.4527335 C16,15.3456004 15.9574108,15.2428618 15.8816141,15.1671494 Z M1.02922431,6.57944472 C1.02922431,3.51414263 3.51414263,1.02922431 6.57944472,1.02922431 C9.64474682,1.02922431 12.1296651,3.51414263 12.1296651,6.57944472 C12.1296651,9.64474682 9.64474682,12.1296651 6.57944472,12.1296651 C3.51598621,12.1252189 1.03367055,9.64290323 1.02922431,6.57944472 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+			</button>
+		</div>
+        <!-- Start SearchDropdownWidget -->
+        <div id="searchDropdown">
+            <div id="autoSuggest_Result_div">
+                <div id="widget_search_dropdown">
+                    <!-- Main Content Area -->
+                    <div id="AutoSuggestDiv" role="list" onmouseover="SearchJS.autoSuggestHover = true;" onmouseout="SearchJS.autoSuggestHover = false; document.getElementById('SimpleSearchForm_SearchTerm').focus();">
+                        <ul><li><span id="autoSuggestDynamic_Result_div_ACCE_Label" class="spanacce">Suggested keywords menu</span>
+                        <div wcType="RefreshArea" declareFunction="SearchJS.declareAutoSuggestRefreshArea()" widgetId="autoSuggestDisplay_Widget" id="autoSuggestDynamic_Result_div" refreshurl="SearchComponentAutoSuggestView?langId=-1&storeId=10203&catalogId=10051" role="list" aria-live="polite" aria-atomic="true" aria-relevant="all" aria-labelledby="autoSuggestDynamic_Result_div_ACCE_Label">
+
+                        </div></li></ul>
+                        <ul><li><div id="autoSuggestStatic_1" role="listitem"></div></li></ul>
+                        <ul><li><div id="autoSuggestStatic_2" role="listitem"></div></li></ul>
+                        <ul><li><div id="autoSuggestStatic_3" role="listitem"></div></li></ul>
+                        <ul><li><div id="autoSuggestHistory" role="listitem"></div></li></ul>
+                        <ul><li id="autoSuggestAdvancedSearch" class="heading"> <a href="https://www.lcbo.com/webapp/wcs/stores/servlet/SearchDisplay?sType=SimpleSearch&beginIndex=0&pageSize=12&catalogId=10051&langId=-1&showResultsPage=true&storeId=10203" onclick="SearchJS.gotoAdvancedSearch('https://www.lcbo.com/webapp/wcs/stores/servlet/SearchDisplay?sType=SimpleSearch&beginIndex=0&pageSize=12&catalogId=10051&langId=-1&showResultsPage=true&storeId=10203');return false;" id="advancedSearch" ><div role="listitem">View All Results</div></a></li></ul>
+                    </div>
+                    <!-- End content Section -->
+                </div>
+            </div>
+        </div>
+        <!-- End SearchDropdownWidget --><!-- Refresh area to retrieve cached suggestions -->
+        <span id="autoSuggestCachedSuggestions_div_ACCE_Label" class="spanacce">Suggested site content and search history menu</span>
+        <div wcType="RefreshArea" declareFunction="SearchJS.declareAutoSuggestCachedSuggestionRefreshArea()" widgetId="AutoSuggestCachedSuggestions" id="autoSuggestCachedSuggestions_div" refreshurl="SearchComponentCachedSuggestionsView?langId=-1&storeId=10203&catalogId=10051" role="region" aria-live="polite" aria-atomic="true" aria-relevant="all" aria-labelledby="autoSuggestCachedSuggestions_div_ACCE_Label"></div>
+
+        <a href="#" class="submitButton" role="button" aria-label="SEARCH"><span id="submitButton_ACCE_Label" class="spanacce">SEARCH</span></a>
+    </form>
+</div>
+
+
+<!-- End Search Widget --><!-- END Search.jsp -->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var storeIdentifier = "LCBO";
+		setAjaxRefresh(""); // Default value in header.js is empty/false.
+		var passwordForm = document.getElementById("WC_PasswordUpdateForm_div_1");
+		var changePasswordPage = "false";
+		if (changePasswordPage == "true" || changePasswordPage == true || passwordForm != null) {
+			$('#drop_down_').attr("refreshurl",getAbsoluteURL()+"DepartmentDropdownViewRWD?storeId=10203&catalogId=10051&langId=-1&changePasswordPage=true");
+		} else {
+			$('#drop_down_').attr("refreshurl",getAbsoluteURL()+"DepartmentDropdownViewRWD?storeId=10203&catalogId=10051&langId=-1");
+		}
+
+		/* SDP and LCBO banner scenario - adjust margin top for page - Start */
+		bannerChecks(storeIdentifier);
+
+		$(window).resize(function() {
+			bannerChecks(storeIdentifier);
+		});
+		/* SDP and LCBO banner scenario - adjust margin top for page - End */
+	});
+</script>
+
+<div id="topBannerMob" class="row">
+	<span>
+		Your Store
+	</span>
+	<span>:</span>
+	<span id="mobBannerLocation">
+		<a href="https://www.lcbo.com/webapp/wcs/stores/servlet/PhysicalStoreDetailsDisplayView?catalogId=10051&langId=-1&storeId=10203" class="current-location"></a>
+	</span>
+
+	<div id="changeStoreMob">
+
+			<input type="hidden" class="radiusValue" name="radiusValue" value="10" />
+
+					<a id="storeLocatorQuickLinkMob" class="block" href="javascript:lcbo.StoreFinder.setShowStoresByInventory(false);shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');">
+						Change
+					</a>
+
+	</div>
+
+
+		<div class="clickNCollectLink">
+			<a class="clickCollectLink" style="display: none" href="/content/lcbo/en/product-category-selection.html">Try Same-Day Pickup</a>
+		</div>
+
+</div>
+
+
+
+<div id="widget_subscription_social_popup" data-widget-type="wc.WCDialog" data-widget-options="{&quot;close_button_selector&quot;: &quot;#social_popup_modal_content_close&quot;}" closeontimeout="false" parseonload="true" class="ui-dialog-content ui-widget-content social_popup nodisplay">
+	<div class="social_popup_modal">
+		<div class="social_popup_modal_content">
+			<span class="social_popup_modal_content_title">CONNECT WITH US ON:</span>
+			<a id="social_popup_modal_content_close" class="social_popup_modal_content_close close" href="javascript:void(0);">X</a>
+			<div class="social_popup_modal_content_links">
+				<a data-ga-type="social" data-ga-network="facebook" data-ga-action="like" data-ga-target="https://www.facebook.com/"  href="http://www.facebook.com/LCBO" class="social_popup_modal_content_links_facebook" target="_blank"></a>
+				<a data-ga-type="social" data-ga-network="twitter" data-ga-action="like" data-ga-target="https://twitter.com/LCBO" href="https://twitter.com/LCBO" class="social_popup_modal_content_links_twitter" target="_blank"></a>
+				<a data-ga-type="social" data-ga-network="instagram" data-ga-action="like" data-ga-target="https://www.instagram.com/" href="https://www.instagram.com/LCBO" class="social_popup_modal_content_links_instagram" target="_blank"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="widget_subscription_item_popup" class="store_locator_popup" role="dialog" aria-modal="true" style="display: none" data-widget-type="wc.WCDialog" data-widget-options="{&quot;close_button_selector&quot;: &quot;#widget_subscription_item_popup_close&quot;}" closeontimeout="false" parseonload="true" class="ui-dialog-content ui-widget-content" aria-label='Store Locator'>
+	<div class="widget_subscription_item">
+		<div class="middle">
+			<div class="content_left_border">
+				<div class="content_right_border">
+					<div class="content">
+						<div class="content_innerfield">
+							<div class="header">
+								<h1>
+									Store Locator
+								</h1>
+								<a id="widget_subscription_item_popup_close" role="button" href="javascript:void(0);" aria-label="Close" title="Close"
+                                	class="close tlignore" tabindex="4" title="Close">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</div>
+							<div class="input_section">
+
+<script>lcbo = typeof(lcbo) === "undefined" ? {} : lcbo;</script>
+
+<!-- BEGIN StoreLocatorDisplay.jsp -->
+
+<form action="https://www.lcbo.com/webapp/wcs/stores/servlet/StoreLocatorURL?pageName=store-locator&storeId=10203&urlRequestType=Base&langId=-1&catalogId=10051" method="GET" id="storeLocatorModalCategoryPageForm" name="storeLocatorModalCategoryPageForm" onsubmit="Javascript:setCurrentId('storeLocatorModalCategoryPageForm'); return lcbo.StoreFinder.refreshResults(
+	'storeLocatorModalCategoryPageForm',
+	'CategoryPage',
+	event);">
+
+	<div class="store-locator-form">
+
+		<div>
+
+				<button data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="find" data-ga-actionval="current location" role="button" type="button" class="btn-primary stores-btn"
+				onclick="lcbo.StoreFinder.findCurrentLocation({
+					'fromPage':'CategoryPage',
+					'form':'storeLocatorModalCategoryPageForm',
+
+				})">
+					FIND STORES NEAR MY LOCATION
+				</button>
+
+		</div>
+		<div class="postalcodelocator">
+			<span class="marginb10 hidden-sm">
+				Select a location to find a store near you
+			</span>
+
+			<div class="store-locator-go-btn">
+				<input
+					aria-required="true"
+					value=""
+					class="center text-input"
+					onchange="javascript:lcbo.StoreFinder.changeSearchText(this.value)"
+					id="storeLocatorCityPostalCode"
+					name="citypostalcode"
+					type="text"
+					placeholder="CITY / POSTAL CODE">
+				<button data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="find" data-ga-target="#storeLocatorCityPostalCode" role="button" type="submit" class="go-btn" id="cityGo" aria-label='SEARCH' >
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</div>
+
+
+			<input type="hidden" value="" id="latitude" name="latitude" >
+			<input type="hidden" value="" id="longitude" name="longitude" >
+
+		</div>
+	</div>
+	<!-- Facets  -->
+
+<div class="store-locator-features nodisplay">
+<div id="store-locator-features-accordion">
+	<h3>
+		<button id="section_list_storeLocatorFeatures_control"
+			class="h3 component-title unstyled-button"
+			aria-expanded="true"
+			aria-controls="section_list_storeLocatorFeatures"
+			aria-label="Store Features. use enter key to expand / minimize"
+			onclick="javascript:lcbo.StoreResults.toggleStoreFeatures(this); return false;"
+		>
+			<span>
+				Store Features
+			</span>
+			<span id="icon_storeLocatorFeatures" class="arrow">
+				<span class="right glyphicon glyphicon-minus"></span>
+				<span class="right glyphicon glyphicon-plus"></span>
+			</span>
+		</button>
+	</h3>
+	<div id="section_list_storeLocatorFeatures" aria-expanded="true">
+		<div class="row" id="featureFacets">
+			<div class="col-xs-12 col-sm-6">
+				<div class="checkbox-wrap">
+					<label for="pilot_store_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="pilot_store_code" value="pilot_store_code='1'">
+						<b>Same-Day Pickup</b>
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="park_space_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="park_space_code" value="park_space_code='Y'">
+						 Parking available
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="transit_access_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="transit_access_code" value="transit_access_code='Y'">
+					 Public transit accessible
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="wheel_chair_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="wheel_chair_code" value="wheel_chair_code='Y'">
+						Wheelchair accessible
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="vintage_corner_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="vintage_corner_code" value="vintage_corner_code='Y'">
+						VINTAGES corner available
+					</label>
+				</div>
+
+			</div>
+			<div class="col-xs-12 col-sm-6 sm-pl-10">
+				<div class="checkbox-wrap">
+					<label for="wine_consultant_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="wine_consultant_code" value="wine_consultant_code='Y'">
+						Product consultant available
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="tasting_bar_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="tasting_bar_code" value="tasting_bar_code='Y'">
+						Tasting bar available
+					</label>
+				</div>
+
+				<div class="checkbox-wrap">
+					<label for="beer_cold_room_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="beer_cold_room_code" value="beer_cold_room_code='Y'">
+						Cold beer room
+					</label>
+				</div>
+				<div class="checkbox-wrap">
+					<label for="french_language_code">
+						<input class="form-control" data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="store features" type="checkbox" name="features" id="french_language_code" value="french_language_code='Y'">
+						Bilingual service available
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="agency-link">
+			<h6 class="left-nav-title">
+				LCBO CONVENIENCE OUTLETS
+			</h6>
+			<p>
+				<a data-ga-type="event" data-ga-category="store locator" data-ga-actionkey="agency stores info" target="_blank" href="https://www.doingbusinesswithlcbo.com/content/dbwl/en/basepage/home/Wholesale/lcbo-convenience-outlet/_jcr_content/content2/columncontrol/column32/attachments/file.res/LCO%20Directory.pdf" class="chevron-link">
+					LCBO Convenience Outlets in Small Communities
+				</a>
+			<p>
+		</div>
+	</div>
+</div>
+</div>
+
+</form>
+	<div class="store-location-results">
+
+		<span id="storeLocatorResults_ACCE_Label" class="spanacce">Store Result List</span>
+		<div wcType="RefreshArea" id="storeLocatorResults" widgetId="storeLocatorResults" declareFunction="StoreLocatorControllersDeclarationJSStore.storeLocatorResultsRefreshController()" role="region" aria-labelledby="storeLocatorResults_ACCE_Label" refreshurl="https://www.lcbo.com/webapp/wcs/stores/servlet/AjaxStoreLocatorResultsView?catalogId=10051&amp;langId=-1&amp;storeId=10203&amp;orderId=">
+			<!-- BEGIN StoreLocatorResults.jsp -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		MessageHelper.setMessage("PIP_CLICK_TO_UNFAV", "Click to remove from favorites.");
+
+
+		MessageHelper.setMessage("PIP_CLICK_TO_FAV", "Click to add to favorites.");
+	});
+	lcbo.StoreResults.init(".lcboStoreLocatorPopupPage");
+	lcbo.FavStores.init(".lcboStoreLocatorPopupPage");
+	lcbo.showFavoriteStoreResults.init();
+	lcbo.storeText.set({
+		'key': 'STORE_RESULTS_SHOW_STORE_DETAILS',
+		'value': 'View Details'
+	});
+</script>
+
+<!-- END StoreLocatorResults.jsp --><!-- set page title via sitemesh -->
+<title>Store Locator</title>
+		</div>
+	</div>
+<!-- END StoreLocatorDisplay.jsp -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+				</div>
+
+
+<div class="menuBackgroundOverlay" onClick="javascript: MegaMenuJS.toggleMenu();"></div>
+<div id="headerMenu" class="hidden-sm">
+	<nav class="menuWrapper" role="navigation" aria-label="main navigation">
+
+		<button class="menu-wcs-widget menu-close-button" aria-label="Close the menu" onclick="javascript: MegaMenuJS.toggleMenu();"></button>
+		<div class="menu-wcs-widget menu-search"></div>
+		<div id="megaMenuPlaceholder">
+			<span id="departmentMenuAcce" class="sr-only">Departments</span>
+			<ul id="departments-menu" data-parent="header">
+
+			</ul>
+		</div>
+		<div class="menu-wcs-widget menu-login">
+			<!-- BEGIN GlobalLogin.jsp --><!-- BEGIN GlobalLogin_Data.jspf --><!-- END GlobalLogin_Data.jspf -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        GlobalLoginJS.registerWidget('Header_GlobalLogin_MegaMenu');
+        GlobalLoginShopOnBehalfJS.registerShopOnBehalfPanel('Header_GlobalLogin_MegaMenu_WC_B2B_ShopOnBehalf', 'Header_GlobalLogin_MegaMenu_WC_B2B_ShopForSelf');
+    });
+</script>
+
+<!-- BEGIN GlobalLoginSignIn_UI.jspf -->
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2000", "Type a logon ID in the Logon ID field.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2010", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2020", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2030", "The email/password combination entered was not found. Please try again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2110", "Due to 6 unsuccessful password attempts, you will be unable to sign in.  Contact a store representative to enable your user account.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2300", "Wait a few seconds before attempting to sign in again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2400", "Your organization is locked. You cannot sign in at this time. ");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2410", "You do not have the proper authority to sign in. Contact the store for further information.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2420", "You account is pending approval. Contact your site administrator regarding your access.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2430", "Your password has been reset. Retrieve the temporary password from your email and try signing in again.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2440", "Your account registration is not approved. Contact our store for assistance.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2450", "Your account is not activated. Check your email to active your account. If you already activated your account, contact our store for assistance.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2340", "You are not allowed to login from an external network.");
+        MessageHelper.setMessage("GLOBALLOGIN_SIGN_IN_ERROR_2610", "Due to 3 unsuccessful password attempts, your LDAP account is locked.  Contact your LDAP administrator to enable your user account.");
+    });
+</script>
+<span id="Header_GlobalLogin_MegaMenu_signInQuickLink"  class="panelLinkSelected" aria-hidden="true"></span>
+
+</a>
+
+<a href="#" class="menu-login-link" onClick= "javascript:setFromURL('https://www.lcbo.com/webapp/wcs/stores/servlet/AjaxLogonForm?myAcctMain=1&amp;catalogId=10051&amp;langId=-1&amp;storeId=10203')">
+	<svg class="menu-svg-icon menu-login-icon" width="20px" height="20px" viewBox="0 0 20 20">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-32.000000, -609.000000)" fill="#000000" fill-rule="nonzero">
+            <g transform="translate(32.000000, 609.000000)">
+                <path d="M20,10 C20,4.48888889 15.5111111,0 10,0 C4.48888889,0 0,4.48888889 0,10 C0,13.3111111 1.62222222,16.2666667 4.13333333,18.0888889 C4.17777778,18.1333333 4.22222222,18.1555556 4.26666667,18.1777778 C5.88888889,19.3333333 7.86666667,20 10,20 C12.1333333,20 14.1111111,19.3333333 15.7333333,18.1777778 C15.7777778,18.1555556 15.8222222,18.1111111 15.8666667,18.0888889 C18.3777778,16.2666667 20,13.3111111 20,10 Z M4.88888889,17.5333333 L4.88888889,17.1111111 C4.88888889,14.2888889 7.17777778,12 10,12 C12.8222222,12 15.1111111,14.2888889 15.1111111,17.1111111 L15.1111111,17.5333333 C13.6444444,18.5333333 11.8888889,19.1111111 10,19.1111111 C8.11111111,19.1111111 6.35555556,18.5333333 4.88888889,17.5333333 Z M7.33333333,8.44444444 C7.33333333,6.97777778 8.53333333,5.77777778 10,5.77777778 C11.4666667,5.77777778 12.6666667,6.97777778 12.6666667,8.44444444 C12.6666667,9.91111111 11.4666667,11.1111111 10,11.1111111 C8.53333333,11.1111111 7.33333333,9.91111111 7.33333333,8.44444444 Z M16,16.8444444 C15.8888889,14.3111111 14.2222222,12.2 11.9333333,11.4222222 C12.9111111,10.8 13.5555556,9.68888889 13.5555556,8.44444444 C13.5555556,6.48888889 11.9555556,4.88888889 10,4.88888889 C8.04444444,4.88888889 6.44444444,6.48888889 6.44444444,8.44444444 C6.44444444,9.68888889 7.08888889,10.8 8.06666667,11.4222222 C5.77777778,12.2 4.11111111,14.3333333 4,16.8444444 C2.08888889,15.1777778 0.888888889,12.7333333 0.888888889,10 C0.888888889,4.97777778 4.97777778,0.888888889 10,0.888888889 C15.0222222,0.888888889 19.1111111,4.97777778 19.1111111,10 C19.1111111,12.7333333 17.9111111,15.1777778 16,16.8444444 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+	<span>
+		Sign In / Register
+	</span>
+</a>
+
+<!-- END GlobalLoginSignIn_UI.jspf --><!-- END GlobalLogin.jsp -->
+		</div>
+		<div class="menu-wcs-widget menu-signup">
+
+			<a href="https://mylcbo.com/app/register" class="menu-sign-up-link" data-lang="fr">
+				<svg class="menu-svg-icon menu-sign-up-icon" width="18px" height="13px" viewBox="0 0 18 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>email</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile---Subscribe-to-Email" transform="translate(-32.000000, -589.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="email" transform="translate(32.000000, 589.000000)">
+                <path d="M15.708322,0 L1.62501131,0 C0.72892496,0 0,0.728923945 0,1.62500905 L0,11.374991 C0,12.2710761 0.72892496,13 1.62501131,13 L15.708322,13 C16.6044084,13 17.3333333,12.2710761 17.3333333,11.374991 L17.3333333,1.62500905 C17.3333333,0.728923945 16.6044084,0 15.708322,0 Z M15.708322,1.0833273 C15.7819165,1.0833273 15.8519289,1.09859614 15.915935,1.12526232 L8.66666667,7.40824228 L1.41736213,1.12526232 C1.4813683,1.09863232 1.5513807,1.0833273 1.62497512,1.0833273 L15.708322,1.0833273 Z M15.708322,11.9166365 L1.62501131,11.9166365 C1.32614701,11.9166365 1.08332881,11.6738548 1.08332881,11.3749548 L1.08332881,2.26980968 L8.31172008,8.53440915 C8.41382602,8.62272958 8.54024634,8.66665461 8.66666667,8.66665461 C8.79308699,8.66665461 8.91950731,8.62276576 9.02161325,8.53440915 L16.2500045,2.26980968 L16.2500045,11.374991 C16.2500045,11.6738548 16.0071863,11.9166365 15.708322,11.9166365 L15.708322,11.9166365 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+				<span>Sign Up for Email</span>
+			</a>
+		</div>
+		<div class="menu-wcs-widget menu-store-locator">
+
+				<input type="hidden" class="radiusValue" name="radiusValue" value="10" />
+
+
+				<a class="menu-store-locator-link" href="javaScript: MegaMenuJS.toggleMenu();shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');">
+					<svg class="menu-svg-icon menu-store-locator-icon" width="15px" height="20px" viewBox="0 0 15 20">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-34.000000, -587.000000)" fill="#000000" fill-rule="nonzero">
+            <g transform="translate(34.000000, 587.000000)">
+                <g>
+                    <path d="M7.24934917,0.5485 C3.35789642,0.5485 0.193684917,3.71271667 0.193684917,7.60416667 C0.193684917,10.4337417 1.9072475,13.4500917 3.58398433,15.797525 C5.26072083,18.1449583 6.93847667,19.8225917 6.93847667,19.8225917 C7.11066772,19.9946069 7.38965811,19.9946069 7.56184917,19.8225917 C7.56184917,19.8225917 9.23960417,18.1449583 10.9163408,15.797525 C12.5930775,13.4500917 14.3050133,10.4337417 14.3050133,7.60416667 C14.3050133,3.71271667 11.1408017,0.5485 7.24934917,0.5485 L7.24934917,0.5485 Z M7.24934917,1.43066667 C10.6641633,1.43066667 13.4228517,4.18935 13.4228517,7.60416667 C13.4228517,10.0662667 11.8291225,13.0020583 10.1985675,15.2848333 C8.723765,17.3495583 7.51751,18.5512083 7.24934917,18.8248667 C6.98070333,18.5507 5.7762275,17.3490917 4.30175783,15.2848333 C2.671203,13.0020583 1.07584633,10.0662667 1.07584633,7.60416667 C1.07584633,4.18935 3.8345345,1.43066667 7.24934917,1.43066667 Z" id="Shape"></path>
+                    <path d="M7.24934917,4.5166 C5.54977667,4.5166 4.1634115,5.90459167 4.1634115,7.60416667 C4.1634115,9.30374167 5.54977667,10.6917333 7.24934917,10.6917333 C8.94892167,10.6917333 10.3369142,9.30374167 10.3369142,7.60416667 C10.3369142,5.90459167 8.94892167,4.5166 7.24934917,4.5166 Z M7.24934917,5.39876667 C8.47228333,5.39876667 9.4547525,6.38123333 9.4547525,7.60416667 C9.4547525,8.8271 8.47228333,9.80956667 7.24934917,9.80956667 C6.026415,9.80956667 5.04557333,8.8271 5.04557333,7.60416667 C5.04557333,6.38123333 6.026415,5.39876667 7.24934917,5.39876667 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+					<span>Store Locator</span>
+				</a>
+
+		</div>
+		<div class="menu-wcs-widget menu-sustainiability">
+
+			<a href="/content/lcbo/en/sustainability.html" class="menu-sustainability-link" data-lang="fr">
+
+					<img class="menu-svg-icon menu-sustainability-icon" src="/wcsstore/LCBOStorefrontAssetStore/MegaMenu/svg_icons/sos-sprite.png" alt="Sustainability" title="Sustainability" height="18"/>
+
+				<span>Sustainability</span>
+			</a>
+		</div>
+		<div class="menu-wcs-widget menu-language-toggle">
+			<a href="#" class="menu-language-toggle-link choose-language" data-lang="fr">
+				<svg class="menu-svg-icon menu-language-toggle-icon" width="21px" height="21px" viewBox="0 0 21 21">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-32.000000, -629.000000)">
+            <g transform="translate(33.000000, 630.000000)">
+                <path d="M5.19704256,18.0849509 C6.5539979,18.8318953 7.8415947,19 9.5,19 C14.7467051,19 19,14.7467051 19,9.5 C19,4.25329488 14.7467051,0 9.5,0 C4.25329488,0 0,4.25329488 0,9.5 C0,11.4724752 0.41201875,13.0855807 1.44108626,14.604037" id="Path" stroke="#000000" stroke-linecap="round"></path>
+                <text id="FR" font-family="Helvetica" font-size="8" font-weight="normal" letter-spacing="-0.1" fill="#000000">
+                    <tspan x="4" y="13">FR</tspan>
+                </text>
+                <path d="M1.3348502,15 C0.628766773,18 0.350483372,19.5 0.5,19.5 C0.649516628,19.5 2.10457496,19.0743728 4.86517499,18.2231183" id="Line-2" stroke="#000000" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+				<span>Français</span>
+			</a>
+		</div>
+	</nav>
+</div>
+
+			</div>
+
+	</header>
+<!-- END Header.jsp -->
+				</div>
+			</div>
+			<input id="isFrench" type="hidden" value="false"/>
+			<main role="main" id="contentWrapper">
+				<div id="content" >
+					<div class="col-xs-12">
+
+						<div class="col-xs-4 center">
+							<img id="productMainImage"  src="/content/dam/lcbo/products/209189.jpg/jcr:content/renditions/cq5dam.web.319.319.jpeg" alt="" class="product_main_image"/>
+						</div>
+						<div class="col-xs-8 namePartPriceContainer ">
+							<h1 role="heading" aria-level="1" class="main_header" tabindex="0">
+								<a href="https://www.lcbo.com/webapp/wcs/stores/servlet/Product2_10203_10051_55642_-1____ProductDisplayErrorView">
+									Busch Light
+								</a>
+							</h1>
+							<div class="brand-details">
+
+								<small id="prodSku" class="product-sku">
+
+										<span tabindex="0">15 x 355 mL&nbsp;<span>can</span></span>&nbsp;&nbsp;|&nbsp;&nbsp;
+
+									<span tabindex="0">
+										LCBO#:
+										&nbsp;209189
+									</span>
+								</small>
+							</div>
+
+
+							<div class="price">
+								<!-- BEGIN PriceDisplay.jspf --><!--  If leverage price rule to get the price, get the contract unit price. -->
+			<span id="offerPrice_55642" class="price" itemprop="price">
+				$29.50
+			</span>
+
+		<input type="hidden" id="ProductInfoPrice_55642" value="$29.50"/>
+		<!-- END PriceDisplay.jspf -->
+							</div>
+
+							<p class="description">
+								A classic American light beer, brewed in Canada. It pours a bright golden colour. You&#039;ll notice aromas and flavours of cereal, rice and gentle hops. Light-bodied and malty with a crisp, clean finish. Serve with grilled sausage on a bun with your favourite toppings alongside kettle chips or coconut shrimp over rice.
+							</p>
+
+
+
+							<div class="buy-now-btn">
+								<a href="https://www.lcbo.com/webapp/wcs/stores/servlet/Product2_10203_10051_55642_-1____ProductDisplayErrorView" role="button" class="button_primary" tabindex="0">
+									BUY NOW
+								</a>
+							</div>
+						</div>
+					</div>
+
+
+						<div class="row scrollX">
+							<div id="inventoryTable" >
+								<div id="inventoryTableHead" class="wrapper">
+									<div id="sequence" class="col-xs-1">
+										<div class="inner-container">
+											&nbsp;
+											<span class="arrow"></span>
+										</div>
+									</div>
+									<div id="city" class="sortable col-xs-3 up">
+										<div class="inner-container">
+											City
+											<span class="arrow"></span>
+										</div>
+									</div>
+									<div id="address" class="col-xs-4">
+										<div class="inner-container">
+											Address
+										</div>
+									</div>
+									<div id="inventory" class="sortable up col-xs-2 col-sm-2 active">
+										<div class="inner-container">
+											Quantity
+											<span class="arrow"></span>
+										</div>
+									</div>
+								</div>
+								<div id="inventoryTableBody">
+									<div class="loading">
+
+										<div class="logo-spin "></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div id="inventoryTableTail" class="inventoryTableTail">
+							<div class="col-xs-12 wrapper">
+								<div class="col-xs-8 tableTailText en_US">Total units at all stores</div>
+								<div class="col-xs-4 inventory-column wrapper inventoryTotalValue tableTailText">
+									<span id="inventoryTotalValue" class="col-xs-12 ">  </span>
+								</div>
+							</div>
+						</div>
+						<div class="row col-xs-12 exportDiv wrapper downloadMessageContainer">
+							<div id="xportMesssage" class="col-xs-12 xportMesssage">
+								<div class="inner-container">
+									To download the store availability for this product, click the button below.
+								</div>
+							</div>
+						</div>
+						<div class="row col-xs-12 exportDiv wrapper">
+								<div class="inner-container">
+
+									<button id="exportExcelLink"  style ="color:white;" class="xportIt button_primary" href="#" onclick="exportToCsv('Available_Inventory_209189.csv');return false;">DOWNLOAD LIST </button>
+								</div>
+						</div>
+
+						<div id="excelContainer" ></div>
+
+					</div>
+				</div>
+			</main>
+
+			<!-- Back to top button -->
+<a id="backToTop" tabindex="0">
+	<div class="container">Back To Top<span class="triangle-up"></span></div>
+</a>
+<!-- END Back to top button -->
+
+			<div id="footerWrapper">
+				<!-- Footer Widget -->
+	<!-- Language switcher modal pop up --><div id="language-selector" data-page-language="en" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="language-selector-label" aria-hidden="true">        <div class="modal-dialog modal-small" role="dialog" aria-modal="true" aria-labelledby="p1 p2">            <div class="modal-content">                <div class="modal-body">                    <div id="language-selector-label">                        <p><span class="copy">Welcome / <span class="copy french">Bienvenue</span></span></p>                        <p>                            <span class="copy english" id="p1">Please select a language /</span>                            <span class="copy french" id="p2">S'il vous pla&icirc;t s&eacute;lectionner une langue</span>                        </p>                    </div>                    <div class="modal-footer">                        <a href="#en" class="choose-language" data-lang="en" lang="en">English</a> | <a href="#fr" class="choose-language" data-lang="fr" lang="fr">Fran&ccedil;ais</a>                    </div>                    <div class="modal-age"><p>YOU MUST BE 19 YEARS OF AGE TO PURCHASE ALCOHOL. PLEASE NOTE THAT WE ONLY DELIVER IN ONTARIO / <span class="copy french">VOUS DEVEZ AVOIR AU MOINS 19 ANS POUR ACHETER DE L'ALCOOL. VEUILLEZ NOTER QUE NOUS NE LIVRONS PAS &Agrave; L'EXT&Eacute;RIEUR DE L'ONTARIO.</span></p></div>                </div>            </div><!-- /.modal-content -->        </div><!-- /.modal-dialog -->    </div>
+
+		<div class="footer section"><div id="footerComponent" class="row cq-component">        <footer>        <div class="row">            <div class="col-xs-12 navigation">                                <div class="category">                    <h2 class="footer-col">INFORMATION</h2>                    <ul class="footer-nav">                        <li><a href="/content/lcbo/en/corporate-pages/about.html">About LCBO  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/about/media-centre.html">Media Centre  						</a> </li>                                                                    <li><a href="/content/lcbo/en/sustainability.html.html">Sustainability  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/careers.html">Careers  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/accessibility.html">Accessibility  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/faq.html">Online Order FAQ  						</a> </li>                                                                    <li><a href="/content/lcbo/en/homepage/choose-your-most-convenient-delivery-option.html">Delivery Options  						</a> </li>                                            </ul>                </div>                                            <div class="category">                    <h2 class="footer-col">RESOURCES</h2>                    <ul class="footer-nav">                        <li><a href="http://hellolcbo.com/">Contact Us  						</a> </li>                                                                                            <li><a href="javaScript: shoppingActionsJS.showWCDialogPopup('widget_subscription_item_popup');">Store Locator</a> </li>                                            <li><a href="/content/lcbo/en/corporate-pages/glossary.html">Glossary  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/about/aboutourbusiness/procurement-and-contract-management.html">Procurement Services  						</a> </li>                                                                    <li><a class="with_info_popup" href="/content/dbwl/en/basepage/home/Wholesale/Specialty-services.html.html" target="_blank">Specialty Services  <span class="info_popup">Opens a new window</span>						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/about/aboutourbusiness/importing.html">Importing Beverage Alcohol Products  						</a> </li>                                            </ul>                </div>                                            <div class="category">                    <h2 class="footer-col">POLICIES</h2>                    <ul class="footer-nav">                        <li><a href="/content/lcbo/en/corporate-pages/terms-and-conditions.html">Terms &amp; Conditions  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/social-media.html">Social Media  						</a> </li>                                                                    <li><a href="/content/lcbo/en/corporate-pages/privacy.html">Privacy  						</a> </li>                                            </ul>                </div>                                            <div class="category">                    <h2 class="footer-col">SITES</h2>                    <ul class="footer-nav">                        <li><a class="with_info_popup" href="http://www.doingbusinesswithlcbo.com/" target="_blank">Doing Business with LCBO  <span class="info_popup">Opens a new window</span>						</a> </li>                                                                    <li><a href="https://www.lcbo.com/content/lcbo/en/vintages.html">Vintages  						</a> </li>                                                                    <li><a href="https://www.lcbo.com/webapp/wcs/stores/servlet/en/lcbo/foodanddrink">Food &amp; Drink  						</a> </li>                                            </ul>                </div>            </div>            <div class="social-media">                <a class="icon facebook" href="https://www.facebook.com/LCBO/">LCBO Facebook</a>                <a class="icon twitter" href="https://twitter.com/LCBO">LCBO Twitter</a>                <a class="icon instagram" href="https://www.instagram.com/lcbo/">LCBO Instagram</a>            </div>            <div class="language-toggle">                            <h3 class="language"><a href="#en" class="choose-language selected" tabindex="-1" data-lang="en">ENGLISH</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#fr" class="choose-language" data-lang="fr" lang="fr">Français</a></h3>			                        </div>    	</div>    	<div class="footer-bottom">            <div class="copyright">                © 2021 LCBO            </div>        </div>    </footer></div></div><div class="section"><div class="new"></div></div><div class="iparys_inherited"><div class="footer-ipar iparsys parsys"></div></div>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3 col-md-5">
+
+				<form id="LangCurrChange" name="LangCurrChange"
+					action="/webapp/wcs/stores/servlet/LangCurrChange" method="post">
+					<input type="hidden" name="storeId"
+						value="10203" /> <input type="hidden"
+						name="catalogId" value="10051" /> <input
+						type="hidden" id="languageSelectionHidden" name="langId"
+						value="-1" /> <input type="hidden"
+						id="currencySelectionHidden" name="currency"
+						value="CAD" /> <input type="hidden"
+						id="WC_SidebarDisplay_FormInput_URL_1" name="URL" value="" />
+				</form>
+
+							<input type="hidden" id="currentLanguageSEO"
+								name="currentLanguageSEO" value="en" />
+
+							<input type="hidden"
+								id="langSEO-2"
+								name="langSEO-2"
+								value="fr" />
+
+			</div>
+
+		</div>
+	</div>
+</div>
+	<script type="text/javascript">
+		/**
+		 * This function submits the Language and Currency selection form.
+		 * @param formName The name of the Language and Currency selection form.
+		 */
+		function switchLanguageCurrency(formName) {
+			//to get the browser current url
+			var browserURL = document.location.href, currentLangSEO = '/'
+					+ $("#currentLanguageSEO").val() + '/';
+
+			// get rid of anything after pound sign(#) in the URL if it is a SearchDisplay request.
+			// search processes the query parameters and cannot handle a redirect URL with pound sign(#)
+			if ((browserURL.indexOf('SearchDisplay') !== -1 || browserURL
+					.indexOf('CategoryDisplay') !== -1)
+					|| browserURL.indexOf('#') !== -1) {
+				var poundTokens = browserURL.split('#');
+				browserURL = poundTokens[0];
+			}
+
+			//set the form URL to the updated URL with the new language keyword
+			//for example: replace /en/ with the new keyword
+			var modifiedFormURL = browserURL;
+			if (browserURL.indexOf(currentLangSEO) !== -1) {
+				if (document
+						.getElementById('langSEO'
+								+ document
+										.getElementById('languageSelectionHidden').value)) {
+					var newLangSEO = '/'
+							+ document
+									.getElementById('langSEO'
+											+ document
+													.getElementById('languageSelectionHidden').value).value
+							+ '/';
+					modifiedFormURL = browserURL.replace(currentLangSEO,
+							newLangSEO);
+				}
+			}
+			//replace langId with the newly selected langId
+			if (modifiedFormURL.indexOf('&') !== -1) {
+				var tokens = modifiedFormURL.split('&');
+				modifiedFormURL = "";
+				for (var i = 0; i < tokens.length; i++) {
+					if (tokens[i].indexOf('langId=') === -1) {
+						if (modifiedFormURL === '') {
+							modifiedFormURL = tokens[i];
+						} else {
+							modifiedFormURL = modifiedFormURL + "&" + tokens[i];
+						}
+					} else if (tokens[i].indexOf('langId=') > 0) {
+						if (i == 0) {
+							//langId is the first token next to ?
+							modifiedFormURL = tokens[0].substring(0, tokens[0]
+									.indexOf('langId='));
+						} else {
+							modifiedFormURL = modifiedFormURL + "&";
+						}
+						modifiedFormURL = modifiedFormURL
+								+ "langId="
+								+ document
+										.getElementById('languageSelectionHidden').value;
+					}
+				}
+			}
+			modifiedFormURL = switchLanguageCurrencyFilter(modifiedFormURL);
+			document.forms[formName].URL.value = modifiedFormURL;
+			document.forms[formName].languageSelectionHidden.value = document
+					.getElementById('languageSelectionHidden').value;
+
+			//hide pop up and submit the form
+
+			//delete buyOnBehalfOf cookie if exists
+			//if (typeof(GlobalLoginShopOnBehalfJS) != 'undefined' && GlobalLoginShopOnBehalfJS != null ){
+			//  GlobalLoginShopOnBehalfJS.deleteBuyerUserNameCookie();
+			//}
+			if (typeof changeStoreViewLanguage == 'function') {
+				changeStoreViewLanguage(document.forms[formName].languageSelectionHidden.value);
+			}
+			document.getElementById(formName).submit();
+		}
+	</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		//Make sure page is loaded at this point
+		//Set requestedSubmitted to false
+		resetRequest();
+	});
+</script>
+
+</footer>
+<!-- END Footer.jsp -->
+			</div>
+		</div>
+
+
+		<script type="text/javascript">_satellite.pageBottomFired=1&&jQuery(function(){_satellite.pageBottom()})</script>
+
+	<script type="text/javascript" async="async" src="/__zenedge/assets/f.js?v=1605263140"></script><script>(function () { var v = 1647817137 * 3.1415926535898; v = Math.floor(v); document.cookie = "__zjc8717="+v+"; expires=Sun, 20 Mar 2022 23:00:09 UTC; path=/"; })()</script></body>
+</html>
+
+<script type="text/javascript">
+
+
+	// build an array of objects for each store containing
+	// all pertinent store and inventory data
+	var storesArray = [
+
+			{
+				sequence : "1",
+				city : "THESSALON",
+				description:  "HWY 17B &amp; HURON ST",
+				address1:  "163 MAIN STREET",
+				address2:  "BOX 8",
+				phone:  "(705) 842-2112                  ",
+				uniqueId: "715841704",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "2",
+				city : "PALMERSTON",
+				description:  "HWY 89 &amp; 23",
+				address1:  "440 MAIN STREET WEST",
+				address2:  "P.O. BOX 58",
+				phone:  "(519) 343-2620                  ",
+				uniqueId: "715841707",
+				inventory: Math.floor("18.0"),
+			},
+			{
+				sequence : "3",
+				city : "CAPREOL",
+				description:  "HANNA &amp; DENNIE",
+				address1:  "12 HANNA STREET",
+				address2:  "P.O. BOX 968",
+				phone:  "(705) 858-1552                  ",
+				uniqueId: "715841700",
+				inventory: Math.floor("21.0"),
+			},
+			{
+				sequence : "4",
+				city : "MERRICKVILLE",
+				description:  "ELGIN &amp; WELLINGTON ST",
+				address1:  "205 ELGIN STREET",
+				address2:  "BOX 190",
+				phone:  "(613) 269-4623                  ",
+				uniqueId: "715841701",
+				inventory: Math.floor("8.0"),
+			},
+			{
+				sequence : "5",
+				city : "PELEE ISLAND",
+				description:  "WEST DOCK",
+				address1:  "1109 WESTSHORE ROAD",
+				address2:  "",
+				phone:  "(519) 724-2961                  ",
+				uniqueId: "715841682",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "6",
+				city : "LANCASTER",
+				description:  "MOLAN ST &amp; HWY 34",
+				address1:  "16 MOLAN STREET",
+				address2:  "",
+				phone:  "(613) 347-2056                  ",
+				uniqueId: "715841686",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "7",
+				city : "DRESDEN",
+				description:  "HWY 21 &amp; LINDSLEY ST",
+				address1:  "188 LINDSLEY STREET WEST",
+				address2:  "P.O. BOX 638",
+				phone:  "(519) 683-4472                  ",
+				uniqueId: "715842078",
+				inventory: Math.floor("16.0"),
+			},
+			{
+				sequence : "8",
+				city : "BEARDMORE",
+				description:  "HWY 11 &amp; MAIN ST",
+				address1:  "222 MAIN STREET",
+				address2:  "P.O. BOX 69",
+				phone:  "(807) 875-2090                  ",
+				uniqueId: "715842055",
+				inventory: Math.floor("3.0"),
+			},
+			{
+				sequence : "9",
+				city : "DUTTON",
+				description:  "MAIN &amp; MARY ST",
+				address1:  "234 MARY STREET",
+				address2:  "",
+				phone:  "(519) 762-2200                  ",
+				uniqueId: "715842031",
+				inventory: Math.floor("26.0"),
+			},
+			{
+				sequence : "10",
+				city : "MANITOUWADGE",
+				description:  "HURON &amp; BARBER WALK",
+				address1:  "66 HURON WALK",
+				address2:  "P.O. BOX 250",
+				phone:  "(807) 826-3541                  ",
+				uniqueId: "715842018",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "11",
+				city : "LONGLAC",
+				description:  "HWY 11 &amp; FORESTRY RD",
+				address1:  "116 FORESTRY ROAD",
+				address2:  "P.O. BOX 358",
+				phone:  "(807) 876-2275                  ",
+				uniqueId: "715842148",
+				inventory: Math.floor("15.0"),
+			},
+			{
+				sequence : "12",
+				city : "MACTIER",
+				description:  "HWY 169 &amp; 612",
+				address1:  "426 HIGH STREET",
+				address2:  "P.O. BOX 129",
+				phone:  "(705) 375-2830                  ",
+				uniqueId: "715842135",
+				inventory: Math.floor("19.0"),
+			},
+			{
+				sequence : "13",
+				city : "MILLBROOK",
+				description:  "TUPPER &amp; KING ST",
+				address1:  "4 CENTRE STREET",
+				address2:  "P.O. BOX 268",
+				phone:  "(705) 932-2753                  ",
+				uniqueId: "715842139",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "14",
+				city : "MANITOWANING",
+				description:  "QUEEN &amp; SPRAGGE",
+				address1:  "13 SPRAGGE &amp; QUEEN STREET",
+				address2:  "P.O. BOX 99",
+				phone:  "(705) 859-3292                  ",
+				uniqueId: "715842143",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "15",
+				city : "IROQUOIS",
+				description:  "HERITAGE HWY 4 &amp; 2",
+				address1:  "17 PLAZA DRIVE",
+				address2:  "P.O. BOX 158",
+				phone:  "(613) 652-4549                  ",
+				uniqueId: "715842127",
+				inventory: Math.floor("1.0"),
+			},
+			{
+				sequence : "16",
+				city : "LUCAN",
+				description:  "MAIN &amp; MARKET ST",
+				address1:  "196 MAIN STREET",
+				address2:  "P.O. BOX 239",
+				phone:  "(519) 227-4279                  ",
+				uniqueId: "715842129",
+				inventory: Math.floor("13.0"),
+			},
+			{
+				sequence : "17",
+				city : "CREEMORE",
+				description:  "ELIZABETH &amp; MILL ST",
+				address1:  "12 ELIZABETH ST. E.",
+				address2:  "",
+				phone:  "(705) 466-2110                  ",
+				uniqueId: "715842132",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "18",
+				city : "SEAFORTH",
+				description:  "MAIN ST N &amp; HWY 8 W",
+				address1:  "50 MAIN STREET NORTH",
+				address2:  "P.O. BOX 658",
+				phone:  "(519) 527-0970                  ",
+				uniqueId: "715842118",
+				inventory: Math.floor("1.0"),
+			},
+			{
+				sequence : "19",
+				city : "ZURICH",
+				description:  "MAIN &amp; EAST ST",
+				address1:  "11 MAIN STREET",
+				address2:  "P.O. BOX 88",
+				phone:  "(519) 236-4901                  ",
+				uniqueId: "715842119",
+				inventory: Math.floor("23.0"),
+			},
+			{
+				sequence : "20",
+				city : "OMEMEE",
+				description:  "KING &amp; STURGEON ST",
+				address1:  "4 KING STREET",
+				address2:  "P.O. BOX 29",
+				phone:  "(705) 799-5212                  ",
+				uniqueId: "715842106",
+				inventory: Math.floor("15.0"),
+			},
+			{
+				sequence : "21",
+				city : "IGNACE",
+				description:  "MAIN (HWY 17), NASH, &amp; BEAVER",
+				address1:  "300 MAIN ST, IGNACE SHOPPING CENTER",
+				address2:  "PO BOX 360",
+				phone:  "(807) 934-2876                  ",
+				uniqueId: "715842097",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "22",
+				city : "EAR FALLS",
+				description:  "SPRUCE ST &amp; BALSAM AVE",
+				address1:  "16 SPRUCE STREET",
+				address2:  "PO BOX 190",
+				phone:  "(807) 222-3066                  ",
+				uniqueId: "715842099",
+				inventory: Math.floor("25.0"),
+			},
+			{
+				sequence : "23",
+				city : "ARTHUR",
+				description:  "HWY 6 &amp; 9",
+				address1:  "151 CATHERINE STREET WEST",
+				address2:  "P.O. BOX 428",
+				phone:  "(519) 848-2126                  ",
+				uniqueId: "715842100",
+				inventory: Math.floor("36.0"),
+			},
+			{
+				sequence : "24",
+				city : "GLENCOE",
+				description:  "CURRIE &amp; MCKELLAR ST",
+				address1:  "228 CURRIE STREET",
+				address2:  "P.O. BOX 336",
+				phone:  "(519) 287-2844                  ",
+				uniqueId: "715842101",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "25",
+				city : "WATERFORD",
+				description:  "ALICE STREET &amp; ST JAMES STRET SOUTH",
+				address1:  "37 ST. JAMES STREET",
+				address2:  "PO BOX 419",
+				phone:  "(519) 443-5214                  ",
+				uniqueId: "715842085",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "26",
+				city : "CHESTERVILLE",
+				description:  "HWY 43 &amp; QUEEN ST",
+				address1:  "150 QUEEN STREET",
+				address2:  "",
+				phone:  "(613) 448-2020                  ",
+				uniqueId: "715842090",
+				inventory: Math.floor("10.0"),
+			},
+			{
+				sequence : "27",
+				city : "CARDINAL",
+				description:  "HWY 2 &amp; DUNDAS ST",
+				address1:  "623 HWY. 2, CARDINAL VILLAGE SQUARE",
+				address2:  "P.O. BOX 449",
+				phone:  "(613) 657-3305                  ",
+				uniqueId: "715842091",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "28",
+				city : "MAXVILLE",
+				description:  "HWY 43 S &amp; 417 N",
+				address1:  "3 MAIN STREET",
+				address2:  "BOX 149",
+				phone:  "(613) 527-2941                  ",
+				uniqueId: "715842074",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "29",
+				city : "ATHENS",
+				description:  "ELGIN ST &amp; MAIN ST",
+				address1:  "19 MAIN STREET EAST",
+				address2:  "P.O. BOX 249",
+				phone:  "(613) 924-2033                  ",
+				uniqueId: "715841967",
+				inventory: Math.floor("20.0"),
+			},
+			{
+				sequence : "30",
+				city : "APSLEY",
+				description:  "BURLEIGH &amp; WELLINGTON",
+				address1:  "3 BURLEIGH STREET",
+				address2:  "P.O. BOX 337",
+				phone:  "(705) 656-4492                  ",
+				uniqueId: "715841969",
+				inventory: Math.floor("4.0"),
+			},
+			{
+				sequence : "31",
+				city : "WHITNEY",
+				description:  "OTTAWA ST &amp; HAYCREEK RD",
+				address1:  "16 HAY CREEK ROAD",
+				address2:  "P.O. BOX 112",
+				phone:  "(613) 637-2150                  ",
+				uniqueId: "715841970",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "32",
+				city : "POINTE AU BARIL",
+				description:  "HWY 69 &amp; 644",
+				address1:  "HWY. 69",
+				address2:  "P.O. BOX 8",
+				phone:  "(705) 366-2364                  ",
+				uniqueId: "715842211",
+				inventory: Math.floor("33.0"),
+			},
+			{
+				sequence : "33",
+				city : "PORT STANLEY",
+				description:  "BRIDGE &amp; CARLOW ST",
+				address1:  "325 BRIDGE STREET",
+				address2:  "",
+				phone:  "(519) 782-3367                  ",
+				uniqueId: "715842198",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "34",
+				city : "ROSSEAU",
+				description:  "VICTORIA ST &amp; PARRY SOUND",
+				address1:  "1145 HIGHWAY 141",
+				address2:  "P.O. BOX 100",
+				phone:  "(705) 732-4632                  ",
+				uniqueId: "715842178",
+				inventory: Math.floor("3.0"),
+			},
+			{
+				sequence : "35",
+				city : "ELGIN",
+				description:  "HWY 15 &amp; PERTH ST",
+				address1:  "131 PERTH STREET",
+				address2:  "P.O. BOX 69",
+				phone:  "(613) 359-5490                  ",
+				uniqueId: "715841593",
+				inventory: Math.floor("3.0"),
+			},
+			{
+				sequence : "36",
+				city : "FRANKFORD",
+				description:  "TRENT ST &amp; MILL ST",
+				address1:  "14 KING DRIVE NORTH",
+				address2:  "P.O. BOX 399",
+				phone:  "(613) 398-6160                  ",
+				uniqueId: "715842289",
+				inventory: Math.floor("33.0"),
+			},
+			{
+				sequence : "37",
+				city : "HARRISTON",
+				description:  "QUEEN &amp; ARTHUR",
+				address1:  "2 QUEEN STREET SOUTH",
+				address2:  "P.O. BOX 550",
+				phone:  "(519) 338-2302                  ",
+				uniqueId: "715842294",
+				inventory: Math.floor("16.0"),
+			},
+			{
+				sequence : "38",
+				city : "WHEATLEY",
+				description:  "HWY 3 &amp; KENT RD",
+				address1:  "676 HIGHWAY 3 EAST",
+				address2:  "",
+				phone:  "(519) 825-4791                  ",
+				uniqueId: "715842278",
+				inventory: Math.floor("20.0"),
+			},
+			{
+				sequence : "39",
+				city : "PARKHILL",
+				description:  "HWY 81 &amp; 7",
+				address1:  "1-264 MAIN STREET",
+				address2:  "P.O. BOX 518",
+				phone:  "(519) 294-6694                  ",
+				uniqueId: "715842280",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "40",
+				city : "COLBORNE",
+				description:  "HWY 2 &amp; CHURCH ST",
+				address1:  "9 TORONTO ROAD, HWY 2",
+				address2:  "P.O. BOX 640",
+				phone:  "(905) 355-2842                  ",
+				uniqueId: "715842268",
+				inventory: Math.floor("10.0"),
+			},
+			{
+				sequence : "41",
+				city : "DORSET",
+				description:  "HWY 117 &amp; 35",
+				address1:  "1059 MAIN STREET",
+				address2:  "P.O. BOX 118",
+				phone:  "(705) 766-2471                  ",
+				uniqueId: "715842251",
+				inventory: Math.floor("13.0"),
+			},
+			{
+				sequence : "42",
+				city : "PORT BURWELL",
+				description:  "HWY 19 &amp; COUNTY RD 42",
+				address1:  "30 ROBINSON STREET",
+				address2:  "P.O. BOX 160",
+				phone:  "(519) 874-4653                  ",
+				uniqueId: "715842247",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "43",
+				city : "STIRLING",
+				description:  "HWY 14 &amp; VICTORIA",
+				address1:  "125 NORTH STREET",
+				address2:  "P.O. BOX 250",
+				phone:  "(613) 395-2605                  ",
+				uniqueId: "715842248",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "44",
+				city : "BRUCE MINES",
+				description:  "HWY 17 &amp; 561",
+				address1:  "9226 TAYLOR STREET",
+				address2:  "PO BOX 178, ROBINSON &amp; HWY 17 EAST",
+				phone:  "(705) 785-3772                  ",
+				uniqueId: "715842236",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "45",
+				city : "LANSDOWNE",
+				description:  "HWY 3 &amp; KING ST",
+				address1:  "992 PRINCE STREET",
+				address2:  "P.O. BOX 100",
+				phone:  "(613) 659-3472                  ",
+				uniqueId: "715842238",
+				inventory: Math.floor("8.0"),
+			},
+			{
+				sequence : "46",
+				city : "LONG SAULT",
+				description:  "HWY 2 &amp; MOULINETTE RD",
+				address1:  "33 LONG SAULT DRIVE, LONG SAULT SC",
+				address2:  "P.O. BOX 130",
+				phone:  "(613) 534-2481                  ",
+				uniqueId: "715842212",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "47",
+				city : "PORTLAND",
+				description:  "COLBORNE ST &amp; CAMPBELL ST",
+				address1:  "34 COLBOURNE STREET",
+				address2:  "P.O. BOX 26",
+				phone:  "(613) 272-2608                  ",
+				uniqueId: "715842216",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "48",
+				city : "LUCKNOW",
+				description:  "INGLIS ST &amp; WILLOUGHBY ST",
+				address1:  "566 WILLOUGHBY STREET",
+				address2:  "P.O. BOX 310",
+				phone:  "(519) 528-2335                  ",
+				uniqueId: "715842217",
+				inventory: Math.floor("18.0"),
+			},
+			{
+				sequence : "49",
+				city : "WILBERFORCE",
+				description:  "HWY 648 &amp; ESSON RD",
+				address1:  "2763 ESSONVILLE ROAD",
+				address2:  "P.O. BOX 149",
+				phone:  "(705) 448-2721                  ",
+				uniqueId: "715841819",
+				inventory: Math.floor("13.0"),
+			},
+			{
+				sequence : "50",
+				city : "HONEY HARBOUR",
+				description:  "HWY 69 &amp; MUSKOKA, RD 5",
+				address1:  "2669 MUSKOKA RD. 5",
+				address2:  "P.O. BOX 69",
+				phone:  "(705) 756-2593                  ",
+				uniqueId: "715841820",
+				inventory: Math.floor("2.0"),
+			},
+			{
+				sequence : "51",
+				city : "DUNDALK",
+				description:  "COUNTY RD 9 &amp; HWY 10",
+				address1:  "772200 HWY 10",
+				address2:  "P.O. BOX 400",
+				phone:  "(519) 923-3033                  ",
+				uniqueId: "715841804",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "52",
+				city : "RICHARD&#039;S LANDING",
+				description:  "HWY 548 &amp; MAIN ST",
+				address1:  "1198 RICHARD STREET",
+				address2:  "P.O. BOX 130",
+				phone:  "(705) 246-2404                  ",
+				uniqueId: "715841805",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "53",
+				city : "CARP",
+				description:  "CARP RD &amp; HWY 17",
+				address1:  "461 DONALD B MUNRO DRIVE",
+				address2:  "P.O. BOX 24",
+				phone:  "(613) 839-3210                  ",
+				uniqueId: "715841809",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "54",
+				city : "DELTA",
+				description:  "HWY 42 &amp; MAIN ST",
+				address1:  "39 KING STREET",
+				address2:  "P.O. BOX 160",
+				phone:  "(613) 928-2532                  ",
+				uniqueId: "715841795",
+				inventory: Math.floor("12.0"),
+			},
+			{
+				sequence : "55",
+				city : "WASHAGO",
+				description:  "HWY 169 &amp; HWY 11",
+				address1:  "8409 COUNTY ROAD 169",
+				address2:  "P.O. BOX 130",
+				phone:  "(705) 689-5110                  ",
+				uniqueId: "715841783",
+				inventory: Math.floor("17.0"),
+			},
+			{
+				sequence : "56",
+				city : "KIRKFIELD",
+				description:  "HWY 48 &amp; KIRKFIELD RD (COUNTY RD 6)",
+				address1:  "1002 PORTAGE ROAD",
+				address2:  "",
+				phone:  "(705) 438-3422                  ",
+				uniqueId: "715841785",
+				inventory: Math.floor("26.0"),
+			},
+			{
+				sequence : "57",
+				city : "WARKWORTH",
+				description:  "MAIN &amp; CHURCH ST",
+				address1:  "44 CHURCH STREET",
+				address2:  "P.O. BOX 193",
+				phone:  "(705) 924-2161                  ",
+				uniqueId: "715841787",
+				inventory: Math.floor("9.0"),
+			},
+			{
+				sequence : "58",
+				city : "GOULAIS RIVER",
+				description:  "HWY 17 N",
+				address1:  "3040 HWY 17 NORTH",
+				address2:  "",
+				phone:  "(705) 649-2254                  ",
+				uniqueId: "715841788",
+				inventory: Math.floor("21.0"),
+			},
+			{
+				sequence : "59",
+				city : "SYDENHAM",
+				description:  "GEORGE ST &amp; MILL ST",
+				address1:  "4387 MILL STREET",
+				address2:  "P.O. BOX 265",
+				phone:  "(613) 376-3057                  ",
+				uniqueId: "715841790",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "60",
+				city : "DENBIGH",
+				description:  "HWY 41 &amp; 28",
+				address1:  "22353 HIGHWAY 41",
+				address2:  "",
+				phone:  "(613) 333-2277                  ",
+				uniqueId: "715841791",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "61",
+				city : "HUDSON",
+				description:  "HWY 72 &amp; 582",
+				address1:  "35 SECOND STREET",
+				address2:  "PO BOX 10",
+				phone:  "(807) 582-3205                  ",
+				uniqueId: "715841774",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "62",
+				city : "PORT SEVERN",
+				description:  "HWY 400 &amp; PORT SEVERN RD",
+				address1:  "3238 PORT SEVERN ROAD",
+				address2:  "P.O. BOX 176",
+				phone:  "(705) 538-2500                  ",
+				uniqueId: "715841777",
+				inventory: Math.floor("17.0"),
+			},
+			{
+				sequence : "63",
+				city : "ST. CHARLES",
+				description:  "HWY 535 &amp; KING ST",
+				address1:  "8 KING STREET EAST",
+				address2:  "P.O. BOX 99",
+				phone:  "(705) 867-2966                  ",
+				uniqueId: "715841763",
+				inventory: Math.floor("10.0"),
+			},
+			{
+				sequence : "64",
+				city : "NEWCASTLE",
+				description:  "KING &amp; CHURCH",
+				address1:  "91 KING AVE. W.",
+				address2:  "",
+				phone:  "(905) 987-4843                  ",
+				uniqueId: "715841764",
+				inventory: Math.floor("17.0"),
+			},
+			{
+				sequence : "65",
+				city : "CALLANDER",
+				description:  "LANDSDOWN &amp; MAIN ST",
+				address1:  "5 MAIN STREET NORTH",
+				address2:  "P.O. BOX 269, CALLANDER CENTRE",
+				phone:  "(705) 752-3511                  ",
+				uniqueId: "715841768",
+				inventory: Math.floor("12.0"),
+			},
+			{
+				sequence : "66",
+				city : "PLEVNA",
+				description:  "MAIN &amp; BUCKSHOT ST",
+				address1:  "7423 HIGHWAY 506",
+				address2:  "PO BOX 111",
+				phone:  "(613) 479-2456                  ",
+				uniqueId: "715841910",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "67",
+				city : "NORWOOD",
+				description:  "HWY 7 &amp; 45",
+				address1:  "4246 HWY. 7",
+				address2:  "BOX 298",
+				phone:  "(705) 639-5251                  ",
+				uniqueId: "715841911",
+				inventory: Math.floor("4.0"),
+			},
+			{
+				sequence : "68",
+				city : "LANGTON",
+				description:  "HWY 59",
+				address1:  "67 QUEEN STREET",
+				address2:  "P.O. BOX 69",
+				phone:  "(519) 875-2661                  ",
+				uniqueId: "715841898",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "69",
+				city : "MAGNETAWAN",
+				description:  "HWY 520 &amp; SPARK ST",
+				address1:  "12 BIDDY STREET",
+				address2:  "P.O. BOX 22",
+				phone:  "(705) 387-3761                  ",
+				uniqueId: "715841903",
+				inventory: Math.floor("28.0"),
+			},
+			{
+				sequence : "70",
+				city : "BAYSVILLE",
+				description:  "BRUNEL RD &amp; REGIONAL RD 117",
+				address1:  "2641 MUSKOKA ROAD 117 EAST",
+				address2:  "P.O. BOX 171",
+				phone:  "(705) 767-3866                  ",
+				uniqueId: "715841905",
+				inventory: Math.floor("18.0"),
+			},
+			{
+				sequence : "71",
+				city : "ECHO BAY",
+				description:  "HWY 17 E &amp; CHURCH ST",
+				address1:  "3213 HWY 17 B EAST",
+				address2:  "P.O. BOX 9",
+				phone:  "(705) 248-2643                  ",
+				uniqueId: "715841888",
+				inventory: Math.floor("18.0"),
+			},
+			{
+				sequence : "72",
+				city : "SEELEY&#039;S BAY",
+				description:  "HWY 15 &amp; 32",
+				address1:  "106 DRYNAN WAY, UNIT 10",
+				address2:  "BOX 30",
+				phone:  "(613) 387-3593                  ",
+				uniqueId: "715841889",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "73",
+				city : "HAGAR",
+				description:  "HWY 17 &amp; 535",
+				address1:  "7260 HWY 535",
+				address2:  "GENERAL DELIVERY",
+				phone:  "(705) 967-0521                  ",
+				uniqueId: "715841893",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "74",
+				city : "TAVISTOCK",
+				description:  "WILLIAM ST &amp; HOPE ST",
+				address1:  "82 HOPE STREET WEST",
+				address2:  "P.O. BOX 488",
+				phone:  "(519) 655-2822                  ",
+				uniqueId: "715841880",
+				inventory: Math.floor("33.0"),
+			},
+			{
+				sequence : "75",
+				city : "COE HILL",
+				description:  "HWY 620 &amp; CENTRE ST",
+				address1:  "8 CENTRE STREET",
+				address2:  "HWY 620/CENTRE ST",
+				phone:  "(613) 337-1100                  ",
+				uniqueId: "715841885",
+				inventory: Math.floor("11.0"),
+			},
+			{
+				sequence : "76",
+				city : "THORNBURY",
+				description:  "ARTHUR ST W &amp; ELMA ST N",
+				address1:  "105 ARTHUR ST W",
+				address2:  "PO BOX #179",
+				phone:  "(519) 599-3545                  ",
+				uniqueId: "715841869",
+				inventory: Math.floor("8.0"),
+			},
+			{
+				sequence : "77",
+				city : "BRUSSELS",
+				description:  "COUNTRY RD 16 &amp; TURNBERRY ST",
+				address1:  "575 TURNBERRY STREET",
+				address2:  "P.O. BOX 279",
+				phone:  "(519) 887-9204                  ",
+				uniqueId: "715841873",
+				inventory: Math.floor("10.0"),
+			},
+			{
+				sequence : "78",
+				city : "BELMONT",
+				description:  "CAESAR RD &amp; MAIN ST (HWY 74)",
+				address1:  "210 CAESAR ROAD",
+				address2:  "P.O. BOX 61",
+				phone:  "(519) 644-1500                  ",
+				uniqueId: "715841863",
+				inventory: Math.floor("18.0"),
+			},
+			{
+				sequence : "79",
+				city : "BAYFIELD",
+				description:  "MILL RD &amp; HWY 21",
+				address1:  "71 MAIN STREET SOUTH",
+				address2:  "PO BOX 219",
+				phone:  "(519) 565-2444                  ",
+				uniqueId: "715841865",
+				inventory: Math.floor("22.0"),
+			},
+			{
+				sequence : "80",
+				city : "DWIGHT",
+				description:  "HWY 35 &amp; 60",
+				address1:  "25846 HWY 35",
+				address2:  "PO BOX GROUP 14",
+				phone:  "(705) 635-2891                  ",
+				uniqueId: "715841854",
+				inventory: Math.floor("3.0"),
+			},
+			{
+				sequence : "81",
+				city : "VICTORIA HARBOUR",
+				description:  "JOHN &amp; ALBERT ST",
+				address1:  "144 ALBERT STREET",
+				address2:  "P.O. BOX 119",
+				phone:  "(705) 534-3626                  ",
+				uniqueId: "715841857",
+				inventory: Math.floor("22.0"),
+			},
+			{
+				sequence : "82",
+				city : "BUCKHORN",
+				description:  "KINGS HWY 36 &amp; 507",
+				address1:  "1976 LAKEHURST ROAD",
+				address2:  "GENERAL DELIVERY",
+				phone:  "(705) 657-3211                  ",
+				uniqueId: "715841858",
+				inventory: Math.floor("23.0"),
+			},
+			{
+				sequence : "83",
+				city : "CANNINGTON",
+				description:  "HWY 12 &amp; CAMERON ST E",
+				address1:  "25 CAMERON STREET EAST",
+				address2:  "P.O. BOX 449",
+				phone:  "(705) 432-2841                  ",
+				uniqueId: "715841859",
+				inventory: Math.floor("13.0"),
+			},
+			{
+				sequence : "84",
+				city : "SPANISH",
+				description:  "HWY 17 E",
+				address1:  "4 GODERICH ROAD",
+				address2:  "P.O. BOX 340",
+				phone:  "(705) 844-2244                  ",
+				uniqueId: "715841843",
+				inventory: Math.floor("20.0"),
+			},
+			{
+				sequence : "85",
+				city : "THAMESVILLE",
+				description:  "HWY 2 &amp; 21",
+				address1:  "99 INDUSTRIAL ROAD",
+				address2:  "P.O. BOX 188",
+				phone:  "(519) 692-5078                  ",
+				uniqueId: "715841845",
+				inventory: Math.floor("24.0"),
+			},
+			{
+				sequence : "86",
+				city : "BONFIELD",
+				description:  "YONGE ST &amp; JAMES ST",
+				address1:  "234 YONGE STREET",
+				address2:  "P.O. BOX 76",
+				phone:  "(705) 776-7769                  ",
+				uniqueId: "715841834",
+				inventory: Math.floor("7.0"),
+			},
+			{
+				sequence : "87",
+				city : "WINCHESTER",
+				description:  "MAIN ST &amp; HWY 31",
+				address1:  "578 MAIN STREET WEST",
+				address2:  "P.O. BOX 180",
+				phone:  "(613) 774-3648                  ",
+				uniqueId: "715841838",
+				inventory: Math.floor("5.0"),
+			},
+			{
+				sequence : "88",
+				city : "GRAND VALLEY",
+				description:  "HWY 9 &amp; 25",
+				address1:  "22 MAIN STREET SOUTH",
+				address2:  "",
+				phone:  "(519) 928-3400                  ",
+				uniqueId: "715841824",
+				inventory: Math.floor("14.0"),
+			},
+			{
+				sequence : "89",
+				city : "VERNER",
+				description:  "HWY 17 W &amp; COTE ST",
+				address1:  "10442 HWY. 17",
+				address2:  "BOX 340",
+				phone:  "(705) 594-2254                  ",
+				uniqueId: "715841829",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "90",
+				city : "REECES CORNERS",
+				description:  "SE CORNER OIL HERITAGE &amp; LAMBTON COUNTY",
+				address1:  "4475 LONDON LINE, REECES CORNERS",
+				address2:  "P.O. BOX 587      WYOMING",
+				phone:  "(519) 845-0120                  ",
+				uniqueId: "715841813",
+				inventory: Math.floor("12.0"),
+			},
+			{
+				sequence : "91",
+				city : "BEWDLEY",
+				description:  "RICE LAKE DR &amp; LAKE ST",
+				address1:  "5087 RICE LAKE DRIVE NORTH",
+				address2:  "BOX 507",
+				phone:  "(905) 797-2077                  ",
+				uniqueId: "715841956",
+				inventory: Math.floor("29.0"),
+			},
+			{
+				sequence : "92",
+				city : "DUNCHURCH",
+				description:  "HWY 124 &amp; HWY 520",
+				address1:  "7 CHURCH STREET",
+				address2:  "GENERAL DELIVERY",
+				phone:  "(705) 389-3023                  ",
+				uniqueId: "715841957",
+				inventory: Math.floor("3.0"),
+			},
+			{
+				sequence : "93",
+				city : "PEFFERLAW",
+				description:  "HWY 48 &amp; PEFFERLAW RD",
+				address1:  "17 HASTINGS ROAD",
+				address2:  "",
+				phone:  "(705) 437-2900                  ",
+				uniqueId: "715841958",
+				inventory: Math.floor("4.0"),
+			},
+			{
+				sequence : "94",
+				city : "CALEDON",
+				description:  "CHURCH ST &amp; AIRPORT RD",
+				address1:  "16000 AIRPORT ROAD",
+				address2:  "",
+				phone:  "(905) 584-9455                  ",
+				uniqueId: "715841961",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "95",
+				city : "ALBAN",
+				description:  "HWY 69 &amp; 64",
+				address1:  "524 HWY 64",
+				address2:  "P.O. BOX 219",
+				phone:  "(705) 857-2185                  ",
+				uniqueId: "715841946",
+				inventory: Math.floor("17.0"),
+			},
+			{
+				sequence : "96",
+				city : "LION&#039;S HEAD",
+				description:  "FERNDALE &amp; MAIN",
+				address1:  "1 FERNDALE ROAD,",
+				address2:  "P.O. BOX 130",
+				phone:  "(519) 793-3355                  ",
+				uniqueId: "715841948",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "97",
+				city : "PONTYPOOL",
+				description:  "JOHN &amp; MANVERS E",
+				address1:  "646 DRUM ROAD",
+				address2:  "CANADA POST OFFICE BOX #250",
+				phone:  "(705) 277-3131                  ",
+				uniqueId: "715841953",
+				inventory: Math.floor("17.0"),
+			},
+			{
+				sequence : "98",
+				city : "SUNDRIDGE",
+				description:  "HWY 124 &amp; PAGET ST",
+				address1:  "10403 HWY 124",
+				address2:  "PO BOX 222",
+				phone:  "(705) 384-7000                  ",
+				uniqueId: "715841936",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "99",
+				city : "PAISLEY",
+				description:  "COUNTY RD 3 &amp; 10",
+				address1:  "277 QUEEN STREET NORTH",
+				address2:  "P.O. BOX 489",
+				phone:  "(519) 353-5343                  ",
+				uniqueId: "715841938",
+				inventory: Math.floor("10.0"),
+			},
+			{
+				sequence : "100",
+				city : "MILDMAY",
+				description:  "PROVINCIAL HWY 9 &amp; ABSALOM ST",
+				address1:  "1024 HIGHWAY 9",
+				address2:  "P.O. BOX 219",
+				phone:  "(519) 367-5608                  ",
+				uniqueId: "715841944",
+				inventory: Math.floor("2.0"),
+			},
+			{
+				sequence : "101",
+				city : "HENSALL",
+				description:  "HWY 4 &amp; 84",
+				address1:  "24 LONDON ROAD",
+				address2:  "P.O. BOX 09",
+				phone:  "(519) 263-3003                  ",
+				uniqueId: "715841927",
+				inventory: Math.floor("16.0"),
+			},
+			{
+				sequence : "102",
+				city : "LAFONTAINE",
+				description:  "CONC 16 &amp; COUNTY RD 26",
+				address1:  "336 B RUE LAFONTAINE ROAD WEST",
+				address2:  "TINY",
+				phone:  "(705) 533-4080                  ",
+				uniqueId: "715841931",
+				inventory: Math.floor("12.0"),
+			},
+			{
+				sequence : "103",
+				city : "KOMOKA",
+				description:  "GLENDON &amp; TUNKS",
+				address1:  "10166 GLENDON DRIVE",
+				address2:  "UNIT 301",
+				phone:  "(519) 472-5343                  ",
+				uniqueId: "715842584",
+				inventory: Math.floor("6.0"),
+			},
+			{
+				sequence : "104",
+				city : "WAUBAUSHENE",
+				description:  "HWY 400 &amp; HWY 12",
+				address1:  "5 FALLOWFIELD LANE",
+				address2:  "UNIT 2",
+				phone:  "(705) 538-2128                  ",
+				uniqueId: "715845584",
+				inventory: Math.floor("28.0"),
+			}
+	];
+	var storesArrayExcel = [
+
+			[
+				"THESSALON",
+				"HWY 17B &amp; HURON ST",
+				"163 MAIN STREET",
+				"BOX 8",
+				"(705) 842-2112                  ",
+				"104",
+				Math.floor("9.0"),
+			],
+			[
+				"PALMERSTON",
+				"HWY 89 &amp; 23",
+				"440 MAIN STREET WEST",
+				"P.O. BOX 58",
+				"(519) 343-2620                  ",
+				"107",
+				Math.floor("18.0"),
+			],
+			[
+				"CAPREOL",
+				"HANNA &amp; DENNIE",
+				"12 HANNA STREET",
+				"P.O. BOX 968",
+				"(705) 858-1552                  ",
+				"118",
+				Math.floor("21.0"),
+			],
+			[
+				"MERRICKVILLE",
+				"ELGIN &amp; WELLINGTON ST",
+				"205 ELGIN STREET",
+				"BOX 190",
+				"(613) 269-4623                  ",
+				"119",
+				Math.floor("8.0"),
+			],
+			[
+				"PELEE ISLAND",
+				"WEST DOCK",
+				"1109 WESTSHORE ROAD",
+				"",
+				"(519) 724-2961                  ",
+				"120",
+				Math.floor("14.0"),
+			],
+			[
+				"LANCASTER",
+				"MOLAN ST &amp; HWY 34",
+				"16 MOLAN STREET",
+				"",
+				"(613) 347-2056                  ",
+				"123",
+				Math.floor("9.0"),
+			],
+			[
+				"DRESDEN",
+				"HWY 21 &amp; LINDSLEY ST",
+				"188 LINDSLEY STREET WEST",
+				"P.O. BOX 638",
+				"(519) 683-4472                  ",
+				"161",
+				Math.floor("16.0"),
+			],
+			[
+				"BEARDMORE",
+				"HWY 11 &amp; MAIN ST",
+				"222 MAIN STREET",
+				"P.O. BOX 69",
+				"(807) 875-2090                  ",
+				"180",
+				Math.floor("3.0"),
+			],
+			[
+				"DUTTON",
+				"MAIN &amp; MARY ST",
+				"234 MARY STREET",
+				"",
+				"(519) 762-2200                  ",
+				"213",
+				Math.floor("26.0"),
+			],
+			[
+				"MANITOUWADGE",
+				"HURON &amp; BARBER WALK",
+				"66 HURON WALK",
+				"P.O. BOX 250",
+				"(807) 826-3541                  ",
+				"220",
+				Math.floor("6.0"),
+			],
+			[
+				"LONGLAC",
+				"HWY 11 &amp; FORESTRY RD",
+				"116 FORESTRY ROAD",
+				"P.O. BOX 358",
+				"(807) 876-2275                  ",
+				"245",
+				Math.floor("15.0"),
+			],
+			[
+				"MACTIER",
+				"HWY 169 &amp; 612",
+				"426 HIGH STREET",
+				"P.O. BOX 129",
+				"(705) 375-2830                  ",
+				"251",
+				Math.floor("19.0"),
+			],
+			[
+				"MILLBROOK",
+				"TUPPER &amp; KING ST",
+				"4 CENTRE STREET",
+				"P.O. BOX 268",
+				"(705) 932-2753                  ",
+				"254",
+				Math.floor("14.0"),
+			],
+			[
+				"MANITOWANING",
+				"QUEEN &amp; SPRAGGE",
+				"13 SPRAGGE &amp; QUEEN STREET",
+				"P.O. BOX 99",
+				"(705) 859-3292                  ",
+				"258",
+				Math.floor("11.0"),
+			],
+			[
+				"IROQUOIS",
+				"HERITAGE HWY 4 &amp; 2",
+				"17 PLAZA DRIVE",
+				"P.O. BOX 158",
+				"(613) 652-4549                  ",
+				"262",
+				Math.floor("1.0"),
+			],
+			[
+				"LUCAN",
+				"MAIN &amp; MARKET ST",
+				"196 MAIN STREET",
+				"P.O. BOX 239",
+				"(519) 227-4279                  ",
+				"264",
+				Math.floor("13.0"),
+			],
+			[
+				"CREEMORE",
+				"ELIZABETH &amp; MILL ST",
+				"12 ELIZABETH ST. E.",
+				"",
+				"(705) 466-2110                  ",
+				"267",
+				Math.floor("5.0"),
+			],
+			[
+				"SEAFORTH",
+				"MAIN ST N &amp; HWY 8 W",
+				"50 MAIN STREET NORTH",
+				"P.O. BOX 658",
+				"(519) 527-0970                  ",
+				"273",
+				Math.floor("1.0"),
+			],
+			[
+				"ZURICH",
+				"MAIN &amp; EAST ST",
+				"11 MAIN STREET",
+				"P.O. BOX 88",
+				"(519) 236-4901                  ",
+				"274",
+				Math.floor("23.0"),
+			],
+			[
+				"OMEMEE",
+				"KING &amp; STURGEON ST",
+				"4 KING STREET",
+				"P.O. BOX 29",
+				"(705) 799-5212                  ",
+				"281",
+				Math.floor("15.0"),
+			],
+			[
+				"IGNACE",
+				"MAIN (HWY 17), NASH, &amp; BEAVER",
+				"300 MAIN ST, IGNACE SHOPPING CENTER",
+				"PO BOX 360",
+				"(807) 934-2876                  ",
+				"291",
+				Math.floor("11.0"),
+			],
+			[
+				"EAR FALLS",
+				"SPRUCE ST &amp; BALSAM AVE",
+				"16 SPRUCE STREET",
+				"PO BOX 190",
+				"(807) 222-3066                  ",
+				"292",
+				Math.floor("25.0"),
+			],
+			[
+				"ARTHUR",
+				"HWY 6 &amp; 9",
+				"151 CATHERINE STREET WEST",
+				"P.O. BOX 428",
+				"(519) 848-2126                  ",
+				"293",
+				Math.floor("36.0"),
+			],
+			[
+				"GLENCOE",
+				"CURRIE &amp; MCKELLAR ST",
+				"228 CURRIE STREET",
+				"P.O. BOX 336",
+				"(519) 287-2844                  ",
+				"294",
+				Math.floor("11.0"),
+			],
+			[
+				"WATERFORD",
+				"ALICE STREET &amp; ST JAMES STRET SOUTH",
+				"37 ST. JAMES STREET",
+				"PO BOX 419",
+				"(519) 443-5214                  ",
+				"299",
+				Math.floor("6.0"),
+			],
+			[
+				"CHESTERVILLE",
+				"HWY 43 &amp; QUEEN ST",
+				"150 QUEEN STREET",
+				"",
+				"(613) 448-2020                  ",
+				"303",
+				Math.floor("10.0"),
+			],
+			[
+				"CARDINAL",
+				"HWY 2 &amp; DUNDAS ST",
+				"623 HWY. 2, CARDINAL VILLAGE SQUARE",
+				"P.O. BOX 449",
+				"(613) 657-3305                  ",
+				"304",
+				Math.floor("5.0"),
+			],
+			[
+				"MAXVILLE",
+				"HWY 43 S &amp; 417 N",
+				"3 MAIN STREET",
+				"BOX 149",
+				"(613) 527-2941                  ",
+				"309",
+				Math.floor("14.0"),
+			],
+			[
+				"ATHENS",
+				"ELGIN ST &amp; MAIN ST",
+				"19 MAIN STREET EAST",
+				"P.O. BOX 249",
+				"(613) 924-2033                  ",
+				"316",
+				Math.floor("20.0"),
+			],
+			[
+				"APSLEY",
+				"BURLEIGH &amp; WELLINGTON",
+				"3 BURLEIGH STREET",
+				"P.O. BOX 337",
+				"(705) 656-4492                  ",
+				"318",
+				Math.floor("4.0"),
+			],
+			[
+				"WHITNEY",
+				"OTTAWA ST &amp; HAYCREEK RD",
+				"16 HAY CREEK ROAD",
+				"P.O. BOX 112",
+				"(613) 637-2150                  ",
+				"319",
+				Math.floor("9.0"),
+			],
+			[
+				"POINTE AU BARIL",
+				"HWY 69 &amp; 644",
+				"HWY. 69",
+				"P.O. BOX 8",
+				"(705) 366-2364                  ",
+				"323",
+				Math.floor("33.0"),
+			],
+			[
+				"PORT STANLEY",
+				"BRIDGE &amp; CARLOW ST",
+				"325 BRIDGE STREET",
+				"",
+				"(519) 782-3367                  ",
+				"330",
+				Math.floor("11.0"),
+			],
+			[
+				"ROSSEAU",
+				"VICTORIA ST &amp; PARRY SOUND",
+				"1145 HIGHWAY 141",
+				"P.O. BOX 100",
+				"(705) 732-4632                  ",
+				"347",
+				Math.floor("3.0"),
+			],
+			[
+				"ELGIN",
+				"HWY 15 &amp; PERTH ST",
+				"131 PERTH STREET",
+				"P.O. BOX 69",
+				"(613) 359-5490                  ",
+				"352",
+				Math.floor("3.0"),
+			],
+			[
+				"FRANKFORD",
+				"TRENT ST &amp; MILL ST",
+				"14 KING DRIVE NORTH",
+				"P.O. BOX 399",
+				"(613) 398-6160                  ",
+				"364",
+				Math.floor("33.0"),
+			],
+			[
+				"HARRISTON",
+				"QUEEN &amp; ARTHUR",
+				"2 QUEEN STREET SOUTH",
+				"P.O. BOX 550",
+				"(519) 338-2302                  ",
+				"369",
+				Math.floor("16.0"),
+			],
+			[
+				"WHEATLEY",
+				"HWY 3 &amp; KENT RD",
+				"676 HIGHWAY 3 EAST",
+				"",
+				"(519) 825-4791                  ",
+				"372",
+				Math.floor("20.0"),
+			],
+			[
+				"PARKHILL",
+				"HWY 81 &amp; 7",
+				"1-264 MAIN STREET",
+				"P.O. BOX 518",
+				"(519) 294-6694                  ",
+				"374",
+				Math.floor("7.0"),
+			],
+			[
+				"COLBORNE",
+				"HWY 2 &amp; CHURCH ST",
+				"9 TORONTO ROAD, HWY 2",
+				"P.O. BOX 640",
+				"(905) 355-2842                  ",
+				"380",
+				Math.floor("10.0"),
+			],
+			[
+				"DORSET",
+				"HWY 117 &amp; 35",
+				"1059 MAIN STREET",
+				"P.O. BOX 118",
+				"(705) 766-2471                  ",
+				"399",
+				Math.floor("13.0"),
+			],
+			[
+				"PORT BURWELL",
+				"HWY 19 &amp; COUNTY RD 42",
+				"30 ROBINSON STREET",
+				"P.O. BOX 160",
+				"(519) 874-4653                  ",
+				"413",
+				Math.floor("9.0"),
+			],
+			[
+				"STIRLING",
+				"HWY 14 &amp; VICTORIA",
+				"125 NORTH STREET",
+				"P.O. BOX 250",
+				"(613) 395-2605                  ",
+				"414",
+				Math.floor("7.0"),
+			],
+			[
+				"BRUCE MINES",
+				"HWY 17 &amp; 561",
+				"9226 TAYLOR STREET",
+				"PO BOX 178, ROBINSON &amp; HWY 17 EAST",
+				"(705) 785-3772                  ",
+				"421",
+				Math.floor("11.0"),
+			],
+			[
+				"LANSDOWNE",
+				"HWY 3 &amp; KING ST",
+				"992 PRINCE STREET",
+				"P.O. BOX 100",
+				"(613) 659-3472                  ",
+				"423",
+				Math.floor("8.0"),
+			],
+			[
+				"LONG SAULT",
+				"HWY 2 &amp; MOULINETTE RD",
+				"33 LONG SAULT DRIVE, LONG SAULT SC",
+				"P.O. BOX 130",
+				"(613) 534-2481                  ",
+				"435",
+				Math.floor("5.0"),
+			],
+			[
+				"PORTLAND",
+				"COLBORNE ST &amp; CAMPBELL ST",
+				"34 COLBOURNE STREET",
+				"P.O. BOX 26",
+				"(613) 272-2608                  ",
+				"439",
+				Math.floor("9.0"),
+			],
+			[
+				"LUCKNOW",
+				"INGLIS ST &amp; WILLOUGHBY ST",
+				"566 WILLOUGHBY STREET",
+				"P.O. BOX 310",
+				"(519) 528-2335                  ",
+				"440",
+				Math.floor("18.0"),
+			],
+			[
+				"WILBERFORCE",
+				"HWY 648 &amp; ESSON RD",
+				"2763 ESSONVILLE ROAD",
+				"P.O. BOX 149",
+				"(705) 448-2721                  ",
+				"447",
+				Math.floor("13.0"),
+			],
+			[
+				"HONEY HARBOUR",
+				"HWY 69 &amp; MUSKOKA, RD 5",
+				"2669 MUSKOKA RD. 5",
+				"P.O. BOX 69",
+				"(705) 756-2593                  ",
+				"448",
+				Math.floor("2.0"),
+			],
+			[
+				"DUNDALK",
+				"COUNTY RD 9 &amp; HWY 10",
+				"772200 HWY 10",
+				"P.O. BOX 400",
+				"(519) 923-3033                  ",
+				"450",
+				Math.floor("7.0"),
+			],
+			[
+				"RICHARD&#039;S LANDING",
+				"HWY 548 &amp; MAIN ST",
+				"1198 RICHARD STREET",
+				"P.O. BOX 130",
+				"(705) 246-2404                  ",
+				"451",
+				Math.floor("14.0"),
+			],
+			[
+				"CARP",
+				"CARP RD &amp; HWY 17",
+				"461 DONALD B MUNRO DRIVE",
+				"P.O. BOX 24",
+				"(613) 839-3210                  ",
+				"455",
+				Math.floor("9.0"),
+			],
+			[
+				"DELTA",
+				"HWY 42 &amp; MAIN ST",
+				"39 KING STREET",
+				"P.O. BOX 160",
+				"(613) 928-2532                  ",
+				"460",
+				Math.floor("12.0"),
+			],
+			[
+				"WASHAGO",
+				"HWY 169 &amp; HWY 11",
+				"8409 COUNTY ROAD 169",
+				"P.O. BOX 130",
+				"(705) 689-5110                  ",
+				"469",
+				Math.floor("17.0"),
+			],
+			[
+				"KIRKFIELD",
+				"HWY 48 &amp; KIRKFIELD RD (COUNTY RD 6)",
+				"1002 PORTAGE ROAD",
+				"",
+				"(705) 438-3422                  ",
+				"471",
+				Math.floor("26.0"),
+			],
+			[
+				"WARKWORTH",
+				"MAIN &amp; CHURCH ST",
+				"44 CHURCH STREET",
+				"P.O. BOX 193",
+				"(705) 924-2161                  ",
+				"472",
+				Math.floor("9.0"),
+			],
+			[
+				"GOULAIS RIVER",
+				"HWY 17 N",
+				"3040 HWY 17 NORTH",
+				"",
+				"(705) 649-2254                  ",
+				"473",
+				Math.floor("21.0"),
+			],
+			[
+				"SYDENHAM",
+				"GEORGE ST &amp; MILL ST",
+				"4387 MILL STREET",
+				"P.O. BOX 265",
+				"(613) 376-3057                  ",
+				"475",
+				Math.floor("6.0"),
+			],
+			[
+				"DENBIGH",
+				"HWY 41 &amp; 28",
+				"22353 HIGHWAY 41",
+				"",
+				"(613) 333-2277                  ",
+				"476",
+				Math.floor("7.0"),
+			],
+			[
+				"HUDSON",
+				"HWY 72 &amp; 582",
+				"35 SECOND STREET",
+				"PO BOX 10",
+				"(807) 582-3205                  ",
+				"480",
+				Math.floor("14.0"),
+			],
+			[
+				"PORT SEVERN",
+				"HWY 400 &amp; PORT SEVERN RD",
+				"3238 PORT SEVERN ROAD",
+				"P.O. BOX 176",
+				"(705) 538-2500                  ",
+				"482",
+				Math.floor("17.0"),
+			],
+			[
+				"ST. CHARLES",
+				"HWY 535 &amp; KING ST",
+				"8 KING STREET EAST",
+				"P.O. BOX 99",
+				"(705) 867-2966                  ",
+				"488",
+				Math.floor("10.0"),
+			],
+			[
+				"NEWCASTLE",
+				"KING &amp; CHURCH",
+				"91 KING AVE. W.",
+				"",
+				"(905) 987-4843                  ",
+				"489",
+				Math.floor("17.0"),
+			],
+			[
+				"CALLANDER",
+				"LANDSDOWN &amp; MAIN ST",
+				"5 MAIN STREET NORTH",
+				"P.O. BOX 269, CALLANDER CENTRE",
+				"(705) 752-3511                  ",
+				"492",
+				Math.floor("12.0"),
+			],
+			[
+				"PLEVNA",
+				"MAIN &amp; BUCKSHOT ST",
+				"7423 HIGHWAY 506",
+				"PO BOX 111",
+				"(613) 479-2456                  ",
+				"503",
+				Math.floor("5.0"),
+			],
+			[
+				"NORWOOD",
+				"HWY 7 &amp; 45",
+				"4246 HWY. 7",
+				"BOX 298",
+				"(705) 639-5251                  ",
+				"504",
+				Math.floor("4.0"),
+			],
+			[
+				"LANGTON",
+				"HWY 59",
+				"67 QUEEN STREET",
+				"P.O. BOX 69",
+				"(519) 875-2661                  ",
+				"510",
+				Math.floor("5.0"),
+			],
+			[
+				"MAGNETAWAN",
+				"HWY 520 &amp; SPARK ST",
+				"12 BIDDY STREET",
+				"P.O. BOX 22",
+				"(705) 387-3761                  ",
+				"514",
+				Math.floor("28.0"),
+			],
+			[
+				"BAYSVILLE",
+				"BRUNEL RD &amp; REGIONAL RD 117",
+				"2641 MUSKOKA ROAD 117 EAST",
+				"P.O. BOX 171",
+				"(705) 767-3866                  ",
+				"516",
+				Math.floor("18.0"),
+			],
+			[
+				"ECHO BAY",
+				"HWY 17 E &amp; CHURCH ST",
+				"3213 HWY 17 B EAST",
+				"P.O. BOX 9",
+				"(705) 248-2643                  ",
+				"519",
+				Math.floor("18.0"),
+			],
+			[
+				"SEELEY&#039;S BAY",
+				"HWY 15 &amp; 32",
+				"106 DRYNAN WAY, UNIT 10",
+				"BOX 30",
+				"(613) 387-3593                  ",
+				"520",
+				Math.floor("6.0"),
+			],
+			[
+				"HAGAR",
+				"HWY 17 &amp; 535",
+				"7260 HWY 535",
+				"GENERAL DELIVERY",
+				"(705) 967-0521                  ",
+				"524",
+				Math.floor("7.0"),
+			],
+			[
+				"TAVISTOCK",
+				"WILLIAM ST &amp; HOPE ST",
+				"82 HOPE STREET WEST",
+				"P.O. BOX 488",
+				"(519) 655-2822                  ",
+				"530",
+				Math.floor("33.0"),
+			],
+			[
+				"COE HILL",
+				"HWY 620 &amp; CENTRE ST",
+				"8 CENTRE STREET",
+				"HWY 620/CENTRE ST",
+				"(613) 337-1100                  ",
+				"535",
+				Math.floor("11.0"),
+			],
+			[
+				"THORNBURY",
+				"ARTHUR ST W &amp; ELMA ST N",
+				"105 ARTHUR ST W",
+				"PO BOX #179",
+				"(519) 599-3545                  ",
+				"537",
+				Math.floor("8.0"),
+			],
+			[
+				"BRUSSELS",
+				"COUNTRY RD 16 &amp; TURNBERRY ST",
+				"575 TURNBERRY STREET",
+				"P.O. BOX 279",
+				"(519) 887-9204                  ",
+				"541",
+				Math.floor("10.0"),
+			],
+			[
+				"BELMONT",
+				"CAESAR RD &amp; MAIN ST (HWY 74)",
+				"210 CAESAR ROAD",
+				"P.O. BOX 61",
+				"(519) 644-1500                  ",
+				"548",
+				Math.floor("18.0"),
+			],
+			[
+				"BAYFIELD",
+				"MILL RD &amp; HWY 21",
+				"71 MAIN STREET SOUTH",
+				"PO BOX 219",
+				"(519) 565-2444                  ",
+				"550",
+				Math.floor("22.0"),
+			],
+			[
+				"DWIGHT",
+				"HWY 35 &amp; 60",
+				"25846 HWY 35",
+				"PO BOX GROUP 14",
+				"(705) 635-2891                  ",
+				"557",
+				Math.floor("3.0"),
+			],
+			[
+				"VICTORIA HARBOUR",
+				"JOHN &amp; ALBERT ST",
+				"144 ALBERT STREET",
+				"P.O. BOX 119",
+				"(705) 534-3626                  ",
+				"560",
+				Math.floor("22.0"),
+			],
+			[
+				"BUCKHORN",
+				"KINGS HWY 36 &amp; 507",
+				"1976 LAKEHURST ROAD",
+				"GENERAL DELIVERY",
+				"(705) 657-3211                  ",
+				"561",
+				Math.floor("23.0"),
+			],
+			[
+				"CANNINGTON",
+				"HWY 12 &amp; CAMERON ST E",
+				"25 CAMERON STREET EAST",
+				"P.O. BOX 449",
+				"(705) 432-2841                  ",
+				"562",
+				Math.floor("13.0"),
+			],
+			[
+				"SPANISH",
+				"HWY 17 E",
+				"4 GODERICH ROAD",
+				"P.O. BOX 340",
+				"(705) 844-2244                  ",
+				"565",
+				Math.floor("20.0"),
+			],
+			[
+				"THAMESVILLE",
+				"HWY 2 &amp; 21",
+				"99 INDUSTRIAL ROAD",
+				"P.O. BOX 188",
+				"(519) 692-5078                  ",
+				"567",
+				Math.floor("24.0"),
+			],
+			[
+				"BONFIELD",
+				"YONGE ST &amp; JAMES ST",
+				"234 YONGE STREET",
+				"P.O. BOX 76",
+				"(705) 776-7769                  ",
+				"574",
+				Math.floor("7.0"),
+			],
+			[
+				"WINCHESTER",
+				"MAIN ST &amp; HWY 31",
+				"578 MAIN STREET WEST",
+				"P.O. BOX 180",
+				"(613) 774-3648                  ",
+				"578",
+				Math.floor("5.0"),
+			],
+			[
+				"GRAND VALLEY",
+				"HWY 9 &amp; 25",
+				"22 MAIN STREET SOUTH",
+				"",
+				"(519) 928-3400                  ",
+				"583",
+				Math.floor("14.0"),
+			],
+			[
+				"VERNER",
+				"HWY 17 W &amp; COTE ST",
+				"10442 HWY. 17",
+				"BOX 340",
+				"(705) 594-2254                  ",
+				"588",
+				Math.floor("6.0"),
+			],
+			[
+				"REECES CORNERS",
+				"SE CORNER OIL HERITAGE &amp; LAMBTON COUNTY",
+				"4475 LONDON LINE, REECES CORNERS",
+				"P.O. BOX 587      WYOMING",
+				"(519) 845-0120                  ",
+				"591",
+				Math.floor("12.0"),
+			],
+			[
+				"BEWDLEY",
+				"RICE LAKE DR &amp; LAKE ST",
+				"5087 RICE LAKE DRIVE NORTH",
+				"BOX 507",
+				"(905) 797-2077                  ",
+				"594",
+				Math.floor("29.0"),
+			],
+			[
+				"DUNCHURCH",
+				"HWY 124 &amp; HWY 520",
+				"7 CHURCH STREET",
+				"GENERAL DELIVERY",
+				"(705) 389-3023                  ",
+				"595",
+				Math.floor("3.0"),
+			],
+			[
+				"PEFFERLAW",
+				"HWY 48 &amp; PEFFERLAW RD",
+				"17 HASTINGS ROAD",
+				"",
+				"(705) 437-2900                  ",
+				"596",
+				Math.floor("4.0"),
+			],
+			[
+				"CALEDON",
+				"CHURCH ST &amp; AIRPORT RD",
+				"16000 AIRPORT ROAD",
+				"",
+				"(905) 584-9455                  ",
+				"599",
+				Math.floor("6.0"),
+			],
+			[
+				"ALBAN",
+				"HWY 69 &amp; 64",
+				"524 HWY 64",
+				"P.O. BOX 219",
+				"(705) 857-2185                  ",
+				"604",
+				Math.floor("17.0"),
+			],
+			[
+				"LION&#039;S HEAD",
+				"FERNDALE &amp; MAIN",
+				"1 FERNDALE ROAD,",
+				"P.O. BOX 130",
+				"(519) 793-3355                  ",
+				"606",
+				Math.floor("6.0"),
+			],
+			[
+				"PONTYPOOL",
+				"JOHN &amp; MANVERS E",
+				"646 DRUM ROAD",
+				"CANADA POST OFFICE BOX #250",
+				"(705) 277-3131                  ",
+				"611",
+				Math.floor("17.0"),
+			],
+			[
+				"SUNDRIDGE",
+				"HWY 124 &amp; PAGET ST",
+				"10403 HWY 124",
+				"PO BOX 222",
+				"(705) 384-7000                  ",
+				"613",
+				Math.floor("6.0"),
+			],
+			[
+				"PAISLEY",
+				"COUNTY RD 3 &amp; 10",
+				"277 QUEEN STREET NORTH",
+				"P.O. BOX 489",
+				"(519) 353-5343                  ",
+				"615",
+				Math.floor("10.0"),
+			],
+			[
+				"MILDMAY",
+				"PROVINCIAL HWY 9 &amp; ABSALOM ST",
+				"1024 HIGHWAY 9",
+				"P.O. BOX 219",
+				"(519) 367-5608                  ",
+				"621",
+				Math.floor("2.0"),
+			],
+			[
+				"HENSALL",
+				"HWY 4 &amp; 84",
+				"24 LONDON ROAD",
+				"P.O. BOX 09",
+				"(519) 263-3003                  ",
+				"622",
+				Math.floor("16.0"),
+			],
+			[
+				"LAFONTAINE",
+				"CONC 16 &amp; COUNTY RD 26",
+				"336 B RUE LAFONTAINE ROAD WEST",
+				"TINY",
+				"(705) 533-4080                  ",
+				"626",
+				Math.floor("12.0"),
+			],
+			[
+				"KOMOKA",
+				"GLENDON &amp; TUNKS",
+				"10166 GLENDON DRIVE",
+				"UNIT 301",
+				"(519) 472-5343                  ",
+				"674",
+				Math.floor("6.0"),
+			],
+			[
+				"WAUBAUSHENE",
+				"HWY 400 &amp; HWY 12",
+				"5 FALLOWFIELD LANE",
+				"UNIT 2",
+				"(705) 538-2128                  ",
+				"746",
+				Math.floor("28.0"),
+			]
+	];
+
+	var renderedOutput = [];
+
+	function renderOutput(data) {
+		var inventoryTotal = 0;
+		var delimiter = ($('#isFrench').val() == 'true') ? ' ' : ',';
+		// map the final output data to table tags and render it on the page
+		renderedOutput = data.map(function(store, i) {
+			var addressLine2 = store.address2 ? store.address2 + "<br>" : "";
+			var zebraStripe = i % 2 === 0 ? "even" : "odd";
+			var j=i+1;
+			inventoryTotal+=store.inventory;
+			var storeInventory = store.inventory;
+			storeInventory = storeInventory.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
+			return (
+				"<div class='" + zebraStripe + " col-xs-12 wrapper'>" +
+					"<div class='col-xs-1'>" + j + "</div>" +
+					"<div class='col-xs-3'>" + store.city + "</div>" +
+					"<div class='col-xs-4'>" +
+						"<span class='title'>" + store.description + "</span><br>" +
+						store.address1 + "<br>" +
+						addressLine2 +
+						store.phone + "<br>" +
+					"</div>" +
+					"<div class='col-xs-2 inventory-column '>"
+						 + storeInventory +
+					"</div>" +
+					"<div class='col-xs-3 col-sm-2'>" +
+						"<a class='store-details-link see-details' data-store-id='" + store.uniqueId + "'>See Details</a>" +
+					"</div>" +
+				"</div>"
+			);
+		});
+
+		document.getElementById("inventoryTableBody").innerHTML = renderedOutput.join('');
+		document.getElementById("inventoryTotalValue").innerHTML = inventoryTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
+	}
+
+	var sortOrder = 1;
+
+	function sortTable(sortBy) {
+		// sort the storesArray based on selection and order
+		var sortedOutput = storesArray.sort(function(a, b) {
+			if(a[sortBy] < b[sortBy]){
+				return sortOrder;
+			}
+			if(a[sortBy] > b[sortBy]){
+				return sortOrder * -1;
+			}
+			return 0;
+		})
+		sortOrder = sortOrder * -1;
+		renderOutput(sortedOutput);
+		handleStoreLinks();
+	}
+
+	function initTableSorting() {
+		// add eventListeners to sortable table headers
+		var sortableHeaders = document.querySelectorAll('.sortable');
+		function handleClick(event) {
+			var sortClass = sortOrder === 1 ? 'up' : 'down';
+			sortTable(event.srcElement.id);
+			for (var i = 0; i < sortableHeaders.length; i++) {
+				sortableHeaders[i].classList.remove('active');
+			};
+			event.currentTarget.classList.remove(sortClass === 'down' ? 'up' : 'down');
+			event.currentTarget.classList.add(sortClass);
+			event.currentTarget.classList.add('active');
+		}
+
+		for (var i = 0; i < sortableHeaders.length; i++) {
+			sortableHeaders[i].addEventListener('click', handleClick);
+		};
+	}
+
+	function handleStoreLinks() {
+		// build the store details links dynamically to help
+		// prevent the page from being scraped
+		var storeLinks = document.querySelectorAll('.store-details-link');
+		for (var i = 0; i < storeLinks.length; i++) {
+			storeLinks[i].addEventListener('click', function(event) {
+				window.location.href = 	"https://www.lcbo.com/webapp/wcs/stores/servlet/PhysicalStoreDetailsDisplayView?catalogId=10051&langId=-1&storeId=10203" +
+							"&storeNum=" + event.target.getAttribute("data-store-id");
+			});
+		};
+	}
+
+	/***************************************************************************
+	* Call to export and download as a .csv Excel format.
+	* Javascript Pure JS No-Library needed
+	***************************************************************************/
+	function exportToCsv(filename) {
+         var processRow = function (row) {
+            var finalVal = '';
+            for (var j = 0; j < row.length; j++) {
+                var innerValue = row[j] === null ? '' : row[j].toString();
+                if (row[j] instanceof Date) {
+                    innerValue = row[j].toLocaleString();
+                };
+                var result = innerValue.replace(/"/g, '""');
+                if (result.search(/("|,|\n)/g) >= 0)
+                    result = '"' + result + '"';
+                if (j > 0)
+                    finalVal += ',';
+                finalVal += result;
+            }
+            return finalVal + '\n';
+        };
+
+        var csvFile = "City" + "," + "Intersection" + "," + "Address Line 1" + "," + "Address Line 2"
+        				+ "," + "Phone Number" + "," + "Store Number" + "," + "Available Inventory" + "\n";
+        for (var i = 0; i < storesArrayExcel.length; i++) {
+            csvFile += processRow(storesArrayExcel[i]);
+        }
+
+		//'\uFEFF' is a byte-order-mark used for proper decoding of French characters in Excel
+        var blob = new Blob(['\uFEFF' + csvFile], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            var link = document.createElement("a");
+            if (link.download !== undefined) { // feature detection
+                // Browsers that support HTML5 download attribute
+                var url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    }
+
+	initTableSorting();
+	sortTable('inventory');
+	handleStoreLinks();
+</script>

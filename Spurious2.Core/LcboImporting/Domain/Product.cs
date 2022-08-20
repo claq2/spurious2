@@ -1,40 +1,37 @@
-﻿using Spurious2.Core.LcboImporting.Domain;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Xml.Serialization;
+﻿using System.Globalization;
 
-namespace Spurious2.Core.LcboImporting.Domain
+namespace Spurious2.Core.LcboImporting.Domain;
+
+public class Product
 {
-    [XmlType("product")]
-    public class Product
+    public string Name { get; private set; }
+    public int Id { get; private set; }
+    public string Size { get; private set; }
+    public string LiquorType { get; set; } = string.Empty;
+    public string ProductPageUrl { get; private set; }
+    public Product(string name, int id, string size, string url)
     {
-        public Product()
-        {
-        }
+        this.Name = name;
+        this.Id = id;
+        this.Size = size;
+        this.ProductPageUrl = url;
+    }
 
-        [XmlElement("itemNumber")]
-        public int ItemNumber { get; set; }
-        [XmlElement("itemName")]
-        public string ItemName { get; set; }
-        [XmlElement("liquorType")]
-        public string LiquorType { get; set; }
-        [XmlElement("productSize")]
-        public string ProductSize { get; set; }
-
-        public int PackageVolume
-        {
-            get
-            {
-                // 6x341 mL
-                // 750 mL
-                var productSizeElements = ProductSize.Split(' ');
-                var packageHasMultipleContainers = productSizeElements[0].Contains("x");
-                var containerElements = packageHasMultipleContainers ? productSizeElements[0].Split('x') : Array.Empty<string>();
-                var units = packageHasMultipleContainers ? Convert.ToInt32(containerElements[0], CultureInfo.InvariantCulture) : 1;
-                var unitVolume = packageHasMultipleContainers ? Convert.ToInt32(containerElements[1], CultureInfo.InvariantCulture) : Convert.ToInt32(productSizeElements[0], CultureInfo.InvariantCulture);
-                return units * unitVolume;
-            }
+    public int PackageVolume {
+        get {
+            // 6 x 341
+            // 750
+            var productSizeElements = this.Size.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var packageHasMultipleContainers = productSizeElements.Length > 1;
+            //var containerElements = packageHasMultipleContainers ? productSizeElements[0].Split('x') : Array.Empty<string>();
+            var units = packageHasMultipleContainers ? Convert.ToInt32(productSizeElements[0], CultureInfo.InvariantCulture) : 1;
+            var unitVolume = packageHasMultipleContainers ? Convert.ToInt32(productSizeElements[2], CultureInfo.InvariantCulture) : Convert.ToInt32(productSizeElements[0], CultureInfo.InvariantCulture);
+            return units * unitVolume;
         }
+    }
+
+    public override string ToString()
+    {
+        return $"ID {this.Id} Name {this.Name} Size {this.Size} Volume {this.PackageVolume} URL {this.ProductPageUrl}";
     }
 }

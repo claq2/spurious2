@@ -1,16 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Spurious2.Core.LcboImporting.Domain;
 
-namespace Spurious2.Core.LcboImporting.Services
+namespace Spurious2.Core.LcboImporting.Services;
+
+public interface IImportingService
 {
-    public interface IImportingService : IDisposable
-    {
-        Task<int> UpdateInventoriesFromDatabase(int skip = 0, int take = 100000);
-        Task<int> ReadInventoryHtmlsIntoDatabase();
-        //Task<int> ImportInventories3();
-        //Task<int> ImportInventories();
-        Task<int> ImportProducts();
-        Task<int> ImportStores();
-        //Task<int> ImportInventories2();
-    }
+    Task ProcessStoreBlob(string storeId, Stream storeStream);
+    Task SignalLastProductDone();
+    Task StartImporting();
+    Task ProcessInventoryBlob(string productId, Stream inventoryStream);
+    Task ProcessProductBlob(string productId);
+    Task ProcessLastProductBlob(string contents);
+    Task ProcessLastInventoryBlob(string contents);
+    Task EndImporting();
+    Task GetProductPages(ProductType productType);
+    Task UpdateAll();
 }

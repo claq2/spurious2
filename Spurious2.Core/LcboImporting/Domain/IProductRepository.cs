@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace Spurious2.Core.LcboImporting.Domain;
 
-namespace Spurious2.Core.LcboImporting.Domain
+public interface IProductRepository : IDisposable
 {
-    public interface IProductRepository : IDisposable
-    {
-        Task<IEnumerable<int>> GetProductIds();
-        Task Import(IEnumerable<Product> products);
-    }
+    Task UpdateProductsFromIncoming();
+    Task ImportAFew(IEnumerable<Product> products);
+    Task ClearIncomingProducts();
+    Task MarkIncomingProductDone(string productId);
 }

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Spurious2.Core.Reading.Domain;
 
-namespace Spurious2.Core.Reading.Domain
+public enum AlcoholType
 {
-    public enum AlcoholType
-    {
-        All,
-        Beer,
-        Wine,
-        Spirits,
-    }
+    All,
+    Beer,
+    Wine,
+    Spirits,
 }
