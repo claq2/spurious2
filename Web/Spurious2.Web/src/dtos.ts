@@ -1,11 +1,11 @@
 /* Options:
-Date: 2022-08-14 10:52:36
-Version: 6.2
+Date: 2022-08-21 17:29:47
+Version: 6.21
 Tip: To override a DTO option, remove "//" prefix before updating
-BaseUrl: https://localhost:5001
+BaseUrl: http://localhost:5000
 
 //GlobalNamespace: 
-//MakePropertiesOptional: False
+MakePropertiesOptional: True
 //AddServiceStackTypes: True
 //AddResponseStatus: False
 //AddImplicitVersion: 
@@ -28,21 +28,21 @@ export interface IReturnVoid
 
 export class DensityInfo
 {
-    public shortName: string;
-    public title: string;
-    public address: string;
+    public shortName?: string;
+    public title?: string;
+    public address?: string;
 
     public constructor(init?: Partial<DensityInfo>) { (Object as any).assign(this, init); }
 }
 
 export class Subdivision
 {
-    public name: string;
-    public population: number;
-    public density: number;
-    public boundaryLink: string;
-    public centreCoordinates: string;
-    public storesLink: string;
+    public name?: string;
+    public population?: number;
+    public density?: number;
+    public boundaryLink?: string;
+    public centreCoordinates?: string;
+    public storesLink?: string;
 
     public constructor(init?: Partial<Subdivision>) { (Object as any).assign(this, init); }
 }
@@ -57,97 +57,21 @@ export enum AlcoholType
 
 export class Inventory
 {
-    public alcoholType: AlcoholType;
-    public volume: number;
+    public alcoholType?: AlcoholType;
+    public volume?: number;
 
     public constructor(init?: Partial<Inventory>) { (Object as any).assign(this, init); }
 }
 
 export class Store
 {
-    public id: number;
-    public locationCoordinates: string;
-    public name: string;
-    public city: string;
-    public inventories: Inventory[];
+    public id?: number;
+    public locationCoordinates?: string;
+    public name?: string;
+    public city?: string;
+    public inventories?: Inventory[];
 
     public constructor(init?: Partial<Store>) { (Object as any).assign(this, init); }
-}
-
-export class ServerStats
-{
-    public redis: { [index: string]: number; };
-    public serverEvents: { [index: string]: string; };
-    public mqDescription: string;
-    public mqWorkers: { [index: string]: number; };
-
-    public constructor(init?: Partial<ServerStats>) { (Object as any).assign(this, init); }
-}
-
-// @DataContract
-export class ResponseError
-{
-    // @DataMember(Order=1)
-    public errorCode: string;
-
-    // @DataMember(Order=2)
-    public fieldName: string;
-
-    // @DataMember(Order=3)
-    public message: string;
-
-    // @DataMember(Order=4)
-    public meta: { [index: string]: string; };
-
-    public constructor(init?: Partial<ResponseError>) { (Object as any).assign(this, init); }
-}
-
-// @DataContract
-export class ResponseStatus
-{
-    // @DataMember(Order=1)
-    public errorCode: string;
-
-    // @DataMember(Order=2)
-    public message: string;
-
-    // @DataMember(Order=3)
-    public stackTrace: string;
-
-    // @DataMember(Order=4)
-    public errors: ResponseError[];
-
-    // @DataMember(Order=5)
-    public meta: { [index: string]: string; };
-
-    public constructor(init?: Partial<ResponseStatus>) { (Object as any).assign(this, init); }
-}
-
-export class HelloResponse
-{
-    public result: string;
-
-    public constructor(init?: Partial<HelloResponse>) { (Object as any).assign(this, init); }
-}
-
-export class AdminDashboardResponse
-{
-    public serverStats: ServerStats;
-    public responseStatus: ResponseStatus;
-
-    public constructor(init?: Partial<AdminDashboardResponse>) { (Object as any).assign(this, init); }
-}
-
-// @Route("/hello")
-// @Route("/hello/{Name}")
-export class Hello implements IReturn<HelloResponse>
-{
-    public name: string;
-
-    public constructor(init?: Partial<Hello>) { (Object as any).assign(this, init); }
-    public getTypeName() { return 'Hello'; }
-    public getMethod() { return 'POST'; }
-    public createResponse() { return new HelloResponse(); }
 }
 
 // @Route("/densities")
@@ -163,7 +87,7 @@ export class Densities implements IReturn<DensityInfo[]>
 // @Route("/densities/{Name}/subdivisions")
 export class DensitySubdivisions implements IReturn<Subdivision[]>
 {
-    public name: string;
+    public name?: string;
 
     public constructor(init?: Partial<DensitySubdivisions>) { (Object as any).assign(this, init); }
     public getTypeName() { return 'DensitySubdivisions'; }
@@ -174,7 +98,7 @@ export class DensitySubdivisions implements IReturn<Subdivision[]>
 // @Route("/subdivisions/{Id}/boundary")
 export class BoundaryRequest implements IReturn<string>
 {
-    public id: number;
+    public id?: number;
 
     public constructor(init?: Partial<BoundaryRequest>) { (Object as any).assign(this, init); }
     public getTypeName() { return 'BoundaryRequest'; }
@@ -185,20 +109,11 @@ export class BoundaryRequest implements IReturn<string>
 // @Route("/subdivisions/{Id}/stores")
 export class StoresInSubdivisionRequest implements IReturn<Store[]>
 {
-    public id: number;
+    public id?: number;
 
     public constructor(init?: Partial<StoresInSubdivisionRequest>) { (Object as any).assign(this, init); }
     public getTypeName() { return 'StoresInSubdivisionRequest'; }
     public getMethod() { return 'GET'; }
     public createResponse() { return new Array<Store>(); }
-}
-
-export class AdminDashboard implements IReturn<AdminDashboardResponse>
-{
-
-    public constructor(init?: Partial<AdminDashboard>) { (Object as any).assign(this, init); }
-    public getTypeName() { return 'AdminDashboard'; }
-    public getMethod() { return 'POST'; }
-    public createResponse() { return new AdminDashboardResponse(); }
 }
 

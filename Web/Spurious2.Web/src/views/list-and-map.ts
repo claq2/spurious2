@@ -14,9 +14,9 @@ export class ListAndMap {
     private datasource!: source.DataSource;
 
     subdivisions: Subdivision[] = [];
-    @bindable apiKey: string = "UHo_yP7VRSrUF-ZA_GFnT7YOz1b-MoRMT90xMbDybzs";
-    @bindable height: string = '400px';
-    @bindable width: string = '';
+    @bindable apiKey = "UHo_yP7VRSrUF-ZA_GFnT7YOz1b-MoRMT90xMbDybzs";
+    @bindable height = '400px';
+    @bindable width = '';
 
     @bindable({ defaultBindingMode: bindingMode.twoWay })
     location!: data.Position | string | undefined;
@@ -25,6 +25,7 @@ export class ListAndMap {
         http.defaults = { headers: { "Accept": "application/json" } };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async activate(params: any, routeConfig: RouteConfig) {
         //console.log('activate');
         //console.log(routeConfig);
@@ -43,19 +44,19 @@ export class ListAndMap {
             zoom: 4,
         });
 
-        var alcoholTemplate = '<div>{alcoholType}: {volume} L</div>'
-        var popupTemplate = '<div class="customInfobox"><div class="name">{name}</div><div class="name">{city}</div>{alcoholTypes}</div>';
+        const alcoholTemplate = '<div>{alcoholType}: {volume} L</div>'
+        const popupTemplate = '<div class="customInfobox"><div class="name">{name}</div><div class="name">{city}</div>{alcoholTypes}</div>';
 
         this.map.events.addOnce("ready", async () => {
             this.datasource = new source.DataSource();
             this.map.sources.add(this.datasource);
             //Add a layer for rendering the outline of polygons.
-            let lineLayer = new layer.LineLayer(this.datasource, undefined, { strokeColor: 'black', strokeWidth: 0.7 });
-            let polygonLayer = new layer.PolygonLayer(this.datasource, undefined, {
+            const lineLayer = new layer.LineLayer(this.datasource, undefined, { strokeColor: 'black', strokeWidth: 0.7 });
+            const polygonLayer = new layer.PolygonLayer(this.datasource, undefined, {
                 fillOpacity: 0.3,
                 filter: ['any', ['==', ['geometry-type'], 'Polygon'], ['==', ['geometry-type'], 'MultiPolygon']]	//Only render Polygon or MultiPolygon in this layer.
             });
-            let pointLayer = new layer.SymbolLayer(this.datasource, 'symbol', {
+            const pointLayer = new layer.SymbolLayer(this.datasource, 'symbol', {
                 filter: ['==', ['geometry-type'], 'Point'], iconOptions: { allowOverlap: true, image: 'pin-blue' }
             });
             this.map.layers.add(lineLayer);
@@ -70,40 +71,45 @@ export class ListAndMap {
             };
 
             this.map.events.add("moveend", this.viewChangeHandler);
-            let controls: any[] = [];
+            const controls: control.ControlBase[] = [];
             controls.push(new control.ZoomControl());
             this.map.controls.add(controls, { position: ControlPosition.TopRight });
 
-            let densities: Subdivision[] = await client.get<Subdivision[]>(this.densityLink);
+            const densities: Subdivision[] = await client.get<Subdivision[]>(this.densityLink);
             //console.log(densities[0].centreCoordinates);
             this.subdivisions = densities;
 
-            await this.datasource.importDataFromUrl(densities[0].boundaryLink);
-            let shapes = this.datasource.getShapes();
-            let bounds = shapes[0].getBounds();
-            let centre = data.BoundingBox.getCenter(bounds);
-            this.map.setCamera({ bounds: bounds, center: centre });
-            const currentZoom = this.map.getCamera().zoom;
-            if (currentZoom) {
-                this.map.setCamera({ zoom: currentZoom - 1 });
-            }
-            //console.log('shapes: ', shapes);
+            if (densities[0].boundaryLink && densities[0].storesLink) {
+                await this.datasource.importDataFromUrl(densities[0].boundaryLink);
+                const shapes = this.datasource.getShapes();
+                const bounds = shapes[0].getBounds();
+                const centre = data.BoundingBox.getCenter(bounds);
+                this.map.setCamera({ bounds: bounds, center: centre });
+                const currentZoom = this.map.getCamera().zoom;
+                if (currentZoom) {
+                    this.map.setCamera({ zoom: currentZoom - 1 });
+                }
+                //console.log('shapes: ', shapes);
 
-            let stores = await client.get<Store[]>(densities[0].storesLink);
-            //console.log("stores: ", stores);
-            stores.forEach((s: Store) => {
-                let f = new data.Feature(
-                    new data.Point(
-                        new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
-                            parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
-                //console.log('f');
-                //console.log(f);
-                this.datasource.add(f);
-            });
-            let points = this.datasource.getShapes();
+                const stores = await client.get<Store[]>(densities[0].storesLink);
+                //console.log("stores: ", stores);
+                stores.forEach((s: Store) => {
+                    if (s.locationCoordinates) {
+                        const f = new data.Feature(
+                            new data.Point(
+                                new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
+                                    parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
+                        //console.log('f');
+                        //console.log(f);
+                        this.datasource.add(f);
+                    }
+                });
+            }
+
+            const points = this.datasource.getShapes();
             //console.log('points: ', points);
 
-            let popup = new Popup({
+            const popup = new Popup({
                 pixelOffset: [0, -18],
                 //closeButton: false
             });
@@ -112,27 +118,31 @@ export class ListAndMap {
                 //console.log('click');
                 //Make sure that the point exists.
                 if (e.shapes && e.shapes.length > 0) {
-                    let content: string, coordinate;
                     //console.log(e.shapes[0]);
-                    let x: data.Feature<data.Geometry, any> = e.shapes[0] as data.Feature<data.Geometry, any>;
-                    let s = e.shapes[0] as Shape;
+                    //const x: data.Feature<data.Geometry, any> = e.shapes[0] as data.Feature<data.Geometry, any>;
+                    const s = e.shapes[0] as Shape;
                     //x.properties;
                     // console.log(x);
                     // console.log(s);
                     //console.log('x.prop');
                     //console.log(x.properties['name']);
-                    let storeName: string = s.getProperties()['name'] as string;
-                    let cityName: string = s.getProperties()['city'] as string;
-                    let inventories: Inventory[] = s.getProperties()['inventories'] as Inventory[];
-                    let inventoryDiv: string = '';
-                    inventories.forEach(i => inventoryDiv += alcoholTemplate.replace(/{alcoholType}/g, i.alcoholType).replace(/{volume}/g, i.volume.toString()));
-                    content = popupTemplate.replace(/{name}/g, storeName).replace(/{city}/g, cityName).replace(/{alcoholTypes}/g, inventoryDiv);
+                    const storeName: string = s.getProperties()['name'] as string;
+                    const cityName: string = s.getProperties()['city'] as string;
+                    const inventories: Inventory[] = s.getProperties()['inventories'] as Inventory[];
+                    let inventoryDiv = '';
+                    inventories.forEach(i => {
+                        if (i.alcoholType && i.volume)
+                        return inventoryDiv += alcoholTemplate
+                            .replace(/{alcoholType}/g, i.alcoholType)
+                            .replace(/{volume}/g, i.volume.toString());
+                    });
+                    const content: string = popupTemplate.replace(/{name}/g, storeName).replace(/{city}/g, cityName).replace(/{alcoholTypes}/g, inventoryDiv);
                     //console.log('s.getProp');
                     //console.log(s.getProperties()['name']);
                     //console.log(s.getProperties()['inventories']);
                     //let properties = e.shapes[0].properties;// getProperties();
                     //content = popupTemplate.replace(/{name}/g, properties.name).replace(/{description}/g, properties.description);
-                    coordinate = s.getCoordinates();
+                    const coordinate = s.getCoordinates();
 
                     popup.setOptions({
                         //Update the content of the popup.
@@ -156,31 +166,35 @@ export class ListAndMap {
     }
 
     async selectSubdiv(subdiv: Subdivision) {
-        //console.log("Starting select subdiv");
-        this.datasource.clear();
+        if (subdiv.boundaryLink && subdiv.storesLink) {
+            //console.log("Starting select subdiv");
+            this.datasource.clear();
 
-        await this.datasource.importDataFromUrl(subdiv.boundaryLink);
+            await this.datasource.importDataFromUrl(subdiv.boundaryLink);
 
-        let shapes = this.datasource.getShapes();
-        let bounds = shapes[0].getBounds();
-        let centre = data.BoundingBox.getCenter(bounds);
-        this.map.setCamera({ bounds: bounds, center: centre });
-        const currentZoom = this.map.getCamera().zoom;
-        if (currentZoom) {
-            this.map.setCamera({ zoom: currentZoom - 1 });
+            const shapes = this.datasource.getShapes();
+            const bounds = shapes[0].getBounds();
+            const centre = data.BoundingBox.getCenter(bounds);
+            this.map.setCamera({ bounds: bounds, center: centre });
+            const currentZoom = this.map.getCamera().zoom;
+            if (currentZoom) {
+                this.map.setCamera({ zoom: currentZoom - 1 });
+            }
+
+            const stores = await client.get<Store[]>(subdiv.storesLink);
+            //console.log("stores: ", stores);
+            stores.forEach((s: Store) => {
+                if (s.locationCoordinates) {
+                    const f = new data.Feature(
+                        new data.Point(
+                            new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
+                                parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
+                    //console.log('f');
+                    //console.log(f);
+                    this.datasource.add(f);
+                }
+            });
         }
-
-        let stores = await client.get<Store[]>(subdiv.storesLink);
-        //console.log("stores: ", stores);
-        stores.forEach((s: Store) => {
-            let f = new data.Feature(
-                new data.Point(
-                    new data.Position(parseFloat(s.locationCoordinates.split(",")[0]),
-                        parseFloat(s.locationCoordinates.split(",")[1]))), { name: s.name, city: s.city, inventories: s.inventories });
-            //console.log('f');
-            //console.log(f);
-            this.datasource.add(f);
-        });
     }
 
     detached() {

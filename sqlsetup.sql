@@ -173,14 +173,24 @@ GO
 
 IF OBJECT_ID(N'[dbo].[ProductIncoming]', N'U') IS NULL
 BEGIN
-    CREATE TABLE [dbo].[ProductIncoming] (
-        Id INTEGER NOT NULL
-        , [ProductName] NVARCHAR(255)
-        , [Category] NVARCHAR(255)
-        , [Volume] INTEGER
-        , CONSTRAINT [pri_firstkey] PRIMARY KEY ([Id])
-        );
+    CREATE TABLE [dbo].[ProductIncoming](
+    [Id] [int] NOT NULL,
+    [ProductName] [nvarchar](255) NULL,
+    [Category] [nvarchar](255) NULL,
+    [Volume] [int] NULL,
+    [ProductDone] [bit] NOT NULL,
+    [InventoryDone] [bit] NOT NULL,
+ CONSTRAINT [pri_firstkey] PRIMARY KEY CLUSTERED
+(
+    [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 END
+GO
+
+ALTER TABLE [dbo].[ProductIncoming] ADD  CONSTRAINT [DF_ProductIncoming_ProductDone]  DEFAULT ((0)) FOR [ProductDone]
+GO
+ALTER TABLE [dbo].[ProductIncoming] ADD  CONSTRAINT [DF_ProductIncoming_InventoryDone]  DEFAULT ((0)) FOR [InventoryDone]
 GO
 
 IF OBJECT_ID(N'[dbo].[InventoryPage]', N'U') IS NULL
@@ -289,7 +299,7 @@ BEGIN
     SELECT [bi].[id]
         , [bi].[SubdivisionName]
         , (
-            SELECT CASE 
+            SELECT CASE
                     WHEN [bi].[OriginalBoundary].EnvelopeAngle() >= 90
                         THEN [bi].[ReorientedBoundary]
                     ELSE [bi].[OriginalBoundary]
@@ -303,7 +313,7 @@ BEGIN
 
     UPDATE [s]
     SET [Boundary] = (
-            SELECT CASE 
+            SELECT CASE
                     WHEN [bi].[OriginalBoundary].EnvelopeAngle() >= 90
                         THEN [bi].[ReorientedBoundary]
                     ELSE [bi].[OriginalBoundary]
