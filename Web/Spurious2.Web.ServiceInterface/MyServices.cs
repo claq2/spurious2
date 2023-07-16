@@ -51,9 +51,7 @@ public class MyServices : Service
 
     //[Route("/densities")]
 #pragma warning disable CA1822 // Mark members as static
-#pragma warning disable IDE0060 // Remove unused parameter
     public List<DensityInfo> Get(Densities x)
-#pragma warning restore IDE0060 // Remove unused parameter
 #pragma warning restore CA1822 // Mark members as static
     {
         var response = new List<DensityInfo>();

@@ -122,10 +122,11 @@ public class ImportingService : IImportingService
         this.logger.LogInformation("Processed last inventory {contents}", contents);
     }
 
-    public async Task EndImporting()
+    public Task EndImporting()
     {
         // Do final update
         this.logger.LogInformation("Ended importing, doing DB update (no, not really :)");
+        return Task.CompletedTask;
     }
 
     public async Task UpdateAll()

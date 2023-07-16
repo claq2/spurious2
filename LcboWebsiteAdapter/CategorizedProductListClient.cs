@@ -27,7 +27,7 @@ public class CategorizedProductListClient
                 { ProductType.Coolers, "\\\"Products|Coolers|{0}\\\"" },
            });
 
-    private readonly Dictionary<ProductSubtype, (string Tab, string Category)> subsTabCat = new Dictionary<ProductSubtype, (string Tab, string Category)>
+    private readonly Dictionary<ProductSubtype, (string Tab, string Category)> subsTabCat = new()
     {
         // Beer
         { ProductSubtype.Ale, ("ale", "Ale") },
@@ -66,63 +66,6 @@ public class CategorizedProductListClient
         { ProductSubtype.Cocktails,  ("cocktails", "Cocktails") },
 
     };
-
-    private static readonly IReadOnlyDictionary<ProductType, List<(string Tab, string Category)>> ps =
-        new ReadOnlyDictionary<ProductType, List<(string Tab, string Category)>>(
-            new Dictionary<ProductType, List<(string Tab, string Category)>>
-            {
-                {
-                    ProductType.Beer, new List<(string Tab, string Category)>
-                    {
-                        ("ale", "Ale"),
-                        ("lager", "Lager"),
-                        ("cider", "Cider"),
-                        ("non-alcoholic_&_specialty", "Non-Alcoholic & Specialty"),
-                        ("gifts_and_samplers", "Gifts And Samplers"),
-                    }
-                },
-                {
-                    ProductType.Wine, new List<(string Tab, string Category)>
-                    {
-                        ("red_wine", "Red Wine"),
-                        ("white_wine", "White Wine"),
-                        ("rose_wine", "Rose Wine"),
-                        ("champagne", "Champagne"),
-                        ("sparkling_wine", "Sparkling Wine"),
-                        ("dessert_wine", "Dessert Wine"),
-                        ("icewine", "Icewine"),
-                        ("fortified_wine", "Fortified Wine"),
-                        ("specialty_wine", "Speciality Wine"),
-                        ("gifts_and_samplers", "Gifts And Samplers"),
-                        ("sake_&_rice_wine", "Sake & Rice Wine"),
-                    }
-                },
-                {
-                    ProductType.Coolers, new List<(string Tab, string Category)>
-                    {
-                        ("hard_seltzers", "Hard Seltzers"),
-                        ("hard_teas", "Hard Teas"),
-                        ("light_coolers", "Light Coolers"),
-                        ("traditional_coolers", "Traditional Coolers"),
-                        ("caesars", "Caesars"),
-                        ("cocktails", "Cocktails"),
-                    }
-                },
-                {
-                    ProductType.Spirits, new List<(string Tab, string Category)>
-                    {
-                        ("whiskey", "Whiskey"),
-                        ("liqueur", "Liqueur"),
-                        ("tequila", "Tequila"),
-                        ("vodka", "Vodka"),
-                        ("rum", "Rum"),
-                        ("gin", "Gin"),
-                        ("cognac_&_brandy", "Cognac & Brandy"),
-                        ("grappa", "Grappa"),
-                        ("soju", "Soju"),
-                    }
-                },
-            });
 
     private readonly HttpClient httpClient;
 

@@ -1,16 +1,16 @@
 using Funq;
-using ServiceStack;
 using NUnit.Framework;
+using ServiceStack;
 using Spurious2.Web.ServiceInterface;
 
 namespace Spurious2.Web.Tests;
 
 public class IntegrationTest
 {
-    const string BaseUri = "http://localhost:2000/";
+    private const string BaseUri = "http://localhost:2000/";
     private readonly ServiceStackHost appHost;
 
-    class AppHost : AppSelfHostBase
+    private class AppHost : AppSelfHostBase
     {
         public AppHost() : base(nameof(IntegrationTest), typeof(MyServices).Assembly) { }
 
@@ -27,7 +27,7 @@ public class IntegrationTest
     }
 
     [OneTimeTearDown]
-    public void OneTimeTearDown() => appHost.Dispose();
+    public void OneTimeTearDown() => this.appHost.Dispose();
 
-    public IServiceClient CreateClient() => new JsonServiceClient(BaseUri);
+    public static IServiceClient CreateClient() => new JsonServiceClient(BaseUri);
 }

@@ -1,6 +1,5 @@
 ﻿using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
 using Spurious2.Core;
 using Spurious2.Core.LcboImporting.Adapters;
 using Spurious2.Core.LcboImporting.Domain;
@@ -11,20 +10,17 @@ namespace LcboWebsiteAdapter;
 
 public class LcboAdapterPaged3 : ILcboAdapterPaged2
 {
-    private readonly ILogger<LcboAdapterPaged3> logger;
     private readonly CategorizedProductListClient productListClient;
     private readonly InventoryClient inventoryClient;
     private readonly StoreClient storeClient;
 
-    public LcboAdapterPaged3(ILogger<LcboAdapterPaged3> logger,
-        CategorizedProductListClient productListClient,
+    public LcboAdapterPaged3(CategorizedProductListClient productListClient,
         InventoryClient inventoryClient,
         StoreClient storeClient)
     {
         this.storeClient = storeClient;
         this.inventoryClient = inventoryClient;
         this.productListClient = productListClient;
-        this.logger = logger;
     }
 
     public async Task<List<(Inventory, Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
@@ -85,7 +81,7 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
                         var storeA = data.SelectSingleNode("p/a");
                         var storeHref = storeA.Attributes["href"];
                         linkToStoreDetails = new Uri(storeHref.Value);
-                        var storeId = storeHref.Value.Substring(storeHref.Value.LastIndexOf("-") + 1);
+                        var storeId = storeHref.Value[(storeHref.Value.LastIndexOf("-") + 1)..];
                         inv.StoreId = Convert.ToInt32(storeId);
                     }
                 }

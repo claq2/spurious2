@@ -20,9 +20,7 @@ public class LcboAdapterPaged3Tests
             {
                 var logger = loggerFactory.CreateLogger<LcboAdapterPaged3>();
 
-                LcboAdapterPaged3 adapter = new(logger,
-                                                CreateCategorizedProductListClient(),
-                                                //CreateAllProductsListClient(),
+                LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                                 CreateInventoryClient(),
                                                 CreateStoreClient());
                 List<Product> responses = new();
@@ -56,9 +54,7 @@ public class LcboAdapterPaged3Tests
             {
                 var logger = loggerFactory.CreateLogger<LcboAdapterPaged3>();
 
-                LcboAdapterPaged3 adapter = new(logger,
-                                                CreateCategorizedProductListClient(),
-                                                //CreateAllProductsListClient(),
+                LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                                 CreateInventoryClient(),
                                                 CreateStoreClient());
                 List<Product> responses = new();
@@ -83,41 +79,6 @@ public class LcboAdapterPaged3Tests
         }
     }
 
-    //[Test]
-    //public async Task GetAllProducts()
-    //{
-    //    using (ProductRepository productRepository = new(new("Server=localhost;Database=spurious;User Id=sa;Password=QA@vnet1")))
-    //    {
-    //        using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole()))
-    //        {
-    //            var logger = loggerFactory.CreateLogger<LcboAdapterPaged3>();
-
-    //            LcboAdapterPaged3 adapter = new(logger,
-    //                                            CreateCategorizedProductListClient(),
-    //                                            CreateAllProductsListClient(),
-    //                                            CreateInventoryClient(),
-    //                                            CreateStoreClient());
-    //            List<Product2> responses = new();
-
-    //            await productRepository.ClearIncomingProducts().ConfigAwait();
-
-    //            await foreach (var s in adapter.GetAllProducts().ConfigAwait())
-    //            {
-    //                responses.AddRange(s);
-    //                _ = productRepository.ImportAFew(s).ConfigAwait();
-    //            }
-
-    //            var ids = responses.Select(r => r.Id).ToList();
-    //            var distinctIds = ids.Distinct().ToList();
-    //            var duplicateIds = ids.Select(i => i).ToList();
-    //            duplicateIds.RemoveAll(id => ids.Count(i => i == id) == 1);
-    //            duplicateIds = duplicateIds.Distinct().ToList();
-    //            var duplicateItems = responses.Where(r => duplicateIds.Contains(r.Id)).ToList();
-    //            duplicateItems = duplicateItems.OrderBy(r => r.Id).ToList();
-    //            Assert.That(ids.Count, Is.EqualTo(ids.Distinct().Count()));
-    //        }
-    //    }
-    //}
 
     [Test]
     public async Task ParseInventory()
@@ -126,9 +87,7 @@ public class LcboAdapterPaged3Tests
         {
             var logger = loggerFactory.CreateLogger<LcboAdapterPaged3>();
 
-            LcboAdapterPaged3 adapter = new(logger,
-                                            CreateCategorizedProductListClient(),
-                                            //CreateAllProductsListClient(),
+            LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                             CreateInventoryClient(),
                                             CreateStoreClient());
             using var stream = File.OpenRead("80127Inventory.html");
@@ -148,9 +107,7 @@ public class LcboAdapterPaged3Tests
         {
             var logger = loggerFactory.CreateLogger<LcboAdapterPaged3>();
 
-            LcboAdapterPaged3 adapter = new(logger,
-                                            CreateCategorizedProductListClient(),
-                                            //CreateAllProductsListClient(),
+            LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                             CreateInventoryClient(),
                                             CreateStoreClient());
             using var stream = File.OpenRead("store.html");
@@ -175,17 +132,6 @@ public class LcboAdapterPaged3Tests
         return new CategorizedProductListClient(httpClient);
     }
 
-    //private static AllProductsListClient CreateAllProductsListClient()
-    //{
-    //    var httpClient = new HttpClient(new HttpClientHandler()
-    //    {
-    //        AutomaticDecompression = DecompressionMethods.GZip
-    //            | DecompressionMethods.Deflate
-    //            | DecompressionMethods.Brotli
-    //    });
-
-    //    return new AllProductsListClient(httpClient);
-    //}
 
     private static InventoryClient CreateInventoryClient()
     {

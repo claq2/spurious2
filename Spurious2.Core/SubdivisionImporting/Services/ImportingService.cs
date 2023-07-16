@@ -83,9 +83,9 @@ public class ImportingService : IImportingService
                     boundaries.Add(new SubdivisionBoundary
                     (
                         csduid,
-                        wkt,
-                        csdname,
-                        prnname
+                        wkt ?? string.Empty,
+                        csdname ?? string.Empty,
+                        prnname ?? string.Empty
                     ));
                 }
             }
@@ -114,7 +114,7 @@ public class ImportingService : IImportingService
                     records.Add(new SubdivisionPopulation
                     {
                         Id = id,
-                        Name = name,
+                        Name = name ?? string.Empty,
                         Population = population,
                     });
                 }
