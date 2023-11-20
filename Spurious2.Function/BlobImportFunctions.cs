@@ -8,14 +8,8 @@ using Spurious2.Core.LcboImporting.Services;
 
 namespace Spurious2.Function;
 
-public class BlobImportFunctions : IBlobImportFunctions
+public class BlobImportFunctions(IImportingService importingService) : IBlobImportFunctions
 {
-    private readonly IImportingService importingService;
-
-    public BlobImportFunctions(IImportingService importingService)
-    {
-        this.importingService = importingService;
-    }
 
     //[FunctionName("TimerFunction1")]
     //public async Task Run([TimerTrigger("0 */2 * * * *")] TimerInfo myTimer,
@@ -60,28 +54,28 @@ public class BlobImportFunctions : IBlobImportFunctions
     [FunctionName(nameof(StartImporting))]
     public async Task StartImporting([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.StartImporting().ConfigAwait();
+        await importingService.StartImporting().ConfigAwait();
         logger.LogInformation($"Finished StartImporting.");
     }
 
     [FunctionName(nameof(GetWinePages))]
     public async Task GetWinePages([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.GetProductPages(ProductType.Wine).ConfigAwait();
+        await importingService.GetProductPages(ProductType.Wine).ConfigAwait();
         logger.LogInformation($"Finished GetWinePages.");
     }
 
     [FunctionName(nameof(GetBeerPages))]
     public async Task GetBeerPages([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.GetProductPages(ProductType.Beer).ConfigAwait();
+        await importingService.GetProductPages(ProductType.Beer).ConfigAwait();
         logger.LogInformation($"Finished GetBeerPages.");
     }
 
     [FunctionName(nameof(GetSpiritsPages))]
     public async Task GetSpiritsPages([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
+        await importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
         logger.LogInformation($"Finished GetSpiritsPages.");
     }
 
@@ -89,7 +83,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     public async Task Product([BlobTrigger("products/{productId}", Connection = "AzureWebJobsStorage")] string myBlob,
         string productId, ILogger logger)
     {
-        await this.importingService.ProcessProductBlob(productId).ConfigAwait();
+        await importingService.ProcessProductBlob(productId).ConfigAwait();
         logger.LogInformation($"C# Blob trigger function processed product blob\n Name:{productId} \n Size: {myBlob.Length} Bytes");
     }
 
@@ -97,7 +91,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     [FunctionName(nameof(SignalLastProductDone))]
     public async Task SignalLastProductDone([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.SignalLastProductDone().ConfigAwait();
+        await importingService.SignalLastProductDone().ConfigAwait();
         logger.LogInformation($"Finished SignalLastProductDone.");
     }
 
@@ -106,7 +100,7 @@ public class BlobImportFunctions : IBlobImportFunctions
         string name, ILogger logger)
     {
         logger.LogInformation("Inventory blob trigger called for {name}", name);
-        await this.importingService.ProcessInventoryBlob(name, myBlob).ConfigAwait();
+        await importingService.ProcessInventoryBlob(name, myBlob).ConfigAwait();
         logger.LogInformation($"C# Blob trigger function processed inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
@@ -114,7 +108,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     public async Task Store([BlobTrigger("stores/{storeId}", Connection = "AzureWebJobsStorage")] Stream myBlob,
         string storeId, ILogger logger)
     {
-        await this.importingService.ProcessStoreBlob(storeId, myBlob).ConfigAwait();
+        await importingService.ProcessStoreBlob(storeId, myBlob).ConfigAwait();
         logger.LogInformation($"C# Blob trigger function processed store blob\n Name:{storeId} \n Size: {myBlob.Length} Bytes");
     }
 
@@ -122,7 +116,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     public async Task LastProduct([BlobTrigger("last-product/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
         string name, ILogger logger)
     {
-        await this.importingService.ProcessLastProductBlob(name).ConfigAwait();
+        await importingService.ProcessLastProductBlob(name).ConfigAwait();
         logger.LogInformation($"C# Blob trigger function Processed last product blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
@@ -130,7 +124,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     public async Task LastInventory([BlobTrigger("last-inventory/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
         string name, ILogger logger)
     {
-        await this.importingService.ProcessLastInventoryBlob(name).ConfigAwait();
+        await importingService.ProcessLastInventoryBlob(name).ConfigAwait();
         logger.LogInformation($"C# Blob trigger function Processed last inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
@@ -160,7 +154,7 @@ public class BlobImportFunctions : IBlobImportFunctions
     [FunctionName(nameof(Update))]
     public async Task Update([ActivityTrigger] string name, ILogger logger)
     {
-        await this.importingService.UpdateAll().ConfigAwait();
+        await importingService.UpdateAll().ConfigAwait();
         logger.LogInformation($"Finished Update.");
     }
 }

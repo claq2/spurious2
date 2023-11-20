@@ -6,58 +6,47 @@ using System.Data.SqlClient;
 
 namespace Spurious2.SqlRepositories.LcboImporting.Repositories;
 
-public class InventoryRepository : IInventoryRepository
+public class InventoryRepository(SqlConnection connection, ILogger<StoreRepository> logger) : IInventoryRepository
 {
-    private readonly SqlConnection connection;
-    private readonly Func<SqlConnection> connectionFactory;
-    private readonly ILogger<StoreRepository> logger;
-
-    public InventoryRepository(SqlConnection connection, Func<SqlConnection> connectionFactory, ILogger<StoreRepository> logger)
-    {
-        this.connection = connection;
-        this.connectionFactory = connectionFactory;
-        this.logger = logger;
-    }
-
     public async Task ClearIncomingInventory()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "DELETE FROM InventoryIncoming";
             command.CommandTimeout = 120000;
             await command.ExecuteNonQueryAsync().ConfigAwait();
-            this.logger.LogInformation("Cleared InventoryIncoming table");
+            logger.LogInformation("Cleared InventoryIncoming table");
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task ClearInventoryPages()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "DELETE FROM InventoryPage";
             command.CommandTimeout = 120000;
             await command.ExecuteNonQueryAsync().ConfigAwait();
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task UpdateInventoriesFromIncoming()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "UpdateInventoriesFromIncoming";
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandTimeout = 60000;
@@ -65,7 +54,7 @@ public class InventoryRepository : IInventoryRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
@@ -73,7 +62,7 @@ public class InventoryRepository : IInventoryRepository
     {
         if (disposing)
         {
-            await this.connection.DisposeAsync();
+            await connection.DisposeAsync();
         }
     }
 
@@ -86,10 +75,10 @@ public class InventoryRepository : IInventoryRepository
 
     public async Task AddIncomingInventories(IEnumerable<Inventory> inventories)
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = @"
                         insert into InventoryIncoming (ProductId, StoreId, Quantity)
                         select ProductId, StoreId, Quantity
@@ -102,7 +91,7 @@ public class InventoryRepository : IInventoryRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 

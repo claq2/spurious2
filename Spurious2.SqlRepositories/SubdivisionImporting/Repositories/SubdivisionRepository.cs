@@ -3,26 +3,16 @@ using System.Data.SqlClient;
 
 namespace Spurious2.SqlRepositories.SubdivisionImporting.Repositories;
 
-public class SubdivisionRepository : ISubdivisionRepository
+public class SubdivisionRepository(SqlConnection connection) : ISubdivisionRepository
 {
-    private readonly SqlConnection connection;
-
-    public SubdivisionRepository(SqlConnection connection)
-    {
-        this.connection = connection;
-    }
-
     public void Import(IEnumerable<SubdivisionPopulation> populations)
     {
-        if (populations == null)
-        {
-            throw new ArgumentNullException(nameof(populations));
-        }
+        ArgumentNullException.ThrowIfNull(populations);
 
-        this.connection.Open();
+        connection.Open();
         try
         {
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "DELETE FROM PopulationIncoming";
                 command.CommandTimeout = 120000;
@@ -31,7 +21,7 @@ public class SubdivisionRepository : ISubdivisionRepository
 
             foreach (var subdivisionPopulation in populations)
             {
-                using (var command = this.connection.CreateCommand())
+                using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"insert into PopulationIncoming (id, population, SubdivisionName) 
                                                 values (@id, @population, @subdivisionName)";
@@ -48,7 +38,7 @@ public class SubdivisionRepository : ISubdivisionRepository
             }
 
             // Call sproc to update table and clear incoming table
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "UpdatePopulationsFromIncoming";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -58,21 +48,18 @@ public class SubdivisionRepository : ISubdivisionRepository
         }
         finally
         {
-            this.connection.Close();
+            connection.Close();
         }
     }
 
     public void Import(IEnumerable<SubdivisionBoundary> boundaries)
     {
-        if (boundaries == null)
-        {
-            throw new ArgumentNullException(nameof(boundaries));
-        }
+        ArgumentNullException.ThrowIfNull(boundaries);
 
-        this.connection.Open();
+        connection.Open();
         try
         {
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "DELETE FROM BoundaryIncoming";
                 command.CommandTimeout = 120000;
@@ -81,7 +68,7 @@ public class SubdivisionRepository : ISubdivisionRepository
 
             foreach (var boundary in boundaries)
             {
-                using (var command = this.connection.CreateCommand())
+                using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"insert into boundaryincoming (id, OriginalBoundary, ReorientedBoundary, SubdivisionName, province) 
                                                 values (@id, 
@@ -102,7 +89,7 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
             }
 
             // Call sproc to update table and clear incoming table
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "UpdateBoundariesFromIncoming";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -110,7 +97,7 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
                 command.ExecuteNonQuery();
             }
 
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "DELETE FROM BoundaryIncoming";
                 command.CommandTimeout = 120000;
@@ -119,16 +106,16 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
         }
         finally
         {
-            this.connection.Close();
+            connection.Close();
         }
     }
 
     public async Task UpdateSubdivisionVolumes()
     {
-        await this.connection.OpenAsync().ConfigureAwait(false);
+        await connection.OpenAsync().ConfigureAwait(false);
         try
         {
-            using (var command = this.connection.CreateCommand())
+            using (var command = connection.CreateCommand())
             {
                 command.CommandText = "UpdateSubdivisionVolumes";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -138,7 +125,7 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
         }
         finally
         {
-            this.connection.Close();
+            connection.Close();
         }
     }
 
@@ -146,7 +133,7 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
     {
         if (disposing)
         {
-            this.connection?.Dispose();
+            connection?.Dispose();
         }
     }
 

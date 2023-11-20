@@ -1,5 +1,6 @@
 ﻿using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 using Spurious2.Core;
 using Spurious2.Core.LcboImporting.Adapters;
 using Spurious2.Core.LcboImporting.Domain;
@@ -8,24 +9,14 @@ using System.Text;
 
 namespace LcboWebsiteAdapter;
 
-public class LcboAdapterPaged3 : ILcboAdapterPaged2
+public class LcboAdapterPaged3(ILogger<LcboAdapterPaged3> logger,
+    CategorizedProductListClient productListClient,
+    InventoryClient inventoryClient,
+    StoreClient storeClient) : ILcboAdapterPaged2
 {
-    private readonly CategorizedProductListClient productListClient;
-    private readonly InventoryClient inventoryClient;
-    private readonly StoreClient storeClient;
-
-    public LcboAdapterPaged3(CategorizedProductListClient productListClient,
-        InventoryClient inventoryClient,
-        StoreClient storeClient)
-    {
-        this.storeClient = storeClient;
-        this.inventoryClient = inventoryClient;
-        this.productListClient = productListClient;
-    }
-
     public async Task<List<(Inventory, Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
     {
-        List<(Inventory, Uri)> result = new();
+        List<(Inventory, Uri)> result = [];
         string contents;
         using var sr = new StreamReader(inventoryStream, Encoding.UTF8);
         contents = await sr.ReadToEndAsync().ConfigAwait();
@@ -81,7 +72,7 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
                         var storeA = data.SelectSingleNode("p/a");
                         var storeHref = storeA.Attributes["href"];
                         linkToStoreDetails = new Uri(storeHref.Value);
-                        var storeId = storeHref.Value[(storeHref.Value.LastIndexOf("-") + 1)..];
+                        var storeId = storeHref.Value[(storeHref.Value.LastIndexOf('-') + 1)..];
                         inv.StoreId = Convert.ToInt32(storeId);
                     }
                 }
@@ -103,7 +94,7 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
         foreach (ProductSubtype productSubtype in subs)
         {
             var productsRead = 0;
-            var prods = await this.productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();
+            var prods = await productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();
             productsRead = prods.results.Length;
             var totalToExpect = prods.totalCountFiltered;
             var result = prods.results.GetProducts(productType);
@@ -112,7 +103,7 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
             iterationCount++;
             while (/*productsRead < totalToExpect &&*/ prods.results.Length > 0)
             {
-                prods = await this.productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
+                prods = await productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
                 productsRead += prods.results.Length;
                 result = prods.results.GetProducts(productType);
 
@@ -123,6 +114,8 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
             }
         }
     }
+
+    private static readonly char[] separators = ['\r', '\n'];
 
     public async Task<Store> GetStoreInfo(string storeId, Stream storeStream)
     {
@@ -136,11 +129,11 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
         var cityDiv = doc.DocumentNode.QuerySelector(".amlocator-text-city");
         var storesArrayScript = doc.DocumentNode.Descendants().Where(n => n.Name == "script"
                 && n.InnerText.Contains("function getDistance()")).First().InnerText;
-        var splitScript = storesArrayScript.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var splitScript = storesArrayScript.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         var latLine = splitScript.Single(l => l.Contains("var latStore ="));
-        var lat = latLine[(latLine.IndexOf("=") + 2)..][..^1]; // Remove space after = and ; at end.
+        var lat = latLine[(latLine.IndexOf('=') + 2)..][..^1]; // Remove space after = and ; at end.
         var longLine = splitScript.Single(l => l.Contains("var lonStore ="));
-        var lon = longLine[(longLine.IndexOf("=") + 2)..][..^1]; // Remove space after = and ; at end.
+        var lon = longLine[(longLine.IndexOf('=') + 2)..][..^1]; // Remove space after = and ; at end.
         Store store = new()
         {
             City = WebUtility.HtmlDecode(cityDiv.InnerText[..^2]), // Ends with space and comma
@@ -155,12 +148,12 @@ public class LcboAdapterPaged3 : ILcboAdapterPaged2
 
     public async Task<string> GetStorePage(Uri storeUri)
     {
-        return await this.storeClient.GetStorePage(storeUri).ConfigAwait();
+        return await storeClient.GetStorePage(storeUri).ConfigAwait();
     }
 
     public async Task<string> GetAllStoresInventory(string productId)
     {
-        var inventoryPageContents = await this.inventoryClient.GetInventoryPage(productId).ConfigAwait();
+        var inventoryPageContents = await inventoryClient.GetInventoryPage(productId).ConfigAwait();
         return inventoryPageContents;
     }
 }

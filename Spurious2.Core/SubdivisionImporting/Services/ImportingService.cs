@@ -6,15 +6,8 @@ using System.Xml;
 
 namespace Spurious2.Core.SubdivisionImporting.Services;
 
-public class ImportingService : IImportingService
+public class ImportingService(ISubdivisionRepository subdivisionRepository) : IImportingService
 {
-    private readonly ISubdivisionRepository subdivisionRepository;
-
-    public ImportingService(ISubdivisionRepository subdivisionRepository)
-    {
-        this.subdivisionRepository = subdivisionRepository;
-    }
-
     public void Dispose()
     {
         this.Dispose(true);
@@ -25,7 +18,7 @@ public class ImportingService : IImportingService
     {
         if (disposing)
         {
-            this.subdivisionRepository?.Dispose();
+            subdivisionRepository?.Dispose();
         }
     }
 
@@ -39,7 +32,7 @@ public class ImportingService : IImportingService
         ns.AddNamespace("fme", "http://www.safe.com/gml/fme");
         var nodes = gmlDoc.SelectNodes("/gml:FeatureCollection/gml:featureMember", ns);
 
-        List<SubdivisionBoundary> boundaries = new();
+        List<SubdivisionBoundary> boundaries = [];
         if (nodes != null)
         {
             foreach (XmlNode node in nodes)
@@ -59,7 +52,7 @@ public class ImportingService : IImportingService
             }
         }
 
-        this.subdivisionRepository.Import(boundaries);
+        subdivisionRepository.Import(boundaries);
 
         return nodes?.Count ?? 0;
     }
@@ -83,14 +76,14 @@ public class ImportingService : IImportingService
                     boundaries.Add(new SubdivisionBoundary
                     (
                         csduid,
-                        wkt ?? string.Empty,
-                        csdname ?? string.Empty,
-                        prnname ?? string.Empty
+                        wkt,
+                        csdname,
+                        prnname
                     ));
                 }
             }
 
-            this.subdivisionRepository.Import(boundaries);
+            subdivisionRepository.Import(boundaries);
             return boundaries.Count;
         }
     }
@@ -114,13 +107,13 @@ public class ImportingService : IImportingService
                     records.Add(new SubdivisionPopulation
                     {
                         Id = id,
-                        Name = name ?? string.Empty,
+                        Name = name,
                         Population = population,
                     });
                 }
             }
 
-            this.subdivisionRepository.Import(records);
+            subdivisionRepository.Import(records);
             return records.Count;
         }
     }

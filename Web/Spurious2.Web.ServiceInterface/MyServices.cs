@@ -6,7 +6,7 @@ using Spurious2.Web.ServiceModel;
 
 namespace Spurious2.Web.ServiceInterface;
 
-public class MyServices : Service
+public class MyServices(IStoreRepository storeRespoistory, ISubdivisionRepository subdivisionRepository) : Service
 {
     private const string top10Density = "top10";
     private const string top10BeerDensity = "top10Beer";
@@ -15,10 +15,15 @@ public class MyServices : Service
     private const string bottom10Density = "bottom10";
     private const string allDensity = "all";
 
-    private static readonly List<string> densities = new()
-    {
-        top10Density, top10BeerDensity, top10WineDensity, top10SpiritsDensity, bottom10Density, allDensity
-    };
+    private static readonly List<string> densities =
+    [
+        top10Density,
+        top10BeerDensity,
+        top10WineDensity,
+        top10SpiritsDensity,
+        bottom10Density,
+        allDensity
+    ];
 
     private static readonly Dictionary<string, (AlcoholType at, EndOfDistribution e, int l)> densityToParametersMap = new()
     {
@@ -39,15 +44,6 @@ public class MyServices : Service
         { bottom10Density, "Bottom 10 Overall" },
         { allDensity, "All" },
     };
-
-    private readonly IStoreRepository storeRespoistory;
-    private readonly ISubdivisionRepository subdivisionRepository;
-
-    public MyServices(IStoreRepository storeRespoistory, ISubdivisionRepository subdivisionRepository)
-    {
-        this.subdivisionRepository = subdivisionRepository;
-        this.storeRespoistory = storeRespoistory;
-    }
 
     //[Route("/densities")]
 #pragma warning disable CA1822 // Mark members as static
@@ -71,14 +67,11 @@ public class MyServices : Service
     //[Route("/densities/{Name}/subdivisions")]
     public async Task<List<ServiceModel.Subdivision>> Get(DensitySubdivisions request)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
 
         var result = new List<ServiceModel.Subdivision>();
         var (at, e, l) = densityToParametersMap[request.Name];
-        var subdivs = await this.subdivisionRepository.GetSubdivisionsForDensity(at, e, l).ConfigAwait();
+        var subdivs = await subdivisionRepository.GetSubdivisionsForDensity(at, e, l).ConfigAwait();
         result.AddRange(subdivs.Select(sd =>
         {
             var geocentre = JsonConvert.DeserializeObject<Point>(sd.Centre);
@@ -100,35 +93,29 @@ public class MyServices : Service
     //[Route("/subdivisions/{Id}/boundary")]
     public async Task<string> Get(BoundaryRequest request)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
 
-        return await this.subdivisionRepository.GetBoundaryForSubdivision(request.Id).ConfigAwait();
+        return await subdivisionRepository.GetBoundaryForSubdivision(request.Id).ConfigAwait();
     }
 
     //[Route("/subdivisions/{Id}/stores")]
     public async Task<List<ServiceModel.Store>> Get(StoresInSubdivisionRequest request)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
 
-        var result = (await this.storeRespoistory.GetStoresForSubdivision(request.Id).ConfigAwait())
+        var result = (await storeRespoistory.GetStoresForSubdivision(request.Id).ConfigAwait())
             .Select(dbStore =>
             {
                 var geolocation = JsonConvert.DeserializeObject<Point>(dbStore.Location);
                 return new ServiceModel.Store
                 {
                     Id = dbStore.Id,
-                    Inventories = new List<ServiceModel.Inventory>
-                    {
+                    Inventories =
+                    [
                         new ServiceModel.Inventory { AlcoholType = AlcoholType.Beer, Volume = dbStore.BeerVolume / 1000 },
                         new ServiceModel.Inventory { AlcoholType = AlcoholType.Wine, Volume = dbStore.WineVolume / 1000 },
                         new ServiceModel.Inventory { AlcoholType = AlcoholType.Spirits, Volume = dbStore.SpiritsVolume / 1000 },
-                    },
+                    ],
                     LocationCoordinates = $"{geolocation.Coordinates.Longitude},{geolocation.Coordinates.Latitude}",
                     Name = dbStore.Name,
                     City = dbStore.City,

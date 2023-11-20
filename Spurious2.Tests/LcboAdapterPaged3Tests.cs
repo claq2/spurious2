@@ -23,7 +23,7 @@ public class LcboAdapterPaged3Tests
                 LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                                 CreateInventoryClient(),
                                                 CreateStoreClient());
-                List<Product> responses = new();
+                List<Product> responses = [];
 
                 await productRepository.ClearIncomingProducts().ConfigAwait();
 
@@ -57,7 +57,7 @@ public class LcboAdapterPaged3Tests
                 LcboAdapterPaged3 adapter = new(CreateCategorizedProductListClient(),
                                                 CreateInventoryClient(),
                                                 CreateStoreClient());
-                List<Product> responses = new();
+                List<Product> responses = [];
 
                 await productRepository.ClearIncomingProducts().ConfigAwait();
 

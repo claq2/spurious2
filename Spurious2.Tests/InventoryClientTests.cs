@@ -33,7 +33,7 @@ public class InventoryClientTests
                .Single()
                .Attributes["href"]
                .Value;
-            var storeId = storeDetailsUrl[(storeDetailsUrl.LastIndexOf("-") + 1)..];
+            var storeId = storeDetailsUrl[(storeDetailsUrl.LastIndexOf('-') + 1)..];
         }
 
         Assert.That(table.InnerText, Does.Contain("Kitchener"));

@@ -6,23 +6,14 @@ using System.Data.SqlClient;
 
 namespace Spurious2.SqlRepositories.LcboImporting.Repositories;
 
-public class StoreRepository : IStoreRepository
+public class StoreRepository(SqlConnection connection, ILogger<StoreRepository> logger) : IStoreRepository
 {
-    private readonly SqlConnection connection;
-    private readonly ILogger<StoreRepository> logger;
-
-    public StoreRepository(SqlConnection connection, ILogger<StoreRepository> logger)
-    {
-        this.logger = logger;
-        this.connection = connection;
-    }
-
     public async Task UpdateStoreVolumes()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "UpdateStoreVolumes";
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandTimeout = 60000;
@@ -30,7 +21,7 @@ public class StoreRepository : IStoreRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
@@ -38,7 +29,7 @@ public class StoreRepository : IStoreRepository
     {
         if (disposing)
         {
-            this.connection?.Dispose();
+            connection?.Dispose();
         }
     }
 
@@ -52,26 +43,26 @@ public class StoreRepository : IStoreRepository
 
     public async Task ClearIncomingStores()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "DELETE FROM StoreIncoming";
             await command.ExecuteNonQueryAsync().ConfigAwait();
-            this.logger.LogInformation("Cleared StoreIncoming table");
+            logger.LogInformation("Cleared StoreIncoming table");
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task UpdateIncomingStore(Store store)
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = @"UPDATE [StoreIncoming] SET [City] = @city,
                         [StoreName] = @storename,
                         [Latitude] = @latitude,
@@ -93,21 +84,21 @@ public class StoreRepository : IStoreRepository
         }
         catch (Exception ex)
         {
-            this.logger.LogWarning(ex, "Problem updating incoming store");
+            logger.LogWarning(ex, "Problem updating incoming store");
             throw;
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task AddIncomingStoreIds(List<int> storeIds)
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = @"
                         insert into StoreIncoming (id)
                         select Id
@@ -120,17 +111,17 @@ public class StoreRepository : IStoreRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task UpdateStoresFromIncoming()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
             // Call sproc to update table and clear incoming table
-            using var updateStoresCommand = this.connection.CreateCommand();
+            using var updateStoresCommand = connection.CreateCommand();
             updateStoresCommand.CommandText = "UpdateStoresFromIncoming";
             updateStoresCommand.CommandType = System.Data.CommandType.StoredProcedure;
             updateStoresCommand.CommandTimeout = 60000;
@@ -138,7 +129,7 @@ public class StoreRepository : IStoreRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 

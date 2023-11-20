@@ -2,20 +2,13 @@
 
 namespace Spurious2.Core.LcboImporting.Domain;
 
-public class Product
+public class Product(string name, int id, string size, string url)
 {
-    public string Name { get; private set; }
-    public int Id { get; private set; }
-    public string Size { get; private set; }
+    public string Name { get; private set; } = name;
+    public int Id { get; private set; } = id;
+    public string Size { get; private set; } = size;
     public string LiquorType { get; set; } = string.Empty;
-    public string ProductPageUrl { get; private set; }
-    public Product(string name, int id, string size, string url)
-    {
-        this.Name = name;
-        this.Id = id;
-        this.Size = size;
-        this.ProductPageUrl = url;
-    }
+    public string ProductPageUrl { get; private set; } = url;
 
     public int PackageVolume {
         get {

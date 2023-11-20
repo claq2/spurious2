@@ -67,7 +67,7 @@ internal class Program
     private static IConfiguration LoadConfiguration()
     {
         var devEnvironmentVariable = Environment.GetEnvironmentVariable("NETCORE_ENVIRONMENT");
-        var isDevelopment = string.IsNullOrEmpty(devEnvironmentVariable) || devEnvironmentVariable.ToUpperInvariant() == "DEVELOPMENT";
+        var isDevelopment = string.IsNullOrEmpty(devEnvironmentVariable) || devEnvironmentVariable.Equals("DEVELOPMENT", StringComparison.InvariantCultureIgnoreCase);
 
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

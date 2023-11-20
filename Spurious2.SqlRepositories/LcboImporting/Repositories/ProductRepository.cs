@@ -5,21 +5,14 @@ using System.Data.SqlClient;
 
 namespace Spurious2.SqlRepositories.LcboImporting.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductRepository(SqlConnection connection) : IProductRepository
 {
-    private readonly SqlConnection connection;
-
-    public ProductRepository(SqlConnection connection)
-    {
-        this.connection = connection;
-    }
-
     public async Task ImportAFew(IEnumerable<Product> products)
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = @"
                         insert into ProductIncoming (id, productname, category, volume, productdone)
                         select Id, ProductName, Category, Volume, ProductDone
@@ -32,7 +25,7 @@ public class ProductRepository : IProductRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
@@ -40,7 +33,7 @@ public class ProductRepository : IProductRepository
     {
         if (disposing)
         {
-            this.connection?.Dispose();
+            connection?.Dispose();
         }
     }
 
@@ -53,42 +46,42 @@ public class ProductRepository : IProductRepository
 
     public async Task ClearIncomingProducts()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "DELETE FROM ProductIncoming";
             await command.ExecuteNonQueryAsync().ConfigAwait();
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task MarkIncomingProductDone(string productId)
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
-            using var command = this.connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = "UPDATE [ProductIncoming] SET [ProductDone] = 1 WHERE [Id] = @id";
             command.Parameters.AddWithValue("@id", Convert.ToInt32(productId));
             await command.ExecuteNonQueryAsync().ConfigAwait();
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 
     public async Task UpdateProductsFromIncoming()
     {
-        await this.connection.OpenAsync().ConfigAwait();
+        await connection.OpenAsync().ConfigAwait();
         try
         {
             // Call sproc to update table and clear incoming table
-            using var updateProductsCommand = this.connection.CreateCommand();
+            using var updateProductsCommand = connection.CreateCommand();
             updateProductsCommand.CommandText = "UpdateProductsFromIncoming";
             updateProductsCommand.CommandType = System.Data.CommandType.StoredProcedure;
             updateProductsCommand.CommandTimeout = 60000;
@@ -96,7 +89,7 @@ public class ProductRepository : IProductRepository
         }
         finally
         {
-            await this.connection.CloseAsync().ConfigAwait();
+            await connection.CloseAsync().ConfigAwait();
         }
     }
 

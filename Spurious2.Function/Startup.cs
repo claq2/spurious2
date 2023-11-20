@@ -62,7 +62,7 @@ public class Startup : FunctionsStartup
         base.ConfigureAppConfiguration(builder);
 
         var devEnvironmentVariable = Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT");
-        var isDevelopment = !string.IsNullOrEmpty(devEnvironmentVariable) && devEnvironmentVariable.ToUpperInvariant() == "DEVELOPMENT";
+        var isDevelopment = !string.IsNullOrEmpty(devEnvironmentVariable) && devEnvironmentVariable.Equals("DEVELOPMENT", StringComparison.InvariantCultureIgnoreCase);
 
         var context = builder.GetContext();
 

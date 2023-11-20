@@ -27,7 +27,7 @@ public class Rootobject
 
     public Rootobject()
     {
-        this.results = Array.Empty<Result>();
+        this.results = [];
     }
 }
 
@@ -170,7 +170,7 @@ public class Raw
 
     public Raw()
     {
-        this.ec_category_filter = Array.Empty<string>();
+        this.ec_category_filter = [];
         this.lcbo_unit_volume = string.Empty;
     }
 }
