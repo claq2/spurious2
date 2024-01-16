@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
     <PackageReference Include="StructureMap" Version="4.7.1" />
     <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="2.0.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LcboWebsiteAdapter\LcboWebsiteAdapter.csproj" />
