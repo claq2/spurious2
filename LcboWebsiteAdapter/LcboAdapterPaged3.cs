@@ -1,6 +1,5 @@
 ﻿using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
 using Spurious2.Core;
 using Spurious2.Core.LcboImporting.Adapters;
 using Spurious2.Core.LcboImporting.Domain;
@@ -9,8 +8,7 @@ using System.Text;
 
 namespace LcboWebsiteAdapter;
 
-public class LcboAdapterPaged3(ILogger<LcboAdapterPaged3> logger,
-    CategorizedProductListClient productListClient,
+public class LcboAdapterPaged3(CategorizedProductListClient productListClient,
     InventoryClient inventoryClient,
     StoreClient storeClient) : ILcboAdapterPaged2
 {
