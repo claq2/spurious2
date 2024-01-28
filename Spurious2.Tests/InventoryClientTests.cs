@@ -20,20 +20,20 @@ public class InventoryClientTests
         var rows = tbody[0].SelectNodes("tr");
         foreach (HtmlNode htmlNode in rows)
         {
-            var city = htmlNode.SelectNodes("td/p[contains(@class, \"city_txt\")]")
+            _ = htmlNode.SelectNodes("td/p[contains(@class, \"city_txt\")]")
                 .Single()
                 .InnerText;
-            var name = WebUtility.HtmlDecode(htmlNode.SelectNodes("td/p[contains(@class, \"name_txt\")]")
+            _ = WebUtility.HtmlDecode(htmlNode.SelectNodes("td/p[contains(@class, \"name_txt\")]")
                .Single()
                .InnerText);
-            var quantity = htmlNode.SelectNodes("td/p[contains(@class, \"quantity_avail_txt\")]")
+            _ = htmlNode.SelectNodes("td/p[contains(@class, \"quantity_avail_txt\")]")
                .Single()
                .InnerText;
             var storeDetailsUrl = htmlNode.SelectNodes("td/p/a[contains(@class, \"store_dets_txt\")]")
                .Single()
                .Attributes["href"]
                .Value;
-            var storeId = storeDetailsUrl[(storeDetailsUrl.LastIndexOf('-') + 1)..];
+            _ = storeDetailsUrl[(storeDetailsUrl.LastIndexOf('-') + 1)..];
         }
 
         Assert.That(table.InnerText, Does.Contain("Kitchener"));

@@ -39,7 +39,7 @@ public class LcboAdapterPaged3Tests
                 duplicateIds.RemoveAll(id => ids.Count(i => i == id) == 1);
                 duplicateIds = duplicateIds.Distinct().ToList();
                 var duplicateItems = responses.Where(r => duplicateIds.Contains(r.Id)).ToList();
-                duplicateItems = duplicateItems.OrderBy(r => r.Id).ToList();
+                duplicateItems = [.. duplicateItems.OrderBy(r => r.Id)];
                 Assert.That(ids.Count, Is.EqualTo(ids.Distinct().Count()));
             }
         }
@@ -73,7 +73,7 @@ public class LcboAdapterPaged3Tests
                 duplicateIds.RemoveAll(id => ids.Count(i => i == id) == 1);
                 duplicateIds = duplicateIds.Distinct().ToList();
                 var duplicateItems = responses.Where(r => duplicateIds.Contains(r.Id)).ToList();
-                duplicateItems = duplicateItems.OrderBy(r => r.Id).ToList();
+                duplicateItems = [.. duplicateItems.OrderBy(r => r.Id)];
                 Assert.That(ids.Count, Is.EqualTo(ids.Distinct().Count()));
             }
         }

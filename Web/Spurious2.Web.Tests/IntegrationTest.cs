@@ -27,7 +27,13 @@ public class IntegrationTest
     }
 
     [OneTimeTearDown]
-    public void OneTimeTearDown() => this.appHost.Dispose();
+    public void OneTimeTearDown()
+    {
+        this.appHost.Dispose();
+    }
 
-    public static IServiceClient CreateClient() => new JsonServiceClient(BaseUri);
+    public static IServiceClient CreateClient()
+    {
+        return new JsonServiceClient(BaseUri);
+    }
 }
