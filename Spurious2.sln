@@ -48,9 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebCore", "WebCore", "{3199
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2", "WebCore\Spurious2\Spurious2.csproj", "{615EFF0F-0F8D-4F74-9488-C2EED473A673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Core", "WebCore\Spurious2.Core\Spurious2.Core.csproj", "{BB3D5E7E-5EBF-4AA4-AE96-967DFAD09456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Core", "WebCore\Spurious2.Core\Spurious2.Core.csproj", "{BB3D5E7E-5EBF-4AA4-AE96-967DFAD09456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Infrastructure", "WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj", "{8DA353C4-C440-4706-8727-C77199F87AC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Infrastructure", "WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj", "{8DA353C4-C440-4706-8727-C77199F87AC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
