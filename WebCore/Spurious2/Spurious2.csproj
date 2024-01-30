@@ -8,6 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Carter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Spurious2.Core\Spurious2.Core.csproj" />
+    <ProjectReference Include="..\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
