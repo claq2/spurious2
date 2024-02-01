@@ -3,6 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "typeRoots": ["./node_modules/@types"],
     "removeComments": true,
@@ -16,11 +17,11 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "allowJs": true,
-    "outDir": "out",
+    "outDir": "out"
   },
   "include": ["src", "test", "e2e"],
   "exclude": ["api"],
   "atom": {
-    "rewriteTsconfig": false,
-  },
+    "rewriteTsconfig": false
+  }
 }
