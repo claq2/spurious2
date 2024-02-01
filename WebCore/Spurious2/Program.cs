@@ -1,3 +1,6 @@
+using Carter;
+using Spurious2.Core2.Densities;
+
 namespace Spurious2
 {
     public class Program
@@ -10,6 +13,10 @@ namespace Spurious2
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddCarter();
+
+            builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
 
             var app = builder.Build();
 
@@ -31,6 +38,7 @@ namespace Spurious2
             app.UseAuthorization();
             app.MapControllers();
             app.MapRazorPages();
+            app.MapCarter();
 
             app.Run();
         }
