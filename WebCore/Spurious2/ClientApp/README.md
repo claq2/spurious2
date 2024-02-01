@@ -36,7 +36,7 @@ To run in watch mode, `au test --watch` or `au jest --watch`.
 
 You may need to install playwright test browsers if have not.
 
-   npx playwright install --with-deps
+npx playwright install --with-deps
 
 All e2e tests are in `e2e/`.
 

@@ -9,7 +9,9 @@
               <a
                 repeat.for="row of router.navigation"
                 class="list-group-item list-group-item-action ${row.isActive ? 'active' : ''}"
-                href.bind="row.href">${row.title}</a>
+                href.bind="row.href"
+                >${row.title}</a
+              >
             </div>
           </div>
         </div>

@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+coverage
+src/api
+aurelia_project
+src/dtos.ts
+package-lock.json
+.vscode
+config
