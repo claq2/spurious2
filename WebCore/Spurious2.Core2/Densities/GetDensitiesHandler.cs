@@ -31,7 +31,7 @@ public class GetDensitiesHandler : IRequestHandler<GetDensitiesRequest, List<Den
         { allDensity, "All" },
     };
 
-    public async Task<List<DensityInfo>> Handle(GetDensitiesRequest request, CancellationToken cancellationToken)
+    public Task<List<DensityInfo>> Handle(GetDensitiesRequest request, CancellationToken cancellationToken)
     {
         var response = new List<DensityInfo>();
         foreach (var density in densities)
@@ -44,6 +44,6 @@ public class GetDensitiesHandler : IRequestHandler<GetDensitiesRequest, List<Den
             });
         }
 
-        return response;
+        return Task.FromResult(response);
     }
 }
