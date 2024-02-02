@@ -25,7 +25,7 @@ public class MyServices(IStoreRepository storeRespoistory, ISubdivisionRepositor
         allDensity
     ];
 
-    private static readonly Dictionary<string, (AlcoholType at, EndOfDistribution e, int l)> densityToParametersMap = new()
+    private static readonly Dictionary<string, (AlcoholType at, EndOfDistribution eod, int lim)> densityToParametersMap = new()
     {
         { top10Density, (AlcoholType.All, EndOfDistribution.Top, 10) },
         { top10BeerDensity, (AlcoholType.Beer, EndOfDistribution.Top, 10) },
@@ -70,8 +70,8 @@ public class MyServices(IStoreRepository storeRespoistory, ISubdivisionRepositor
         ArgumentNullException.ThrowIfNull(request);
 
         var result = new List<ServiceModel.Subdivision>();
-        var (at, e, l) = densityToParametersMap[request.Name];
-        var subdivs = await subdivisionRepository.GetSubdivisionsForDensity(at, e, l).ConfigAwait();
+        var (at, eod, lim) = densityToParametersMap[request.Name];
+        var subdivs = await subdivisionRepository.GetSubdivisionsForDensity(at, eod, lim).ConfigAwait();
         result.AddRange(subdivs.Select(sd =>
         {
             var geocentre = JsonConvert.DeserializeObject<Point>(sd.Centre);
