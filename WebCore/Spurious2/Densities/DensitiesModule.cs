@@ -13,6 +13,6 @@ public class DensitiesModule : ICarterModule
             return await mediator.Send(new GetDensitiesRequest());
         });
 
-        _ = app.MapGet("/api/densities/{name}/subdivisions", (string name) => { return name; });
+
     }
 }
