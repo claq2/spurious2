@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Spurious2.Core\Spurious2.Core.csproj" />
+    <ProjectReference Include="..\Spurious2.Core2\Spurious2.Core2.csproj" />
   </ItemGroup>
 
 </Project>

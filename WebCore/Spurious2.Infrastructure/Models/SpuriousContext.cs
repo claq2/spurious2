@@ -13,15 +13,15 @@ public partial class SpuriousContext : DbContext
     {
     }
 
-    public virtual DbSet<Inventory> Inventories { get; set; }
+    public virtual DbSet<Core2.Stores.Inventory> Inventories { get; set; }
 
-    public virtual DbSet<Store> Stores { get; set; }
+    public virtual DbSet<Core2.Stores.Store> Stores { get; set; }
 
-    public virtual DbSet<Subdivision> Subdivisions { get; set; }
+    public virtual DbSet<Core2.Subdivisions.Subdivision> Subdivisions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Inventory>(entity =>
+        modelBuilder.Entity<Core2.Stores.Inventory>(entity =>
         {
             entity.HasKey(e => new { e.ProductId, e.StoreId });
 
@@ -32,7 +32,7 @@ public partial class SpuriousContext : DbContext
                 .HasConstraintName("FK_Inventory_Store");
         });
 
-        modelBuilder.Entity<Store>(entity =>
+        modelBuilder.Entity<Core2.Stores.Store>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("stores_pkey");
 
@@ -45,7 +45,7 @@ public partial class SpuriousContext : DbContext
 
         });
 
-        modelBuilder.Entity<Subdivision>(entity =>
+        modelBuilder.Entity<Core2.Subdivisions.Subdivision>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("firstkey");
 

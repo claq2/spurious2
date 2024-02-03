@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetTopologySuite.IO.Converters;
+using Spurious2.Core;
 using Spurious2.Infrastructure.Models;
 using System.Text;
 using System.Text.Json;
 
 namespace Spurious2.Pages
 {
-    public class SpaModel(SpuriousContext context) : PageModel
+    public class SpaModel(SpuriousContext context, ISpuriousRepository spuriousRepository) : PageModel
     {
         static readonly JsonSerializerOptions jsonOptions;
         static SpaModel()
@@ -51,6 +52,8 @@ namespace Spurious2.Pages
                 .Where(s => s.Id == 1)
                 .Select(s => s.Location.AsText())
                 .ToList();
+
+            var ss = spuriousRepository.X();
         }
     }
 }

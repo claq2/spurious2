@@ -1,11 +1,22 @@
-﻿namespace Spurious2.Core2.Stores;
+﻿using NetTopologySuite.Geometries;
+
+namespace Spurious2.Core2.Stores;
 
 public class Store
 {
-    public required int Id { get; init; }
-    public required string LocationCoordinates { get; init; }
-    public required string Name { get; init; }
-    public required string City { get; init; }
+    public int Id { get; set; }
 
-    public required List<Inventory> Inventories { get; init; }
+    public string StoreName { get; set; }
+
+    public string City { get; set; }
+
+    public int? BeerVolume { get; set; }
+
+    public int? WineVolume { get; set; }
+
+    public int? SpiritsVolume { get; set; }
+
+    public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+
+    public Point Location { get; set; }
 }
