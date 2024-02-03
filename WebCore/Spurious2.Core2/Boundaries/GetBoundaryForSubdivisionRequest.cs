@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Spurious2.Core2.Subdivisions;
+namespace Spurious2.Core2.Boundaries;
 
 public record GetBoundaryForSubdivisionRequest : IRequest<string>
 {

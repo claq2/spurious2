@@ -9,3 +9,9 @@ public class Subdivision
     public required string CentreCoordinates { get; init; }
     public required Uri StoresLink { get; init; }
 }
+
+public enum EndOfDistribution
+{
+    Top,
+    Bottom,
+}

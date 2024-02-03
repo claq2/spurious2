@@ -13,8 +13,8 @@ namespace Spurious2.Pages
         {
             jsonOptions = new JsonSerializerOptions { ReadCommentHandling = JsonCommentHandling.Skip };
             jsonOptions.Converters.Add(new GeoJsonConverterFactory());
-
         }
+
         public void OnGet()
         {
             var subDivs = context.Subdivisions
@@ -39,7 +39,7 @@ namespace Spurious2.Pages
                     JsonSerializer.Serialize(writer, subDivs[0].Boundary, jsonOptions);
                 }
 
-                var boundryJson = Encoding.UTF8.GetString(memStream.ToArray());
+                var boundaryJson = Encoding.UTF8.GetString(memStream.ToArray());
             }
 
             var subDivs2 = context.Subdivisions

@@ -1,4 +1,4 @@
-﻿namespace Spurious2.Core2.Subdivisions;
+﻿namespace Spurious2.Core2.Stores;
 
 public enum AlcoholType
 {

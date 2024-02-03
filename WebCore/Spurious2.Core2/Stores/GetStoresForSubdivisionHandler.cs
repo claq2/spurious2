@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Spurious2.Core2.Subdivisions;
+namespace Spurious2.Core2.Stores;
 
 public class GetStoresForSubdivisionHandler : IRequestHandler<GetStoresForSubdivisionRequest, List<Store>>
 {
