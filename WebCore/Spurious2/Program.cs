@@ -1,5 +1,7 @@
 using Carter;
+using Microsoft.EntityFrameworkCore;
 using Spurious2.Core2.Densities;
+using Spurious2.Infrastructure.Models;
 
 namespace Spurious2
 {
@@ -8,8 +10,26 @@ namespace Spurious2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices(
+          NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,
+          new NetTopologySuite.Geometries.PrecisionModel(1000d),
+          4326 /* ,
+            // Note the following arguments are only valid for NTS v2.2
+            // Geometry overlay operation function set to use (Legacy or NG)
+            NetTopologySuite.Geometries.GeometryOverlay.NG,
+            // Coordinate equality comparer to use (CoordinateEqualityComparer or PerOrdinateEqualityComparer)
+            new NetTopologySuite.Geometries.CoordinateEqualityComparer() */
+      );
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<SpuriousContext>(opt =>
+            {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+                    x => x.UseNetTopologySuite().EnableRetryOnFailure());
+            });
 
             // Add services to the container.
             builder.Services.AddRazorPages();

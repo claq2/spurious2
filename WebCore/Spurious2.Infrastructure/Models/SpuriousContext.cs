@@ -41,6 +41,8 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.City).HasColumnType("text");
             entity.Property(e => e.StoreName).HasColumnType("text");
+            entity.Property(e => e.Location).HasColumnType("geography");
+
         });
 
         modelBuilder.Entity<Subdivision>(entity =>
@@ -56,6 +58,7 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.SpiritsDensity).HasColumnType("decimal(9, 2)");
             entity.Property(e => e.SubdivisionName).HasMaxLength(255);
             entity.Property(e => e.WineDensity).HasColumnType("decimal(9, 2)");
+            entity.Property(e => e.GeographicCentre).HasColumnType("geography");
         });
 
         OnModelCreatingPartial(modelBuilder);
