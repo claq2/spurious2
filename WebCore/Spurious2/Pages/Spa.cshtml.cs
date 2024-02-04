@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core;
 using Spurious2.Infrastructure.Models;
-using System.Text;
 using System.Text.Json;
 
 namespace Spurious2.Pages
@@ -16,44 +15,45 @@ namespace Spurious2.Pages
             jsonOptions.Converters.Add(new GeoJsonConverterFactory());
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            var subDivs = context.Subdivisions
-                .Where(s => s.Id == 1001101)
-                //.Select(s => s.GeographicCentre.AsText())
-                .ToList();
+            //var subDivs = context.Subdivisions
+            //    .Where(s => s.Id == 1001101)
+            //    //.Select(s => s.GeographicCentre.AsText())
+            //    .ToList();
 
-            using (var memStream = new MemoryStream())
-            {
-                using (var writer = new Utf8JsonWriter(memStream))
-                {
-                    JsonSerializer.Serialize(writer, subDivs[0].GeographicCentre, jsonOptions);
-                }
+            //using (var memStream = new MemoryStream())
+            //{
+            //    using (var writer = new Utf8JsonWriter(memStream))
+            //    {
+            //        JsonSerializer.Serialize(writer, subDivs[0].GeographicCentre, jsonOptions);
+            //    }
 
-                var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            }
+            //    var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
+            //}
 
-            using (var memStream = new MemoryStream())
-            {
-                using (var writer = new Utf8JsonWriter(memStream))
-                {
-                    JsonSerializer.Serialize(writer, subDivs[0].Boundary, jsonOptions);
-                }
+            //using (var memStream = new MemoryStream())
+            //{
+            //    using (var writer = new Utf8JsonWriter(memStream))
+            //    {
+            //        JsonSerializer.Serialize(writer, subDivs[0].Boundary, jsonOptions);
+            //    }
 
-                var boundaryJson = Encoding.UTF8.GetString(memStream.ToArray());
-            }
+            //    var boundaryJson = Encoding.UTF8.GetString(memStream.ToArray());
+            //}
 
-            var subDivs2 = context.Subdivisions
-                .Where(s => s.Id == 1001101)
-                .Select(s => s.Boundary.AsText())
-                .ToList();
+            //var subDivs2 = context.Subdivisions
+            //    .Where(s => s.Id == 1001101)
+            //    .Select(s => s.Boundary.AsText())
+            //    .ToList();
 
-            var stores = context.Stores
-                .Where(s => s.Id == 1)
-                .Select(s => s.Location.AsText())
-                .ToList();
+            //var stores = context.Stores
+            //    .Where(s => s.Id == 1)
+            //    .Select(s => s.LocationGeog.AsText())
+            //    .ToList();
 
-            var ss = spuriousRepository.GetStoresBySubdivisionId(3514021);
+            var ss = await spuriousRepository.GetStoresBySubdivisionId(3514021);
+            var b = await spuriousRepository.GetBoundaryForSubdivision(3514021);
         }
     }
 }

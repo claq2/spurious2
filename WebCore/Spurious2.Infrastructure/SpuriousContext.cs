@@ -41,7 +41,9 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.City).HasColumnType("text");
             entity.Property(e => e.StoreName).HasColumnType("text");
-            entity.Property(e => e.Location).HasColumnType("geography");
+            entity.Property(e => e.LocationGeog).HasColumnName("Location")
+                .HasColumnType("geography");
+            entity.Ignore(e => e.Location);
 
         });
 

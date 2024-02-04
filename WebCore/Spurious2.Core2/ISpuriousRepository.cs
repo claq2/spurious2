@@ -4,5 +4,6 @@ namespace Spurious2.Core;
 
 public interface ISpuriousRepository
 {
-    List<Store> GetStoresBySubdivisionId(int subdivisionId);
+    Task<string> GetBoundaryForSubdivision(int subdivisionId);
+    Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId);
 }

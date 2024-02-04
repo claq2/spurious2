@@ -18,5 +18,7 @@ public class Store
 
     public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
 
-    public Point Location { get; set; }
+    public Point LocationGeog { get; set; }
+
+    public string Location { get; set; }
 }
