@@ -34,7 +34,9 @@ public class Subdivision
 
     public decimal? SpiritsDensity { get; set; }
 
-    public Point GeographicCentre { get; set; }
+    public Point GeographicCentreGeog { get; set; }
+
+    public string GeographicCentre { get; set; }
 
     public Geometry Boundary { get; set; }
 }

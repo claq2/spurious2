@@ -54,6 +54,8 @@ namespace Spurious2.Pages
 
             var ss = await spuriousRepository.GetStoresBySubdivisionId(3514021);
             var b = await spuriousRepository.GetBoundaryForSubdivision(3514021);
+            var top = await spuriousRepository.GetSubdivisionsForDensity(Core2.Stores.AlcoholType.All,
+                Core2.Subdivisions.EndOfDistribution.Top, 10);
         }
     }
 }

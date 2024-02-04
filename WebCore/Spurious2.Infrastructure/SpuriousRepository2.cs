@@ -2,6 +2,7 @@
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core;
 using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 using System.Text;
 using System.Text.Json;
 
@@ -44,5 +45,31 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
         JsonSerializer.Serialize(writer, subdiv.Boundary, jsonOptions);
         var shapeJson = Encoding.UTF8.GetString(memStream.ToArray());
         return shapeJson;
+    }
+
+    public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit)
+    {
+        var subdivs = await dbContext.Subdivisions
+            .OrderByDescending(s => s.AlcoholDensity)
+            .Where(s => s.AlcoholDensity > 0)
+            .Take(limit)
+            .ToListAsync();
+
+        foreach (var subdiv in subdivs)
+        {
+
+            using (var memStream = new MemoryStream())
+            {
+                using (var writer = new Utf8JsonWriter(memStream))
+                {
+                    JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
+                }
+
+                var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
+                subdiv.GeographicCentre = pointJson;
+            }
+        }
+
+        return subdivs;
     }
 }

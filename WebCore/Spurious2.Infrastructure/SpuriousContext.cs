@@ -60,7 +60,9 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.SpiritsDensity).HasColumnType("decimal(9, 2)");
             entity.Property(e => e.SubdivisionName).HasMaxLength(255);
             entity.Property(e => e.WineDensity).HasColumnType("decimal(9, 2)");
-            entity.Property(e => e.GeographicCentre).HasColumnType("geography");
+            entity.Property(e => e.GeographicCentreGeog).HasColumnName("GeographicCentre")
+                .HasColumnType("geography");
+            entity.Ignore(e => e.GeographicCentre);
         });
 
         OnModelCreatingPartial(modelBuilder);
