@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Spurious2.Core2.Subdivisions;
 
-[DebuggerDisplay("{SubdivisionName}")]
+[DebuggerDisplay("{DebugDisplay,nq}")]
 public class Subdivision
 {
     public int Id { get; set; }
@@ -41,6 +41,10 @@ public class Subdivision
     public string GeographicCentre { get; set; }
 
     public Geometry Boundary { get; set; }
+
+    private string DebugDisplay {
+        get { return $"{SubdivisionName} All {AlcoholDensity:n} Beer {BeerDensity:n}"; }
+    }
 }
 
 public enum EndOfDistribution
