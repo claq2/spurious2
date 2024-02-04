@@ -38,7 +38,7 @@ public class Subdivision
 
     public Point GeographicCentreGeog { get; set; }
 
-    public string GeographicCentre { get; set; }
+    public GeoJSON.Text.Geometry.Point GeographicCentre { get; set; }
 
     public Geometry Boundary { get; set; }
 

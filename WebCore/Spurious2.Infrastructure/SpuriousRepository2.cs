@@ -73,7 +73,8 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
             using var writer = new Utf8JsonWriter(memStream);
             JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            subdiv.GeographicCentre = pointJson;
+            var x = JsonSerializer.Deserialize<GeoJSON.Text.Geometry.Point>(pointJson);
+            subdiv.GeographicCentre = JsonSerializer.Deserialize<GeoJSON.Text.Geometry.Point>(pointJson);
         }
 
         return subdivs;

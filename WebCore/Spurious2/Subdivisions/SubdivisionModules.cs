@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using AutoMapper;
+using Carter;
 using MediatR;
 using Spurious2.Core2.Subdivisions;
 
@@ -9,12 +10,12 @@ public class SubdivisionModules : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         _ = app.MapGet("/api/densities/{name}/subdivisions",
-            async (string name, ISender mediator) =>
-            await mediator.Send(new GetSubdivisionsByDensityRequest { DensityName = name }))
+            async (string name, ISender mediator, IMapper mapper) =>
+                mapper.Map<List<Subdivision>>(
+                    await mediator.Send(new GetSubdivisionsByDensityRequest { DensityName = name })))
             .WithTags("Subdivisions")
             .WithName("GetSubdivisionsByDensity")
             .WithOpenApi()
             ;
-        // TODO: Map to subdiv DTO
     }
 }

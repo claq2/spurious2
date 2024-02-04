@@ -16,12 +16,19 @@ public class AutoMapping : Profile
                 new () { AlcoholType = Core2.Stores.AlcoholType.Spirits, Volume = s.SpiritsVolume!.Value / 1000 },
                 new () { AlcoholType = Core2.Stores.AlcoholType.Wine, Volume = s.WineVolume!.Value / 1000 },
             }));
+
+        CreateMap<Core2.Subdivisions.Subdivision, Subdivisions.Subdivision>()
+            .ForMember(d => d.Name, c => c.MapFrom(s => s.SubdivisionName))
+            .ForMember(d => d.CentreCoordinates, c => c.MapFrom(s => s.GeographicCentre))
+            .ForMember(d => d.BoundaryLink, c => c.MapFrom(s => new Uri($"/subdivisions/{s.Id}/boundary", UriKind.Relative)))
+            .ForMember(d => d.StoresLink, c => c.MapFrom(s => new Uri($"/subdivisions/{s.Id}/stores", UriKind.Relative)));
+
         /*
-         * "id": 39,
-    "locationCoordinates": null,
-    "name": null,
-    "city": "COBOURG",
-    "inventories": null
-         */
+          "name": null,
+    "population": 235,
+    "density": 0,
+    "boundaryLink": null,
+    "centreCoordinates": null,
+    "storesLink": null*/
     }
 }
