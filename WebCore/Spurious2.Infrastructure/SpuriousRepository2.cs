@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeoJSON.Text.Geometry;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core;
 using Spurious2.Core2.Stores;
@@ -41,7 +42,7 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
             using var writer = new Utf8JsonWriter(memStream);
             JsonSerializer.Serialize(writer, store.LocationGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            store.Location = pointJson;
+            store.Location = JsonSerializer.Deserialize<Point>(pointJson);
         }
 
         return stores;
@@ -73,8 +74,7 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
             using var writer = new Utf8JsonWriter(memStream);
             JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            var x = JsonSerializer.Deserialize<GeoJSON.Text.Geometry.Point>(pointJson);
-            subdiv.GeographicCentre = JsonSerializer.Deserialize<GeoJSON.Text.Geometry.Point>(pointJson);
+            subdiv.GeographicCentre = JsonSerializer.Deserialize<Point>(pointJson);
         }
 
         return subdivs;

@@ -20,5 +20,5 @@ public class Store
 
     public Point LocationGeog { get; set; }
 
-    public string Location { get; set; }
+    public GeoJSON.Text.Geometry.Point Location { get; set; }
 }
