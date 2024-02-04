@@ -1,4 +1,3 @@
-using Ardalis.Specification;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Spurious2.Core;
@@ -27,10 +26,7 @@ namespace Spurious2
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped(typeof(SpuriousRepository<>));
-            builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(SpuriousRepository<>));
-            builder.Services.AddScoped(typeof(IReadRepositoryBase<>), typeof(SpuriousRepository<>));
-            builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository2>();
+            builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
             builder.Services.AddDbContext<SpuriousContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
