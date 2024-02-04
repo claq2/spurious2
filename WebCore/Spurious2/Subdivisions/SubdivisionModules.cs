@@ -12,7 +12,8 @@ public class SubdivisionModules : ICarterModule
         _ = app.MapGet("/api/densities/{name}/subdivisions",
             async (string name, ISender mediator, IMapper mapper) =>
                 mapper.Map<List<Subdivision>>(
-                    await mediator.Send(new GetSubdivisionsByDensityRequest { DensityName = name })))
+                    await mediator.Send(new GetSubdivisionsByDensityRequest { DensityName = name }),
+                    opt => opt.Items[AutoMapping.RequestedDenstityItemId] = name))
             .WithTags("Subdivisions")
             .WithName("GetSubdivisionsByDensity")
             .WithOpenApi()

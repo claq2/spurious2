@@ -4,12 +4,12 @@ namespace Spurious2.Core2.Densities;
 
 public class GetDensitiesHandler : IRequestHandler<GetDensitiesRequest, List<DensityInfo>>
 {
-    internal const string top10Density = "top10";
-    internal const string top10BeerDensity = "top10Beer";
-    internal const string top10WineDensity = "top10Wine";
-    internal const string top10SpiritsDensity = "top10Spirits";
-    internal const string bottom10Density = "bottom10";
-    internal const string allDensity = "all";
+    public const string top10Density = "top10";
+    public const string top10BeerDensity = "top10Beer";
+    public const string top10WineDensity = "top10Wine";
+    public const string top10SpiritsDensity = "top10Spirits";
+    public const string bottom10Density = "bottom10";
+    public const string allDensity = "all";
 
     private static readonly List<string> densities =
     [
