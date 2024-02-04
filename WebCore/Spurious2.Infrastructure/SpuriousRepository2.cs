@@ -51,13 +51,14 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
     {
         var subdivsQuery = dbContext.Subdivisions
             .Where(s => s.AlcoholDensity > 0);
-
+        System.Linq.Expressions.Expression<Func<Subdivision, decimal?>> keySelector = s => s.AlcoholDensity;
         switch (alcoholType)
         {
             case AlcoholType.All:
+
                 subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
-                    subdivsQuery.OrderByDescending(s => s.AlcoholDensity)
-                    : subdivsQuery.OrderBy(s => s.AlcoholDensity);
+                    subdivsQuery.OrderByDescending(keySelector)
+                    : subdivsQuery.OrderBy(keySelector);
                 break;
             case AlcoholType.Spirits:
                 subdivsQuery = endOfDistribution == EndOfDistribution.Top ?

@@ -1,7 +1,9 @@
 ﻿using NetTopologySuite.Geometries;
+using System.Diagnostics;
 
 namespace Spurious2.Core2.Subdivisions;
 
+[DebuggerDisplay("{SubdivisionName}")]
 public class Subdivision
 {
     public int Id { get; set; }
