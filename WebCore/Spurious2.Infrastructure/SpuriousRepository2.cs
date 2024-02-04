@@ -49,11 +49,38 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
 
     public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit)
     {
-        var subdivs = await dbContext.Subdivisions
-            .OrderByDescending(s => s.AlcoholDensity)
-            .Where(s => s.AlcoholDensity > 0)
-            .Take(limit)
-            .ToListAsync();
+        var subdivsQuery = dbContext.Subdivisions
+            .Where(s => s.AlcoholDensity > 0);
+
+        switch (alcoholType)
+        {
+            case AlcoholType.All:
+                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
+                    subdivsQuery.OrderByDescending(s => s.AlcoholDensity)
+                    : subdivsQuery.OrderBy(s => s.AlcoholDensity);
+                break;
+            case AlcoholType.Spirits:
+                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
+                    subdivsQuery.OrderByDescending(s => s.SpiritsDensity)
+                    : subdivsQuery.OrderBy(s => s.SpiritsDensity);
+                break;
+            case AlcoholType.Beer:
+                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
+                    subdivsQuery.OrderByDescending(s => s.BeerDensity)
+                    : subdivsQuery.OrderBy(s => s.BeerDensity);
+                break;
+            case AlcoholType.Wine:
+                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
+                    subdivsQuery.OrderByDescending(s => s.WineDensity)
+                    : subdivsQuery.OrderBy(s => s.WineDensity);
+                break;
+        }
+
+
+
+        subdivsQuery = subdivsQuery.Take(limit);
+
+        var subdivs = await subdivsQuery.ToListAsync();
 
         foreach (var subdiv in subdivs)
         {
