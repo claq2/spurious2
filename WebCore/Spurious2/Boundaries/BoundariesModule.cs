@@ -12,8 +12,10 @@ public class BoundariesModule : ICarterModule
             async (int id, ISender mediator) =>
                 Results.Text(await mediator
                     .Send(new GetBoundaryForSubdivisionRequest
-                    { SubdivisionId = id }), contentType: "application/json")
-            )
+                    { SubdivisionId = id }), contentType: "application/json"))
+            .WithTags("Boundaries")
+            .WithName("GetSubdivisionBoundary")
+            .WithOpenApi()
             ;
     }
 }
