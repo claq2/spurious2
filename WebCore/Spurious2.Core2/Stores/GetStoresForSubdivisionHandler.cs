@@ -1,13 +1,13 @@
-﻿using Ardalis.Specification;
-using MediatR;
+﻿using MediatR;
+using Spurious2.Core;
 
 namespace Spurious2.Core2.Stores;
 
-public class GetStoresForSubdivisionHandler(IReadRepositoryBase<Store> spuriousRepository) : IRequestHandler<GetStoresForSubdivisionRequest, List<Store>>
+public class GetStoresForSubdivisionHandler(ISpuriousRepository spuriousRepository) : IRequestHandler<GetStoresForSubdivisionRequest, List<Store>>
 {
-    public Task<List<Store>> Handle(GetStoresForSubdivisionRequest request, CancellationToken cancellationToken)
+    public async Task<List<Store>> Handle(GetStoresForSubdivisionRequest request, CancellationToken cancellationToken)
     {
-
-        throw new NotImplementedException();
+        var stores = await spuriousRepository.GetStoresBySubdivisionId(request.SubdivisionId);
+        return stores;
     }
 }

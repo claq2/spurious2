@@ -11,7 +11,16 @@ namespace Spurious2.Infrastructure;
 
 public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRepository
 {
-    static readonly JsonSerializerOptions jsonOptions;
+    private static readonly JsonSerializerOptions jsonOptions;
+
+    private static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
+    {
+        { AlcoholType.All, s => s.AlcoholDensity },
+        { AlcoholType.Beer, s => s.BeerDensity },
+        { AlcoholType.Spirits, s => s.SpiritsDensity },
+        { AlcoholType.Wine, s => s.WineDensity },
+    };
+
     static SpuriousRepository2()
     {
         jsonOptions = new JsonSerializerOptions { ReadCommentHandling = JsonCommentHandling.Skip };
@@ -47,14 +56,6 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
         var shapeJson = Encoding.UTF8.GetString(memStream.ToArray());
         return shapeJson;
     }
-
-    private static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
-    {
-        { AlcoholType.All, s => s.AlcoholDensity },
-        { AlcoholType.Beer, s => s.BeerDensity },
-        { AlcoholType.Spirits, s => s.SpiritsDensity },
-        { AlcoholType.Wine, s => s.WineDensity },
-    };
 
     public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit)
     {

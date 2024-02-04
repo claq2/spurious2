@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using Spurious2.Core;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public class GetSubdivisionsByDensityHandler : IRequestHandler<GetSubdivisionsByDensityRequest, List<Subdivision>>
+public class GetSubdivisionsByDensityHandler(ISpuriousRepository spuriousRepository) : IRequestHandler<GetSubdivisionsByDensityRequest, List<Subdivision>>
 {
     private static readonly Dictionary<string, (AlcoholType at, EndOfDistribution eod, int lim)> densityToParametersMap = new()
     {
@@ -16,8 +17,10 @@ public class GetSubdivisionsByDensityHandler : IRequestHandler<GetSubdivisionsBy
         { GetDensitiesHandler.allDensity, (AlcoholType.All, EndOfDistribution.Top, 10000) },
     };
 
-    public Task<List<Subdivision>> Handle(GetSubdivisionsByDensityRequest request, CancellationToken cancellationToken)
+    public async Task<List<Subdivision>> Handle(GetSubdivisionsByDensityRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var (at, eofd, lim) = densityToParametersMap[request.DensityName];
+        var subdivs = await spuriousRepository.GetSubdivisionsForDensity(at, eofd, lim);
+        return subdivs;
     }
 }

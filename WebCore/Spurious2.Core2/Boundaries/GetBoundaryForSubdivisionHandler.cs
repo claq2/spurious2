@@ -1,11 +1,13 @@
 ﻿using MediatR;
+using Spurious2.Core;
 
 namespace Spurious2.Core2.Boundaries;
 
-public class GetBoundaryForSubdivisionHandler : IRequestHandler<GetBoundaryForSubdivisionRequest, string>
+public class GetBoundaryForSubdivisionHandler(ISpuriousRepository spuriousRepository) : IRequestHandler<GetBoundaryForSubdivisionRequest, string>
 {
-    public Task<string> Handle(GetBoundaryForSubdivisionRequest request, CancellationToken cancellationToken)
+    public async Task<string> Handle(GetBoundaryForSubdivisionRequest request, CancellationToken cancellationToken)
     {
-        return Task.FromResult("");
+        var boundary = await spuriousRepository.GetBoundaryForSubdivision(request.SubdivisionId);
+        return boundary;
     }
 }
