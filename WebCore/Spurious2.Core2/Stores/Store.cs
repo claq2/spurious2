@@ -16,7 +16,7 @@ public class Store
 
     public int? SpiritsVolume { get; set; }
 
-    public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+    //public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
 
     public Point LocationGeog { get; set; }
 
