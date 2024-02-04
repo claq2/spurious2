@@ -4,5 +4,5 @@ namespace Spurious2.Core;
 
 public interface ISpuriousRepository
 {
-    List<Store> X();
+    List<Store> GetStoresBySubdivisionId(int subdivisionId);
 }

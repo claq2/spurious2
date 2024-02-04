@@ -53,7 +53,7 @@ namespace Spurious2.Pages
                 .Select(s => s.Location.AsText())
                 .ToList();
 
-            var ss = spuriousRepository.X();
+            var ss = spuriousRepository.GetStoresBySubdivisionId(3514021);
         }
     }
 }
