@@ -3,6 +3,7 @@ using NetTopologySuite.IO.Converters;
 using Spurious2.Core;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 
@@ -47,57 +48,40 @@ public class SpuriousRepository2(Models.SpuriousContext dbContext) : ISpuriousRe
         return shapeJson;
     }
 
+    private static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
+    {
+        { AlcoholType.All, s => s.AlcoholDensity },
+        { AlcoholType.Beer, s => s.BeerDensity },
+        { AlcoholType.Spirits, s => s.SpiritsDensity },
+        { AlcoholType.Wine, s => s.WineDensity },
+    };
+
     public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit)
     {
+        var keySelector = map[alcoholType];
         var subdivsQuery = dbContext.Subdivisions
             .Where(s => s.AlcoholDensity > 0);
-        System.Linq.Expressions.Expression<Func<Subdivision, decimal?>> keySelector = s => s.AlcoholDensity;
-        switch (alcoholType)
-        {
-            case AlcoholType.All:
-
-                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
-                    subdivsQuery.OrderByDescending(keySelector)
-                    : subdivsQuery.OrderBy(keySelector);
-                break;
-            case AlcoholType.Spirits:
-                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
-                    subdivsQuery.OrderByDescending(s => s.SpiritsDensity)
-                    : subdivsQuery.OrderBy(s => s.SpiritsDensity);
-                break;
-            case AlcoholType.Beer:
-                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
-                    subdivsQuery.OrderByDescending(s => s.BeerDensity)
-                    : subdivsQuery.OrderBy(s => s.BeerDensity);
-                break;
-            case AlcoholType.Wine:
-                subdivsQuery = endOfDistribution == EndOfDistribution.Top ?
-                    subdivsQuery.OrderByDescending(s => s.WineDensity)
-                    : subdivsQuery.OrderBy(s => s.WineDensity);
-                break;
-        }
-
-
-
-        subdivsQuery = subdivsQuery.Take(limit);
+        subdivsQuery = Order(subdivsQuery, keySelector, endOfDistribution)
+            .Take(limit);
 
         var subdivs = await subdivsQuery.ToListAsync();
 
         foreach (var subdiv in subdivs)
         {
-
-            using (var memStream = new MemoryStream())
-            {
-                using (var writer = new Utf8JsonWriter(memStream))
-                {
-                    JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
-                }
-
-                var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-                subdiv.GeographicCentre = pointJson;
-            }
+            using var memStream = new MemoryStream();
+            using var writer = new Utf8JsonWriter(memStream);
+            JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
+            var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
+            subdiv.GeographicCentre = pointJson;
         }
 
         return subdivs;
+
+        static IOrderedQueryable<Subdivision> Order(IQueryable<Subdivision> subdivsQuery, Expression<Func<Subdivision, decimal?>> keySelector, EndOfDistribution endOfDistribution)
+        {
+            return endOfDistribution == EndOfDistribution.Top ?
+                subdivsQuery.OrderByDescending(keySelector)
+                : subdivsQuery.OrderBy(keySelector);
+        }
     }
 }
