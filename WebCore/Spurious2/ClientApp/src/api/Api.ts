@@ -13,7 +13,7 @@
 import { HttpClient } from 'aurelia-http-client';
 import { AuthStorage } from './AuthStorage';
 
-const BASE_PATH = 'http://localhost'.replace(/\/+$/, '');
+const BASE_PATH = '';
 
 export class Api {
   basePath: string;

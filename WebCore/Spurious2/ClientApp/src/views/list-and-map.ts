@@ -122,17 +122,19 @@ export class ListAndMap {
         }
         //console.log('shapes: ', shapes);
 
-        const x = await this.http.get(subdivisions[0].storesLink);
-        const y = await x.json();
-        const stores = await this.http.get(subdivisions[0].storesLink);
+        // const x = await this.http.get(subdivisions[0].storesLink);
+        // const y = await x.json();
+        const stores = await this.storesApi.getSubdivisionStores({
+          id: subdivisions[0].id as number,
+        }); // .http.get(subdivisions[0].storesLink);
         //console.log("stores: ", stores);
         stores.forEach((s: Store) => {
           if (s.locationCoordinates) {
             const f = new data.Feature(
               new data.Point(
                 new data.Position(
-                  parseFloat(s.locationCoordinates.split(",")[0]),
-                  parseFloat(s.locationCoordinates.split(",")[1])
+                  s.locationCoordinates.coordinates?.longitude as number,
+                  s.locationCoordinates.coordinates?.longitude as number
                 )
               ),
               { name: s.name, city: s.city, inventories: s.inventories }
@@ -223,15 +225,17 @@ export class ListAndMap {
         this.map.setCamera({ zoom: currentZoom - 1 });
       }
 
-      const stores = await client.get<Store[]>(subdiv.storesLink);
+      const stores = await this.storesApi.getSubdivisionStores({
+        id: subdiv.id as number,
+      }); // client.get<Store[]>(subdiv.storesLink);
       //console.log("stores: ", stores);
       stores.forEach((s: Store) => {
         if (s.locationCoordinates) {
           const f = new data.Feature(
             new data.Point(
               new data.Position(
-                parseFloat(s.locationCoordinates.split(",")[0]),
-                parseFloat(s.locationCoordinates.split(",")[1])
+                s.locationCoordinates.coordinates?.longitude as number,
+                s.locationCoordinates.coordinates?.longitude as number
               )
             ),
             { name: s.name, city: s.city, inventories: s.inventories }
