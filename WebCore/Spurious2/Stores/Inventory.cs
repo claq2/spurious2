@@ -1,7 +1,9 @@
-﻿namespace Spurious2.Stores;
+﻿using Spurious2.Core2.Stores;
+
+namespace Spurious2.Stores;
 
 public class Inventory
 {
-    public string AlcoholType { get; set; }
+    public AlcoholType AlcoholType { get; set; }
     public decimal Volume { get; set; }
 }

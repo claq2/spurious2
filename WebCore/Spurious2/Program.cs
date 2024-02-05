@@ -4,6 +4,7 @@ using Spurious2.Core;
 using Spurious2.Core2.Densities;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.Models;
+using System.Text.Json.Serialization;
 
 namespace Spurious2
 {
@@ -35,6 +36,16 @@ namespace Spurious2
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
+            builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             builder.Services.AddCarter();
 
