@@ -36,6 +36,8 @@ public class Subdivision
 
     public decimal? SpiritsDensity { get; set; }
 
+    public decimal RequestedDensityAmount { get; set; }
+
     public Point GeographicCentreGeog { get; set; }
 
     public GeoJSON.Text.Geometry.Point GeographicCentre { get; set; }

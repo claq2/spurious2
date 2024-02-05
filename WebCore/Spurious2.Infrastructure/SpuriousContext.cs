@@ -63,6 +63,7 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.GeographicCentreGeog).HasColumnName("GeographicCentre")
                 .HasColumnType("geography");
             entity.Ignore(e => e.GeographicCentre);
+            entity.Ignore(e => e.RequestedDensityAmount);
         });
 
         OnModelCreatingPartial(modelBuilder);

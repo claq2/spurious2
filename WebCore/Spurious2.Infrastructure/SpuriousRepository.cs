@@ -63,7 +63,7 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         var keySelector = map[alcoholType];
         var subdivsQuery = dbContext.Subdivisions
             .Where(s => s.AlcoholDensity > 0);
-        subdivsQuery = Order(subdivsQuery, keySelector, endOfDistribution)
+        subdivsQuery = DetermineOrderQuery(subdivsQuery, keySelector, endOfDistribution)
             .Take(limit);
 
         var subdivs = await subdivsQuery.ToListAsync();
@@ -75,15 +75,39 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
             JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
             subdiv.GeographicCentre = JsonSerializer.Deserialize<Point>(pointJson);
+            subdiv.RequestedDensityAmount = GetRequestedDensityAmount(subdiv, alcoholType);
         }
 
         return subdivs;
 
-        static IOrderedQueryable<Subdivision> Order(IQueryable<Subdivision> subdivsQuery, Expression<Func<Subdivision, decimal?>> keySelector, EndOfDistribution endOfDistribution)
+        static IOrderedQueryable<Subdivision> DetermineOrderQuery(IQueryable<Subdivision> subdivsQuery, Expression<Func<Subdivision, decimal?>> keySelector, EndOfDistribution endOfDistribution)
         {
             return endOfDistribution == EndOfDistribution.Top ?
                 subdivsQuery.OrderByDescending(keySelector)
                 : subdivsQuery.OrderBy(keySelector);
         }
+    }
+
+    private static decimal GetRequestedDensityAmount(Core2.Subdivisions.Subdivision subdivision, AlcoholType alcoholType)
+    {
+        decimal result = 0;
+        if (alcoholType == AlcoholType.All)
+        {
+            result = subdivision.AlcoholDensity.Value;
+        }
+        else if (alcoholType == AlcoholType.Beer)
+        {
+            result = subdivision.BeerDensity.Value;
+        }
+        else if (alcoholType == AlcoholType.Wine)
+        {
+            result = subdivision.WineDensity.Value;
+        }
+        else if (alcoholType == AlcoholType.Spirits)
+        {
+            result = subdivision.SpiritsDensity.Value;
+        }
+
+        return result;
     }
 }
