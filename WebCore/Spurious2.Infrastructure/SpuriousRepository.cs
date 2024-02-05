@@ -75,7 +75,7 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
             JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
             subdiv.GeographicCentre = JsonSerializer.Deserialize<Point>(pointJson);
-            subdiv.RequestedDensityAmount = GetRequestedDensityAmount(subdiv, alcoholType);
+            subdiv.RequestedDensityAmount = GetRequestedDensityAmount(subdiv, alcoholType) / 1000;
         }
 
         return subdivs;
