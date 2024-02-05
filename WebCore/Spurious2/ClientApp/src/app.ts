@@ -1,37 +1,47 @@
+﻿import { DensitiesApi } from "api";
+import { autoinject } from "aurelia-framework";
+import { Router, RouterConfiguration, RouteConfig } from "aurelia-router";
 import { PLATFORM } from "aurelia-pal";
-import { Router, RouterConfiguration } from "aurelia-router";
+// import { client } from "shared";
+// import { Densities, DensityInfo } from "dtos";
 
+@autoinject
 export class App {
-  public router: Router;
+  constructor(private api: DensitiesApi) {}
+  router!: Router;
 
-  public configureRouter(
-    config: RouterConfiguration,
-    router: Router,
-  ): Promise<void> | PromiseLike<void> | void {
-    config.title = "Aurelia";
-    config.map([
+  async configureRouter(config: RouterConfiguration, router: Router) {
+    // const req: Densities = new Densities();
+    // const r: DensityInfo[] = await client.get(req);
+    const r = await this.api.getDensities();
+
+    let routes: RouteConfig[] = r.map(
+      (rx) =>
+        <RouteConfig>{
+          route: rx.shortName,
+          name: rx.shortName,
+          moduleId: PLATFORM.moduleName("views/list-and-map"),
+          nav: true,
+          title: rx.title,
+          activationStrategy: "replace",
+          settings: { densityLink: rx.address, shortname: rx.shortName },
+        }
+    );
+    routes = routes.concat([
       {
-        route: ["", "welcome"],
-        name: "welcome",
-        moduleId: PLATFORM.moduleName("./welcome"),
+        route: "about",
+        name: "about",
+        moduleId: PLATFORM.moduleName("views/about"),
         nav: true,
-        title: "Welcome",
-      },
-      {
-        route: "users",
-        name: "users",
-        moduleId: PLATFORM.moduleName("./users"),
-        nav: true,
-        title: "Github Users",
-      },
-      {
-        route: "child-router",
-        name: "child-router",
-        moduleId: PLATFORM.moduleName("./child-router"),
-        nav: true,
-        title: "Child Router",
+        title: "About",
       },
     ]);
+    //console.log(routes);
+    config.title = "Spurious Alcohol Statistics";
+    config.options.pushState = true;
+    config.map(routes);
+
+    config.mapUnknownRoutes(<RouteConfig>{ redirect: routes[0].route });
 
     this.router = router;
   }

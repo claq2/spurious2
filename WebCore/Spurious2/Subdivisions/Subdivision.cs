@@ -10,4 +10,5 @@ public class Subdivision
     public Uri BoundaryLink { get; set; }
     public Point CentreCoordinates { get; set; }
     public Uri StoresLink { get; set; }
+    public int Id { get; set; }
 }

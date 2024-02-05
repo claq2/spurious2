@@ -1,0 +1,23 @@
+﻿<template>
+    <div class="col-lg-10">
+        <h2>About</h2>
+        What does the amount of alcohol in a census subdivision mean? Nothing. But it's fun to map it out like it does. (For instance, there might be an LCBO at the border of 2 areas that serve both, but the population of the second area won't get counted.)
+        <br />
+        <br />
+        Population and census subdivision data comes from Statistics Canada's 2016 census data.
+        <br />
+        <br />
+        Alcohol inventory comes from a custom LCBO website scraper based on <a href="https://github.com/heycarsten/lcbo-api">Carsten Nielson's LCBO API</a>. It's a series of Azure Functions.
+        <br />
+        <br />
+        Azure SQL Server provides data storage and the geographic matching of LCBO locations inside subdivisions.
+        <br />
+        <br />
+        The backend is <a href="https://servicestack.net">ServiceStack</a> on .NET Core. The front end is <a href="http://aurelia.io">Aurelia</a> written in TypeScript. The map is by <a href="https://azure.microsoft.com/en-us/services/azure-maps/">Azure Maps</a>. <a href="https://getbootstrap.com">Bootstrap</a> provides the good looks. It all lives in Azure.
+        <br />
+        <br />
+        <a href="https://github.com/claq2/spurious2">Fork it on GitHub.</a>
+        <br />
+        <br />
+    </div>
+</template>
