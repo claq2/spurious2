@@ -1,32 +1,48 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <!-- <div class="container"> -->
-            <a class="navbar-brand" href="/">
-                <i class="fa fa-code" aria-hidden="true"></i>
-                Spurious Alcohol Statistics
-            </a>
+  <require from="bootstrap/dist/css/bootstrap.min.css"></require>
+  <require from="@fortawesome/fontawesome-free/css/all.min.css"></require>
+  <require from="azure-maps-control/dist/atlas.css"></require>
+  <<require from="./app.css"></require>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- <div class="container"> -->
+    <a class="navbar-brand" href="/">
+      <i class="fa fa-code" aria-hidden="true"></i>
+      Spurious Alcohol Statistics
+    </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#skeleton-navigation-navbar" aria-controls="skeleton-navigation-navbar"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="skeleton-navigation-navbar">
-                <ul class="navbar-nav mr-auto">
-                    <li repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active' : ''}">
-                        <a class="nav-link" href.bind="row.href">
-                            ${row.title}
-                            <i if.bind="row.settings.icon" class="fa fa-${row.settings.icon}"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        <!-- </div> -->
-    </nav>
-
-    <div class="container">
-        <div id="content">
-            <router-view></router-view>
-        </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#skeleton-navigation-navbar"
+      aria-controls="skeleton-navigation-navbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="skeleton-navigation-navbar">
+      <ul class="navbar-nav mr-auto">
+        <li
+          repeat.for="row of router.navigation"
+          class="nav-item ${row.isActive ? 'active' : ''}"
+        >
+          <a class="nav-link" href.bind="row.href">
+            ${row.title}
+            <i
+              if.bind="row.settings.icon"
+              class="fa fa-${row.settings.icon}"
+            ></i>
+          </a>
+        </li>
+      </ul>
     </div>
+    <!-- </div> -->
+  </nav>
 
+  <div class="container">
+    <div id="content">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>

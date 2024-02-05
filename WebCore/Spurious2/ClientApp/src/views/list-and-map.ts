@@ -129,12 +129,12 @@ export class ListAndMap {
         }); // .http.get(subdivisions[0].storesLink);
         //console.log("stores: ", stores);
         stores.forEach((s: Store) => {
-          if (s.locationCoordinates) {
+          if (s.locationCoordinates && s.locationCoordinates.coordinates) {
             const f = new data.Feature(
               new data.Point(
                 new data.Position(
-                  s.locationCoordinates.coordinates?.longitude as number,
-                  s.locationCoordinates.coordinates?.longitude as number
+                  s.locationCoordinates.coordinates[0],
+                  s.locationCoordinates.coordinates[1]
                 )
               ),
               { name: s.name, city: s.city, inventories: s.inventories }
@@ -230,12 +230,12 @@ export class ListAndMap {
       }); // client.get<Store[]>(subdiv.storesLink);
       //console.log("stores: ", stores);
       stores.forEach((s: Store) => {
-        if (s.locationCoordinates) {
+        if (s.locationCoordinates && s.locationCoordinates.coordinates) {
           const f = new data.Feature(
             new data.Point(
               new data.Position(
-                s.locationCoordinates.coordinates?.longitude as number,
-                s.locationCoordinates.coordinates?.longitude as number
+                s.locationCoordinates.coordinates[0],
+                s.locationCoordinates.coordinates[1]
               )
             ),
             { name: s.name, city: s.city, inventories: s.inventories }

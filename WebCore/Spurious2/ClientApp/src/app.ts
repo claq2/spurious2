@@ -38,7 +38,7 @@ export class App {
     ]);
     //console.log(routes);
     config.title = "Spurious Alcohol Statistics";
-    config.options.pushState = true;
+    // config.options.pushState = true;
     config.map(routes);
 
     config.mapUnknownRoutes(<RouteConfig>{ redirect: routes[0].route });

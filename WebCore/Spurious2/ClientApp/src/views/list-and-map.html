@@ -1,25 +1,31 @@
 <template>
-    <require from="../resources/value-converters/truncate-decimal"></require>
-    <div><h1>Alcohol Density per Census Subdivision</h1></div>
-    <div ref="container" css="width: ${width}; height: ${height};"></div>
-    <div class="listTable" if.bind="subdivisions.length > 0">
-        <table class="table table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Subdivision Name</th>
-                    <th>Population</th>
-                    <th>Density (L/person)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr repeat.for="subdivision of subdivisions" click.trigger="selectSubdiv(subdivision)" class="${subdivision.id === currentSubDivId ? 'info' : ''}">
-                    <td class="vert-align">${$index + 1}.</td>
-                    <td class="vert-align">${subdivision.name}</td>
-                    <td class="vert-align">${subdivision.population}</td>
-                    <td class="vert-align">${subdivision.density | truncateDecimal}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <require from="../resources/value-converters/truncate-decimal"></require>
+  <div><h1>Alcohol Density per Census Subdivision</h1></div>
+  <div ref="container" css="width: ${width}; height: ${height};"></div>
+  <div class="listTable" if.bind="subdivisions.length > 0">
+    <table class="table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Subdivision Name</th>
+          <th>Population</th>
+          <th>Density (L/person)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          repeat.for="subdivision of subdivisions"
+          click.trigger="selectSubdiv(subdivision)"
+          class="${subdivision.id === currentSubDivId ? 'info' : ''}"
+        >
+          <td class="vert-align">${$index + 1}.</td>
+          <td class="vert-align">${subdivision.name}</td>
+          <td class="vert-align">${subdivision.population}</td>
+          <td class="vert-align">
+            ${subdivision.requestedDensityAmount | truncateDecimal}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>

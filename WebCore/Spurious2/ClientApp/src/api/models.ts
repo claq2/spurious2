@@ -46,7 +46,7 @@ export interface Point {
   bbox?: Array<number>;
   crs?: ICRSObject;
   type?: GeoJSONObjectType;
-  coordinates?: IPosition;
+  coordinates?: number[];
 }
 
 
