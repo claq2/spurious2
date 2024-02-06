@@ -2,8 +2,8 @@
 
 namespace Spurious2.Stores;
 
-public class Inventory
+public record Inventory
 {
-    public AlcoholType AlcoholType { get; set; }
-    public decimal Volume { get; set; }
+    public required AlcoholType AlcoholType { get; init; }
+    public required decimal Volume { get; init; }
 }

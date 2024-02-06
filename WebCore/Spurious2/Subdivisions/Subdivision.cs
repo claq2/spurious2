@@ -2,13 +2,12 @@
 
 namespace Spurious2.Subdivisions;
 
-public class Subdivision
+public record Subdivision
 {
-    public string Name { get; set; } = string.Empty;
-    public int Population { get; set; }
-    public decimal RequestedDensityAmount { get; set; }
-    public Uri BoundaryLink { get; set; } = new Uri("https://blah.com");
-    public Point CentreCoordinates { get; set; } = new Point();
-    public Uri StoresLink { get; set; } = new Uri("https://blah.com");
-    public int Id { get; set; }
+    public required string Name { get; init; }
+    public required int Population { get; init; }
+    public required decimal RequestedDensityAmount { get; init; }
+    public required Uri BoundaryLink { get; init; }
+    public required Point CentreCoordinates { get; init; }
+    public required int Id { get; init; }
 }

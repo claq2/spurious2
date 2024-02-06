@@ -110,7 +110,7 @@ export class ListAndMap {
       //console.log(densities[0].centreCoordinates);
       this.subdivisions = subdivisions;
 
-      if (subdivisions[0].boundaryLink && subdivisions[0].storesLink) {
+      if (subdivisions[0].boundaryLink) {
         await this.datasource.importDataFromUrl(subdivisions[0].boundaryLink);
         const shapes = this.datasource.getShapes();
         const bounds = shapes[0].getBounds();
@@ -122,11 +122,9 @@ export class ListAndMap {
         }
         //console.log('shapes: ', shapes);
 
-        // const x = await this.http.get(subdivisions[0].storesLink);
-        // const y = await x.json();
         const stores = await this.storesApi.getSubdivisionStores({
           id: subdivisions[0].id as number,
-        }); // .http.get(subdivisions[0].storesLink);
+        });
         //console.log("stores: ", stores);
         stores.forEach((s: Store) => {
           if (s.locationCoordinates && s.locationCoordinates.coordinates) {
@@ -210,7 +208,7 @@ export class ListAndMap {
   }
 
   async selectSubdiv(subdiv: Subdivision) {
-    if (subdiv.boundaryLink && subdiv.storesLink) {
+    if (subdiv.boundaryLink) {
       //console.log("Starting select subdiv");
       this.datasource.clear();
 
@@ -227,7 +225,7 @@ export class ListAndMap {
 
       const stores = await this.storesApi.getSubdivisionStores({
         id: subdiv.id as number,
-      }); // client.get<Store[]>(subdiv.storesLink);
+      });
       //console.log("stores: ", stores);
       stores.forEach((s: Store) => {
         if (s.locationCoordinates && s.locationCoordinates.coordinates) {

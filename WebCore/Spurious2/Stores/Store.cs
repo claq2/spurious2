@@ -2,12 +2,12 @@
 
 namespace Spurious2.Stores;
 
-public class Store
+public record Store
 {
-    public int Id { get; set; }
-    public Point LocationCoordinates { get; set; } = new Point();
-    public string Name { get; set; } = string.Empty;
-    public string City { get; set; } = string.Empty;
+    public required int Id { get; init; }
+    public required Point LocationCoordinates { get; init; }
+    public required string Name { get; init; }
+    public required string City { get; init; }
 
-    public List<Inventory> Inventories { get; set; } = [];
+    public required List<Inventory> Inventories { get; init; }
 }
