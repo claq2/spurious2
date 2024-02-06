@@ -20,7 +20,9 @@ public class GetSubdivisionsByDensityHandler(ISpuriousRepository spuriousReposit
     public async Task<List<Subdivision>> Handle(GetSubdivisionsByDensityRequest request, CancellationToken cancellationToken)
     {
         var (at, eofd, lim) = densityToParametersMap[request.DensityName];
-        var subdivs = await spuriousRepository.GetSubdivisionsForDensity(at, eofd, lim);
+        var subdivs = await spuriousRepository
+            .GetSubdivisionsForDensity(at, eofd, lim)
+            .ConfigAwait();
         return subdivs;
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core;
+using Spurious2.Core2;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 using System.Linq.Expressions;
@@ -35,7 +36,8 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
             .Where(s => s.LocationGeog.Intersects(
                 dbContext.Subdivisions
                 .Single(s => s.Id == subdivisionId).Boundary
-            )).ToListAsync();
+            )).ToListAsync()
+            .ConfigAwait();
         foreach (var store in stores)
         {
             using var memStream = new MemoryStream();
@@ -50,7 +52,9 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
 
     public async Task<string> GetBoundaryForSubdivision(int subdivisionId)
     {
-        var subdiv = await dbContext.Subdivisions.SingleAsync(s => s.Id == subdivisionId);
+        var subdiv = await dbContext.Subdivisions
+            .SingleAsync(s => s.Id == subdivisionId)
+            .ConfigAwait();
         using var memStream = new MemoryStream();
         using var writer = new Utf8JsonWriter(memStream);
         JsonSerializer.Serialize(writer, subdiv.Boundary, jsonOptions);
@@ -66,7 +70,7 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         subdivsQuery = DetermineOrderQuery(subdivsQuery, keySelector, endOfDistribution)
             .Take(limit);
 
-        var subdivs = await subdivsQuery.ToListAsync();
+        var subdivs = await subdivsQuery.ToListAsync().ConfigAwait();
 
         foreach (var subdiv in subdivs)
         {

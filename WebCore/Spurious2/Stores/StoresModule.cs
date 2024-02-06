@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Carter;
 using MediatR;
+using Spurious2.Core2;
 using Spurious2.Core2.Stores;
 
 namespace Spurious2.Stores;
@@ -13,7 +14,8 @@ public class StoresModule : ICarterModule
             async (int id, ISender mediator, IMapper mapper) =>
                 mapper.Map<List<Store>>(
                     await mediator.Send(
-                        new GetStoresForSubdivisionRequest { SubdivisionId = id })))
+                        new GetStoresForSubdivisionRequest { SubdivisionId = id })
+                    .ConfigAwait()))
             .WithTags("Stores")
             .WithName("GetSubdivisionStores")
             .WithOpenApi();

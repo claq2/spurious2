@@ -7,7 +7,9 @@ public class GetBoundaryForSubdivisionHandler(ISpuriousRepository spuriousReposi
 {
     public async Task<string> Handle(GetBoundaryForSubdivisionRequest request, CancellationToken cancellationToken)
     {
-        var boundary = await spuriousRepository.GetBoundaryForSubdivision(request.SubdivisionId);
+        var boundary = await spuriousRepository
+            .GetBoundaryForSubdivision(request.SubdivisionId)
+            .ConfigAwait();
         return boundary;
     }
 }
