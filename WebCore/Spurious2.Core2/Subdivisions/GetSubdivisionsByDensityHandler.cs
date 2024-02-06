@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Spurious2.Core;
+using MediatR;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
 

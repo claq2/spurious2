@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Spurious2.Pages
+namespace Spurious2.Pages;
+
+public class SpaModel() : PageModel
 {
-    public class SpaModel() : PageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-        }
     }
 }

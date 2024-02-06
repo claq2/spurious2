@@ -1,19 +1,18 @@
-﻿using GeoJSON.Text.Geometry;
-using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.IO.Converters;
-using Spurious2.Core;
-using Spurious2.Core2;
-using Spurious2.Core2.Stores;
-using Spurious2.Core2.Subdivisions;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
+using GeoJSON.Text.Geometry;
+using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.IO.Converters;
+using Spurious2.Core2;
+using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure;
 
 public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRepository
 {
-    private static readonly JsonSerializerOptions jsonOptions;
+    private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
 
     private static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
     {
@@ -25,7 +24,6 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
 
     static SpuriousRepository()
     {
-        jsonOptions = new JsonSerializerOptions { ReadCommentHandling = JsonCommentHandling.Skip };
         jsonOptions.Converters.Add(new GeoJsonConverterFactory());
     }
 
@@ -87,14 +85,12 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         return subdivs;
 
         static IOrderedQueryable<Subdivision> DetermineOrderQuery(IQueryable<Subdivision> subdivsQuery, Expression<Func<Subdivision, decimal?>> keySelector, EndOfDistribution endOfDistribution)
-        {
-            return endOfDistribution == EndOfDistribution.Top ?
+            => endOfDistribution == EndOfDistribution.Top ?
                 subdivsQuery.OrderByDescending(keySelector)
                 : subdivsQuery.OrderBy(keySelector);
-        }
     }
 
-    private static decimal GetRequestedDensityAmount(Core2.Subdivisions.Subdivision subdivision, AlcoholType alcoholType)
+    private static decimal GetRequestedDensityAmount(Subdivision subdivision, AlcoholType alcoholType)
     {
         decimal result = 0;
         if (alcoholType == AlcoholType.All)

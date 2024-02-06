@@ -33,6 +33,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.AzureStorageAdapter", "Spurious2.AzureStorageAdapter\Spurious2.AzureStorageAdapter.csproj", "{C0731F39-6685-4764-828E-EC45564E2599}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebCore", "WebCore", "{3199017E-7761-4B6A-86CA-479144D3F1BA}"
+	ProjectSection(SolutionItems) = preProject
+		WebCore\.editorconfig = WebCore\.editorconfig
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2", "WebCore\Spurious2\Spurious2.csproj", "{615EFF0F-0F8D-4F74-9488-C2EED473A673}"
 EndProject

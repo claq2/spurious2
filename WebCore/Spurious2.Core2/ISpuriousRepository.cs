@@ -1,7 +1,7 @@
-﻿using Spurious2.Core2.Stores;
+using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 
-namespace Spurious2.Core;
+namespace Spurious2.Core2;
 
 public interface ISpuriousRepository
 {
