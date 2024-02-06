@@ -5,7 +5,7 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository
 {
-    Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit);
-    Task<string> GetBoundaryForSubdivision(int subdivisionId);
-    Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId);
+    Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit, CancellationToken cancellationToken);
+    Task<string> GetBoundaryForSubdivision(int subdivisionId, CancellationToken cancellationToken);
+    Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken);
 }

@@ -27,14 +27,14 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         jsonOptions.Converters.Add(new GeoJsonConverterFactory());
     }
 
-    public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId)
+    public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken)
     {
         var stores = await dbContext
             .Stores
             .Where(s => s.LocationGeog.Intersects(
                 dbContext.Subdivisions
                 .Single(s => s.Id == subdivisionId).Boundary
-            )).ToListAsync()
+            )).ToListAsync(cancellationToken)
             .ConfigAwait();
         foreach (var store in stores)
         {
@@ -49,10 +49,10 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         return stores;
     }
 
-    public async Task<string> GetBoundaryForSubdivision(int subdivisionId)
+    public async Task<string> GetBoundaryForSubdivision(int subdivisionId, CancellationToken cancellationToken)
     {
         var subdiv = await dbContext.Subdivisions
-            .SingleAsync(s => s.Id == subdivisionId)
+            .SingleAsync(s => s.Id == subdivisionId, cancellationToken)
             .ConfigAwait();
         using var memStream = new MemoryStream();
         using var writer = new Utf8JsonWriter(memStream);
@@ -61,7 +61,10 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         return shapeJson;
     }
 
-    public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit)
+    public async Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType,
+        EndOfDistribution endOfDistribution,
+        int limit,
+        CancellationToken cancellationToken)
     {
         var keySelector = map[alcoholType];
         var subdivsQuery = dbContext.Subdivisions
@@ -69,7 +72,7 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         subdivsQuery = DetermineOrderQuery(subdivsQuery, keySelector, endOfDistribution)
             .Take(limit);
 
-        var subdivs = await subdivsQuery.ToListAsync().ConfigAwait();
+        var subdivs = await subdivsQuery.ToListAsync(cancellationToken).ConfigAwait();
 
         foreach (var subdiv in subdivs)
         {
@@ -92,24 +95,14 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
 
     private static decimal GetRequestedDensityAmount(Subdivision subdivision, AlcoholType alcoholType)
     {
-        decimal result = 0;
-        if (alcoholType == AlcoholType.All)
+        var result = alcoholType switch
         {
-            result = subdivision.AlcoholDensity ?? 0;
-        }
-        else if (alcoholType == AlcoholType.Beer)
-        {
-            result = subdivision.BeerDensity ?? 0;
-        }
-        else if (alcoholType == AlcoholType.Wine)
-        {
-            result = subdivision.WineDensity ?? 0;
-        }
-        else if (alcoholType == AlcoholType.Spirits)
-        {
-            result = subdivision.SpiritsDensity ?? 0;
-        }
-
+            AlcoholType.All => subdivision.AlcoholDensity ?? 0,
+            AlcoholType.Beer => subdivision.BeerDensity ?? 0,
+            AlcoholType.Wine => subdivision.WineDensity ?? 0,
+            AlcoholType.Spirits => subdivision.SpiritsDensity ?? 0,
+            _ => 0,
+        };
         return result;
     }
 }

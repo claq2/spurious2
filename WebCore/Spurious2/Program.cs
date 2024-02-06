@@ -32,23 +32,17 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
         builder.Services.AddDbContext<SpuriousContext>(opt =>
-        {
             opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
-                x => x.UseNetTopologySuite().EnableRetryOnFailure());
-        });
+                x => x.UseNetTopologySuite().EnableRetryOnFailure()));
 
         // Add services to the container.
         builder.Services.AddRazorPages();
 
         builder.Services.ConfigureHttpJsonOptions(options =>
-        {
-            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
-        {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         builder.Services.AddCarter();
 

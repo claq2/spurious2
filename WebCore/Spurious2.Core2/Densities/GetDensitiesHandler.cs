@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 
 namespace Spurious2.Core2.Densities;
 
@@ -33,6 +33,7 @@ public class GetDensitiesHandler : IRequestHandler<GetDensitiesRequest, List<Den
 
     public Task<List<DensityInfo>> Handle(GetDensitiesRequest request, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(nameof(request));
         var response = new List<DensityInfo>();
         foreach (var density in densities)
         {

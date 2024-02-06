@@ -1,5 +1,5 @@
-﻿using NetTopologySuite.Geometries;
 using System.Diagnostics;
+using NetTopologySuite.Geometries;
 
 namespace Spurious2.Core2.Subdivisions;
 
@@ -44,7 +44,5 @@ public class Subdivision
 
     public Geometry Boundary { get; set; } = new Polygon(new LinearRing([]));
 
-    private string DebugDisplay {
-        get { return $"{this.SubdivisionName} All {this.AlcoholDensity:n} Beer {this.BeerDensity:n}"; }
-    }
+    private string DebugDisplay => $"{this.SubdivisionName} All {this.AlcoholDensity:n} Beer {this.BeerDensity:n}";
 }

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Carter;
 using MediatR;
 using Spurious2.Core2;
@@ -11,10 +11,10 @@ public class StoresModule : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         _ = app.MapGet("/subdivisions/{id}/stores",
-            async (int id, ISender mediator, IMapper mapper) =>
+            async (int id, ISender mediator, IMapper mapper, CancellationToken cancellationToken) =>
                 mapper.Map<List<Store>>(
                     await mediator.Send(
-                        new GetStoresForSubdivisionRequest { SubdivisionId = id })
+                        new GetStoresForSubdivisionRequest { SubdivisionId = id }, cancellationToken)
                     .ConfigAwait()))
             .WithTags("Stores")
             .WithName("GetSubdivisionStores")
