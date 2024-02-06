@@ -33,7 +33,7 @@ public class GetDensitiesHandler : IRequestHandler<GetDensitiesRequest, List<Den
 
     public Task<List<DensityInfo>> Handle(GetDensitiesRequest request, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(nameof(request));
+        ArgumentNullException.ThrowIfNull(request);
         var response = new List<DensityInfo>();
         foreach (var density in densities)
         {

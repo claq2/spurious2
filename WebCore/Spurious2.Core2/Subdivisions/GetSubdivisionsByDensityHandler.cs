@@ -18,7 +18,7 @@ public class GetSubdivisionsByDensityHandler(ISpuriousRepository spuriousReposit
 
     public async Task<List<Subdivision>> Handle(GetSubdivisionsByDensityRequest request, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(nameof(request));
+        ArgumentNullException.ThrowIfNull(request);
         var (at, eofd, lim) = densityToParametersMap[request.DensityName];
         var subdivs = await spuriousRepository
             .GetSubdivisionsForDensity(at, eofd, lim, cancellationToken)

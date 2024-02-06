@@ -6,7 +6,7 @@ public class GetBoundaryForSubdivisionHandler(ISpuriousRepository spuriousReposi
 {
     public async Task<string> Handle(GetBoundaryForSubdivisionRequest request, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(nameof(request));
+        ArgumentNullException.ThrowIfNull(request);
         var boundary = await spuriousRepository
             .GetBoundaryForSubdivision(request.SubdivisionId, cancellationToken)
             .ConfigAwait();

@@ -6,7 +6,7 @@ public class GetStoresForSubdivisionHandler(ISpuriousRepository spuriousReposito
 {
     public async Task<List<Store>> Handle(GetStoresForSubdivisionRequest request, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(nameof(request));
+        ArgumentNullException.ThrowIfNull(request);
         var stores = await spuriousRepository
             .GetStoresBySubdivisionId(request.SubdivisionId, cancellationToken)
             .ConfigAwait();
