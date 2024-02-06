@@ -6,9 +6,9 @@ public class Store
 {
     public int Id { get; set; }
 
-    public string StoreName { get; set; }
+    public string StoreName { get; set; } = string.Empty;
 
-    public string City { get; set; }
+    public string City { get; set; } = string.Empty;
 
     public int? BeerVolume { get; set; }
 
@@ -16,9 +16,7 @@ public class Store
 
     public int? SpiritsVolume { get; set; }
 
-    //public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+    public Point LocationGeog { get; set; } = Point.Empty;
 
-    public Point LocationGeog { get; set; }
-
-    public GeoJSON.Text.Geometry.Point Location { get; set; }
+    public GeoJSON.Text.Geometry.Point Location { get; set; } = new GeoJSON.Text.Geometry.Point();
 }

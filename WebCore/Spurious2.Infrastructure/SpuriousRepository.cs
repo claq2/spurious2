@@ -44,7 +44,8 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
             using var writer = new Utf8JsonWriter(memStream);
             JsonSerializer.Serialize(writer, store.LocationGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            store.Location = JsonSerializer.Deserialize<Point>(pointJson);
+            store.Location = JsonSerializer.Deserialize<Point>(pointJson)
+                ?? new Point();
         }
 
         return stores;
@@ -78,7 +79,8 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
             using var writer = new Utf8JsonWriter(memStream);
             JsonSerializer.Serialize(writer, subdiv.GeographicCentreGeog, jsonOptions);
             var pointJson = Encoding.UTF8.GetString(memStream.ToArray());
-            subdiv.GeographicCentre = JsonSerializer.Deserialize<Point>(pointJson);
+            subdiv.GeographicCentre = JsonSerializer.Deserialize<Point>(pointJson)
+                ?? new Point();
             subdiv.RequestedDensityAmount = GetRequestedDensityAmount(subdiv, alcoholType) / 1000;
         }
 
@@ -97,19 +99,19 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         decimal result = 0;
         if (alcoholType == AlcoholType.All)
         {
-            result = subdivision.AlcoholDensity.Value;
+            result = subdivision.AlcoholDensity ?? 0;
         }
         else if (alcoholType == AlcoholType.Beer)
         {
-            result = subdivision.BeerDensity.Value;
+            result = subdivision.BeerDensity ?? 0;
         }
         else if (alcoholType == AlcoholType.Wine)
         {
-            result = subdivision.WineDensity.Value;
+            result = subdivision.WineDensity ?? 0;
         }
         else if (alcoholType == AlcoholType.Spirits)
         {
-            result = subdivision.SpiritsDensity.Value;
+            result = subdivision.SpiritsDensity ?? 0;
         }
 
         return result;
