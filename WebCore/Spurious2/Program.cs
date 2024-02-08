@@ -64,6 +64,7 @@ public class Program
                 .WithHash256("5ad8McBu1lCYD+EOXcLRS1FeuI8rw9mYscXkLiGKyRc=")
                 .WithHash256("4frXBI2FwF2LM/qKBg0E03wsgxAwjM9XkjmuHhsolJU=")
                 .WithHash256("Ev6x8tBHdhQy7B3Y75SlaTnHyEhorCajhRI7BtClp8w=")
+                .WithHash256("qYi3FSs1kDVtElTOOutxMXxwH9WdFVpZX7kmJrNrzCc=")
                 .UnsafeHashes() // allow use of hashes on style elements, including the login error list
                 .StrictDynamic()
                 .WithHashTagHelper();
