@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  spurious2:
+    image: ${DOCKER_REGISTRY-}spurious2
+    build:
+      context: .
+      dockerfile: WebCore/Spurious2/Dockerfile
+    volumes:
+      # map the dotnet user-secret folder
+      - $APPDATA/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Core2", "WebCore\Spurious2.Core2\Spurious2.Core2.csproj", "{BE971C82-5FB3-44AE-B9CE-1ED4CAD838AA}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1B6C7173-07C5-4623-9A7A-885BF90641BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{BE971C82-5FB3-44AE-B9CE-1ED4CAD838AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE971C82-5FB3-44AE-B9CE-1ED4CAD838AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE971C82-5FB3-44AE-B9CE-1ED4CAD838AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6C7173-07C5-4623-9A7A-885BF90641BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6C7173-07C5-4623-9A7A-885BF90641BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6C7173-07C5-4623-9A7A-885BF90641BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6C7173-07C5-4623-9A7A-885BF90641BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
