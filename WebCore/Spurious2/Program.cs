@@ -52,8 +52,11 @@ public class Program
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
             builder.Services.AddDbContext<SpuriousContext>(opt =>
+            {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
-                    x => x.UseNetTopologySuite().EnableRetryOnFailure()));
+                    x => x.UseNetTopologySuite().EnableRetryOnFailure());
+                opt.EnableSensitiveDataLogging();
+            });
 
             // Add services to the container.
             builder.Services.AddRazorPages();

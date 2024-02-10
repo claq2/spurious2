@@ -9,3 +9,13 @@ services:
     volumes:
       # map the dotnet user-secret folder
       - $APPDATA/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  spurious2-seq:
+    image: datalust/seq:latest
+    container_name: spurious2.seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+  
