@@ -47,7 +47,6 @@ public class Program
             // Coordinate equality comparer to use (CoordinateEqualityComparer or PerOrdinateEqualityComparer)
             new NetTopologySuite.Geometries.CoordinateEqualityComparer() */
             );
-            var x = builder.Configuration.GetConnectionString("SpuriousSqlDb");
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
