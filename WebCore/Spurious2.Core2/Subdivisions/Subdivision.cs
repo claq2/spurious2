@@ -16,9 +16,9 @@ public class Subdivision
 
     public long SpiritsVolume { get; set; }
 
-    public string Province { get; set; } = string.Empty;
+    public string? Province { get; set; } = string.Empty;
 
-    public string SubdivisionName { get; set; } = string.Empty;
+    public string? SubdivisionName { get; set; } = string.Empty;
 
     public int AverageIncome { get; set; }
 
@@ -38,11 +38,11 @@ public class Subdivision
 
     public decimal RequestedDensityAmount { get; set; }
 
-    public Point GeographicCentreGeog { get; set; } = Point.Empty;
+    public Point? GeographicCentreGeog { get; set; } = Point.Empty;
 
     public GeoJSON.Text.Geometry.Point GeographicCentre { get; set; } = new GeoJSON.Text.Geometry.Point();
 
-    public Geometry Boundary { get; set; } = new Polygon(new LinearRing([]));
+    public Geometry? Boundary { get; set; } = new Polygon(new LinearRing([]));
 
     private string DebugDisplay => $"{this.SubdivisionName} All {this.AlcoholDensity:n} Beer {this.BeerDensity:n}";
 }
