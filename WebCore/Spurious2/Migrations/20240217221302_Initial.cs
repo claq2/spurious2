@@ -6,6 +6,9 @@ using NetTopologySuite.Geometries;
 namespace Spurious2.Migrations;
 
 /// <inheritdoc />
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0053:Use expression body for lambda expression", Justification = "<Pending>")]
 public partial class Initial : Migration
 {
     /// <inheritdoc />
