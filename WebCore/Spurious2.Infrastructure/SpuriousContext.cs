@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Spurious2.Infrastructure.Models;
+namespace Spurious2.Infrastructure;
 
 public partial class SpuriousContext : DbContext
 {

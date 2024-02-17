@@ -7,7 +7,7 @@ using Serilog.Events;
 using Spurious2.Core2;
 using Spurious2.Core2.Densities;
 using Spurious2.Infrastructure;
-using Spurious2.Infrastructure.Models;
+using Spurious2.Infrastructure.All;
 
 namespace Spurious2;
 
@@ -51,12 +51,10 @@ public class Program
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
-            builder.Services.AddDbContext<SpuriousContext>(opt =>
-            {
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
-                    x => x.UseNetTopologySuite().EnableRetryOnFailure());
-                opt.EnableSensitiveDataLogging();
-            });
+            builder.Services.AddDbContext<SpuriousAll>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+                    b => b.UseNetTopologySuite()
+                        .EnableRetryOnFailure()
+                        .MigrationsAssembly("Spurious2")).EnableSensitiveDataLogging());
 
             // Add services to the container.
             builder.Services.AddRazorPages();

@@ -111,7 +111,7 @@ public partial class SpuriousAll : DbContext
 
             entity.ToTable("Store");
 
-            entity.HasIndex(e => e.Location, "SPATIAL_Store");
+            // entity.HasIndex(e => e.Location, "SPATIAL_Store");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.City).HasColumnType("text");
@@ -138,7 +138,7 @@ public partial class SpuriousAll : DbContext
 
             entity.ToTable("Subdivision");
 
-            entity.HasIndex(e => e.Boundary, "SPATIAL_Subdivision");
+            // entity.HasIndex(e => e.Boundary, "SPATIAL_Subdivision");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.AlcoholDensity).HasColumnType("decimal(9, 2)");
