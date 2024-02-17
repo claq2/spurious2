@@ -22,10 +22,7 @@ public class SpuriousRepository(Models.SpuriousContext dbContext) : ISpuriousRep
         { AlcoholType.Wine, s => s.WineDensity },
     };
 
-    static SpuriousRepository()
-    {
-        jsonOptions.Converters.Add(new GeoJsonConverterFactory());
-    }
+    static SpuriousRepository() => jsonOptions.Converters.Add(new GeoJsonConverterFactory());
 
     public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken)
     {

@@ -7,9 +7,7 @@ namespace Spurious2.Boundaries;
 
 public class BoundariesModule : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        _ = app.MapGet("/subdivisions/{id}/boundary",
+    public void AddRoutes(IEndpointRouteBuilder app) => app.MapGet("/subdivisions/{id}/boundary",
             async (int id, ISender mediator, CancellationToken cancellationToken) =>
                 Results.Text(await mediator
                     .Send(new GetBoundaryForSubdivisionRequest
@@ -19,5 +17,4 @@ public class BoundariesModule : ICarterModule
             .WithName("GetSubdivisionBoundary")
             .WithOpenApi()
             ;
-    }
 }

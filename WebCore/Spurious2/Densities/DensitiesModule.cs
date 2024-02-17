@@ -7,13 +7,10 @@ namespace Spurious2.Densities;
 
 public class DensitiesModule : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        _ = app.MapGet("/api/densities",
+    public void AddRoutes(IEndpointRouteBuilder app) => app.MapGet("/api/densities",
             async (ISender mediator) =>
                 await mediator.Send(new GetDensitiesRequest()).ConfigAwait())
             .WithTags("Densities")
             .WithName("GetDensities")
             .WithOpenApi();
-    }
 }

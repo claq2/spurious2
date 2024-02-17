@@ -1,6 +1,6 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace Spurious2.Pages;
 
@@ -12,9 +12,6 @@ public class ErrorModel() : PageModel
 
     public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
 
-    public void OnGet()
-    {
-        this.RequestId = Activity.Current?.Id ??
+    public void OnGet() => this.RequestId = Activity.Current?.Id ??
             this.HttpContext.TraceIdentifier;
-    }
 }

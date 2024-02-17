@@ -2,7 +2,7 @@
 #do this in a loop because the timing for when the SQL instance is ready is indeterminate
 for i in {1..50};
 do
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P QA@vnet1 -d master -i setup.sql
+    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P QA@vnet1 -d master -i setupExistCheckData.sql
     if [ $? -eq 0 ]
     then
         echo "setup.sql completed"

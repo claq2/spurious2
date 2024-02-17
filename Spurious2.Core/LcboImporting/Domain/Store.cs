@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using GeoAPI.Geometries;
-using Spurious2.Core.LcboImporting.Domain;
-
-namespace Spurious2.Core.LcboImporting.Domain
+﻿namespace Spurious2.Core.LcboImporting.Domain
 {
     public partial class Store
     {
         public Store()
         {
-            this.Inventories = new HashSet<Inventory>();
+            this.Inventories = [];
         }
 
         public int Id { get; set; }

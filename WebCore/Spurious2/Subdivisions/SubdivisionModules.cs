@@ -8,9 +8,7 @@ namespace Spurious2.Subdivisions;
 
 public class SubdivisionModules : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        _ = app.MapGet("/api/densities/{name}/subdivisions",
+    public void AddRoutes(IEndpointRouteBuilder app) => app.MapGet("/api/densities/{name}/subdivisions",
             async (string name, ISender mediator, IMapper mapper, CancellationToken cancellationToken) =>
                 mapper.Map<List<Subdivision>>(
                     await mediator.Send(new GetSubdivisionsByDensityRequest { DensityName = name }, cancellationToken)
@@ -19,5 +17,4 @@ public class SubdivisionModules : ICarterModule
             .WithName("GetSubdivisionsByDensity")
             .WithOpenApi()
             ;
-    }
 }
