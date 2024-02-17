@@ -75,7 +75,7 @@ public partial class SpuriousAll : DbContext
 
         modelBuilder.Entity<PopulationIncoming>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("pi_firstkey");
+            entity.HasKey(e => e.Id);//.HasName("pi_firstkey");
 
             entity.ToTable("PopulationIncoming");
 
@@ -85,7 +85,7 @@ public partial class SpuriousAll : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07712F54DE");
+            entity.HasKey(e => e.Id);//.HasName("PK__Product__3214EC07712F54DE");
 
             entity.ToTable("Product");
 
@@ -96,18 +96,19 @@ public partial class SpuriousAll : DbContext
 
         modelBuilder.Entity<ProductIncoming>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("pri_firstkey");
+            entity.HasKey(e => e.Id);//.HasName("pri_firstkey");
 
             entity.ToTable("ProductIncoming");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Category).HasMaxLength(255);
             entity.Property(e => e.ProductName).HasMaxLength(255);
+            entity.Property(e => e.ProductDone).HasDefaultValue(false);
         });
 
         modelBuilder.Entity<Store>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("stores_pkey");
+            entity.HasKey(e => e.Id);//.HasName("stores_pkey");
 
             entity.ToTable("Store");
 
@@ -134,7 +135,7 @@ public partial class SpuriousAll : DbContext
 
         modelBuilder.Entity<Subdivision>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("firstkey");
+            entity.HasKey(e => e.Id);//.HasName("firstkey");
 
             entity.ToTable("Subdivision");
 
@@ -151,6 +152,14 @@ public partial class SpuriousAll : DbContext
                 .HasColumnType("geography");
             entity.Ignore(e => e.GeographicCentre);
             entity.Ignore(e => e.RequestedDensityAmount);
+            entity.Property(e => e.Population).HasDefaultValue(0);
+            entity.Property(e => e.BeerVolume).HasDefaultValue(0);
+            entity.Property(e => e.WineVolume).HasDefaultValue(0);
+            entity.Property(e => e.SpiritsVolume).HasDefaultValue(0);
+            entity.Property(e => e.AverageIncome).HasDefaultValue(0);
+            entity.Property(e => e.MedianIncome).HasDefaultValue(0);
+            entity.Property(e => e.MedianAfterTaxIncome).HasDefaultValue(0);
+            entity.Property(e => e.AverageAfterTaxIncome).HasDefaultValue(0);
         });
 
         this.OnModelCreatingPartial(modelBuilder);

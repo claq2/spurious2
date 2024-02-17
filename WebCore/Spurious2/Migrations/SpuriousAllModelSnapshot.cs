@@ -79,8 +79,7 @@ namespace Spurious2.Migrations
                     b.Property<string>("SubdivisionName")
                         .HasColumnType("text");
 
-                    b.HasKey("Id")
-                        .HasName("pi_firstkey");
+                    b.HasKey("Id");
 
                     b.ToTable("PopulationIncoming", (string)null);
                 });
@@ -100,8 +99,7 @@ namespace Spurious2.Migrations
                     b.Property<int?>("Volume")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Product__3214EC07712F54DE");
+                    b.HasKey("Id");
 
                     b.ToTable("Product", (string)null);
                 });
@@ -131,8 +129,7 @@ namespace Spurious2.Migrations
                     b.Property<int?>("WineVolume")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("stores_pkey");
+                    b.HasKey("Id");
 
                     b.ToTable("Store", (string)null);
                 });
@@ -146,16 +143,22 @@ namespace Spurious2.Migrations
                         .HasColumnType("decimal(9, 2)");
 
                     b.Property<int>("AverageAfterTaxIncome")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("AverageIncome")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<decimal?>("BeerDensity")
                         .HasColumnType("decimal(9, 2)");
 
                     b.Property<long>("BeerVolume")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<Geometry>("Boundary")
                         .HasColumnType("geography");
@@ -165,13 +168,19 @@ namespace Spurious2.Migrations
                         .HasColumnName("GeographicCentre");
 
                     b.Property<int>("MedianAfterTaxIncome")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("MedianIncome")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Population")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Province")
                         .HasMaxLength(255)
@@ -181,7 +190,9 @@ namespace Spurious2.Migrations
                         .HasColumnType("decimal(9, 2)");
 
                     b.Property<long>("SpiritsVolume")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<string>("SubdivisionName")
                         .HasMaxLength(255)
@@ -191,12 +202,11 @@ namespace Spurious2.Migrations
                         .HasColumnType("decimal(9, 2)");
 
                     b.Property<long>("WineVolume")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
-                    b.HasKey("Id")
-                        .HasName("firstkey");
-
-                    b.HasIndex(new[] { "Boundary" }, "SPATIAL_Subdivision");
+                    b.HasKey("Id");
 
                     b.ToTable("Subdivision", (string)null);
                 });
@@ -227,7 +237,9 @@ namespace Spurious2.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("ProductDone")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("ProductName")
                         .HasMaxLength(255)
@@ -236,8 +248,7 @@ namespace Spurious2.Migrations
                     b.Property<int?>("Volume")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("pri_firstkey");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductIncoming", (string)null);
                 });
