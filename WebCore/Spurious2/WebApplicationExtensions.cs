@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Spurious2;
 
-public static class HostExtensions
+public static class WebApplicationExtensions
 {
-    public static IHost MigrateDatabase<T>(this IHost webHost) where T : DbContext
+    public static WebApplication MigrateDatabase<T>(this WebApplication webHost) where T : DbContext
     {
         ArgumentNullException.ThrowIfNull(webHost);
         using (var scope = webHost.Services.CreateScope())

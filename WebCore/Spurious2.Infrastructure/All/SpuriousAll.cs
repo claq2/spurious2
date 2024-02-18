@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Spurious2.Core.Boundaries;
 using Spurious2.Core.Inventories;
@@ -37,8 +38,8 @@ public partial class SpuriousAll : DbContext
 
     public virtual DbSet<Subdivision> Subdivisions { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
+    [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BoundaryIncoming>(entity =>
@@ -106,21 +107,23 @@ public partial class SpuriousAll : DbContext
             entity.Property(e => e.ProductDone).HasDefaultValue(false);
         });
 
-        modelBuilder.Entity<Store>(entity =>
-        {
-            entity.HasKey(e => e.Id);//.HasName("stores_pkey");
+        //modelBuilder.Entity<Store>(entity =>
+        //{
+        //    entity.HasKey(e => e.Id);//.HasName("stores_pkey");
 
-            entity.ToTable("Store");
+        //    entity.ToTable("Store");
 
-            // entity.HasIndex(e => e.Location, "SPATIAL_Store");
+        //    // entity.HasIndex(e => e.Location, "SPATIAL_Store");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.City).HasColumnType("text");
-            entity.Property(e => e.StoreName).HasColumnType("text");
-            entity.Property(e => e.LocationGeog).HasColumnName("Location")
-                .HasColumnType("geography");
-            entity.Ignore(e => e.Location);
-        });
+        //    entity.Property(e => e.Id).ValueGeneratedNever();
+        //    entity.Property(e => e.City).HasColumnType("text");
+        //    entity.Property(e => e.StoreName).HasColumnType("text");
+        //    entity.Property(e => e.LocationGeog).HasColumnName("Location")
+        //        .HasColumnType("geography");
+        //    entity.Ignore(e => e.Location);
+        //});
+
+        modelBuilder.ApplyConfiguration(new StoreConfiguration());
 
         modelBuilder.Entity<StoreIncoming>(entity =>
         {
