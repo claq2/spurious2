@@ -21,6 +21,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="stores.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="stores.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Carter" Version="8.0.0" />
     <PackageReference Include="GeoJSON.Text" Version="1.0.2" />
