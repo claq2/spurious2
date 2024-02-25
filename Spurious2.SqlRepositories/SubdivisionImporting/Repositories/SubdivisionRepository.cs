@@ -38,13 +38,13 @@ public class SubdivisionRepository(SqlConnection connection) : ISubdivisionRepos
             }
 
             // Call sproc to update table and clear incoming table
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "UpdatePopulationsFromIncoming";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandTimeout = 120000;
-                command.ExecuteNonQuery();
-            }
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "UpdatePopulationsFromIncoming";
+            //    command.CommandType = System.Data.CommandType.StoredProcedure;
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
         }
         finally
         {
@@ -70,8 +70,9 @@ public class SubdivisionRepository(SqlConnection connection) : ISubdivisionRepos
             {
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = @"insert into boundaryincoming (id, OriginalBoundary, ReorientedBoundary, SubdivisionName, province) 
+                    command.CommandText = @"insert into boundaryincoming (id, [BoundaryWellKnownText], OriginalBoundary, ReorientedBoundary, SubdivisionName, province) 
                                                 values (@id, 
+@boundaryWellKnownText,
 geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid(), 
 geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObject(), 
 @subdivisionName, @province)";
@@ -89,20 +90,20 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
             }
 
             // Call sproc to update table and clear incoming table
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "UpdateBoundariesFromIncoming";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandTimeout = 120000;
-                command.ExecuteNonQuery();
-            }
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "UpdateBoundariesFromIncoming";
+            //    command.CommandType = System.Data.CommandType.StoredProcedure;
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
 
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "DELETE FROM BoundaryIncoming";
-                command.CommandTimeout = 120000;
-                command.ExecuteNonQuery();
-            }
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "DELETE FROM BoundaryIncoming";
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
         }
         finally
         {

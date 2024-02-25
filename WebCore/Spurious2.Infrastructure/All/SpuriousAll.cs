@@ -42,15 +42,17 @@ public partial class SpuriousAll : DbContext
     [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<BoundaryIncoming>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("BoundaryIncoming");
+        //modelBuilder.Entity<BoundaryIncoming>(entity =>
+        //{
+        //    entity
+        //        .HasNoKey()
+        //        .ToTable("BoundaryIncoming");
 
-            entity.Property(e => e.Province).HasMaxLength(255);
-            entity.Property(e => e.SubdivisionName).HasMaxLength(255);
-        });
+        //    entity.Property(e => e.Province).HasMaxLength(255);
+        //    entity.Property(e => e.SubdivisionName).HasMaxLength(255);
+        //});
+
+        modelBuilder.ApplyConfiguration(new BoundaryIncomingConfiguration());
 
         modelBuilder.Entity<Inventory>(entity =>
         {
@@ -81,7 +83,9 @@ public partial class SpuriousAll : DbContext
             entity.ToTable("PopulationIncoming");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.SubdivisionName).HasColumnType("text");
+            entity.Property(e => e.SubdivisionName).HasColumnType("nvarchar(255)").IsRequired();
+            entity.Property(e => e.Province).HasColumnType("nvarchar(255)").IsRequired();
+            entity.Property(e => e.Population).HasColumnType("int").IsRequired();
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -92,7 +96,7 @@ public partial class SpuriousAll : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Category).HasMaxLength(255);
-            entity.Property(e => e.ProductName).HasColumnType("text");
+            entity.Property(e => e.ProductName).HasColumnType("nvarchar(255)");
         });
 
         modelBuilder.Entity<ProductIncoming>(entity =>

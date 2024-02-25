@@ -20,4 +20,5 @@ sudo apt-get install postgresql-9.4 postgresql-9.4-postgis-2.1 postgresql-contri
 # edit /etc/postgresql/9.4/main/postgresql.conf listen_addresses = '*' port = 5432
 # edit /etc/postgresql/9.4/main/pg_hba.conf host all all         0.0.0.0/0 md5
 
+set OGR_ENABLE_PARTIAL_REPROJECTION=TRUE
 ogr2ogr -t_srs EPSG:4326 -f CSV subdiv2.csv lcsd000a16g_e.gml -lco GEOMETRY=AS_WKT

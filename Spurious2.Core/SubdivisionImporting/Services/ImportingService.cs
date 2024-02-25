@@ -71,14 +71,15 @@ public class ImportingService(ISubdivisionRepository subdivisionRepository) : II
                 if (csv.TryGetField<int>("CSDUID", out var csduid)
                     && csv.TryGetField<string>("WKT", out var wkt)
                     && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    && csv.TryGetField<string>("PRNAME", out var prnname))
+                    //&& csv.TryGetField<string>("PRNAME", out var prnname)
+                    )
                 {
                     boundaries.Add(new SubdivisionBoundary
                     (
                         csduid,
                         wkt,
                         csdname,
-                        prnname
+                        ""
                     ));
                 }
             }
@@ -100,7 +101,8 @@ public class ImportingService(ISubdivisionRepository subdivisionRepository) : II
             while (csv.Read())
             {
                 if (csv.TryGetField<int>("Geographic code", out var id)
-                    && csv.TryGetField<string>("Geographic name, english", out var name))
+                    && csv.TryGetField<string>("Geographic name, english", out var name)
+                    )
                 {
                     var populationString = csv.GetField("Population, 2016");
                     var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
@@ -110,6 +112,47 @@ public class ImportingService(ISubdivisionRepository subdivisionRepository) : II
                         Name = name,
                         Population = population,
                     });
+                }
+            }
+
+            subdivisionRepository.Import(records);
+            return records.Count;
+        }
+    }
+
+    public int ImportPopulationFrom98File(string filenameAndPath)
+    {
+        using (var reader = new StreamReader(filenameAndPath, Encoding.UTF8))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = new List<SubdivisionPopulation>();
+
+            csv.Read();
+            csv.ReadHeader();
+            while (csv.Read())
+            {
+                if (csv.TryGetField<int>("ALT_GEO_CODE", out var id)
+                    && csv.TryGetField<string>("GEO_NAME", out var name)
+                    && csv.TryGetField<string>("GEO_LEVEL", out var level)
+                    && csv.TryGetField<int>("CHARACTERISTIC_ID", out var charId)
+                    && csv.TryGetField<string>("CHARACTERISTIC_NAME", out var charName)
+                    )
+                {
+                    if (string.Compare(level, "Census subdivision", StringComparison.Ordinal) == 0
+                        // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
+                        && charId == 1 // Population, 2021
+                        )
+                    {
+
+                        var populationString = csv.GetField("C1_COUNT_TOTAL");
+                        var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
+                        records.Add(new SubdivisionPopulation
+                        {
+                            Id = id,
+                            Name = name,
+                            Population = population,
+                        });
+                    }
                 }
             }
 

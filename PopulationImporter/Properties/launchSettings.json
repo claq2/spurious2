@@ -2,7 +2,7 @@
   "profiles": {
     "PopulationImporter": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\jmclachlan\\Downloads\\T301EN.CSV"
+      "commandLineArgs": "G:\\Downloads\\98-401-X2021005_eng_CSV\\population.csv"
     }
   }
 }

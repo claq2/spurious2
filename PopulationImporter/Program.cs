@@ -56,7 +56,7 @@ internal class Program
             using (var importer = container.GetInstance<IImportingService>())
             {
                 var stopwatch = Stopwatch.StartNew();
-                var nodes = importer.ImportPopulationFromFile(options.Value.PopulationFile);
+                var nodes = importer.ImportPopulationFrom98File(options.Value.PopulationFile);
                 stopwatch.Stop();
                 Console.WriteLine("Node count {0}", nodes);
                 Console.WriteLine($"Import took {stopwatch.Elapsed}");

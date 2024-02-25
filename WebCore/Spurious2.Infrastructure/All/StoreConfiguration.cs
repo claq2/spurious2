@@ -17,8 +17,8 @@ public class StoreConfiguration : IEntityTypeConfiguration<Store>
         builder.ToTable("Store");
 
         builder.Property(e => e.Id).ValueGeneratedNever();
-        builder.Property(e => e.City).HasColumnType("text");
-        builder.Property(e => e.StoreName).HasColumnType("text");
+        builder.Property(e => e.City).HasColumnType("nvarchar(255)");
+        builder.Property(e => e.StoreName).HasColumnType("nvarchar(255)");
         builder.Property(e => e.LocationGeog).HasColumnName("Location")
             .HasColumnType("geography");
         builder.Ignore(e => e.Location);
