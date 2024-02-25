@@ -12,7 +12,7 @@ using Spurious2.Infrastructure.All;
 
 namespace Spurious2.Migrations
 {
-    [DbContext(typeof(SpuriousAll))]
+    [DbContext(typeof(SpuriousContext))]
     [Migration("20240219025349_StoreData")]
     partial class StoreData
     {

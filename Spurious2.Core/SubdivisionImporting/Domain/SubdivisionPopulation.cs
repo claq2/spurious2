@@ -4,6 +4,7 @@ public class SubdivisionPopulation
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
+    public string Province { get; set; } = string.Empty;
     public int Population { get; set; }
 
     public SubdivisionPopulation()
@@ -12,6 +13,6 @@ public class SubdivisionPopulation
 
     public override string ToString()
     {
-        return $"{this.Name} Pop: {this.Population}";
+        return $"{this.Name} Pop: {this.Population} Id: {this.Id} Prov: {this.Province}";
     }
 }

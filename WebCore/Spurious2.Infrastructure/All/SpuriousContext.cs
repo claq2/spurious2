@@ -9,13 +9,13 @@ using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure.All;
 
-public partial class SpuriousAll : DbContext
+public partial class SpuriousContext : DbContext
 {
-    public SpuriousAll()
+    public SpuriousContext()
     {
     }
 
-    public SpuriousAll(DbContextOptions<SpuriousAll> options)
+    public SpuriousContext(DbContextOptions<SpuriousContext> options)
         : base(options)
     {
     }

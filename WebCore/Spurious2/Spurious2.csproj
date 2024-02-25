@@ -22,10 +22,14 @@
 
   <ItemGroup>
     <None Remove="stores.csv" />
+    <None Remove="subdiv.csv" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="stores.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="subdiv.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

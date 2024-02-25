@@ -11,7 +11,7 @@ using Spurious2.Infrastructure.All;
 
 namespace Spurious2.Migrations
 {
-    [DbContext(typeof(SpuriousAll))]
+    [DbContext(typeof(SpuriousContext))]
     partial class SpuriousAllModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

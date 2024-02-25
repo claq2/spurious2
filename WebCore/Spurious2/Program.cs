@@ -50,7 +50,7 @@ public class Program
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
-            builder.Services.AddDbContext<SpuriousAll>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+            builder.Services.AddDbContext<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
                     b => b.UseNetTopologySuite()
                         .EnableRetryOnFailure()
                         .MigrationsAssembly("Spurious2")).EnableSensitiveDataLogging());
@@ -70,7 +70,7 @@ public class Program
 
             var app = builder.Build();
 #if DEBUG
-            app.MigrateDatabase<SpuriousAll>();
+            app.MigrateDatabase<SpuriousContext>();
 #endif
 
             app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>

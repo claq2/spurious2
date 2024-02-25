@@ -2,15 +2,18 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using GeoJSON.Text.Geometry;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
+using Spurious2.Core.Boundaries;
+using Spurious2.Core.Populations;
 using Spurious2.Core2;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure;
 
-public class SpuriousRepository(All.SpuriousAll dbContext) : ISpuriousRepository
+public class SpuriousRepository(All.SpuriousContext dbContext) : ISpuriousRepository
 {
     private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
 
@@ -21,6 +24,7 @@ public class SpuriousRepository(All.SpuriousAll dbContext) : ISpuriousRepository
         { AlcoholType.Spirits, s => s.SpiritsDensity },
         { AlcoholType.Wine, s => s.WineDensity },
     };
+    private bool _disposedValue;
 
     static SpuriousRepository() => jsonOptions.Converters.Add(new GeoJsonConverterFactory());
 
@@ -90,6 +94,108 @@ public class SpuriousRepository(All.SpuriousAll dbContext) : ISpuriousRepository
                 : subdivsQuery.OrderBy(keySelector);
     }
 
+    public void ImportBoundaries(IEnumerable<BoundaryIncoming> boundaries)
+    {
+        ArgumentNullException.ThrowIfNull(boundaries);
+
+        using var connection = dbContext.Database.GetDbConnection();
+        connection.Open();
+        try
+        {
+            using var deleteCommand = connection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM BoundaryIncoming";
+            deleteCommand.CommandTimeout = 120000;
+            _ = deleteCommand.ExecuteNonQuery();
+
+            foreach (var boundary in boundaries)
+            {
+                using var insertCommand = connection.CreateCommand();
+                insertCommand.CommandText = @"insert into boundaryincoming (id, [BoundaryWellKnownText], OriginalBoundary, ReorientedBoundary, SubdivisionName, province) 
+                                                values (@id, 
+@boundaryWellKnownText,
+geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid(), 
+geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObject(), 
+@subdivisionName, @province)";
+                var idParam = new SqlParameter("@id", boundary.Id);
+                var wktParam = new SqlParameter("@boundaryWellKnownText", boundary.BoundaryWellKnownText);
+                var subdivNameParam = new SqlParameter("@subdivisionName", boundary.SubdivisionName);
+                var provinceParam = new SqlParameter("@province", boundary.Province);
+                _ = insertCommand.Parameters.Add(idParam);
+                _ = insertCommand.Parameters.Add(wktParam);
+                _ = insertCommand.Parameters.Add(subdivNameParam);
+                _ = insertCommand.Parameters.Add(provinceParam);
+                _ = insertCommand.CommandTimeout = 120000;
+                _ = insertCommand.ExecuteNonQuery();
+            }
+
+            // Call sproc to update table and clear incoming table
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "UpdateBoundariesFromIncoming";
+            //    command.CommandType = System.Data.CommandType.StoredProcedure;
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
+
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "DELETE FROM BoundaryIncoming";
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    public void ImportPopulations(IEnumerable<PopulationIncoming> populations)
+    {
+        ArgumentNullException.ThrowIfNull(populations);
+
+        using var connection = dbContext.Database.GetDbConnection();
+        connection.Open();
+        try
+        {
+            using var deleteCommand = connection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM PopulationIncoming";
+            deleteCommand.CommandTimeout = 120000;
+            _ = deleteCommand.ExecuteNonQuery();
+
+            foreach (var subdivisionPopulation in populations)
+            {
+                using var insertCommand = connection.CreateCommand();
+                insertCommand.CommandText = @"insert into PopulationIncoming (id, population, SubdivisionName, Province) 
+                                                values (@id, @population, @subdivisionName, @province)";
+                var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
+                var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
+                var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.SubdivisionName);
+                var provinceParam = new SqlParameter("@province", subdivisionPopulation.Province);
+
+                _ = insertCommand.Parameters.Add(idParam);
+                _ = insertCommand.Parameters.Add(wktParam);
+                _ = insertCommand.Parameters.Add(subdivNameParam);
+                _ = insertCommand.Parameters.Add(provinceParam);
+                _ = insertCommand.CommandTimeout = 120000;
+                _ = insertCommand.ExecuteNonQuery();
+            }
+
+            // Call sproc to update table and clear incoming table
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "UpdatePopulationsFromIncoming";
+            //    command.CommandType = System.Data.CommandType.StoredProcedure;
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
     private static decimal GetRequestedDensityAmount(Subdivision subdivision, AlcoholType alcoholType)
     {
         var result = alcoholType switch
@@ -101,5 +207,25 @@ public class SpuriousRepository(All.SpuriousAll dbContext) : ISpuriousRepository
             _ => 0,
         };
         return result;
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!this._disposedValue)
+        {
+            if (disposing)
+            {
+                dbContext?.Dispose();
+            }
+
+            this._disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

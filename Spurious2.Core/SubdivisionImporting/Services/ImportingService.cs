@@ -122,42 +122,71 @@ public class ImportingService(ISubdivisionRepository subdivisionRepository) : II
 
     public int ImportPopulationFrom98File(string filenameAndPath)
     {
-        using (var reader = new StreamReader(filenameAndPath, Encoding.UTF8))
-        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        // First pass is to extract province/territory names and IDs
+        var provincesDict = new Dictionary<int, string>();
+        using var provinceReader = new StreamReader(filenameAndPath, Encoding.UTF8);
+        using var provinceCsv = new CsvReader(provinceReader, CultureInfo.InvariantCulture);
         {
-            var records = new List<SubdivisionPopulation>();
 
-            csv.Read();
-            csv.ReadHeader();
-            while (csv.Read())
+            provinceCsv.Read();
+            provinceCsv.ReadHeader();
+            while (provinceCsv.Read())
             {
-                if (csv.TryGetField<int>("ALT_GEO_CODE", out var id)
-                    && csv.TryGetField<string>("GEO_NAME", out var name)
-                    && csv.TryGetField<string>("GEO_LEVEL", out var level)
-                    && csv.TryGetField<int>("CHARACTERISTIC_ID", out var charId)
-                    && csv.TryGetField<string>("CHARACTERISTIC_NAME", out var charName)
+                if (provinceCsv.TryGetField<int>("ALT_GEO_CODE", out var id)
+                && provinceCsv.TryGetField<string>("GEO_NAME", out var name)
+                && provinceCsv.TryGetField<string>("GEO_LEVEL", out var level)
+
                     )
                 {
-                    if (string.Compare(level, "Census subdivision", StringComparison.Ordinal) == 0
-                        // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
-                        && charId == 1 // Population, 2021
-                        )
+                    if (string.Compare(level, "Province", StringComparison.Ordinal) == 0
+                        || string.Compare(level, "Territory", StringComparison.Ordinal) == 0
+                    // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
+                    )
                     {
-
-                        var populationString = csv.GetField("C1_COUNT_TOTAL");
-                        var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
-                        records.Add(new SubdivisionPopulation
-                        {
-                            Id = id,
-                            Name = name,
-                            Population = population,
-                        });
+                        provincesDict[id] = name;
                     }
                 }
             }
-
-            subdivisionRepository.Import(records);
-            return records.Count;
         }
+
+        // Second pass is to read populations
+        using var reader = new StreamReader(filenameAndPath, Encoding.UTF8);
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+        var records = new List<SubdivisionPopulation>();
+
+        csv.Read();
+        csv.ReadHeader();
+        while (csv.Read())
+        {
+            if (csv.TryGetField<int>("ALT_GEO_CODE", out var id)
+                && csv.TryGetField<string>("GEO_NAME", out var name)
+                && csv.TryGetField<string>("GEO_LEVEL", out var level)
+                && csv.TryGetField<int>("CHARACTERISTIC_ID", out var charId)
+                && csv.TryGetField<string>("CHARACTERISTIC_NAME", out var charName)
+                )
+            {
+                if (string.Compare(level, "Census subdivision", StringComparison.Ordinal) == 0
+                    // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
+                    && charId == 1 // Population, 2021
+                    )
+                {
+                    var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
+
+                    var populationString = csv.GetField("C1_COUNT_TOTAL");
+                    var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
+                    records.Add(new SubdivisionPopulation
+                    {
+                        Id = id,
+                        Name = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
+                        Population = population,
+                        Province = provincesDict[provinceId]
+                    });
+                }
+            }
+        }
+
+        subdivisionRepository.Import(records);
+        return records.Count;
     }
 }

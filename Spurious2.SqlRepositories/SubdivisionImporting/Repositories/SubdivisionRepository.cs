@@ -12,29 +12,27 @@ public class SubdivisionRepository(SqlConnection connection) : ISubdivisionRepos
         connection.Open();
         try
         {
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "DELETE FROM PopulationIncoming";
-                command.CommandTimeout = 120000;
-                command.ExecuteNonQuery();
-            }
+            using var deleteCommand = connection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM PopulationIncoming";
+            deleteCommand.CommandTimeout = 120000;
+            deleteCommand.ExecuteNonQuery();
 
             foreach (var subdivisionPopulation in populations)
             {
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = @"insert into PopulationIncoming (id, population, SubdivisionName) 
-                                                values (@id, @population, @subdivisionName)";
-                    var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
-                    var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
-                    var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.Name);
+                using var insertCommand = connection.CreateCommand();
+                insertCommand.CommandText = @"insert into PopulationIncoming (id, population, SubdivisionName, Province) 
+                                                values (@id, @population, @subdivisionName, @province)";
+                var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
+                var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
+                var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.Name);
+                var provinceParam = new SqlParameter("@province", subdivisionPopulation.Province);
 
-                    command.Parameters.Add(idParam);
-                    command.Parameters.Add(wktParam);
-                    command.Parameters.Add(subdivNameParam);
-                    command.CommandTimeout = 120000;
-                    command.ExecuteNonQuery();
-                }
+                insertCommand.Parameters.Add(idParam);
+                insertCommand.Parameters.Add(wktParam);
+                insertCommand.Parameters.Add(subdivNameParam);
+                insertCommand.Parameters.Add(provinceParam);
+                insertCommand.CommandTimeout = 120000;
+                insertCommand.ExecuteNonQuery();
             }
 
             // Call sproc to update table and clear incoming table
