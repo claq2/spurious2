@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Spurious2.Infrastructure.All;
@@ -13,11 +12,9 @@ using Spurious2.Infrastructure.All;
 namespace Spurious2.Migrations
 {
     [DbContext(typeof(SpuriousContext))]
-    [Migration("20240217221302_Initial")]
-    partial class Initial
+    partial class SpuriousContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,11 +25,14 @@ namespace Spurious2.Migrations
 
             modelBuilder.Entity("Spurious2.Core.Boundaries.BoundaryIncoming", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("BoundaryWellKnownText")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<Geometry>("OriginalBoundary")
                         .HasColumnType("geography");
@@ -49,6 +49,8 @@ namespace Spurious2.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("BoundaryIncoming", (string)null);
                 });
@@ -76,11 +78,16 @@ namespace Spurious2.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Population")
+                    b.Property<int>("Population")
                         .HasColumnType("int");
 
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("SubdivisionName")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -97,7 +104,7 @@ namespace Spurious2.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ProductName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("Volume")
                         .HasColumnType("int");
@@ -116,7 +123,7 @@ namespace Spurious2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<Point>("LocationGeog")
                         .IsRequired()
@@ -127,7 +134,7 @@ namespace Spurious2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StoreName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("WineVolume")
                         .HasColumnType("int");

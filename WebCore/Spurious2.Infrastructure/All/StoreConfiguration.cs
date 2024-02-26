@@ -23,7 +23,7 @@ public class StoreConfiguration : IEntityTypeConfiguration<Store>
             .HasColumnType("geography");
         builder.Ignore(e => e.Location);
 
-        builder.HasData(ReadStores());
+        //builder.HasData(ReadStores());
     }
 
     public static IEnumerable<Store> ReadStores()
