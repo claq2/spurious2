@@ -72,16 +72,19 @@ public class ImportingService(ISpuriousRepository spuriousRepository) : IImporti
                 if (csv.TryGetField<int>("CSDUID", out var csduid)
                     && csv.TryGetField<string>("WKT", out var wkt)
                     && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    //&& csv.TryGetField<string>("PRNAME", out var prnname)
+                    && csv.TryGetField<int>("PRUID", out var prid)
                     )
                 {
-                    yield return new BoundaryIncoming
+                    if (prid == 35)
                     {
-                        Id = csduid,
-                        BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
-                        Province = string.Empty,
-                    };
+                        yield return new BoundaryIncoming
+                        {
+                            Id = csduid,
+                            BoundaryWellKnownText = wkt,
+                            SubdivisionName = csdname,
+                            Province = "Ontario",
+                        };
+                    }
 
                     //boundaries.Add(new BoundaryIncoming
                     //{
@@ -181,16 +184,18 @@ public class ImportingService(ISpuriousRepository spuriousRepository) : IImporti
                     )
                 {
                     var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
-
                     var populationString = csv.GetField("C1_COUNT_TOTAL");
                     var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
-                    records.Add(new PopulationIncoming
+                    if (provincesDict[provinceId] == "Ontario")
                     {
-                        Id = id,
-                        SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
-                        Population = population,
-                        Province = provincesDict[provinceId]
-                    });
+                        records.Add(new PopulationIncoming
+                        {
+                            Id = id,
+                            SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
+                            Population = population,
+                            Province = provincesDict[provinceId]
+                        });
+                    }
                 }
             }
         }

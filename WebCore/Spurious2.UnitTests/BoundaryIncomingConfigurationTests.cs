@@ -10,6 +10,6 @@ public class BoundaryIncomingConfigurationTests
     public void ReadBoundariesSucceeds()
     {
         var boundaries = BoundaryIncomingConfiguration.ReadBoundariesIncoming().ToList();
-        boundaries.Count.Should().Be(5161);
+        _ = boundaries.Count.Should().Be(577);
     }
 }

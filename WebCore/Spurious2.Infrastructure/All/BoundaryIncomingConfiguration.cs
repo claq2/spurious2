@@ -11,14 +11,13 @@ public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIn
 {
     public void Configure(EntityTypeBuilder<BoundaryIncoming> builder)
     {
-        builder
-            .HasNoKey()
-            .ToTable("BoundaryIncoming");
+        builder.HasKey(e => e.Id);
+        builder.ToTable("BoundaryIncoming");
 
         builder.Property(e => e.Province).HasMaxLength(255);
         builder.Property(e => e.SubdivisionName).HasMaxLength(255);
 
-        builder.HasData(ReadBoundariesIncoming());
+        // builder.HasData(ReadBoundariesIncoming());
     }
 
     public static IEnumerable<BoundaryIncoming> ReadBoundariesIncoming()
