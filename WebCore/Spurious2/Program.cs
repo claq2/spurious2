@@ -71,6 +71,28 @@ public class Program
             var app = builder.Build();
 #if DEBUG
             app.MigrateDatabase<SpuriousContext>();
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
+                var testSubdivision = context.Subdivisions.FirstOrDefault(s => s.Id == 3560057);
+                if (testSubdivision == null || testSubdivision.Boundary == null)
+                {
+                    // add from boundary file
+                }
+
+                if (testSubdivision == null || testSubdivision.Population == 0)
+                {
+                    // add from population file
+                }
+
+                var testStore = context.Stores.FirstOrDefault();
+                if (testStore == null)
+                {
+                    // add from stores file
+                }
+
+                context.SaveChanges();
+            }
 #endif
 
             app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
