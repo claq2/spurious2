@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Web/Spurious2.Web/Spurious2.Web.csproj",
+                "${workspaceFolder}/WebCore/Spurious2/Spurious2.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Web/Spurious2.Web/Spurious2.Web.csproj",
+                "${workspaceFolder}/WebCore/Spurious2/Spurious2.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Web/Spurious2.Web/Spurious2.Web.csproj",
+                "${workspaceFolder}/WebCore/Spurious2/Spurious2.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

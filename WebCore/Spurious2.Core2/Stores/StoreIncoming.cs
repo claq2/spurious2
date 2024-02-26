@@ -13,4 +13,6 @@ public partial class StoreIncoming
     public decimal? Longitude { get; set; }
 
     public bool StoreDone { get; set; }
+
+    public string? LocationWellKnownText { get; set; }
 }
