@@ -75,29 +75,29 @@ public class ImportingService(ISpuriousRepository spuriousRepository) : IImporti
                     && csv.TryGetField<int>("PRUID", out var prid)
                     )
                 {
-                    if (prid == 35)
-                    {
-                        yield return new BoundaryIncoming
-                        {
-                            Id = csduid,
-                            BoundaryWellKnownText = wkt,
-                            SubdivisionName = csdname,
-                            Province = "Ontario",
-                        };
-                    }
-
-                    //boundaries.Add(new BoundaryIncoming
+                    //if (prid == 35)
                     //{
-                    //    Id = csduid,
-                    //    BoundaryWellKnownText = wkt,
-                    //    SubdivisionName = csdname,
-                    //    Province = string.Empty,
-                    //});
+                    //    yield return new BoundaryIncoming
+                    //    {
+                    //        Id = csduid,
+                    //        BoundaryWellKnownText = wkt,
+                    //        SubdivisionName = csdname,
+                    //        Province = "Ontario",
+                    //    };
+                    //}
+
+                    boundaries.Add(new BoundaryIncoming
+                    {
+                        Id = csduid,
+                        BoundaryWellKnownText = wkt,
+                        SubdivisionName = csdname,
+                        Province = string.Empty,
+                    });
                 }
             }
 
-            // spuriousRepository.ImportBoundaries(boundaries);
-            //return boundaries;
+            spuriousRepository.ImportBoundaries(boundaries);
+            return boundaries;
         }
     }
 
@@ -132,7 +132,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository) : IImporti
     //    }
     //}
 
-    public int ImportPopulationFrom98File(string filenameAndPath)
+    public IEnumerable<PopulationIncoming> ImportPopulationFrom98File(string filenameAndPath)
     {
         // First pass is to extract province/territory names and IDs
         var provincesDict = new Dictionary<int, string>();
@@ -186,21 +186,21 @@ public class ImportingService(ISpuriousRepository spuriousRepository) : IImporti
                     var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
                     var populationString = csv.GetField("C1_COUNT_TOTAL");
                     var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
-                    if (provincesDict[provinceId] == "Ontario")
+                    //if (provincesDict[provinceId] == "Ontario")
+                    //{
+                    records.Add(new PopulationIncoming
                     {
-                        records.Add(new PopulationIncoming
-                        {
-                            Id = id,
-                            SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
-                            Population = population,
-                            Province = provincesDict[provinceId]
-                        });
-                    }
+                        Id = id,
+                        SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
+                        Population = population,
+                        Province = provincesDict[provinceId]
+                    });
+                    //}
                 }
             }
         }
 
         spuriousRepository.ImportPopulations(records);
-        return records.Count;
+        return records;
     }
 }
