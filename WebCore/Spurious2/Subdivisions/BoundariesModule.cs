@@ -1,9 +1,9 @@
 using Carter;
 using MediatR;
 using Spurious2.Core2;
-using Spurious2.Core2.Boundaries;
+using Spurious2.Core2.Subdivisions;
 
-namespace Spurious2.Boundaries;
+namespace Spurious2.Subdivisions;
 
 public class BoundariesModule : ICarterModule
 {

@@ -1,6 +1,6 @@
 using NetTopologySuite.Geometries;
 
-namespace Spurious2.Core.Boundaries;
+namespace Spurious2.Core2.Subdivisions;
 
 public partial class BoundaryIncoming
 {

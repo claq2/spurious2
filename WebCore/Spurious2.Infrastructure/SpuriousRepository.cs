@@ -5,7 +5,6 @@ using GeoJSON.Text.Geometry;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
-using Spurious2.Core.Boundaries;
 using Spurious2.Core.Populations;
 using Spurious2.Core2;
 using Spurious2.Core2.Stores;

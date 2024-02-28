@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using Spurious2.Core.Boundaries;
 using Spurious2.Core.Inventories;
 using Spurious2.Core.Populations;
 using Spurious2.Core.Products;

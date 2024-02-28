@@ -1,9 +1,9 @@
-using Spurious2.Core.Boundaries;
 using Spurious2.Core.Populations;
+using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Core.SubdivisionImporting.Services;
 
-public interface IImportingService : IDisposable
+public interface ISubdivisionImportingService : IDisposable
 {
     IEnumerable<PopulationIncoming> ImportPopulationFrom98File(string filenameAndPath);
     IEnumerable<BoundaryIncoming> ImportBoundaryFromCsvFile(string filenameAndPath);

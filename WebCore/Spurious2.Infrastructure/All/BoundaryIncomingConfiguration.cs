@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Spurious2.Core.Boundaries;
+using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure.All;
 
@@ -24,7 +24,7 @@ public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIn
     {
         using var context = new SpuriousContext();
         using var repo = new SpuriousRepository(context);
-        using var importingService = new Core.SubdivisionImporting.Services.ImportingService(repo);
+        using var importingService = new Core.SubdivisionImporting.Services.SubdivisionImportingService(repo);
         return importingService.ImportBoundaryFromCsvFile("subdiv.csv");
     }
 }

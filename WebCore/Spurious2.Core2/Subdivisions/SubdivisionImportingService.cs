@@ -1,13 +1,13 @@
 using System.Globalization;
 using System.Text;
 using CsvHelper;
-using Spurious2.Core.Boundaries;
 using Spurious2.Core.Populations;
 using Spurious2.Core2;
+using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Core.SubdivisionImporting.Services;
 
-public class ImportingService(ISpuriousRepository spuriousRepository) : IImportingService
+public class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {
     public void Dispose()
     {
