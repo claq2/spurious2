@@ -1,4 +1,4 @@
-namespace Spurious2.Infrastructure.All;
+namespace Spurious2.Core2.Stores;
 
 public partial class StoreIncoming
 {
