@@ -2,20 +2,21 @@ using System.Globalization;
 
 namespace Spurious2.Core2.Stores;
 
-public class StoreImportingService : IStoreImportingService
+public class StoreImportingService(ISpuriousRepository spuriousRepository) : IStoreImportingService
 {
     public IEnumerable<StoreIncoming> ReadStores()
     {
         // TODO: Use CsvReader
         var lines = File.ReadLines("stores.csv");
+        var stores = new List<StoreIncoming>();
         foreach (var line in lines)
         {
             var elements = line.Split(',');
             // POINT (-79.531037 43.712679)
-            var pointValues = elements[6].Split(' ');
-            var pointX = Convert.ToDouble(pointValues[1][1..], CultureInfo.InvariantCulture);
-            var pointY = Convert.ToDouble(pointValues[2][..^1], CultureInfo.InvariantCulture);
-            yield return new StoreIncoming
+            //var pointValues = elements[6].Split(' ');
+            //var pointX = Convert.ToDouble(pointValues[1][1..], CultureInfo.InvariantCulture);
+            //var pointY = Convert.ToDouble(pointValues[2][..^1], CultureInfo.InvariantCulture);
+            stores.Add(new StoreIncoming
             {
                 Id = Convert.ToInt32(elements[0], CultureInfo.InvariantCulture),
                 StoreName = elements[1],
@@ -25,7 +26,10 @@ public class StoreImportingService : IStoreImportingService
                 //WineVolume = elements[4] != "NULL" ? Convert.ToInt32(elements[4], CultureInfo.InvariantCulture) : 0,
                 //SpiritsVolume = elements[5] != "NULL" ? Convert.ToInt32(elements[5], CultureInfo.InvariantCulture) : 0,
                 //LocationGeog = new NetTopologySuite.Geometries.Point(pointX, pointY)
-            };
+            });
         }
+
+        spuriousRepository.ImportStores(stores);
+        return stores;
     }
 }

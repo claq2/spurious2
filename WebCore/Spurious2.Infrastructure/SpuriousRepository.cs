@@ -149,6 +149,11 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
         }
     }
 
+    public void ImportStores(IEnumerable<StoreIncoming> stores)
+    {
+        
+    }
+
     public void ImportPopulations(IEnumerable<PopulationIncoming> populations)
     {
         ArgumentNullException.ThrowIfNull(populations);

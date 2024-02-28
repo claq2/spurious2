@@ -6,6 +6,7 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
+    void ImportStores(IEnumerable<StoreIncoming> stores);
     void ImportPopulations(IEnumerable<PopulationIncoming> populations);
     void ImportBoundaries(IEnumerable<BoundaryIncoming> boundaries);
     Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit, CancellationToken cancellationToken);
