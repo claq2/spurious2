@@ -202,7 +202,7 @@ geography::STPointFromText(@locationWellKnownText, 4326),
             // Call sproc to update table and clear incoming table
             //using (var command = connection.CreateCommand())
             //{
-            //    command.CommandText = "UpdateBoundariesFromIncoming";
+            //    command.CommandText = "UpdateStoresFromIncomingCsv";
             //    command.CommandType = System.Data.CommandType.StoredProcedure;
             //    command.CommandTimeout = 120000;
             //    command.ExecuteNonQuery();
