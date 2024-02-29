@@ -1,4 +1,5 @@
 using System.Globalization;
+using CsvHelper;
 
 namespace Spurious2.Core2.Stores;
 
@@ -6,27 +7,36 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
 {
     public IEnumerable<StoreIncoming> ReadStores()
     {
-        // TODO: Use CsvReader
-        var lines = File.ReadLines("stores.csv");
+        using var reader = new StreamReader("stores.csv");
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var stores = new List<StoreIncoming>();
-        foreach (var line in lines)
+
+        var lines = File.ReadLines("stores.csv");
+        _ = csv.Read();
+        _ = csv.ReadHeader();
+        while (csv.Read())
         {
-            var elements = line.Split(',');
-            // POINT (-79.531037 43.712679)
-            //var pointValues = elements[6].Split(' ');
-            //var pointX = Convert.ToDouble(pointValues[1][1..], CultureInfo.InvariantCulture);
-            //var pointY = Convert.ToDouble(pointValues[2][..^1], CultureInfo.InvariantCulture);
-            stores.Add(new StoreIncoming
+            if (csv.TryGetField<int>("ID", out var storeId)
+                && csv.TryGetField<string>("WKT", out var wkt)
+                && csv.TryGetField<string>("StoreName", out var storeName)
+                && csv.TryGetField<string>("City", out var storeCity)
+                && csv.TryGetField<int>("BeerVolume", out var beerVolume)
+                && csv.TryGetField<int>("WineVolume", out var wineVolume)
+                && csv.TryGetField<int>("SpiritsVolume", out var spiritsVolume)
+                )
             {
-                Id = Convert.ToInt32(elements[0], CultureInfo.InvariantCulture),
-                StoreName = elements[1],
-                City = elements[2],
-                LocationWellKnownText = elements[6],
-                //BeerVolume = elements[3] != "NULL" ? Convert.ToInt32(elements[3], CultureInfo.InvariantCulture) : 0,
-                //WineVolume = elements[4] != "NULL" ? Convert.ToInt32(elements[4], CultureInfo.InvariantCulture) : 0,
-                //SpiritsVolume = elements[5] != "NULL" ? Convert.ToInt32(elements[5], CultureInfo.InvariantCulture) : 0,
-                //LocationGeog = new NetTopologySuite.Geometries.Point(pointX, pointY)
-            });
+                stores.Add(new StoreIncoming
+                {
+                    Id = storeId,
+                    StoreName = storeName,
+                    City = storeCity,
+                    LocationWellKnownText = wkt,
+                    BeerVolume = beerVolume,
+                    WineVolume = wineVolume,
+                    SpiritsVolume = spiritsVolume,
+                    //LocationGeog = new NetTopologySuite.Geometries.Point(pointX, pointY)
+                });
+            }
         }
 
         spuriousRepository.ImportStores(stores);

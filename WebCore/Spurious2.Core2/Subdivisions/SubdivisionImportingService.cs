@@ -60,45 +60,44 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
 
     public IEnumerable<BoundaryIncoming> ImportBoundaryFromCsvFile(string filenameAndPath)
     {
-        using (var reader = new StreamReader(filenameAndPath))
-        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        using var reader = new StreamReader(filenameAndPath);
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+        var boundaries = new List<BoundaryIncoming>();
+
+        _ = csv.Read();
+        _ = csv.ReadHeader();
+        while (csv.Read())
         {
-            var boundaries = new List<BoundaryIncoming>();
-
-            _ = csv.Read();
-            _ = csv.ReadHeader();
-            while (csv.Read())
+            if (csv.TryGetField<int>("CSDUID", out var csduid)
+                && csv.TryGetField<string>("WKT", out var wkt)
+                && csv.TryGetField<string>("CSDNAME", out var csdname)
+                && csv.TryGetField<int>("PRUID", out var prid)
+                )
             {
-                if (csv.TryGetField<int>("CSDUID", out var csduid)
-                    && csv.TryGetField<string>("WKT", out var wkt)
-                    && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    && csv.TryGetField<int>("PRUID", out var prid)
-                    )
-                {
-                    //if (prid == 35)
-                    //{
-                    //    yield return new BoundaryIncoming
-                    //    {
-                    //        Id = csduid,
-                    //        BoundaryWellKnownText = wkt,
-                    //        SubdivisionName = csdname,
-                    //        Province = "Ontario",
-                    //    };
-                    //}
+                //if (prid == 35)
+                //{
+                //    yield return new BoundaryIncoming
+                //    {
+                //        Id = csduid,
+                //        BoundaryWellKnownText = wkt,
+                //        SubdivisionName = csdname,
+                //        Province = "Ontario",
+                //    };
+                //}
 
-                    boundaries.Add(new BoundaryIncoming
-                    {
-                        Id = csduid,
-                        BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
-                        Province = string.Empty,
-                    });
-                }
+                boundaries.Add(new BoundaryIncoming
+                {
+                    Id = csduid,
+                    BoundaryWellKnownText = wkt,
+                    SubdivisionName = csdname,
+                    Province = string.Empty,
+                });
             }
 
             spuriousRepository.ImportBoundaries(boundaries);
-            return boundaries;
         }
+
+        return boundaries;
     }
 
     //public int ImportPopulationFromFile(string filenameAndPath)
