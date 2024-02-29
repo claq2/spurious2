@@ -1,3 +1,5 @@
+using NetTopologySuite.Geometries;
+
 namespace Spurious2.Core2.Stores;
 
 public partial class StoreIncoming
@@ -12,4 +14,7 @@ public partial class StoreIncoming
     public int? BeerVolume { get; set; }
     public int? WineVolume { get; set; }
     public int? SpiritsVolume { get; set; }
+    public Point LocationGeog { get; set; } = Point.Empty;
+
+    public override string ToString() => $"{this.Id} {this.StoreName} {this.City}";
 }

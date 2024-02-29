@@ -151,7 +151,74 @@ geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObje
 
     public void ImportStores(IEnumerable<StoreIncoming> stores)
     {
-        
+        ArgumentNullException.ThrowIfNull(stores);
+
+        using var connection = dbContext.Database.GetDbConnection();
+        connection.Open();
+        try
+        {
+            using var deleteCommand = connection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM storeincoming";
+            deleteCommand.CommandTimeout = 120000;
+            _ = deleteCommand.ExecuteNonQuery();
+
+            foreach (var store in stores)
+            {
+                using var insertCommand = connection.CreateCommand();
+                insertCommand.CommandText = @"insert into storeincoming (id, 
+[LocationWellKnownText],
+Location,  
+StoreName, City,
+BeerVolume,
+WineVolume,
+SpiritsVolume,
+StoreDone) 
+                                                values (@id, 
+@locationWellKnownText,
+geography::STPointFromText(@locationWellKnownText, 4326), 
+@storeName, @city,
+@beerVolume,
+@wineVolume,
+@spiritsVolume,
+1)";
+                var idParam = new SqlParameter("@id", store.Id);
+                var wktParam = new SqlParameter("@locationWellKnownText", store.LocationWellKnownText);
+                var storeNameParam = new SqlParameter("@storeName", store.StoreName);
+                var cityParam = new SqlParameter("@city", store.City);
+                var beerVolumeParam = new SqlParameter("@beerVolume", store.BeerVolume);
+                var wineVolumeParam = new SqlParameter("@wineVolume", store.WineVolume);
+                var spiritisVolumeParam = new SqlParameter("@spiritsVolume", store.SpiritsVolume);
+                _ = insertCommand.Parameters.Add(idParam);
+                _ = insertCommand.Parameters.Add(wktParam);
+                _ = insertCommand.Parameters.Add(storeNameParam);
+                _ = insertCommand.Parameters.Add(cityParam);
+                _ = insertCommand.Parameters.Add(beerVolumeParam);
+                _ = insertCommand.Parameters.Add(wineVolumeParam);
+                _ = insertCommand.Parameters.Add(spiritisVolumeParam);
+                _ = insertCommand.CommandTimeout = 120000;
+                _ = insertCommand.ExecuteNonQuery();
+            }
+
+            // Call sproc to update table and clear incoming table
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "UpdateBoundariesFromIncoming";
+            //    command.CommandType = System.Data.CommandType.StoredProcedure;
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
+
+            //using (var command = connection.CreateCommand())
+            //{
+            //    command.CommandText = "DELETE FROM BoundaryIncoming";
+            //    command.CommandTimeout = 120000;
+            //    command.ExecuteNonQuery();
+            //}
+        }
+        finally
+        {
+            connection.Close();
+        }
     }
 
     public void ImportPopulations(IEnumerable<PopulationIncoming> populations)

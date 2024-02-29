@@ -137,6 +137,8 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
             entity.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
             entity.Property(e => e.StoreName).HasMaxLength(255);
+            entity.Property(e => e.LocationGeog).HasColumnName("Location")
+                .HasColumnType("geography");
         });
 
         modelBuilder.Entity<Subdivision>(entity =>
