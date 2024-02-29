@@ -33,7 +33,7 @@ public class StoreImportingServicesTests
         using var repo = new SpuriousRepository(context);
         using var svc = new StoreImportingService(repo);
 
-        var stores = svc.ReadStores().ToList();
+        var stores = svc.ImportStoresFromCsvFile("stores.csv").ToList();
         _ = stores.Count.Should().Be(653);
     }
 }

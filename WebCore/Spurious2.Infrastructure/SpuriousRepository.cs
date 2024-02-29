@@ -210,7 +210,7 @@ geography::STPointFromText(@locationWellKnownText, 4326),
 
             //using (var command = connection.CreateCommand())
             //{
-            //    command.CommandText = "DELETE FROM BoundaryIncoming";
+            //    command.CommandText = "DELETE FROM storeincoming";
             //    command.CommandTimeout = 120000;
             //    command.ExecuteNonQuery();
             //}

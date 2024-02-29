@@ -7,9 +7,9 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
 {
     private bool _disposedValue;
 
-    public IEnumerable<StoreIncoming> ReadStores()
+    public IEnumerable<StoreIncoming> ImportStoresFromCsvFile(string filenameAndPath)
     {
-        using var reader = new StreamReader("stores.csv");
+        using var reader = new StreamReader(filenameAndPath);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var stores = new List<StoreIncoming>();
 
