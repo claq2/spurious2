@@ -232,6 +232,7 @@ geography::STPointFromText(@locationWellKnownText, 4326),
             deleteCommand.CommandTimeout = 120000;
             _ = deleteCommand.ExecuteNonQuery();
 
+            // TODO: Ignore subdiv name
             foreach (var subdivisionPopulation in populations)
             {
                 using var insertCommand = connection.CreateCommand();

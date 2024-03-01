@@ -190,6 +190,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     records.Add(new PopulationIncoming
                     {
                         Id = id,
+                        // TODO: Don't send this subdiv name
                         SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
                         Population = population,
                         Province = provincesDict[provinceId]
