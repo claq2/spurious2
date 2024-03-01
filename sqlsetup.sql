@@ -429,6 +429,56 @@ GO
 CREATE
     OR
 
+ALTER PROCEDURE [dbo].[UpdateStoresFromIncomingCsv]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE [s]
+    FROM [Store] [s] -- with EXISTS semi-anti-join
+    WHERE NOT EXISTS (
+            SELECT 1
+            FROM [StoreIncoming] [si]
+            WHERE [si].[Id] = [s].[Id]
+            );
+
+    INSERT INTO [Store] (
+        [Id]
+        , [StoreName]
+        , [City]
+        , [Location]
+        , [BeerVolume]
+        , [WineVolume]
+        , [SpiritsVolume]
+        )
+    SELECT [si].[Id]
+        , [si].[StoreName]
+        , [si].[City]
+        , [si].[Location]
+        , [si].[BeerVolume]
+        , [si].[WineVolume]
+        , [si].[SpiritsVolume]
+    FROM [StoreIncoming] [si]
+    LEFT JOIN [store] [s]
+        ON [si].[Id] = [s].[Id]
+    WHERE [s].[Id] IS NULL;
+
+    UPDATE [s]
+    SET [s].[StoreName] = [si].[StoreName]
+        , [s].[City] = [si].[City]
+        , [s].[location] = [si].[Location]
+        , [s].[BeerVolume] = [si].[BeerVolume]
+        , [s].[WineVolume] = [si].[WineVolume]
+        , [s].[SpiritsVolume] = [si].[SpiritsVolume]
+    FROM [store] [s]
+        , [StoreIncoming] [si]
+    WHERE [s].[Id] = [si].[Id];
+END
+GO
+
+CREATE
+    OR
+
 ALTER PROCEDURE [dbo].[UpdateProductsFromIncoming]
 AS
 BEGIN
