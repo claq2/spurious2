@@ -1,4 +1,10 @@
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Spurious2.Core2;
+using Spurious2.Core2.Stores;
+using Spurious2.Infrastructure;
+using Spurious2.Infrastructure.All;
 
 namespace Spurious2.UnitTests;
 
@@ -19,16 +25,16 @@ public class StoreImportingServicesTests
                     .Build();
     }
 
-    //[Test]
-    //public void Test()
-    //{
-    //    var opt = new DbContextOptionsBuilder<SpuriousContext>();
-    //    _ = opt.UseSqlServer(this.configuration.GetConnectionString("SpuriousSqlDb"), b => b.UseNetTopologySuite());
-    //    using var context = new SpuriousContext(opt.Options);
-    //    using var repo = new SpuriousRepository(context);
-    //    using var svc = new StoreImportingService(repo);
+    [Test]
+    public async Task Test()
+    {
+        var opt = new DbContextOptionsBuilder<SpuriousContext>();
+        _ = opt.UseSqlServer(this.configuration.GetConnectionString("SpuriousSqlDb"), b => b.UseNetTopologySuite());
+        using var context = new SpuriousContext(opt.Options);
+        using var repo = new SpuriousRepository(context);
+        using var svc = new StoreImportingService(repo);
 
-    //    var stores = svc.ImportStoresFromCsvFile("stores.csv").ToList();
-    //    _ = stores.Count.Should().Be(653);
-    //}
+        var stores = (await svc.ImportStoresFromCsvFile("stores.csv").ConfigAwait()).ToList();
+        _ = stores.Count.Should().Be(653);
+    }
 }
