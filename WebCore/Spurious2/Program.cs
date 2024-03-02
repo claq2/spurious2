@@ -4,8 +4,10 @@ using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using Spurious2.Core.SubdivisionImporting.Services;
 using Spurious2.Core2;
 using Spurious2.Core2.Densities;
+using Spurious2.Core2.Stores;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.All;
 
@@ -67,6 +69,8 @@ public class Program
             builder.Services.AddCarter();
 
             builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
+            builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
+            builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
 
             var app = builder.Build();
 #if DEBUG
@@ -78,17 +82,22 @@ public class Program
                 if (testSubdivision == null || testSubdivision.Boundary == null)
                 {
                     // add from boundary file
+                    var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+                    //subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv");
                 }
 
                 if (testSubdivision == null || testSubdivision.Population == 0)
                 {
                     // add from population file
+                    var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+                    //subDivImporter.ImportPopulationFrom98File("population.csv");
                 }
 
                 var testStore = context.Stores.FirstOrDefault();
                 if (testStore == null)
                 {
-                    // add from stores file
+                    var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
+                    storeImporter.ImportStoresFromCsvFile("stores.csv");
                 }
 
                 context.SaveChanges();

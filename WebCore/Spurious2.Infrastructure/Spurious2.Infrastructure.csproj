@@ -7,11 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="population.csv" />
     <None Remove="stores.csv" />
     <None Remove="subdiv.csv" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="population.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="stores.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
