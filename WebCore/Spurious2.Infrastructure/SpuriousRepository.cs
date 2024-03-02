@@ -91,13 +91,13 @@ public class SpuriousRepository(All.SpuriousContext dbContext) : ISpuriousReposi
                 : subdivsQuery.OrderBy(keySelector);
     }
 
-    public async Task ImportBoundaries(IEnumerable<BoundaryIncoming> boundaries)
+    public async Task ImportBoundaries(IAsyncEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
 
-        foreach (var boundary in boundaries)
+        await foreach (var boundary in boundaries)
         {
 
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into boundaryincoming (id, 

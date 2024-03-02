@@ -22,11 +22,41 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         }
     }
 
-    public async Task<IEnumerable<BoundaryIncoming>> ImportBoundaryFromCsvFile(string filenameAndPath)
+    public async Task ImportBoundaryFromCsvFile(string filenameAndPath)
+    {
+        //using var reader = new StreamReader(filenameAndPath);
+        //using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+        //var boundaries = new List<BoundaryIncoming>();
+
+        //_ = await csv.ReadAsync().ConfigAwait();
+        //_ = csv.ReadHeader();
+        //while (await csv.ReadAsync().ConfigAwait())
+        //{
+        //    if (csv.TryGetField<int>("CSDUID", out var csduid)
+        //        && csv.TryGetField<string>("WKT", out var wkt)
+        //        && csv.TryGetField<string>("CSDNAME", out var csdname)
+        //        && csv.TryGetField<int>("PRUID", out var prid)
+        //        )
+        //    {
+        //        boundaries.Add(new BoundaryIncoming
+        //        {
+        //            Id = csduid,
+        //            BoundaryWellKnownText = wkt,
+        //            SubdivisionName = csdname,
+        //            Province = string.Empty,
+        //        });
+        //    }
+        //}
+        var boundaries = ReadBoundaries(filenameAndPath);
+
+        await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
+        //return boundaries.ToL;
+    }
+
+    private static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
     {
         using var reader = new StreamReader(filenameAndPath);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        var boundaries = new List<BoundaryIncoming>();
 
         _ = await csv.ReadAsync().ConfigAwait();
         _ = csv.ReadHeader();
@@ -38,18 +68,15 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                 && csv.TryGetField<int>("PRUID", out var prid)
                 )
             {
-                boundaries.Add(new BoundaryIncoming
+                yield return new BoundaryIncoming
                 {
                     Id = csduid,
                     BoundaryWellKnownText = wkt,
                     SubdivisionName = csdname,
                     Province = string.Empty,
-                });
+                };
             }
         }
-
-        await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
-        return boundaries;
     }
 
     public async Task<IEnumerable<PopulationIncoming>> ImportPopulationFrom98File(string filenameAndPath)
