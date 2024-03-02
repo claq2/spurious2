@@ -80,6 +80,7 @@ public class Program
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
+                context.Database.SetCommandTimeout(120);
                 var testSubdivision = await context.Subdivisions
                     .FirstOrDefaultAsync(s => s.Id == 3512002)
                     .ConfigAwait(); // Deseronto
