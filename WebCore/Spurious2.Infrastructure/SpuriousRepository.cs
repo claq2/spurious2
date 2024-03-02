@@ -5,7 +5,6 @@ using GeoJSON.Text.Geometry;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
-using Spurious2.Core.Populations;
 using Spurious2.Core2;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
@@ -236,16 +235,16 @@ geography::STPointFromText(@locationWellKnownText, 4326),
             foreach (var subdivisionPopulation in populations)
             {
                 using var insertCommand = connection.CreateCommand();
-                insertCommand.CommandText = @"insert into PopulationIncoming (id, population, SubdivisionName, Province) 
-                                                values (@id, @population, @subdivisionName, @province)";
+                insertCommand.CommandText = @"insert into PopulationIncoming (id, population, Province) 
+                                                values (@id, @population, @province)";
                 var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
                 var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
-                var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.SubdivisionName);
+                //var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.SubdivisionName);
                 var provinceParam = new SqlParameter("@province", subdivisionPopulation.Province);
 
                 _ = insertCommand.Parameters.Add(idParam);
                 _ = insertCommand.Parameters.Add(wktParam);
-                _ = insertCommand.Parameters.Add(subdivNameParam);
+                //_ = insertCommand.Parameters.Add(subdivNameParam);
                 _ = insertCommand.Parameters.Add(provinceParam);
                 _ = insertCommand.CommandTimeout = 120000;
                 _ = insertCommand.ExecuteNonQuery();

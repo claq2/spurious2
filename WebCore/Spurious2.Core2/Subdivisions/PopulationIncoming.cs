@@ -1,4 +1,4 @@
-namespace Spurious2.Core.Populations;
+namespace Spurious2.Core2.Subdivisions;
 
 public partial class PopulationIncoming
 {

@@ -320,6 +320,7 @@ BEGIN
                     END
             )
         , [Province] = [bi].[Province]
+        , [SubdivisionName] = [bi].[SubdivisionName]
     FROM [Subdivision] [s]
         , [BoundaryIncoming] [bi]
     WHERE [s].[id] = [bi].[id];
@@ -347,11 +348,9 @@ BEGIN
 
     INSERT INTO [Subdivision] (
         [Id]
-        , [SubdivisionName]
         , [Population]
         )
     SELECT [pi].[Id]
-        , [pi].[subdivisionname]
         , [pi].[Population]
     FROM [PopulationIncoming] [pi]
     LEFT JOIN [Subdivision] [s]
