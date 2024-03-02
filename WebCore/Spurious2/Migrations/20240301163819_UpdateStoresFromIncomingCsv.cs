@@ -343,41 +343,19 @@ END");
 
         // Spatial indexes
 
-        migrationBuilder.Sql(@"CREATE SPATIAL INDEX [SPATIAL_Store] ON [dbo].[Store] ([Location]) USING GEOGRAPHY_GRID
-    WITH (
-            GRIDS = (
-                LEVEL_1 = MEDIUM
-                ,LEVEL_2 = MEDIUM
-                ,LEVEL_3 = MEDIUM
-                ,LEVEL_4 = MEDIUM
-                )
-            ,CELLS_PER_OBJECT = 16
-            ,PAD_INDEX = OFF
-            ,STATISTICS_NORECOMPUTE = OFF
-            ,SORT_IN_TEMPDB = OFF
-            ,DROP_EXISTING = OFF
-            ,ONLINE = OFF
-            ,ALLOW_ROW_LOCKS = ON
-            ,ALLOW_PAGE_LOCKS = ON
-            ) ON [PRIMARY]");
+        migrationBuilder.Sql(@"CREATE SPATIAL INDEX [SPATIAL_Store] ON [dbo].[Store]
+(
+    [Location]
+)USING  GEOGRAPHY_AUTO_GRID 
+WITH (
+CELLS_PER_OBJECT = 16, PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]");
 
-        migrationBuilder.Sql(@"CREATE SPATIAL INDEX [SPATIAL_Subdivision] ON [dbo].[Subdivision] ([Boundary]) USING GEOGRAPHY_GRID
-    WITH (
-            GRIDS = (
-                LEVEL_1 = MEDIUM
-                ,LEVEL_2 = MEDIUM
-                ,LEVEL_3 = MEDIUM
-                ,LEVEL_4 = MEDIUM
-                )
-            ,CELLS_PER_OBJECT = 16
-            ,PAD_INDEX = OFF
-            ,STATISTICS_NORECOMPUTE = OFF
-            ,SORT_IN_TEMPDB = OFF
-            ,DROP_EXISTING = OFF
-            ,ONLINE = OFF
-            ,ALLOW_ROW_LOCKS = ON
-            ,ALLOW_PAGE_LOCKS = ON
-            ) ON [PRIMARY]");
+        migrationBuilder.Sql(@"CREATE SPATIAL INDEX [SPATIAL_Subdivision] ON [dbo].[Subdivision]
+(
+    [Boundary]
+)USING  GEOGRAPHY_AUTO_GRID 
+WITH (
+CELLS_PER_OBJECT = 16, PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]");
     }
 
     /// <inheritdoc />

@@ -18,15 +18,5 @@ public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIn
 
         builder.Property(e => e.Province).HasMaxLength(255);
         builder.Property(e => e.SubdivisionName).HasMaxLength(255);
-
-        // builder.HasData(ReadBoundariesIncoming());
     }
-
-    //public static IEnumerable<BoundaryIncoming> ReadBoundariesIncoming()
-    //{
-    //    using var context = new SpuriousContext();
-    //    using var repo = new SpuriousRepository(context);
-    //    using var importingService = new Core.SubdivisionImporting.Services.SubdivisionImportingService(repo);
-    //    return importingService.ImportBoundaryFromCsvFile("subdiv.csv");
-    //}
 }

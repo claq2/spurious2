@@ -7,41 +7,42 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
 {
     private bool _disposedValue;
 
-    public async Task<IEnumerable<StoreIncoming>> ImportStoresFromCsvFile(string filenameAndPath)
+    public async Task ImportStoresFromCsvFile(string filenameAndPath)
     {
-        using var reader = new StreamReader(filenameAndPath);
-        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        var stores = new List<StoreIncoming>();
-
-        _ = await csv.ReadAsync().ConfigAwait();
-        _ = csv.ReadHeader();
-        while (await csv.ReadAsync().ConfigAwait())
+        static async IAsyncEnumerable<StoreIncoming> ReadStores(string filenameAndPath)
         {
-            if (csv.TryGetField<int>("Id", out var storeId)
-                && csv.TryGetField<string>("WKT", out var wkt)
-                && csv.TryGetField<string>("StoreName", out var storeName)
-                && csv.TryGetField<string>("City", out var storeCity)
-                && csv.TryGetField<int>("BeerVolume", out var beerVolume)
-                && csv.TryGetField<int>("WineVolume", out var wineVolume)
-                && csv.TryGetField<int>("SpiritsVolume", out var spiritsVolume)
-                )
+            using var reader = new StreamReader(filenameAndPath);
+            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+            _ = await csv.ReadAsync().ConfigAwait();
+            _ = csv.ReadHeader();
+            while (await csv.ReadAsync().ConfigAwait())
             {
-                stores.Add(new StoreIncoming
+                if (csv.TryGetField<int>("Id", out var storeId)
+                    && csv.TryGetField<string>("WKT", out var wkt)
+                    && csv.TryGetField<string>("StoreName", out var storeName)
+                    && csv.TryGetField<string>("City", out var storeCity)
+                    && csv.TryGetField<int>("BeerVolume", out var beerVolume)
+                    && csv.TryGetField<int>("WineVolume", out var wineVolume)
+                    && csv.TryGetField<int>("SpiritsVolume", out var spiritsVolume)
+                    )
                 {
-                    Id = storeId,
-                    StoreName = storeName,
-                    City = storeCity,
-                    LocationWellKnownText = wkt,
-                    BeerVolume = beerVolume,
-                    WineVolume = wineVolume,
-                    SpiritsVolume = spiritsVolume,
-                    //LocationGeog = new NetTopologySuite.Geometries.Point(pointX, pointY)
-                });
+                    yield return new StoreIncoming
+                    {
+                        Id = storeId,
+                        StoreName = storeName,
+                        City = storeCity,
+                        LocationWellKnownText = wkt,
+                        BeerVolume = beerVolume,
+                        WineVolume = wineVolume,
+                        SpiritsVolume = spiritsVolume,
+                    };
+                }
             }
         }
 
+        var stores = ReadStores(filenameAndPath);
         await spuriousRepository.ImportStoresFromCsv(stores).ConfigAwait();
-        return stores;
     }
 
     protected virtual void Dispose(bool disposing)

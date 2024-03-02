@@ -55,7 +55,9 @@ public class Program
             builder.Services.AddDbContext<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
                     b => b.UseNetTopologySuite()
                         .EnableRetryOnFailure()
-                        .MigrationsAssembly("Spurious2")).EnableSensitiveDataLogging());
+                        .MigrationsAssembly("Spurious2"))
+            //.EnableSensitiveDataLogging()
+            );
 
             // Add services to the container.
             builder.Services.AddRazorPages();

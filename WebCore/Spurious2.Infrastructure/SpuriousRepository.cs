@@ -27,13 +27,12 @@ public class SpuriousRepository(All.SpuriousContext dbContext) : ISpuriousReposi
 
     public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken)
     {
-        var stores = await dbContext
-            .Stores
-            .Where(s => s.LocationGeog.Intersects(
-                dbContext.Subdivisions
-                .Single(s => s.Id == subdivisionId).Boundary
-            )).ToListAsync(cancellationToken)
-            .ConfigAwait();
+        var stores = await (from s in dbContext.Stores
+                            from sd in dbContext.Subdivisions
+                            where sd.Id == subdivisionId
+                            where s.LocationGeog.Intersects(sd.Boundary)
+                            select s).ToListAsync(cancellationToken).ConfigAwait();
+
         foreach (var store in stores)
         {
             using var memStream = new MemoryStream();
@@ -116,7 +115,7 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
     }
 
-    public async Task ImportStoresFromCsv(IEnumerable<StoreIncoming> stores)
+    public async Task ImportStoresFromCsv(IAsyncEnumerable<StoreIncoming> stores)
     {
         // Stores in CSV file have volumes
 
@@ -124,9 +123,8 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
 
-        foreach (var store in stores)
+        await foreach (var store in stores)
         {
-
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into storeincoming (id, 
 [LocationWellKnownText],
 Location,  
@@ -143,7 +141,6 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 {store.WineVolume},
 {store.SpiritsVolume},
 1)").ConfigAwait();
-
         }
 
         // Call sproc to update tables
@@ -151,13 +148,13 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
-    public async Task ImportPopulations(IEnumerable<PopulationIncoming> populations)
+    public async Task ImportPopulations(IAsyncEnumerable<PopulationIncoming> populations)
     {
         ArgumentNullException.ThrowIfNull(populations);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM PopulationIncoming").ConfigAwait();
 
-        foreach (var subdivisionPopulation in populations)
+        await foreach (var subdivisionPopulation in populations)
         {
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into PopulationIncoming (id, population, Province) 
                                                 values ({subdivisionPopulation.Id}, {subdivisionPopulation.Population}
