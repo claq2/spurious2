@@ -147,6 +147,7 @@ BEGIN
                     END
             )
         , [Province] = [bi].[Province]
+        , [SubdivisionName] = [bi].[SubdivisionName]
     FROM [Subdivision] [s]
         , [BoundaryIncoming] [bi]
     WHERE [s].[id] = [bi].[id];
@@ -173,19 +174,19 @@ BEGIN
 
     INSERT INTO [Subdivision] (
         [Id]
-        , [SubdivisionName]
         , [Population]
+        , [Province]
         )
     SELECT [pi].[Id]
-        , [pi].[subdivisionname]
         , [pi].[Population]
+        , [pi].[Province]
     FROM [PopulationIncoming] [pi]
     LEFT JOIN [Subdivision] [s]
         ON [pi].[Id] = [s].[Id]
     WHERE [s].[Id] IS NULL;
 
     UPDATE [s]
-    SET [Population] = [pi].[Population]
+    SET [Population] = [pi].[Population], [Province] = [pi].[Province]
     FROM [PopulationIncoming] [pi]
         , [Subdivision] [s]
     WHERE [s].[Id] = [pi].[Id];

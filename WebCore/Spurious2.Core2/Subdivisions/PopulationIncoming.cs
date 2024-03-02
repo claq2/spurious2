@@ -6,6 +6,6 @@ public partial class PopulationIncoming
 
     public int Population { get; set; }
 
-    public string SubdivisionName { get; set; }
+    public string? SubdivisionName { get; set; }
     public string Province { get; set; }
 }

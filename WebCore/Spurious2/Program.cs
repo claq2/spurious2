@@ -20,7 +20,7 @@ public class Program
 #pragma warning restore CA1052 // Static holder types should be Static or NotInheritable
 {
 #pragma warning disable CA1506 // Avoid excessive class coupling
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
 #pragma warning restore CA1506 // Avoid excessive class coupling
     {
         Log.Logger = new LoggerConfiguration()
@@ -78,29 +78,29 @@ public class Program
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
-                var testSubdivision = context.Subdivisions.FirstOrDefault(s => s.Id == 3560057);
+                var testSubdivision = await context.Subdivisions
+                    .FirstOrDefaultAsync(s => s.Id == 3512002)
+                    .ConfigAwait(); // Deseronto
                 if (testSubdivision == null || testSubdivision.Boundary == null)
                 {
                     // add from boundary file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-                    //subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv");
+                    await subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv").ConfigAwait();
                 }
 
                 if (testSubdivision == null || testSubdivision.Population == 0)
                 {
                     // add from population file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-                    //subDivImporter.ImportPopulationFrom98File("population.csv");
+                    await subDivImporter.ImportPopulationFrom98File("population.csv").ConfigAwait();
                 }
 
-                var testStore = context.Stores.FirstOrDefault();
+                var testStore = await context.Stores.FirstOrDefaultAsync().ConfigAwait();
                 if (testStore == null)
                 {
                     var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
-                    storeImporter.ImportStoresFromCsvFile("stores.csv");
+                    await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
                 }
-
-                context.SaveChanges();
             }
 #endif
 
@@ -173,7 +173,7 @@ public class Program
             app.MapRazorPages();
             app.MapCarter();
 
-            app.Run();
+            await app.RunAsync().ConfigAwait();
         }
         catch (Exception ex)
         {
@@ -181,7 +181,7 @@ public class Program
         }
         finally
         {
-            Log.CloseAndFlush();
+            await Log.CloseAndFlushAsync().ConfigAwait();
         }
 #pragma warning restore CA1031 // Do not catch general exception types
     }

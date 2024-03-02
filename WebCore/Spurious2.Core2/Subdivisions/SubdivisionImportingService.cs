@@ -22,15 +22,15 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         }
     }
 
-    public IEnumerable<BoundaryIncoming> ImportBoundaryFromCsvFile(string filenameAndPath)
+    public async Task<IEnumerable<BoundaryIncoming>> ImportBoundaryFromCsvFile(string filenameAndPath)
     {
         using var reader = new StreamReader(filenameAndPath);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var boundaries = new List<BoundaryIncoming>();
 
-        _ = csv.Read();
+        _ = await csv.ReadAsync().ConfigAwait();
         _ = csv.ReadHeader();
-        while (csv.Read())
+        while (await csv.ReadAsync().ConfigAwait())
         {
             if (csv.TryGetField<int>("CSDUID", out var csduid)
                 && csv.TryGetField<string>("WKT", out var wkt)
@@ -46,14 +46,13 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     Province = string.Empty,
                 });
             }
-
-            spuriousRepository.ImportBoundaries(boundaries);
         }
 
+        await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
         return boundaries;
     }
 
-    public IEnumerable<PopulationIncoming> ImportPopulationFrom98File(string filenameAndPath)
+    public async Task<IEnumerable<PopulationIncoming>> ImportPopulationFrom98File(string filenameAndPath)
     {
         // First pass is to extract province/territory names and IDs
         var provincesDict = new Dictionary<int, string>();
@@ -61,9 +60,9 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         using var provinceCsv = new CsvReader(provinceReader, CultureInfo.InvariantCulture);
         {
 
-            _ = provinceCsv.Read();
+            _ = await provinceCsv.ReadAsync().ConfigAwait();
             _ = provinceCsv.ReadHeader();
-            while (provinceCsv.Read())
+            while (await provinceCsv.ReadAsync().ConfigAwait())
             {
                 if (provinceCsv.TryGetField<int>("ALT_GEO_CODE", out var id)
                     && provinceCsv.TryGetField<string>("GEO_NAME", out var name)
@@ -87,9 +86,9 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
 
         var records = new List<PopulationIncoming>();
 
-        _ = csv.Read();
+        _ = await csv.ReadAsync().ConfigAwait();
         _ = csv.ReadHeader();
-        while (csv.Read())
+        while (await csv.ReadAsync().ConfigAwait())
         {
             if (csv.TryGetField<int>("ALT_GEO_CODE", out var id)
                 && csv.TryGetField<string>("GEO_NAME", out var name)
@@ -106,22 +105,17 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
                     var populationString = csv.GetField("C1_COUNT_TOTAL");
                     var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
-                    //if (provincesDict[provinceId] == "Ontario")
-                    //{
                     records.Add(new PopulationIncoming
                     {
                         Id = id,
-                        // TODO: Don't send this subdiv name
-                        // SubdivisionName = name, // Name values in 98 file are bad because they have "Town", "City" e.g. Mount Carmel-Mitchells Brook-St. Catherine's, Town (T)
                         Population = population,
                         Province = provincesDict[provinceId]
                     });
-                    //}
                 }
             }
         }
 
-        spuriousRepository.ImportPopulations(records);
+        await spuriousRepository.ImportPopulations(records).ConfigAwait();
         return records;
     }
 }

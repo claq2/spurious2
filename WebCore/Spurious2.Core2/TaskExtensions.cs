@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 namespace Spurious2.Core2;
 
@@ -11,6 +11,12 @@ public static class TaskExtensions
     }
 
     public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task)
+    {
+        ArgumentNullException.ThrowIfNull(task, nameof(task));
+        return task.ConfigureAwait(false);
+    }
+
+    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task)
     {
         ArgumentNullException.ThrowIfNull(task, nameof(task));
         return task.ConfigureAwait(false);

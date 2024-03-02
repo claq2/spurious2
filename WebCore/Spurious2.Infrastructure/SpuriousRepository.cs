@@ -2,7 +2,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using GeoJSON.Text.Geometry;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core2;
@@ -92,79 +91,43 @@ public class SpuriousRepository(All.SpuriousContext dbContext) : ISpuriousReposi
                 : subdivsQuery.OrderBy(keySelector);
     }
 
-    public void ImportBoundaries(IEnumerable<BoundaryIncoming> boundaries)
+    public async Task ImportBoundaries(IEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);
 
-        using var connection = dbContext.Database.GetDbConnection();
-        connection.Open();
-        try
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
+
+        foreach (var boundary in boundaries)
         {
-            using var deleteCommand = connection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM BoundaryIncoming";
-            deleteCommand.CommandTimeout = 120000;
-            _ = deleteCommand.ExecuteNonQuery();
 
-            foreach (var boundary in boundaries)
-            {
-                using var insertCommand = connection.CreateCommand();
-                insertCommand.CommandText = @"insert into boundaryincoming (id, [BoundaryWellKnownText], OriginalBoundary, ReorientedBoundary, SubdivisionName, province) 
-                                                values (@id, 
-@boundaryWellKnownText,
-geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid(), 
-geography::STGeomFromText(@boundaryWellKnownText, 4326).MakeValid().ReorientObject(), 
-@subdivisionName, @province)";
-                var idParam = new SqlParameter("@id", boundary.Id);
-                var wktParam = new SqlParameter("@boundaryWellKnownText", boundary.BoundaryWellKnownText);
-                var subdivNameParam = new SqlParameter("@subdivisionName", boundary.SubdivisionName);
-                var provinceParam = new SqlParameter("@province", boundary.Province);
-                _ = insertCommand.Parameters.Add(idParam);
-                _ = insertCommand.Parameters.Add(wktParam);
-                _ = insertCommand.Parameters.Add(subdivNameParam);
-                _ = insertCommand.Parameters.Add(provinceParam);
-                _ = insertCommand.CommandTimeout = 120000;
-                _ = insertCommand.ExecuteNonQuery();
-            }
-
-            // Call sproc to update table and clear incoming table
-            //using (var command = connection.CreateCommand())
-            //{
-            //    command.CommandText = "UpdateBoundariesFromIncoming";
-            //    command.CommandType = System.Data.CommandType.StoredProcedure;
-            //    command.CommandTimeout = 120000;
-            //    command.ExecuteNonQuery();
-            //}
-
-            //using (var command = connection.CreateCommand())
-            //{
-            //    command.CommandText = "DELETE FROM BoundaryIncoming";
-            //    command.CommandTimeout = 120000;
-            //    command.ExecuteNonQuery();
-            //}
+            _ = await dbContext.Database.ExecuteSqlAsync($@"insert into boundaryincoming (id, 
+[BoundaryWellKnownText], 
+OriginalBoundary, 
+ReorientedBoundary, 
+SubdivisionName, province) 
+                                                values ({boundary.Id}, 
+{boundary.BoundaryWellKnownText},
+geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid(), 
+geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().ReorientObject(), 
+{boundary.SubdivisionName}, {boundary.Province})").ConfigAwait();
         }
-        finally
-        {
-            connection.Close();
-        }
+
+        // Call sproc to update table and clear incoming table
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
     }
 
-    public void ImportStores(IEnumerable<StoreIncoming> stores)
+    public async Task ImportStoresFromCsv(IEnumerable<StoreIncoming> stores)
     {
+        // Stores in CSV file have volumes
+
         ArgumentNullException.ThrowIfNull(stores);
 
-        using var connection = dbContext.Database.GetDbConnection();
-        connection.Open();
-        try
-        {
-            using var deleteCommand = connection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM storeincoming";
-            deleteCommand.CommandTimeout = 120000;
-            _ = deleteCommand.ExecuteNonQuery();
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
 
-            foreach (var store in stores)
-            {
-                using var insertCommand = connection.CreateCommand();
-                insertCommand.CommandText = @"insert into storeincoming (id, 
+        foreach (var store in stores)
+        {
+
+            _ = await dbContext.Database.ExecuteSqlAsync($@"insert into storeincoming (id, 
 [LocationWellKnownText],
 Location,  
 StoreName, City,
@@ -172,97 +135,37 @@ BeerVolume,
 WineVolume,
 SpiritsVolume,
 StoreDone) 
-                                                values (@id, 
-@locationWellKnownText,
-geography::STPointFromText(@locationWellKnownText, 4326), 
-@storeName, @city,
-@beerVolume,
-@wineVolume,
-@spiritsVolume,
-1)";
-                var idParam = new SqlParameter("@id", store.Id);
-                var wktParam = new SqlParameter("@locationWellKnownText", store.LocationWellKnownText);
-                var storeNameParam = new SqlParameter("@storeName", store.StoreName);
-                var cityParam = new SqlParameter("@city", store.City);
-                var beerVolumeParam = new SqlParameter("@beerVolume", store.BeerVolume);
-                var wineVolumeParam = new SqlParameter("@wineVolume", store.WineVolume);
-                var spiritisVolumeParam = new SqlParameter("@spiritsVolume", store.SpiritsVolume);
-                _ = insertCommand.Parameters.Add(idParam);
-                _ = insertCommand.Parameters.Add(wktParam);
-                _ = insertCommand.Parameters.Add(storeNameParam);
-                _ = insertCommand.Parameters.Add(cityParam);
-                _ = insertCommand.Parameters.Add(beerVolumeParam);
-                _ = insertCommand.Parameters.Add(wineVolumeParam);
-                _ = insertCommand.Parameters.Add(spiritisVolumeParam);
-                _ = insertCommand.CommandTimeout = 120000;
-                _ = insertCommand.ExecuteNonQuery();
-            }
+                                                values ({store.Id}, 
+{store.LocationWellKnownText},
+geography::STPointFromText({store.LocationWellKnownText}, 4326), 
+{store.StoreName}, {store.City},
+{store.BeerVolume},
+{store.WineVolume},
+{store.SpiritsVolume},
+1)").ConfigAwait();
 
-            // Call sproc to update table and clear incoming table
-            using var updateCommand = connection.CreateCommand();
-            updateCommand.CommandText = "UpdateStoresFromIncomingCsv";
-            updateCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            updateCommand.CommandTimeout = 120000;
-            _ = updateCommand.ExecuteNonQuery();
+        }
 
-            //using (var command = connection.CreateCommand())
-            //{
-            //    command.CommandText = "DELETE FROM storeincoming";
-            //    command.CommandTimeout = 120000;
-            //    command.ExecuteNonQuery();
-            //}
-        }
-        finally
-        {
-            connection.Close();
-        }
+        // Call sproc to update tables
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncomingCsv").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
-    public void ImportPopulations(IEnumerable<PopulationIncoming> populations)
+    public async Task ImportPopulations(IEnumerable<PopulationIncoming> populations)
     {
         ArgumentNullException.ThrowIfNull(populations);
 
-        using var connection = dbContext.Database.GetDbConnection();
-        connection.Open();
-        try
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM PopulationIncoming").ConfigAwait();
+
+        foreach (var subdivisionPopulation in populations)
         {
-            using var deleteCommand = connection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM PopulationIncoming";
-            deleteCommand.CommandTimeout = 120000;
-            _ = deleteCommand.ExecuteNonQuery();
-
-            // TODO: Ignore subdiv name
-            foreach (var subdivisionPopulation in populations)
-            {
-                using var insertCommand = connection.CreateCommand();
-                insertCommand.CommandText = @"insert into PopulationIncoming (id, population, Province) 
-                                                values (@id, @population, @province)";
-                var idParam = new SqlParameter("@id", subdivisionPopulation.Id);
-                var wktParam = new SqlParameter("@population", subdivisionPopulation.Population);
-                //var subdivNameParam = new SqlParameter("@subdivisionName", subdivisionPopulation.SubdivisionName);
-                var provinceParam = new SqlParameter("@province", subdivisionPopulation.Province);
-
-                _ = insertCommand.Parameters.Add(idParam);
-                _ = insertCommand.Parameters.Add(wktParam);
-                //_ = insertCommand.Parameters.Add(subdivNameParam);
-                _ = insertCommand.Parameters.Add(provinceParam);
-                _ = insertCommand.CommandTimeout = 120000;
-                _ = insertCommand.ExecuteNonQuery();
-            }
-
-            // Call sproc to update table and clear incoming table
-            //using (var command = connection.CreateCommand())
-            //{
-            //    command.CommandText = "UpdatePopulationsFromIncoming";
-            //    command.CommandType = System.Data.CommandType.StoredProcedure;
-            //    command.CommandTimeout = 120000;
-            //    command.ExecuteNonQuery();
-            //}
+            _ = await dbContext.Database.ExecuteSqlAsync($@"insert into PopulationIncoming (id, population, Province) 
+                                                values ({subdivisionPopulation.Id}, {subdivisionPopulation.Population}
+                                                , {subdivisionPopulation.Province})").ConfigAwait();
         }
-        finally
-        {
-            connection.Close();
-        }
+
+        // Call sproc to update table
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdatePopulationsFromIncoming").ConfigAwait();
     }
 
     private static decimal GetRequestedDensityAmount(Subdivision subdivision, AlcoholType alcoholType)

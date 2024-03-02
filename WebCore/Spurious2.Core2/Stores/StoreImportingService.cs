@@ -7,15 +7,15 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
 {
     private bool _disposedValue;
 
-    public IEnumerable<StoreIncoming> ImportStoresFromCsvFile(string filenameAndPath)
+    public async Task<IEnumerable<StoreIncoming>> ImportStoresFromCsvFile(string filenameAndPath)
     {
         using var reader = new StreamReader(filenameAndPath);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var stores = new List<StoreIncoming>();
 
-        _ = csv.Read();
+        _ = await csv.ReadAsync().ConfigAwait();
         _ = csv.ReadHeader();
-        while (csv.Read())
+        while (await csv.ReadAsync().ConfigAwait())
         {
             if (csv.TryGetField<int>("Id", out var storeId)
                 && csv.TryGetField<string>("WKT", out var wkt)
@@ -40,7 +40,7 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
             }
         }
 
-        spuriousRepository.ImportStores(stores);
+        await spuriousRepository.ImportStoresFromCsv(stores).ConfigAwait();
         return stores;
     }
 

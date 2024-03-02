@@ -81,7 +81,7 @@ public partial class SpuriousContext : DbContext
             entity.ToTable("PopulationIncoming");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.SubdivisionName).HasColumnType("nvarchar(255)").IsRequired();
+            entity.Property(e => e.SubdivisionName).HasColumnType("nvarchar(255)");
             entity.Property(e => e.Province).HasColumnType("nvarchar(255)").IsRequired();
             entity.Property(e => e.Population).HasColumnType("int").IsRequired();
         });

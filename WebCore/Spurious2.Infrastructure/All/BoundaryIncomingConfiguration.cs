@@ -12,6 +12,8 @@ public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIn
     public void Configure(EntityTypeBuilder<BoundaryIncoming> builder)
     {
         builder.HasKey(e => e.Id);
+        builder.Property(e => e.Id).ValueGeneratedNever();
+
         builder.ToTable("BoundaryIncoming");
 
         builder.Property(e => e.Province).HasMaxLength(255);
@@ -20,11 +22,11 @@ public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIn
         // builder.HasData(ReadBoundariesIncoming());
     }
 
-    public static IEnumerable<BoundaryIncoming> ReadBoundariesIncoming()
-    {
-        using var context = new SpuriousContext();
-        using var repo = new SpuriousRepository(context);
-        using var importingService = new Core.SubdivisionImporting.Services.SubdivisionImportingService(repo);
-        return importingService.ImportBoundaryFromCsvFile("subdiv.csv");
-    }
+    //public static IEnumerable<BoundaryIncoming> ReadBoundariesIncoming()
+    //{
+    //    using var context = new SpuriousContext();
+    //    using var repo = new SpuriousRepository(context);
+    //    using var importingService = new Core.SubdivisionImporting.Services.SubdivisionImportingService(repo);
+    //    return importingService.ImportBoundaryFromCsvFile("subdiv.csv");
+    //}
 }
