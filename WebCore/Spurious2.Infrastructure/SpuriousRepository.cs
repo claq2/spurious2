@@ -94,6 +94,47 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
                 : subdivsQuery.OrderBy(keySelector);
     }
 
+    public async Task ClearBoundaryIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
+    }
+
+    public async Task ImportBoundary(BoundaryIncoming boundary)
+    {
+        ArgumentNullException.ThrowIfNull(boundary);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        //_ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
+
+        _ = await dbContext.Database.ExecuteSqlAsync($@"insert into boundaryincoming (id, 
+[BoundaryWellKnownText], 
+OriginalBoundary, 
+ReorientedBoundary, 
+SubdivisionName, province) 
+                                                values ({boundary.Id}, 
+{boundary.BoundaryWellKnownText},
+geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid(), 
+geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().ReorientObject(), 
+{boundary.SubdivisionName}, {boundary.Province})").ConfigAwait();
+
+        // Call sproc to update table and clear incoming table
+        //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
+        //_ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
+        //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
+    }
+
+    public async Task UpdateBoundariesFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
+    }
+
     public async Task ImportBoundaries(IAsyncEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);

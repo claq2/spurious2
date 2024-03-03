@@ -52,7 +52,12 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
 
         var boundaries = ReadBoundaries(filenameAndPath);
 
-        await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
+        await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
+        await Parallel.ForEachAsync(boundaries, async (b, ct) => await spuriousRepository.ImportBoundary(b).ConfigAwait())
+            .ConfigAwait();
+        await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
+
+        //await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
     }
 
     public async Task ImportPopulationFrom98File(string filenameAndPath)
