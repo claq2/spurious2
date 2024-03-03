@@ -9,7 +9,6 @@ using Spurious2.Core2;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
 using Spurious2.Infrastructure;
-using Spurious2.Infrastructure.All;
 
 namespace Spurious2;
 

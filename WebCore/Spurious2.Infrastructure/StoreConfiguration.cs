@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Spurious2.Core2.Stores;
 
-namespace Spurious2.Infrastructure.All;
+namespace Spurious2.Infrastructure;
 
 [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
 [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]

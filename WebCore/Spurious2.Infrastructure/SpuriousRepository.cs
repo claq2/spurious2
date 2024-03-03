@@ -10,7 +10,7 @@ using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure;
 
-public class SpuriousRepository(All.SpuriousContext dbContext) : ISpuriousRepository
+public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
 {
     private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
 
