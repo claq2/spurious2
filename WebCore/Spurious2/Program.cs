@@ -51,12 +51,19 @@ public class Program
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
-            builder.Services.AddDbContext<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
-                    b => b.UseNetTopologySuite()
-                        .EnableRetryOnFailure()
-                        .MigrationsAssembly("Spurious2"))
-            //.EnableSensitiveDataLogging()
-            );
+            //builder.Services.AddDbContext<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+            //        b => b.UseNetTopologySuite()
+            //            .EnableRetryOnFailure()
+            //            .MigrationsAssembly("Spurious2"))
+            ////.EnableSensitiveDataLogging()
+            //);
+
+            builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+        b => b.UseNetTopologySuite()
+            .EnableRetryOnFailure()
+            .MigrationsAssembly("Spurious2"))
+//.EnableSensitiveDataLogging()
+);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
@@ -76,16 +83,16 @@ public class Program
             var app = builder.Build();
 #if DEBUG
             app.MigrateDatabase<SpuriousContext>();
+            var importTasks = new List<Task>();
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
-                context.Database.SetCommandTimeout(300);
                 var subdivsWithBoundary = await context.Subdivisions.CountAsync(sd => sd.Boundary != null).ConfigAwait();
                 if (subdivsWithBoundary < 5161)
                 {
                     // add from boundary file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-                    await subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv").ConfigAwait();
+                    importTasks.Add(subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv"));
                 }
 
                 var subdivsWithPopulation = await context.Subdivisions.CountAsync(sd => sd.Population > 0).ConfigAwait();
@@ -93,8 +100,10 @@ public class Program
                 {
                     // add from population file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-                    await subDivImporter.ImportPopulationFrom98File("population.csv").ConfigAwait();
+                    importTasks.Add(subDivImporter.ImportPopulationFrom98File("population.csv"));
                 }
+
+                await Task.WhenAll(importTasks).ConfigAwait();
 
                 var storeCount = await context.Stores.CountAsync().ConfigAwait();
                 if (storeCount < 653)

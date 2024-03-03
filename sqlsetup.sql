@@ -601,24 +601,40 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE [sd]
-    SET [BeerVolume] = (
-            SELECT COALESCE(SUM(CAST([s].[BeerVolume] AS BIGINT)), 0)
-            FROM [Store] [s]
-            WHERE [sd].[boundary].STIntersects([s].[location]) = 1
-            )
-        , [WineVolume] = (
-            SELECT COALESCE(SUM(CAST([s].[WineVolume] AS BIGINT)), 0)
-            FROM [Store] [s]
-            WHERE [sd].[boundary].STIntersects([s].[location]) = 1
-            )
-        , [SpiritsVolume] = (
-            SELECT COALESCE(SUM(CAST([s].[SpiritsVolume] AS BIGINT)), 0)
-            FROM [Store] [s]
-            WHERE [sd].[boundary].STIntersects([s].[location]) = 1
-            )
-    FROM [Subdivision] [sd]
-    WHERE [Population] > 0
+    update Subdivision 
+set BeerVolume = b.BeerVolume,
+WineVolume = b.WineVolume,
+SpiritsVolume = b.SpiritsVolume
+from (
+select
+sum(s.beervolume) as BeerVolume
+,sum(s.WineVolume) as WineVolume
+,sum(s.SpiritsVolume) as SpiritsVolume
+,sd.Id
+from store s, Subdivision sd
+where sd.Boundary.STIntersects(s.Location) = 1
+group by sd.id
+) b
+where b.Id = Subdivision.id
+
+    --UPDATE [sd]
+    --SET [BeerVolume] = (
+    --        SELECT COALESCE(SUM(CAST([s].[BeerVolume] AS BIGINT)), 0)
+    --        FROM [Store] [s]
+    --        WHERE [sd].[boundary].STIntersects([s].[location]) = 1
+    --        )
+    --    , [WineVolume] = (
+    --        SELECT COALESCE(SUM(CAST([s].[WineVolume] AS BIGINT)), 0)
+    --        FROM [Store] [s]
+    --        WHERE [sd].[boundary].STIntersects([s].[location]) = 1
+    --        )
+    --    , [SpiritsVolume] = (
+    --        SELECT COALESCE(SUM(CAST([s].[SpiritsVolume] AS BIGINT)), 0)
+    --        FROM [Store] [s]
+    --        WHERE [sd].[boundary].STIntersects([s].[location]) = 1
+    --        )
+    --FROM [Subdivision] [sd]
+    --WHERE [Population] > 0
 
     UPDATE [sd]
     SET [AlcoholDensity] = (CAST([BeerVolume] AS BIGINT) + CAST([WineVolume] AS BIGINT) + CAST([SpiritsVolume] AS BIGINT)) * 1.0 / [Population]

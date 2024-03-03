@@ -10,7 +10,7 @@ using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure;
 
-public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
+public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFactory) : ISpuriousRepository
 {
     private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
 
@@ -27,6 +27,7 @@ public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
 
     public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken)
     {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         var stores = await (from s in dbContext.Stores
                             from sd in dbContext.Subdivisions
                             where sd.Id == subdivisionId
@@ -48,6 +49,7 @@ public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
 
     public async Task<string> GetBoundaryForSubdivision(int subdivisionId, CancellationToken cancellationToken)
     {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         var subdiv = await dbContext.Subdivisions
             .SingleAsync(s => s.Id == subdivisionId, cancellationToken)
             .ConfigAwait();
@@ -63,6 +65,8 @@ public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
         int limit,
         CancellationToken cancellationToken)
     {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
+
         var keySelector = map[alcoholType];
         var subdivsQuery = dbContext.Subdivisions
             .Where(s => s.AlcoholDensity > 0);
@@ -93,6 +97,8 @@ public class SpuriousRepository(SpuriousContext dbContext) : ISpuriousRepository
     public async Task ImportBoundaries(IAsyncEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
 
@@ -122,6 +128,8 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
         // Stores in CSV file have volumes
 
         ArgumentNullException.ThrowIfNull(stores);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
 
@@ -155,6 +163,8 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
     public async Task ImportPopulations(IAsyncEnumerable<PopulationIncoming> populations)
     {
         ArgumentNullException.ThrowIfNull(populations);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM PopulationIncoming").ConfigAwait();
 
@@ -188,7 +198,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         {
             if (disposing)
             {
-                dbContext?.Dispose();
+                //dbContextFactory?.Dispose();
             }
 
             this._disposedValue = true;
