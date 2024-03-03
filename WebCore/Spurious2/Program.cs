@@ -80,32 +80,30 @@ public class Program
             {
                 var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
                 context.Database.SetCommandTimeout(300);
-                var testSubdivision = await context.Subdivisions
-                    .FirstOrDefaultAsync(s => s.Id == 3512002)
-                    .ConfigAwait(); // Deseronto
-                if (testSubdivision == null || testSubdivision.Boundary == null)
+                var subdivsWithBoundary = await context.Subdivisions.CountAsync(sd => sd.Boundary != null).ConfigAwait();
+                if (subdivsWithBoundary < 5161)
                 {
                     // add from boundary file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
                     await subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv").ConfigAwait();
                 }
 
-                if (testSubdivision == null || testSubdivision.Population == 0)
+                var subdivsWithPopulation = await context.Subdivisions.CountAsync(sd => sd.Population > 0).ConfigAwait();
+                if (subdivsWithPopulation < 4830)
                 {
                     // add from population file
                     var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
                     await subDivImporter.ImportPopulationFrom98File("population.csv").ConfigAwait();
                 }
 
-                var testStore = await context.Stores.FirstOrDefaultAsync().ConfigAwait();
-                if (testStore == null)
+                var storeCount = await context.Stores.CountAsync().ConfigAwait();
+                if (storeCount < 653)
                 {
                     var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
                     await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
                 }
             }
 #endif
-
             app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
             {
                 b.AddDefaultSrc().Self();
