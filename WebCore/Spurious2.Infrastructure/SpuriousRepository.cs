@@ -112,7 +112,9 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
         }
 
         // Call sproc to update table and clear incoming table
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
     }
 
     public async Task ImportStoresFromCsv(IAsyncEnumerable<StoreIncoming> stores)
@@ -144,7 +146,9 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         }
 
         // Call sproc to update tables
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store disable").ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncomingCsv").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store rebuild").ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
