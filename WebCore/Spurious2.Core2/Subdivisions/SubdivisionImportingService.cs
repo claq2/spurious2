@@ -135,6 +135,11 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
 
         // Second pass is to read populations
         var records = ReadPopulations(filenameAndPath, provincesDict);
-        await spuriousRepository.ImportPopulations(records).ConfigAwait();
+        //await spuriousRepository.ImportPopulations(records).ConfigAwait();
+
+        await spuriousRepository.ClearPopulationIncoming().ConfigAwait();
+        await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
+            .ConfigAwait();
+        await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
     }
 }

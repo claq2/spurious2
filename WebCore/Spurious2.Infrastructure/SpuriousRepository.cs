@@ -201,6 +201,32 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
+    public async Task ClearPopulationIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM PopulationIncoming").ConfigAwait();
+    }
+
+    public async Task ImportPopulation(PopulationIncoming population)
+    {
+        ArgumentNullException.ThrowIfNull(population);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($@"insert into PopulationIncoming (id, population, Province) 
+                                                values ({population.Id}, {population.Population}
+                                                , {population.Province})").ConfigAwait();
+    }
+
+    public async Task UpdatePopulationsFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdatePopulationsFromIncoming").ConfigAwait();
+    }
+
     public async Task ImportPopulations(IAsyncEnumerable<PopulationIncoming> populations)
     {
         ArgumentNullException.ThrowIfNull(populations);

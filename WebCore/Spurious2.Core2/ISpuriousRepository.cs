@@ -5,6 +5,9 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
+    Task ClearPopulationIncoming();
+    Task ImportPopulation(PopulationIncoming population);
+    Task UpdatePopulationsFromIncoming();
     Task UpdateBoundariesFromIncoming();
     Task ClearBoundaryIncoming();
     Task ImportBoundary(BoundaryIncoming boundary);
