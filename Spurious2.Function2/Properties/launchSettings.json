@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Spurious2.Function2": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7137"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34105,
+      "useSSL": false
+    }
+  }
+}

@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Core2", "WebCore\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1B6C7173-07C5-4623-9A7A-885BF90641BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.UnitTests", "WebCore\Spurious2.UnitTests\Spurious2.UnitTests.csproj", "{C589A044-724A-4537-9BF1-AA72BF16C4E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.UnitTests", "WebCore\Spurious2.UnitTests\Spurious2.UnitTests.csproj", "{C589A044-724A-4537-9BF1-AA72BF16C4E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Function2", "Spurious2.Function2\Spurious2.Function2.csproj", "{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
