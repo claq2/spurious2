@@ -5,22 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Spurious2.Function2
 {
-    public class Function1
+    public class Function1(ILogger<Function1> logger, IGreeterService greeterService)
     {
-        private readonly ILogger<Function1> _logger;
-        private readonly IGreeterService _greeterService;
-
-        public Function1(ILogger<Function1> logger, IGreeterService greeterService)
-        {
-            this._logger = logger;
-            this._greeterService = greeterService;
-        }
-
         [Function("Function1")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
-            this._logger.LogInformation("C# HTTP trigger function processed a request.");
-            return new OkObjectResult(this._greeterService.GetGreeting("James"));
+            logger.LogInformation("C# HTTP trigger function processed a request.");
+            return new OkObjectResult(greeterService.GetGreeting("James"));
         }
     }
 }
