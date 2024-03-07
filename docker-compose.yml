@@ -27,3 +27,20 @@ services:
     environment:
       - ACCEPT_EULA=y
       - SA_PASSWORD=sqlpwd2@
+
+  spurious2function2:
+    image: ${DOCKER_REGISTRY-}spurious2function2
+    build:
+      context: .
+      dockerfile: Spurious2.Function2/Dockerfile
+    volumes:
+      # map the dotnet user-secret folder
+      - $APPDATA/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  spurious2-azurite:
+    image: "mcr.microsoft.com/azure-storage/azurite"  
+    container_name: spurious2.azurite
+    ports:
+        - 10004:10000
+        - 10005:10001
+        - 10002:10002
