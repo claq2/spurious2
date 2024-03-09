@@ -7,7 +7,12 @@
       "Spurious2.Core.LcboImporting.Services": "Information",
       "Spurious2.AzureStorageAdapter": "Information",
       "LcboWebsiteAdapter": "Information",
-      "default": "Error"
+      "Microsoft": "Error",
+      "Worker": "Error",
+      "AzureFunctionsJobHost": "Error",
+      "DurableTask.AzureStorage": "Error",
+      "DurableTask.Core": "Error",
+      "default": "Information"
     },
     "applicationInsights": {
       "samplingSettings": {
