@@ -1,8 +1,13 @@
 {
-    "version": "2.0",
+  "version": "2.0",
   "logging": {
     "logLevel": {
-      "default": "None"
+      "Spurious2": "Information",
+      "Spurious2.Function2": "Information",
+      "Spurious2.Core.LcboImporting.Services": "Information",
+      "Spurious2.AzureStorageAdapter": "Information",
+      "LcboWebsiteAdapter": "Information",
+      "default": "Error"
     },
     "applicationInsights": {
       "samplingSettings": {
