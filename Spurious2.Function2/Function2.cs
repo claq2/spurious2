@@ -31,8 +31,8 @@ public static class Function2
     public static async Task<string> RunOrchestrator(
         [OrchestrationTrigger] TaskOrchestrationContext context)
     {
-        //ILogger logger = context.CreateReplaySafeLogger(nameof(Function2));
-        //logger.LogInformation("Saying hello.");
+        ILogger logger = context.CreateReplaySafeLogger(nameof(Function2));
+        logger.LogInformation("Saying hello.");
         string result = "";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "Tokyo") + " ";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "London") + " ";

@@ -12,6 +12,7 @@
       "AzureFunctionsJobHost": "Error",
       "DurableTask.AzureStorage": "Error",
       "DurableTask.Core": "Error",
+      "Azure": "Error",
       "default": "Information"
     },
     "applicationInsights": {
