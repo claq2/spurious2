@@ -44,4 +44,4 @@ services:
         - 10004:10000
         - 10005:10001
         - 10002:10002
-    command: "azurite -l /data --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --skipApiVersionCheck --loose"
+    command: "azurite -l /data --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --tableHost 0.0.0.0 --tablePort 10002 --skipApiVersionCheck --disableProductStyleUrl"
