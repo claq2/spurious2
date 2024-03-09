@@ -47,12 +47,14 @@ var host = new HostBuilder()
             .MinimumLevel.Override("Azure.Storage", LogEventLevel.Error)
             .MinimumLevel.Override("Azure.Core", LogEventLevel.Error)
             .MinimumLevel.Override("Azure.Identity", LogEventLevel.Error)
-            .Enrich.WithProperty("Application", "SHDev Blog Functions")
             .Enrich.FromLogContext()
             .WriteTo.Console(LogEventLevel.Debug
-            , outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level}] [{SourceContext}] {Message}{NewLine}{Exception}{NewLine}"
+            //, outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level}] [{SourceContext}] {Message}{NewLine}{Exception}{NewLine}"
             )
             .WriteTo.File(filepath, LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
+#if DEBUG
+            .WriteTo.Seq("http://spurious2.seq:5341", LogEventLevel.Debug)
+#endif
             .CreateLogger();
         //services.AddSingleton(Log.Logger);
         //services.AddSingleton<ILoggerProvider>(new Serilog.Extensions.Logging.SerilogLoggerProvider(Log.Logger, dispose: true));
