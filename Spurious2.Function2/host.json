@@ -2,18 +2,19 @@
   "version": "2.0",
   "logging": {
     "logLevel": {
-      "Spurious2": "Information",
-      "Spurious2.Function2": "Information",
-      "Spurious2.Core.LcboImporting.Services": "Information",
-      "Spurious2.AzureStorageAdapter": "Information",
-      "LcboWebsiteAdapter": "Information",
+      "default": "None",
       "Microsoft": "Error",
       "Worker": "Error",
       "AzureFunctionsJobHost": "Error",
       "DurableTask.AzureStorage": "Error",
       "DurableTask.Core": "Error",
       "Azure": "Error",
-      "default": "Information"
+      "Spurious2.Function2.Function2": "Information",
+      "Spurious2.Function2": "Information",
+      "Spurious2": "Information",
+      "Function.Function2.User": "Information",
+      "Function.Function_HttpStart.User": "Information",
+      "Function.SayHello.User": "Information"
     },
     "applicationInsights": {
       "samplingSettings": {
