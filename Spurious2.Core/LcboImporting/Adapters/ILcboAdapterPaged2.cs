@@ -15,5 +15,5 @@ public interface ILcboAdapterPaged2
     IAsyncEnumerable<List<Product>> GetCategorizedProducts(ProductType productType);
 
     Task<string> GetAllStoresInventory(string productId);
-    Task<List<(Inventory, Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream);
+    Task<List<(Inventory Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream);
 }

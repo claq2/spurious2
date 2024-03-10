@@ -55,9 +55,9 @@ public class ImportingService(
         logger.LogInformation("Found {count} inventory items for product {productId}",
             inventories.Count,
             productId);
-        var storeIds = inventories.Select(i => i.Item1.StoreId).ToList();
+        var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
         await storeRepository.AddIncomingStoreIds(storeIds).ConfigAwait();
-        await inventoryRepository.AddIncomingInventories(inventories.Select(i => i.Item1));
+        await inventoryRepository.AddIncomingInventories(inventories.Select(i => i.Inventory));
         foreach (var (inventory, uri) in inventories)
         {
             if (!await storageAdapter.StoreExists(inventory.StoreId.ToString()).ConfigAwait())
