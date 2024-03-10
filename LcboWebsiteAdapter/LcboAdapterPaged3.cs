@@ -95,19 +95,19 @@ public class LcboAdapterPaged3(CategorizedProductListClient productListClient,
             var prods = await productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();
             productsRead = prods.results.Length;
             var totalToExpect = prods.totalCountFiltered;
-            var result = prods.results.GetProducts(productType);
+            var productList = prods.results.GetProducts(productType);
             var iterationCount = 0;
-            yield return result;
+            yield return productList;
             iterationCount++;
             while (/*productsRead < totalToExpect &&*/ prods.results.Length > 0)
             {
                 prods = await productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
                 productsRead += prods.results.Length;
-                result = prods.results.GetProducts(productType);
+                productList = prods.results.GetProducts(productType);
 
-                var resultIds = result.Select(r => r.Id).ToList();
+                var resultIds = productList.Select(r => r.Id).ToList();
 
-                yield return result;
+                yield return productList;
                 iterationCount++;
             }
         }
