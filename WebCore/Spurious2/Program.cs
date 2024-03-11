@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Carter;
@@ -82,6 +83,8 @@ public class Program
 
             var app = builder.Build();
 #if DEBUG
+            var sw = new Stopwatch();
+            sw.Start();
             app.MigrateDatabase<SpuriousContext>();
             var importTasks = new List<Task>();
             using (var scope = app.Services.CreateScope())
@@ -112,6 +115,9 @@ public class Program
                     await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
                 }
             }
+
+            sw.Stop();
+            Log.Information("Took {Elapsed} to set up DB", sw.Elapsed);
 #endif
             app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
             {
