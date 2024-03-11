@@ -107,6 +107,7 @@ public class Program
                 }
 
                 await Task.WhenAll(importTasks).ConfigAwait();
+                Log.Information("Took {Elapsed} to import subdiv data", sw.Elapsed);
 
                 var storeCount = await context.Stores.CountAsync().ConfigAwait();
                 if (storeCount < 653)

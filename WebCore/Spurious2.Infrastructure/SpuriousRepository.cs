@@ -114,14 +114,16 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
         _ = await dbContext.Database.ExecuteSqlAsync($@"insert into boundaryincoming (id, 
 [BoundaryWellKnownText], 
 OriginalBoundary, 
-ReorientedBoundary, 
 SubdivisionName) 
                                                 values ({boundary.Id}, 
 {boundary.BoundaryWellKnownText},
 geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid(), 
-geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().ReorientObject(), 
 {boundary.SubdivisionName})").ConfigAwait();
 
+        _ = await dbContext.Database.ExecuteSqlAsync($@"update BoundaryIncoming 
+  set 
+  ReorientedBoundary =OriginalBoundary.ReorientObject()
+where id = {boundary.Id}").ConfigAwait();
         // Call sproc to update table and clear incoming table
         //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
         //_ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();

@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Spurious2.Migrations;
 
 /// <inheritdoc />
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public partial class BoundaryIncomingProvinceNullable : Migration
 {
     /// <inheritdoc />
