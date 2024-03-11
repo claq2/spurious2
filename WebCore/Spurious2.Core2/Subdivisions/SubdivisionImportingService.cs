@@ -36,7 +36,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                 if (csv.TryGetField<int>("CSDUID", out var csduid)
                     && csv.TryGetField<string>("WKT", out var wkt)
                     && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    && csv.TryGetField<int>("PRUID", out var prid)
+                    && csv.TryGetField<int>("PRUID", out _)
                     )
                 {
                     yield return new BoundaryIncoming
@@ -58,6 +58,57 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
 
         //await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
+    }
+
+    public async Task ImportBoundaryFromCsvFileBulk(string filenameAndPath)
+    {
+        static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
+        {
+            using var reader = new StreamReader(filenameAndPath);
+            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+            _ = await csv.ReadAsync().ConfigAwait();
+            _ = csv.ReadHeader();
+            while (await csv.ReadAsync().ConfigAwait())
+            {
+                if (csv.TryGetField<int>("CSDUID", out var csduid)
+                    && csv.TryGetField<string>("WKT", out var wkt)
+                    && csv.TryGetField<string>("CSDNAME", out var csdname)
+                    && csv.TryGetField<int>("PRUID", out _)
+                    )
+                {
+                    yield return new BoundaryIncoming
+                    {
+                        Id = csduid,
+                        BoundaryWellKnownText = wkt,
+                        SubdivisionName = csdname,
+                        Province = string.Empty,
+                    };
+                }
+            }
+        }
+
+        var boundaries = ReadBoundaries(filenameAndPath);
+
+        await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
+
+        var batch = new List<BoundaryIncoming>();
+        await foreach (var item in boundaries)
+        {
+            batch.Add(item);
+            if (batch.Count == 30)
+            {
+                // Bulk import
+                await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
+                batch.Clear();
+            }
+        }
+
+        // Import last < 30 items
+        await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
+
+        await spuriousRepository.CalculateBoundaryGeogs().ConfigAwait();
+        await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
     }
 
     public async Task ImportPopulationFrom98File(string filenameAndPath)

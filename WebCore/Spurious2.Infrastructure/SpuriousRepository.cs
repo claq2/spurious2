@@ -1,7 +1,9 @@
+using System.Data;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using GeoJSON.Text.Geometry;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core2;
@@ -113,17 +115,52 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
 [BoundaryWellKnownText], 
 OriginalBoundary, 
 ReorientedBoundary, 
-SubdivisionName, province) 
+SubdivisionName) 
                                                 values ({boundary.Id}, 
 {boundary.BoundaryWellKnownText},
 geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid(), 
 geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().ReorientObject(), 
-{boundary.SubdivisionName}, {boundary.Province})").ConfigAwait();
+{boundary.SubdivisionName})").ConfigAwait();
 
         // Call sproc to update table and clear incoming table
         //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
         //_ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();
         //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+    public async Task ImportBoundaryBulk(List<BoundaryIncoming> boundaries)
+    {
+        ArgumentNullException.ThrowIfNull(boundaries);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var dt = new DataTable();
+        dt.Columns.Add("Id");
+        dt.Columns.Add("BoundaryWellKnownText");
+        dt.Columns.Add("SubdivisionName");
+        foreach (var boundaryIncoming in boundaries)
+        {
+            dt.Rows.Add(boundaryIncoming.Id, boundaryIncoming.BoundaryWellKnownText, boundaryIncoming.SubdivisionName);
+        }
+
+        using (var sqlBulk = new SqlBulkCopy(dbContext.Database.GetConnectionString()))
+        {
+            sqlBulk.DestinationTableName = "BoundaryIncoming";
+            await sqlBulk.WriteToServerAsync(dt).ConfigAwait();
+        }
+    }
+
+    public async Task CalculateBoundaryGeogs()
+    {
+        /*
+           update BoundaryIncoming 
+  set OriginalBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid(),
+  ReorientedBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid().ReorientObject() */
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+        _ = await dbContext.Database.ExecuteSqlAsync($@"update BoundaryIncoming 
+  set OriginalBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid(),
+  ReorientedBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid().ReorientObject()").ConfigAwait();
+
     }
 
     public async Task UpdateBoundariesFromIncoming()

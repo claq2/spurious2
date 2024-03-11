@@ -5,6 +5,10 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
+    Task CalculateBoundaryGeogs();
+#pragma warning disable CA1002 // Do not expose generic lists
+    Task ImportBoundaryBulk(List<BoundaryIncoming> boundaries);
+#pragma warning restore CA1002 // Do not expose generic lists
     Task ClearPopulationIncoming();
     Task ImportPopulation(PopulationIncoming population);
     Task UpdatePopulationsFromIncoming();

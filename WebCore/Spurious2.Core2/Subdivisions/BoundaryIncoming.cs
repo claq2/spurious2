@@ -10,7 +10,7 @@ public partial class BoundaryIncoming
 
     public string SubdivisionName { get; set; } = null!;
 
-    public string Province { get; set; } = null!;
+    public string? Province { get; set; }
 
     public Geometry? OriginalBoundary { get; set; }
 
