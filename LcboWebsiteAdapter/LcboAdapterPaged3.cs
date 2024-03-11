@@ -12,13 +12,9 @@ public class LcboAdapterPaged3(CategorizedProductListClient productListClient,
     InventoryClient inventoryClient,
     StoreClient storeClient) : ILcboAdapterPaged2
 {
-    public async Task<List<(Inventory, Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
+    public List<(Inventory Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents)
     {
         List<(Inventory, Uri)> result = [];
-        string contents;
-        using var sr = new StreamReader(inventoryStream, Encoding.UTF8);
-        contents = await sr.ReadToEndAsync().ConfigAwait();
-
         HtmlDocument doc = new();
         doc.LoadHtml(contents);
         var table = doc.GetElementbyId("storesTable");
@@ -80,6 +76,15 @@ public class LcboAdapterPaged3(CategorizedProductListClient productListClient,
         }
 
         return result;
+    }
+
+    public async Task<List<(Inventory Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
+    {
+        string contents;
+        using var sr = new StreamReader(inventoryStream, Encoding.UTF8);
+        contents = await sr.ReadToEndAsync().ConfigAwait();
+
+        return this.ExtractInventoriesAndStoreIds(productId, contents);
     }
 
     /// <summary>

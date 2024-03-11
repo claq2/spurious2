@@ -93,10 +93,10 @@ public class LcboAdapterPaged3Tests
             using var stream = File.OpenRead("80127Inventory.html");
             var inventories = await adapter.ExtractInventoriesAndStoreIds("80127", stream);
             Assert.That(inventories.Count, Is.EqualTo(619));
-            Assert.That(inventories.All(i => i.Item1.ProductId > 0));
-            Assert.That(inventories.All(i => i.Item1.Quantity > 0));
-            Assert.That(inventories.All(i => i.Item1.StoreId > 0));
-            Assert.That(inventories.All(i => i.Item2.ToString() != "https://example.com"));
+            Assert.That(inventories.All(i => i.Inventory.ProductId > 0));
+            Assert.That(inventories.All(i => i.Inventory.Quantity > 0));
+            Assert.That(inventories.All(i => i.Inventory.StoreId > 0));
+            Assert.That(inventories.All(i => i.Uri.ToString() != "https://example.com"));
         }
     }
 

@@ -6,13 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Spurious2.Function2;
 
-public class Function2
+public class Function2(ILoggerFactory loggerFactory)
 {
-    private readonly ILogger<Function2> logger;
-    public Function2(ILoggerFactory loggerFactory)
-    {
-        this.logger = loggerFactory.CreateLogger<Function2>();
-    }
+    private readonly ILogger<Function2> logger = loggerFactory.CreateLogger<Function2>();
 
     [Function("Function_HttpStart")]
     public async Task<HttpResponseData> HttpStart(
@@ -24,7 +20,7 @@ public class Function2
         var logger = executionContext.GetLogger<Function2>();
 
         // Function input comes from the request content.
-        string instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
+        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
             nameof(Function2));
 
         logger.LogInformation("Started orchestration with ID = '{instanceId}'.", instanceId);
@@ -40,7 +36,7 @@ public class Function2
     {
         var logger = context.CreateReplaySafeLogger<Function2>();
         logger.LogInformation("Saying hello.");
-        string result = "";
+        var result = "";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "Tokyo") + " ";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "London") + " ";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "Seattle");
