@@ -8,7 +8,7 @@ public class Product(string name, int id, string size, string url)
     public int Id { get; private set; } = id;
     public string Size { get; private set; } = size;
     public string LiquorType { get; set; } = string.Empty;
-    public string ProductPageUrl { get; private set; } = url;
+    public Uri ProductPageUrl { get; private set; } = new Uri(url);
 
     public int PackageVolume {
         get {

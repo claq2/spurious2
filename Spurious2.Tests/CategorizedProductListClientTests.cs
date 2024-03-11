@@ -10,13 +10,20 @@ namespace Spurious2.Tests;
 public class CategorizedProductListClientTests
 {
     [Test]
-    public async Task Test()
+    public async Task GetProductListParses()
     {
         var client = CreateCategorizedProductListClient();
         var prods = await client.GetProductList(0, Core.LcboImporting.Domain.ProductType.Wine, Core.LcboImporting.Domain.ProductSubtype.Red)
             .ConfigAwait();
         prods.results.Length.Should().Be(9);
         var productList = prods.results.GetProducts(Core.LcboImporting.Domain.ProductType.Wine);
+        productList.Count.Should().Be(9);
+        productList.Should().OnlyContain(p => p.Id > 0);
+        productList.Should().OnlyContain(p => p.LiquorType == "Wine");
+        productList.Should().OnlyContain(p => !string.IsNullOrWhiteSpace(p.Name));
+        productList.Should().OnlyContain(p => p.PackageVolume > 0);
+        productList.Should().OnlyContain(p => p.ProductPageUrl.Scheme == "https" && p.ProductPageUrl.DnsSafeHost == "www.lcbo.com");
+        productList.Should().OnlyContain(p => p.Size == "750");
     }
 
     private static CategorizedProductListClient CreateCategorizedProductListClient()
