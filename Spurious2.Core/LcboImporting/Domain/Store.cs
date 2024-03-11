@@ -18,5 +18,10 @@
         public decimal Longitude { get; set; }
 
         public virtual ICollection<Inventory> Inventories { get; private set; }
+
+        public override string ToString()
+        {
+            return $"Id {this.Id} Name {this.Name} City {this.City} Lat {this.Latitude} Long {this.Longitude}";
+        }
     }
 }

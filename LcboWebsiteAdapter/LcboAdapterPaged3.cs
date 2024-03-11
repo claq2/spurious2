@@ -126,6 +126,11 @@ public class LcboAdapterPaged3(CategorizedProductListClient productListClient,
         using var sr = new StreamReader(storeStream, Encoding.UTF8);
         contents = await sr.ReadToEndAsync().ConfigAwait();
 
+        return this.GetStoreInfo(storeId, contents);
+    }
+
+    public Store GetStoreInfo(string storeId, string contents)
+    {
         HtmlDocument doc = new();
         doc.LoadHtml(contents);
         var storeNameDiv = doc.DocumentNode.QuerySelector("[data-store-name]");

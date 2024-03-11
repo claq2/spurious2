@@ -4,6 +4,7 @@ namespace Spurious2.Core.LcboImporting.Adapters;
 
 public interface ILcboAdapterPaged2
 {
+    Store GetStoreInfo(string storeId, string contents);
     List<(Inventory Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents);
     Task<Store> GetStoreInfo(string storeId, Stream storeStream);
     Task<string> GetStorePage(Uri storeUri);
