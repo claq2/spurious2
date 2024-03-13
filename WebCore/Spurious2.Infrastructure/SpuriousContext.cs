@@ -97,6 +97,8 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.Category).HasMaxLength(255);
             entity.Property(e => e.ProductName).HasMaxLength(255);
             entity.Property(e => e.ProductDone).HasDefaultValue(false);
+            entity.Ignore(e => e.ProductPageUrl);
+            entity.Ignore(e => e.Size);
         });
 
         modelBuilder.ApplyConfiguration(new StoreConfiguration());
