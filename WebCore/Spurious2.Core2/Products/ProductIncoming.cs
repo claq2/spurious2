@@ -1,4 +1,4 @@
-namespace Spurious2.Infrastructure.All;
+namespace Spurious2.Core2.Products;
 
 public partial class ProductIncoming
 {

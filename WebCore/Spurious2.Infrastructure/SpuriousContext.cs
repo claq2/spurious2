@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using Spurious2.Core.Inventories;
-using Spurious2.Core.Products;
+using Spurious2.Core2.Inventories;
+using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
-using Spurious2.Infrastructure.All;
 
 namespace Spurious2.Infrastructure;
 

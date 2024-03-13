@@ -1,6 +1,6 @@
-using Spurious2.Core.Inventories;
+using Spurious2.Core2.Inventories;
 
-namespace Spurious2.Core.Products;
+namespace Spurious2.Core2.Products;
 
 public partial class Product
 {

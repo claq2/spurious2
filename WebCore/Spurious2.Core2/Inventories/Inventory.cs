@@ -1,7 +1,7 @@
-using Spurious2.Core.Products;
+using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 
-namespace Spurious2.Core.Inventories;
+namespace Spurious2.Core2.Inventories;
 
 public partial class Inventory
 {

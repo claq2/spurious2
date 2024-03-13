@@ -317,4 +317,28 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         this.Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
+
+    public async Task ClearIncomingStores()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
+    }
+
+    public async Task ClearIncomingProducts()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM productincoming").ConfigAwait();
+    }
+
+    public async Task ClearIncomingInventory()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM inventoryincoming").ConfigAwait();
+    }
 }

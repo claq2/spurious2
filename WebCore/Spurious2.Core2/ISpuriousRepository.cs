@@ -21,4 +21,7 @@ public interface ISpuriousRepository : IDisposable
     Task<List<Subdivision>> GetSubdivisionsForDensity(AlcoholType alcoholType, EndOfDistribution endOfDistribution, int limit, CancellationToken cancellationToken);
     Task<string> GetBoundaryForSubdivision(int subdivisionId, CancellationToken cancellationToken);
     Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken);
+    Task ClearIncomingStores();
+    Task ClearIncomingProducts();
+    Task ClearIncomingInventory();
 }

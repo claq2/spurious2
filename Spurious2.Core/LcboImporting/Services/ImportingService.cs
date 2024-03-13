@@ -20,7 +20,7 @@ public class ImportingService(
         await storeRepository.ClearIncomingStores().ConfigAwait();
         await productRepository.ClearIncomingProducts().ConfigAwait();
         await inventoryRepository.ClearIncomingInventory().ConfigAwait();
-        await storageAdapter.ClearStorage();
+        await storageAdapter.ClearStorage().ConfigAwait();
     }
 
     public async Task SignalLastProductDone()
