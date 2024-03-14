@@ -44,8 +44,31 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.LogInformation("Processed product {productId}", productId);
     }
 
-    public Task ProcessInventoryBlob(string productId, Stream inventoryStream) => throw new NotImplementedException();
+    public async Task ProcessInventoryBlob(string productId, Stream inventoryStream)
+    {
+        // Add store info if blob doesn't exist
+        // Mark prod-inv done
+        var inventories = await lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryStream).ConfigAwait();
+        logger.LogInformation("Found {count} inventory items for product {productId}",
+            inventories.Count,
+            productId);
+        var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
+        await spuriousRepository.AddIncomingStoreIds(storeIds).ConfigAwait();
+        await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
+        foreach (var (inventory, uri) in inventories)
+        {
+            if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
+            {
+                var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
+                // _ = this.storageAdapter.WriteStore(inventory.StoreId.ToString(), storePage).ConfigAwait();
+                await storageAdapter.WriteStore(inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+            }
+        }
 
+        await spuriousRepository.MarkIncomingProductDone(productId).ConfigAwait();
+
+        logger.LogInformation("Processed inventory {productId}", productId);
+    }
     public async Task ProcessStoreBlob(string storeId, Stream storeStream)
     {
         var store = await lcboAdapter.GetStoreInfo(storeId, storeStream).ConfigAwait();

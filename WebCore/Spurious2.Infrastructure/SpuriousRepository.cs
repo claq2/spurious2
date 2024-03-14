@@ -1,4 +1,5 @@
 using System.Data;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
@@ -7,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core2;
+using Spurious2.Core2.Inventories;
 using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
@@ -381,6 +383,51 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
                         where Id not in (select Id from ProductIncoming)", param).ConfigAwait();
     }
 
+    public async Task AddIncomingStoreIds(List<int> storeIds)
+    {
+        ArgumentNullException.ThrowIfNull(storeIds);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var datatable = ToDataTable(storeIds);
+        var param = new SqlParameter("@storeIds", datatable)
+        {
+            SqlDbType = SqlDbType.Structured,
+            TypeName = "dbo.IncomingStore"
+        };
+        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
+                        insert into StoreIncoming (id)
+                        select Id
+                        from @storeIds
+                        where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
+    }
+
+    public async Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories)
+    {
+        ArgumentNullException.ThrowIfNull(inventories);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var datatable = ToDataTable(inventories);
+        var param = new SqlParameter("@inventories", datatable)
+        {
+            SqlDbType = SqlDbType.Structured,
+            TypeName = "dbo.IncomingInventory"
+        };
+        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
+                        insert into InventoryIncoming (ProductId, StoreId, Quantity)
+                        select ProductId, StoreId, Quantity
+                        from @inventories
+                        except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
+    }
+
+    public async Task MarkIncomingProductDone(string productId)
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        _ = await dbContext.ProductIncomings
+            .Where(si => si.Id == Convert.ToInt32(productId, CultureInfo.InvariantCulture))
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(si => si.ProductDone, true)
+                )
+            .ConfigAwait();
+    }
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     private static DataTable ToDataTable(IEnumerable<ProductIncoming> products)
     {
@@ -393,6 +440,34 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         foreach (var product in products)
         {
             table.Rows.Add(product.Id, product.ProductName, product.Category, product.Volume, true);
+        }
+
+        return table;
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+    private static DataTable ToDataTable(IEnumerable<int> storeIds)
+    {
+        DataTable table = new();
+        table.Columns.Add("Id", typeof(int));
+        foreach (var storeId in storeIds)
+        {
+            table.Rows.Add(storeId);
+        }
+
+        return table;
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+    private static DataTable ToDataTable(IEnumerable<InventoryIncoming> inventories)
+    {
+        DataTable table = new();
+        table.Columns.Add("ProductId", typeof(int));
+        table.Columns.Add("StoreId", typeof(int));
+        table.Columns.Add("Quantity", typeof(int));
+        foreach (var inventory in inventories)
+        {
+            table.Rows.Add(inventory.ProductId, inventory.StoreId, inventory.Quantity);
         }
 
         return table;

@@ -1,3 +1,4 @@
+using Spurious2.Core2.Inventories;
 using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
@@ -26,4 +27,7 @@ public interface ISpuriousRepository : IDisposable
     Task ClearIncomingInventory();
     Task UpdateIncomingStore(StoreIncoming store);
     Task ImportAFewProducts(List<ProductIncoming> products);
+    Task AddIncomingStoreIds(List<int> storeIds);
+    Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories);
+    Task MarkIncomingProductDone(string productId);
 }
