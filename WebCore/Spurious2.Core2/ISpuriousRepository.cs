@@ -1,14 +1,14 @@
+using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Core2;
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
 public interface ISpuriousRepository : IDisposable
 {
     Task CalculateBoundaryGeogs();
-#pragma warning disable CA1002 // Do not expose generic lists
     Task ImportBoundaryBulk(List<BoundaryIncoming> boundaries);
-#pragma warning restore CA1002 // Do not expose generic lists
     Task ClearPopulationIncoming();
     Task ImportPopulation(PopulationIncoming population);
     Task UpdatePopulationsFromIncoming();
@@ -25,4 +25,5 @@ public interface ISpuriousRepository : IDisposable
     Task ClearIncomingProducts();
     Task ClearIncomingInventory();
     Task UpdateIncomingStore(StoreIncoming store);
+    Task ImportAFewProducts(List<ProductIncoming> products);
 }

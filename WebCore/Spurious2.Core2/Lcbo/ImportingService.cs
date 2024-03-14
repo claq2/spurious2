@@ -29,7 +29,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     {
         await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
         {
-            await storageAdapter.ImportAFewProducts(products).ConfigAwait();
+            await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
             foreach (var product in products)
             {
                 await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();

@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO.Converters;
 using Spurious2.Core2;
+using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 
@@ -361,5 +362,39 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
                 .SetProperty(si => si.LocationWellKnownText, point.ToText())
                 )
             .ConfigAwait();
+    }
+
+    public async Task ImportAFewProducts(List<ProductIncoming> products)
+    {
+        ArgumentNullException.ThrowIfNull(products);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var datatable = ToDataTable(products);
+        var param = new SqlParameter("@products", datatable)
+        {
+            SqlDbType = SqlDbType.Structured,
+            TypeName = "dbo.IncomingProduct"
+        };
+        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
+                        insert into ProductIncoming (id, productname, category, volume, productdone)
+                        select Id, ProductName, Category, Volume, ProductDone
+                        from @products
+                        where Id not in (select Id from ProductIncoming)", param).ConfigAwait();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+    private static DataTable ToDataTable(IEnumerable<ProductIncoming> products)
+    {
+        DataTable table = new();
+        table.Columns.Add("Id", typeof(int));
+        table.Columns.Add("ProductName");
+        table.Columns.Add("Category");
+        table.Columns.Add("Volume", typeof(int));
+        table.Columns.Add("ProductDone", typeof(bool));
+        foreach (var product in products)
+        {
+            table.Rows.Add(product.Id, product.ProductName, product.Category, product.Volume, true);
+        }
+
+        return table;
     }
 }
