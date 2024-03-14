@@ -69,6 +69,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
 
         logger.LogInformation("Processed inventory {productId}", productId);
     }
+
     public async Task ProcessStoreBlob(string storeId, Stream storeStream)
     {
         var store = await lcboAdapter.GetStoreInfo(storeId, storeStream).ConfigAwait();
@@ -106,5 +107,18 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         return Task.CompletedTask;
     }
 
-    public Task UpdateAll() => throw new NotImplementedException();
+    public async Task UpdateAll()
+    {
+        // UpdateStoresFromIncoming
+        await spuriousRepository.UpdateStoresFromIncoming().ConfigAwait();
+        // UpdateProductsFromIncoming
+        await spuriousRepository.UpdateProductsFromIncoming().ConfigAwait();
+        // UpdateInventoriesFromIncoming
+        await spuriousRepository.UpdateInventoriesFromIncoming().ConfigAwait();
+        // UpdateStoreVolumes
+        await spuriousRepository.UpdateStoreVolumes().ConfigAwait();
+        // UpdateSubdivisionVolumes
+        await spuriousRepository.UpdateSubdivisionVolumes().ConfigAwait();
+        logger.LogInformation("Ended DB update");
+    }
 }

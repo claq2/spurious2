@@ -411,7 +411,7 @@ BEGIN
     SELECT [si].[Id]
         , [si].[StoreName]
         , [si].[City]
-        , GEOGRAPHY::STPointFromText(N'POINT(' + CAST([si].[Longitude] AS VARCHAR(20)) + N' ' + CAST([si].[Latitude] AS VARCHAR(20)) + N')', 4326)
+        , GEOGRAPHY::STPointFromText([si].[LocationWellKnownText], 4326)
     FROM [StoreIncoming] [si]
     LEFT JOIN [store] [s]
         ON [si].[Id] = [s].[Id]
@@ -420,7 +420,7 @@ BEGIN
     UPDATE [s]
     SET [s].[StoreName] = [si].[StoreName]
         , [s].[City] = [si].[City]
-        , [s].[location] = GEOGRAPHY::STPointFromText(N'POINT(' + CAST([si].[Longitude] AS VARCHAR(20)) + N' ' + CAST([si].[Latitude] AS VARCHAR(20)) + N')', 4326)
+        , [s].[location] = GEOGRAPHY::STPointFromText([si].[LocationWellKnownText], 4326)
     FROM [store] [s]
         , [StoreIncoming] [si]
     WHERE [s].[Id] = [si].[Id];

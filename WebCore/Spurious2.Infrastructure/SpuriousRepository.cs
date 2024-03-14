@@ -421,11 +421,51 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
     {
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         _ = await dbContext.ProductIncomings
-            .Where(si => si.Id == Convert.ToInt32(productId, CultureInfo.InvariantCulture))
+            .Where(pi => pi.Id == Convert.ToInt32(productId, CultureInfo.InvariantCulture))
             .ExecuteUpdateAsync(setters => setters
-                .SetProperty(si => si.ProductDone, true)
+                .SetProperty(pi => pi.ProductDone, true)
                 )
             .ConfigAwait();
+    }
+
+    public async Task UpdateStoresFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncoming").ConfigAwait();
+    }
+
+    public async Task UpdateProductsFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateProductsFromIncoming").ConfigAwait();
+    }
+
+    public async Task UpdateInventoriesFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateInventoriesFromIncoming").ConfigAwait();
+    }
+
+    public async Task UpdateStoreVolumes()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncoming").ConfigAwait();
+    }
+
+    public async Task UpdateSubdivisionVolumes()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]

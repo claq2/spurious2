@@ -30,4 +30,9 @@ public interface ISpuriousRepository : IDisposable
     Task AddIncomingStoreIds(List<int> storeIds);
     Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories);
     Task MarkIncomingProductDone(string productId);
+    Task UpdateStoresFromIncoming();
+    Task UpdateProductsFromIncoming();
+    Task UpdateInventoriesFromIncoming();
+    Task UpdateStoreVolumes();
+    Task UpdateSubdivisionVolumes();
 }
