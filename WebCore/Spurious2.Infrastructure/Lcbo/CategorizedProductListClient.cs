@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
-using Ardalis.GuardClauses;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 
@@ -96,30 +95,6 @@ public class CategorizedProductListClient
         _ = this.httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36");
     }
 
-    //public async Task<Rootobject> GetProductList(int start, ProductType productType)
-    //{
-    //    var formVars = new Dictionary<string, string>
-    //    {
-    //        { "firstResult", start.ToString() },
-    //        { "numberOfResults", "9" },
-    //        { "locale", "en" },
-    //        { "searchHub", "WebClpEN" },
-    //        { "tab", productTypeTabTemplateMap[productType] },
-    //        { "aq", $"@ec_category=={productTypeCategoryTemplateMap[productType]}" },
-    //    };
-
-    //    var content = new FormUrlEncodedContent(formVars);
-    //    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
-    //    var productsResp = await this.httpClient.PostAsync("https://platform.cloud.coveo.com/rest/search/v2?organizationId=lcboproductionx2kwygnc",
-    //        content);
-    //    var s = await productsResp.Content.ReadAsStringAsync();
-    //    var sj = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(s);
-
-    //    Guard.Against.NullValue(sj, nameof(sj));
-
-    //    return sj;
-    //}
-
     public async Task<Rootobject> GetProductList(int start, ProductType productType, ProductSubtype productSubtype)
     {
         var tabFormat = productTypeTabTemplateMap[productType];
@@ -145,8 +120,6 @@ public class CategorizedProductListClient
         var s = await productsResp.Content.ReadAsStringAsync().ConfigAwait();
         var sj = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(s);
 
-        Guard.Against.NullValue(sj, nameof(sj));
-
-        return sj;
+        return sj ?? throw new EmptyProductListException();
     }
 }
