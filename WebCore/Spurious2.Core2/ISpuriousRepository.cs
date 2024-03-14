@@ -24,4 +24,5 @@ public interface ISpuriousRepository : IDisposable
     Task ClearIncomingStores();
     Task ClearIncomingProducts();
     Task ClearIncomingInventory();
+    Task UpdateIncomingStore(StoreIncoming store);
 }

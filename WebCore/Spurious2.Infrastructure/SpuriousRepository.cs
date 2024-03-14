@@ -341,4 +341,25 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM inventoryincoming").ConfigAwait();
     }
+
+    public async Task UpdateIncomingStore(StoreIncoming store)
+    {
+        var fact = new NetTopologySuite.NtsGeometryServices(
+                NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,
+                new NetTopologySuite.Geometries.PrecisionModel(1000d),
+                4326).CreateGeometryFactory();
+
+        var point = fact.CreatePoint(new NetTopologySuite.Geometries.Coordinate((double)store.Longitude.Value, (double)store.Latitude.Value));
+
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        _ = await dbContext.StoreIncomings
+            .Where(si => si.Id == store.Id)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(si => si.City, store.City)
+                .SetProperty(si => si.StoreName, store.StoreName)
+                .SetProperty(si => si.StoreDone, true)
+                .SetProperty(si => si.LocationWellKnownText, point.ToText())
+                )
+            .ConfigAwait();
+    }
 }
