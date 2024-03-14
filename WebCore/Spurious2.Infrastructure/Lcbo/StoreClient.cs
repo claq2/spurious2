@@ -1,6 +1,6 @@
 using Spurious2.Core2;
 
-namespace LcboWebsiteAdapter;
+namespace Lcbo;
 
 public class StoreClient
 {
