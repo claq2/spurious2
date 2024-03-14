@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 
 namespace Spurious2.Core2.Lcbo;
@@ -24,7 +25,17 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.LogInformation($"{nameof(SignalLastProductDone)}");
     }
 
-    public Task GetProductPages(ProductType productType) => throw new NotImplementedException();
+    public async Task GetProductPages(ProductType productType)
+    {
+        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
+        {
+            await storageAdapter.ImportAFewProducts(products).ConfigAwait();
+            foreach (var product in products)
+            {
+                await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+            }
+        }
+    }
 
     public async Task ProcessProductBlob(string productId)
     {

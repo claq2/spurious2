@@ -646,6 +646,42 @@ where b.Id = Subdivision.id
 END
 GO
 
+CREATE TYPE [dbo].[IncomingInventory] AS TABLE(
+    [ProductId] [int] NOT NULL,
+    [StoreId] [int] NOT NULL,
+    [Quantity] [int] NOT NULL,
+    PRIMARY KEY CLUSTERED 
+(
+    [ProductId] ASC,
+    [StoreId] ASC
+)WITH (IGNORE_DUP_KEY = OFF)
+)
+GO
+
+CREATE TYPE [dbo].[IncomingProduct] AS TABLE(
+    [Id] [int] NOT NULL,
+    [ProductName] [nvarchar](255) NOT NULL,
+    [Category] [nvarchar](255) NOT NULL,
+    [Volume] [int] NOT NULL,
+    [ProductDone] [bit] NOT NULL,
+    PRIMARY KEY CLUSTERED 
+(
+    [Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF)
+)
+GO
+
+
+CREATE TYPE [dbo].[IncomingStore] AS TABLE(
+    [Id] [int] NOT NULL,
+    PRIMARY KEY CLUSTERED 
+(
+    [Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF)
+)
+GO
+
+
 ALTER DATABASE [Spurious]
 
 SET READ_WRITE

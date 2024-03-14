@@ -1,3 +1,5 @@
+using Spurious2.Core2.Products;
+
 namespace Spurious2.Core2.Lcbo;
 
 public interface IStorageAdapter
@@ -10,4 +12,7 @@ public interface IStorageAdapter
     Task WriteLastProduct(string input);
     Task WriteLastInventory(string input);
     Task ClearStorage();
+#pragma warning disable CA1002 // Do not expose generic lists
+    Task ImportAFewProducts(List<ProductIncoming> products);
+#pragma warning restore CA1002 // Do not expose generic lists
 }

@@ -4,6 +4,7 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Logging;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
+using Spurious2.Core2.Products;
 
 namespace Spurious2.Infrastructure.AzureStorage;
 
@@ -199,4 +200,6 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
+
+    public async Task ImportAFewProducts(List<ProductIncoming> products) => throw new NotImplementedException();
 }
