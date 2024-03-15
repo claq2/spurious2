@@ -42,6 +42,7 @@ public class DbTests
         await context.StoreIncomings.ExecuteDeleteAsync().ConfigAwait();
         await context.InventoryIncomings.ExecuteDeleteAsync().ConfigAwait();
         await context.ProductIncomings.ExecuteDeleteAsync().ConfigAwait();
+        await context.Stores.ExecuteDeleteAsync().ConfigAwait();
 
         this.mockFactory = new Mock<IDbContextFactory<SpuriousContext>>();
         this.mockFactory
@@ -91,16 +92,31 @@ public class DbTests
 
         await repo.AddIncomingStoreIds([1, 2, 3]).ConfigAwait();
 
-        var store = new StoreIncoming { Id = 1, City = "Toronto", Latitude = 43.712679m, Longitude = -79.531037m };
+        var store1 = new StoreIncoming { StoreName = "Toronto store 1", Id = 1, City = "Toronto", Latitude = 43.712679m, Longitude = -79.531037m };
+        var store2 = new StoreIncoming { StoreName = "Toronto store 2", Id = 2, City = "Toronto-North", Latitude = 44.712679m, Longitude = -78.531037m };
+        var store3 = new StoreIncoming { StoreName = "Toronto store 3", Id = 3, City = "Toronto-West", Latitude = 45.712679m, Longitude = -77.531037m };
 
-        await repo.UpdateIncomingStore(store).ConfigAwait();
+        await repo.UpdateIncomingStore(store1).ConfigAwait();
+        await repo.UpdateIncomingStore(store2).ConfigAwait();
+        await repo.UpdateIncomingStore(store3).ConfigAwait();
 
         using var context2 = new SpuriousContext(this.ob.Options);
         var storeIncomings = context2.StoreIncomings.ToList();
         storeIncomings.Count.Should().Be(3);
         storeIncomings[0].Id.Should().Be(1);
+        storeIncomings[0].StoreName.Should().Be("Toronto store 1");
+        storeIncomings[0].City.Should().Be("Toronto");
         storeIncomings[0].StoreDone.Should().BeTrue();
         storeIncomings[0].LocationWellKnownText.Should().Be("POINT (-79.531 43.7127)");
+
+        await repo.UpdateStoresFromIncoming().ConfigAwait();
+
+        var stores = context2.Stores.ToList();
+        stores.Count.Should().Be(3);
+        stores[0].Id.Should().Be(1);
+        stores[0].LocationGeog.ToText().Should().Be("POINT (-79.531 43.7127)");
+        stores[0].StoreName.Should().Be("Toronto store 1");
+        stores[0].City.Should().Be("Toronto");
     }
 
     [Test]
