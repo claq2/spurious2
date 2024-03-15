@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Spurious2.Core2;
 using Spurious2.Core2.Inventories;
+using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Infrastructure;
 
@@ -38,9 +39,9 @@ public class DbTests
                 b => b.UseNetTopologySuite().MigrationsAssembly("Spurious2"));
         using var context = new SpuriousContext(this.ob.Options);
         await context.Database.MigrateAsync().ConfigAwait();
-        context.StoreIncomings.ExecuteDelete();
-        context.InventoryIncomings.ExecuteDelete();
-        context.ProductIncomings.ExecuteDelete();
+        await context.StoreIncomings.ExecuteDeleteAsync().ConfigAwait();
+        await context.InventoryIncomings.ExecuteDeleteAsync().ConfigAwait();
+        await context.ProductIncomings.ExecuteDeleteAsync().ConfigAwait();
 
         this.mockFactory = new Mock<IDbContextFactory<SpuriousContext>>();
         this.mockFactory
@@ -95,11 +96,57 @@ public class DbTests
         await repo.UpdateIncomingStore(store).ConfigAwait();
 
         using var context2 = new SpuriousContext(this.ob.Options);
-        var inventoryIncomings = context2.InventoryIncomings.ToList();
         var storeIncomings = context2.StoreIncomings.ToList();
         storeIncomings.Count.Should().Be(3);
         storeIncomings[0].Id.Should().Be(1);
         storeIncomings[0].StoreDone.Should().BeTrue();
         storeIncomings[0].LocationWellKnownText.Should().Be("POINT (-79.531 43.7127)");
+    }
+
+    [Test]
+    public async Task ImportAFewProducts()
+    {
+        using var repo = new SpuriousRepository(this.mockFactory.Object);
+
+        await repo.AddIncomingStoreIds([1, 2, 3]).ConfigAwait();
+
+        List<ProductIncoming> products = [
+                new ProductIncoming
+                {
+                    Category = "Wine",
+                    Id = 1,
+                    ProductDone = false, // Repo method sets this to true
+                    ProductName = "Red Wine 1",
+                    Size = "750",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+                new ProductIncoming
+                {
+                    Category = "Beer",
+                    Id = 2,
+                    ProductDone = false,
+                    ProductName = "Beer 1",
+                    Size = "6 x 341",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+                new ProductIncoming
+                {
+                    Category = "Spirits",
+                    Id = 3,
+                    ProductDone = false,
+                    ProductName = "Spirit 1",
+                    Size = "500",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+            ];
+
+        await repo.ImportAFewProducts(products).ConfigAwait();
+
+        using var context2 = new SpuriousContext(this.ob.Options);
+        var productsIncoming = context2.ProductIncomings.ToList();
+        productsIncoming.Count.Should().Be(3);
+        productsIncoming[0].Id.Should().Be(1);
+        productsIncoming[0].ProductDone.Should().BeTrue();
+        productsIncoming[0].Volume.Should().Be(750);
     }
 }

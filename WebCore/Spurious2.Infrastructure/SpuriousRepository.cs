@@ -326,7 +326,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
-        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
+        _ = await dbContext.StoreIncomings.ExecuteDeleteAsync().ConfigAwait();
     }
 
     public async Task ClearIncomingProducts()
@@ -334,7 +334,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
-        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM productincoming").ConfigAwait();
+        _ = await dbContext.ProductIncomings.ExecuteDeleteAsync().ConfigAwait();
     }
 
     public async Task ClearIncomingInventory()
@@ -342,7 +342,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
-        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM inventoryincoming").ConfigAwait();
+        _ = await dbContext.InventoryIncomings.ExecuteDeleteAsync().ConfigAwait();
     }
 
     public async Task UpdateIncomingStore(StoreIncoming store)
