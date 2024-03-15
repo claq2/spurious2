@@ -1,6 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Lcbo;
 
 #pragma warning disable IDE1006 // Naming Styles
+[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
+[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
 public class Rootobject
 {
     public int totalCount { get; set; }
@@ -14,16 +18,16 @@ public class Rootobject
     public string? index { get; set; }
     public string? indexRegion { get; set; }
     public string? indexToken { get; set; }
-    public object[]? refinedKeywords { get; set; }
-    public object[]? triggers { get; set; }
+    public List<object>? refinedKeywords { get; set; }
+    public List<object>? triggers { get; set; }
     public Termstohighlight? termsToHighlight { get; set; }
     public Phrasestohighlight? phrasesToHighlight { get; set; }
-    public object[]? queryCorrections { get; set; }
-    public object[]? groupByResults { get; set; }
-    public object[]? facets { get; set; }
-    public object[]? suggestedFacets { get; set; }
-    public object[]? categoryFacets { get; set; }
-    public Result[] results { get; set; }
+    public List<object>? queryCorrections { get; set; }
+    public List<object>? groupByResults { get; set; }
+    public List<object>? facets { get; set; }
+    public List<object>? suggestedFacets { get; set; }
+    public List<object>? categoryFacets { get; set; }
+    public List<Result> results { get; set; }
 
     public Rootobject() => this.results = [];
 }
@@ -37,13 +41,15 @@ public class Phrasestohighlight
 }
 
 #pragma warning disable CA1708 // Identifiers should differ by more than case
+[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
+[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
 public class Result
 #pragma warning restore CA1708 // Identifiers should differ by more than case
 {
     public string title { get; set; }
-    public string uri { get; set; }
-    public string? printableUri { get; set; }
-    public string? clickUri { get; set; }
+    public Uri uri { get; set; }
+    public Uri? printableUri { get; set; }
+    public Uri? clickUri { get; set; }
     public string? uniqueId { get; set; }
     public string? excerpt { get; set; }
     public object? firstSentences { get; set; }
@@ -58,20 +64,20 @@ public class Result
     public bool isTopResult { get; set; }
     public bool isRecommendation { get; set; }
     public bool isUserActionView { get; set; }
-    public object[]? titleHighlights { get; set; }
-    public object[]? firstSentencesHighlights { get; set; }
-    public object[]? excerptHighlights { get; set; }
-    public object[]? printableUriHighlights { get; set; }
-    public object[]? summaryHighlights { get; set; }
+    public List<object>? titleHighlights { get; set; }
+    public List<object>? firstSentencesHighlights { get; set; }
+    public List<object>? excerptHighlights { get; set; }
+    public List<object>? printableUriHighlights { get; set; }
+    public List<object>? summaryHighlights { get; set; }
     public object? parentResult { get; set; }
-    public object[]? childResults { get; set; }
+    public List<object>? childResults { get; set; }
     public int totalNumberOfChildResults { get; set; }
-    public object[]? absentTerms { get; set; }
+    public List<object>? absentTerms { get; set; }
     public Raw raw { get; set; }
     public string? Title { get; set; }
-    public string? Uri { get; set; }
-    public string? PrintableUri { get; set; }
-    public string? ClickUri { get; set; }
+    public Uri? Uri { get; set; }
+    public Uri? PrintableUri { get; set; }
+    public Uri? ClickUri { get; set; }
     public string? UniqueId { get; set; }
     public string? Excerpt { get; set; }
     public object? FirstSentences { get; set; }
@@ -80,11 +86,13 @@ public class Result
     public Result()
     {
         this.title = string.Empty;
-        this.uri = string.Empty;
         this.raw = new Raw();
     }
 }
 
+[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
+[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
+[SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
 public class Raw
 {
     public int view_rank_monthly { get; set; }
@@ -101,8 +109,8 @@ public class Raw
     public float validityscore { get; set; }
     public string? stores_low_stock_combined { get; set; }
     public int min_cart_qty { get; set; }
-    public string[]? lcbo_current_offer { get; set; }
-    public string[]? ec_skus { get; set; }
+    public List<string>? lcbo_current_offer { get; set; }
+    public List<string>? ec_skus { get; set; }
     public long sysindexeddate { get; set; }
     public int out_of_stock_threshold { get; set; }
     public string? permanentid { get; set; }
@@ -135,10 +143,10 @@ public class Raw
     public string? lcbo_selling_package_name { get; set; }
     public string? enabled { get; set; }
     public int wordcount { get; set; }
-    public string[]? ec_category { get; set; }
+    public List<string>? ec_category { get; set; }
     public string? source { get; set; }
     public float ec_price { get; set; }
-    public string[] ec_category_filter { get; set; }
+    public List<string> ec_category_filter { get; set; }
     public int sell_rank_monthly { get; set; }
     public string? collection { get; set; }
     public int qty_increments { get; set; }
@@ -151,7 +159,7 @@ public class Raw
     public string? stores_inventory { get; set; }
     public int lcbo_unit_volume_int { get; set; }
     public long sysrowid { get; set; }
-    public string? uri { get; set; }
+    public Uri? uri { get; set; }
     public string? syscollection { get; set; }
     public int max_cart_qty { get; set; }
     public int lcbo_bottles_per_case { get; set; }
@@ -159,13 +167,13 @@ public class Raw
     public string? lcbo_region_name { get; set; }
     public string? sysconcepts { get; set; }
     public string? concepts { get; set; }
-    public string[]? syslanguage { get; set; }
+    public List<string>? syslanguage { get; set; }
     public string? ec_shortdesc { get; set; }
     public string? lcbo_tastingnotes { get; set; }
     public string? filetype { get; set; }
     public string? sysfiletype { get; set; }
-    public string[]? language { get; set; }
-    public string[]? lcbo_program { get; set; }
+    public List<string>? language { get; set; }
+    public List<string>? lcbo_program { get; set; }
 
     public Raw()
     {

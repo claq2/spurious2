@@ -8,7 +8,7 @@ namespace Lcbo;
 public static class ResultExtensions
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
-    public static List<ProductIncoming> GetProducts(this Result[] results, ProductType productType)
+    public static List<ProductIncoming> GetProducts(this List<Result> results, ProductType productType)
     {
         var result = results
             .Where(p => !string.IsNullOrEmpty(p.raw.lcbo_unit_volume))
@@ -17,7 +17,7 @@ public static class ResultExtensions
                 ProductName = p.title,
                 Id = Convert.ToInt32(p.raw.permanentid, CultureInfo.InvariantCulture),
                 Size = p.raw.lcbo_unit_volume,
-                ProductPageUrl = new Uri(p.uri),
+                ProductPageUrl = p.uri,
                 Category = productType.ToString()
             }
             ).ToList();

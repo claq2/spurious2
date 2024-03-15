@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using FluentAssertions;
 using Lcbo;
@@ -7,7 +8,7 @@ using Spurious2.Core2.Lcbo;
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class CategorizedProductListClientTests
 {
     [Test]
@@ -16,7 +17,7 @@ public class CategorizedProductListClientTests
         var client = CreateCategorizedProductListClient();
         var prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
-        prods.results.Length.Should().Be(9);
+        prods.results.Count.Should().Be(9);
         var productList = prods.results.GetProducts(ProductType.Wine);
         productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
@@ -30,7 +31,7 @@ public class CategorizedProductListClientTests
         // Get page 2
         prods = await client.GetProductList(9, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
-        prods.results.Length.Should().Be(9);
+        prods.results.Count.Should().Be(9);
         productList = prods.results.GetProducts(ProductType.Wine);
         productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
@@ -44,7 +45,7 @@ public class CategorizedProductListClientTests
         overlappingIds.Count.Should().Be(0);
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
+    [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
     private static CategorizedProductListClient CreateCategorizedProductListClient()
     {
         HttpClient httpClient = new(new HttpClientHandler()
