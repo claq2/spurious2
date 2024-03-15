@@ -41,7 +41,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     {
         var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
         await storageAdapter.WriteInventory(productId, contents).ConfigAwait();
-        logger.LogInformation("Processed product {productId}", productId);
+        logger.LogInformation("Processed product {ProductId}", productId);
     }
 
     public async Task ProcessInventoryBlob(string productId, Stream inventoryStream)
@@ -49,7 +49,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Add store info if blob doesn't exist
         // Mark prod-inv done
         var inventories = await lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryStream).ConfigAwait();
-        logger.LogInformation("Found {count} inventory items for product {productId}",
+        logger.LogInformation("Found {Count} inventory items for product {ProductId}",
             inventories.Count,
             productId);
         var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
@@ -67,7 +67,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
 
         await spuriousRepository.MarkIncomingProductDone(productId).ConfigAwait();
 
-        logger.LogInformation("Processed inventory {productId}", productId);
+        logger.LogInformation("Processed inventory {ProductId}", productId);
     }
 
     public async Task ProcessStoreBlob(string storeId, Stream storeStream)
@@ -75,7 +75,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         var store = await lcboAdapter.GetStoreInfo(storeId, storeStream).ConfigAwait();
         // Write store to StoreIncoming, mark as done
         await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
-        logger.LogInformation("Processed store {storeId}", storeId);
+        logger.LogInformation("Processed store {StoreId}", storeId);
     }
 
     public async Task ProcessLastProductBlob(string contents)
@@ -84,7 +84,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Get inv contents, write to end prod-inv blob
         // Mark prod done
         await storageAdapter.WriteLastInventory(contents).ConfigAwait();
-        logger.LogInformation("Processed last product {contents}", contents);
+        logger.LogInformation("Processed last product {Contents}", contents);
     }
 
     public async Task ProcessLastInventoryBlob(string contents)
@@ -97,7 +97,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Prods all done => inventories all done => all stores discovered
 
         await this.EndImporting().ConfigAwait();
-        logger.LogInformation("Processed last inventory {contents}", contents);
+        logger.LogInformation("Processed last inventory {Contents}", contents);
     }
 
     public Task EndImporting()

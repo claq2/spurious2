@@ -32,7 +32,7 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
 
         for (var i = 0; i < 3; i++)
         {
-            logger.LogInformation("Creating containers attempt {attempt}", i + 1);
+            logger.LogInformation("Creating containers attempt {Attempt}", i + 1);
 
             var errors = false;
             try

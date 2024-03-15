@@ -19,7 +19,9 @@ public class DbTests
     private Mock<IDbContextFactory<SpuriousContext>> mockFactory;
 
     [SetUp]
+#pragma warning disable CA1506 // Avoid excessive class coupling
     public async Task Setup()
+#pragma warning restore CA1506 // Avoid excessive class coupling
     {
         NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices(
                 NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,

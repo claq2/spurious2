@@ -347,6 +347,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 
     public async Task UpdateIncomingStore(StoreIncoming store)
     {
+        ArgumentNullException.ThrowIfNull(store);
         var fact = new NetTopologySuite.NtsGeometryServices(
                 NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,
                 new NetTopologySuite.Geometries.PrecisionModel(1000d),
