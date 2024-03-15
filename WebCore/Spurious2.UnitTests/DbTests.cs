@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ using Spurious2.Infrastructure;
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
+[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class DbTests
 {
     private IConfigurationRoot config;
