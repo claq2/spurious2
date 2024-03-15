@@ -6,6 +6,7 @@ namespace Spurious2.UnitTests;
 public class GmlReaderTests
 {
     [Test]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "<Pending>")]
     public void Test()
     {
         const string gml = @"<gml:Polygon xmlns:gml=""http://www.opengis.net/gml"" srsName=""urn:ogc:def:crs:EPSG::3347"" srsDimension=""2"">

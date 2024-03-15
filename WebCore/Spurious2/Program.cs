@@ -60,11 +60,11 @@ public class Program
             //);
 
             builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
-        b => b.UseNetTopologySuite()
-            .EnableRetryOnFailure()
-            .MigrationsAssembly("Spurious2"))
-//.EnableSensitiveDataLogging()
-);
+                b => b.UseNetTopologySuite()
+                    .EnableRetryOnFailure()
+                    .MigrationsAssembly("Spurious2"))
+        //.EnableSensitiveDataLogging()
+        );
 
             // Add services to the container.
             builder.Services.AddRazorPages();
@@ -85,7 +85,7 @@ public class Program
 #if DEBUG
             var sw = new Stopwatch();
             sw.Start();
-            app.MigrateDatabase<SpuriousContext>();
+            await app.MigrateDatabase<SpuriousContext>().ConfigAwait();
             var importTasks = new List<Task>();
             using (var scope = app.Services.CreateScope())
             {

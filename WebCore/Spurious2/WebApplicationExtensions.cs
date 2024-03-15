@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Spurious2.Core2;
 
 namespace Spurious2;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication MigrateDatabase<T>(this WebApplication webHost) where T : DbContext
+    public static async Task<WebApplication> MigrateDatabase<T>(this WebApplication webHost) where T : DbContext
     {
         ArgumentNullException.ThrowIfNull(webHost);
         using (var scope = webHost.Services.CreateScope())
@@ -14,7 +15,7 @@ public static class WebApplicationExtensions
             try
             {
                 var db = services.GetRequiredService<T>();
-                db.Database.Migrate();
+                await db.Database.MigrateAsync().ConfigAwait();
             }
             catch (Exception ex)
             {
