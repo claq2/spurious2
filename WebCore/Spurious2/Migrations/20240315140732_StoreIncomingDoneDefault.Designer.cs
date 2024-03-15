@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Spurious2.Infrastructure;
@@ -12,9 +13,11 @@ using Spurious2.Infrastructure;
 namespace Spurious2.Migrations
 {
     [DbContext(typeof(SpuriousContext))]
-    partial class SpuriousContextModelSnapshot : ModelSnapshot
+    [Migration("20240315140732_StoreIncomingDoneDefault")]
+    partial class StoreIncomingDoneDefault
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

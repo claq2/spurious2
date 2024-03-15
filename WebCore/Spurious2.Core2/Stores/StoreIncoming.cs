@@ -14,7 +14,7 @@ public partial class StoreIncoming
     public int? BeerVolume { get; set; }
     public int? WineVolume { get; set; }
     public int? SpiritsVolume { get; set; }
-    public Point LocationGeog { get; set; } = Point.Empty;
+    public Point? LocationGeog { get; set; } = Point.Empty;
 
     public override string ToString() => $"{this.Id} {this.StoreName} {this.City}";
 }

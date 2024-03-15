@@ -45,6 +45,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Spurious2.Core2\Spurious2.Core2.csproj" />
     <ProjectReference Include="..\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
+    <ProjectReference Include="..\Spurious2\Spurious2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
