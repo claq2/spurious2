@@ -143,10 +143,26 @@ public class DbTests
         await repo.ImportAFewProducts(products).ConfigAwait();
 
         using var context2 = new SpuriousContext(this.ob.Options);
-        var productsIncoming = context2.ProductIncomings.ToList();
+
+        // ProductIncoming can't be used for reading. Use custom type.
+        var productsIncoming = context2.Database.SqlQuery<CustomProductIncoming>($"select * from ProductIncoming").ToList();
         productsIncoming.Count.Should().Be(3);
+
         productsIncoming[0].Id.Should().Be(1);
         productsIncoming[0].ProductDone.Should().BeTrue();
         productsIncoming[0].Volume.Should().Be(750);
+        productsIncoming[0].Category.Should().Be("Wine");
+        productsIncoming[0].ProductName.Should().Be("Red Wine 1");
+
+        productsIncoming[1].Volume.Should().Be(2046);
     }
+}
+
+public class CustomProductIncoming
+{
+    public string Category { get; set; }
+    public int Id { get; set; }
+    public bool ProductDone { get; set; }
+    public string ProductName { get; set; }
+    public int Volume { get; set; }
 }
