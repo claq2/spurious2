@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Spurious2.Core2;
 using Spurious2.Core2.Inventories;
+using Spurious2.Core2.Stores;
 using Spurious2.Infrastructure;
 
 namespace Spurious2.UnitTests;
@@ -12,7 +13,9 @@ namespace Spurious2.UnitTests;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class DbTests
 {
-    private IConfigurationRoot _config;
+    private IConfigurationRoot config;
+    private DbContextOptionsBuilder<SpuriousContext> ob;
+    private Mock<IDbContextFactory<SpuriousContext>> mockFactory;
 
     [SetUp]
     public async Task Setup()
@@ -29,29 +32,30 @@ public class DbTests
             );
 
         var builder = new ConfigurationBuilder().AddUserSecrets<DbTests>();
-        this._config = builder.Build();
-        var ob = new DbContextOptionsBuilder<SpuriousContext>()
-            .UseSqlServer(this._config.GetConnectionString("SpuriousSqlDb"),
+        this.config = builder.Build();
+        this.ob = new DbContextOptionsBuilder<SpuriousContext>()
+            .UseSqlServer(this.config.GetConnectionString("SpuriousSqlDb"),
                 b => b.UseNetTopologySuite().MigrationsAssembly("Spurious2"));
-        using var context = new SpuriousContext(ob.Options);
+        using var context = new SpuriousContext(this.ob.Options);
         await context.Database.MigrateAsync().ConfigAwait();
         context.StoreIncomings.ExecuteDelete();
+        context.InventoryIncomings.ExecuteDelete();
+        context.ProductIncomings.ExecuteDelete();
+
+        this.mockFactory = new Mock<IDbContextFactory<SpuriousContext>>();
+        this.mockFactory
+            .Setup(f => f.CreateDbContextAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(() => new SpuriousContext(this.ob.Options));
     }
 
     [Test]
     public async Task AddIncomingStores()
     {
-        var ob = new DbContextOptionsBuilder<SpuriousContext>()
-            .UseSqlServer(this._config.GetConnectionString("SpuriousSqlDb"),
-                b => b.UseNetTopologySuite().MigrationsAssembly("Spurious2"));
-        using var context = new SpuriousContext(ob.Options);
-        var mockFactory = new Mock<IDbContextFactory<SpuriousContext>>();
-        mockFactory.Setup(f => f.CreateDbContextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(context);
-        using var repo = new SpuriousRepository(mockFactory.Object);
+        using var repo = new SpuriousRepository(this.mockFactory.Object);
 
         await repo.AddIncomingStoreIds([1, 2, 3]).ConfigAwait();
 
-        using var context2 = new SpuriousContext(ob.Options);
+        using var context2 = new SpuriousContext(this.ob.Options);
         var storeIncomings = context2.StoreIncomings.ToList();
         storeIncomings.Count.Should().Be(3);
         storeIncomings[0].Id.Should().Be(1);
@@ -61,13 +65,7 @@ public class DbTests
     [Test]
     public async Task AddIncomingInventories()
     {
-        var ob = new DbContextOptionsBuilder<SpuriousContext>()
-            .UseSqlServer(this._config.GetConnectionString("SpuriousSqlDb"),
-                b => b.UseNetTopologySuite().MigrationsAssembly("Spurious2"));
-        using var context = new SpuriousContext(ob.Options);
-        var mockFactory = new Mock<IDbContextFactory<SpuriousContext>>();
-        mockFactory.Setup(f => f.CreateDbContextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(context);
-        using var repo = new SpuriousRepository(mockFactory.Object);
+        using var repo = new SpuriousRepository(this.mockFactory.Object);
 
         List<InventoryIncoming> invs = [
             new InventoryIncoming { ProductId = 1, Quantity = 1, StoreId = 1 },
@@ -77,11 +75,31 @@ public class DbTests
 
         await repo.AddIncomingInventories(invs).ConfigAwait();
 
-        using var context2 = new SpuriousContext(ob.Options);
+        using var context2 = new SpuriousContext(this.ob.Options);
         var inventoryIncomings = context2.InventoryIncomings.ToList();
         inventoryIncomings.Count.Should().Be(3);
         inventoryIncomings[0].ProductId.Should().Be(1);
         inventoryIncomings[0].Quantity.Should().Be(1);
         inventoryIncomings[0].StoreId.Should().Be(1);
+    }
+
+    [Test]
+    public async Task UpdateIncomingStore()
+    {
+        using var repo = new SpuriousRepository(this.mockFactory.Object);
+
+        await repo.AddIncomingStoreIds([1, 2, 3]).ConfigAwait();
+
+        var store = new StoreIncoming { Id = 1, City = "Toronto", Latitude = 43.712679m, Longitude = -79.531037m };
+
+        await repo.UpdateIncomingStore(store).ConfigAwait();
+
+        using var context2 = new SpuriousContext(this.ob.Options);
+        var inventoryIncomings = context2.InventoryIncomings.ToList();
+        var storeIncomings = context2.StoreIncomings.ToList();
+        storeIncomings.Count.Should().Be(3);
+        storeIncomings[0].Id.Should().Be(1);
+        storeIncomings[0].StoreDone.Should().BeTrue();
+        storeIncomings[0].LocationWellKnownText.Should().Be("POINT (-79.531 43.7127)");
     }
 }
