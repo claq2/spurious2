@@ -133,6 +133,8 @@ public class Program
                     .WithHash256("4frXBI2FwF2LM/qKBg0E03wsgxAwjM9XkjmuHhsolJU=")
                     .WithHash256("Ev6x8tBHdhQy7B3Y75SlaTnHyEhorCajhRI7BtClp8w=")
                     .WithHash256("qYi3FSs1kDVtElTOOutxMXxwH9WdFVpZX7kmJrNrzCc=")
+                    .WithHash256("m7uLf4sajs4mz/koWWRl6t0CSOeIW5CBjCzWfQD1h6U=")
+                    .WithHash256("Z6RGWavasjMLZb2NLu4EKzJTvaO9kMpipSZMf7zv4WI=")
                     .UnsafeHashes() // allow use of hashes on style elements, including the login error list
                     .StrictDynamic()
                     .WithHashTagHelper();
