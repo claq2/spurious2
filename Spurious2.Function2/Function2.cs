@@ -3,10 +3,11 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.DurableTask;
 using Microsoft.DurableTask.Client;
 using Microsoft.Extensions.Logging;
+using Spurious2.Core2.Lcbo;
 
 namespace Spurious2.Function2;
 
-public class Function2(ILoggerFactory loggerFactory)
+public class Function2(ILoggerFactory loggerFactory, IImportingService importingService)
 {
     private readonly ILogger<Function2> logger = loggerFactory.CreateLogger<Function2>();
 
@@ -17,7 +18,7 @@ public class Function2(ILoggerFactory loggerFactory)
        FunctionContext executionContext)
     {
         //var logger = loggerFactory.CreateLogger<Function2>();
-        var logger = executionContext.GetLogger<Function2>();
+        ILogger<Function2> logger = executionContext.GetLogger<Function2>();
 
         // Function input comes from the request content.
         var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
@@ -34,7 +35,7 @@ public class Function2(ILoggerFactory loggerFactory)
     public async Task<string> RunOrchestrator(
         [OrchestrationTrigger] TaskOrchestrationContext context)
     {
-        var logger = context.CreateReplaySafeLogger<Function2>();
+        ILogger logger = context.CreateReplaySafeLogger<Function2>();
         logger.LogInformation("Saying hello.");
         var result = "";
         result += await context.CallActivityAsync<string>(nameof(SayHello), "Tokyo") + " ";
@@ -46,7 +47,7 @@ public class Function2(ILoggerFactory loggerFactory)
     [Function(nameof(SayHello))]
     public string SayHello([ActivityTrigger] string name, FunctionContext executionContext)
     {
-        var logger = executionContext.GetLogger<Function2>();
+        ILogger<Function2> logger = executionContext.GetLogger<Function2>();
         logger.LogInformation("Saying hello to {name}.", name);
         return $"Hello {name}!";
     }
