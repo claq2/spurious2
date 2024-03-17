@@ -13,8 +13,21 @@
       "Spurious2.Function2": "Information",
       "Spurious2": "Information",
       "Function.Function2.User": "Information",
-      "Function.Function_HttpStart.User": "Information",
-      "Function.SayHello.User": "Information"
+      "Function.BlobImportFunctionsHttpStart.User": "Information",
+      "Function.BlobImportFunctions.User": "Information",
+      "Function.StartImporting.User": "Information",
+      "Function.GetWinePages.User": "Information",
+      "Function.GetBeerPages.User": "Information",
+      "Function.GetSpiritsPages.User": "Information",
+      "Function.Product.User": "Information",
+      "Function.SignalLastProductDone.User": "Information",
+      "Function.Inventory.User": "Information",
+      "Function.Store.User": "Information",
+      "Function.LastProduct.User": "Information",
+      "Function.LastInventory.User": "Information",
+      "Function.UpdateHttpStart.User": "Information",
+      "Function.UpdateOrch.User": "Information",
+      "Function.Update.User": "Information"
     },
     "applicationInsights": {
       "samplingSettings": {
