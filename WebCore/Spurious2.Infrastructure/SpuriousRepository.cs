@@ -458,7 +458,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
-        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncoming").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoreVolumes").ConfigAwait();
     }
 
     public async Task UpdateSubdivisionVolumes()

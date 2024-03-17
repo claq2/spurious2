@@ -40,21 +40,21 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         ILogger logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
         try
         {
-            var x = await context.CallActivityAsync<string>(nameof(StartImporting), "Blah");
+            await context.CallActivityAsync(nameof(StartImporting));
         }
         catch (Exception ex)
         {
             throw;
         }
 
-        //await Task.WhenAll(new List<Task>
-        //{
-        //    context.CallActivityAsync(nameof(GetWinePages), "Blah"),
-        //    context.CallActivityAsync(nameof(GetBeerPages), "Blah"),
-        //    context.CallActivityAsync(nameof(GetSpiritsPages), "Blah"),
-        //});
+        await Task.WhenAll(new List<Task>
+        {
+            context.CallActivityAsync(nameof(GetWinePages)),
+            context.CallActivityAsync(nameof(GetBeerPages)),
+            context.CallActivityAsync(nameof(GetSpiritsPages)),
+        });
 
-        //await context.CallActivityAsync(nameof(SignalLastProductDone), "Blah");
+        await context.CallActivityAsync(nameof(SignalLastProductDone));
         logger.LogInformation($"Finished BlobImportFunctions.");
         return "Done BlobImportFunctions";
     }
@@ -101,12 +101,12 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(StartImporting))]
-    public string StartImporting([ActivityTrigger] string name, FunctionContext executionContext)
+    public async Task StartImporting([ActivityTrigger] string name, FunctionContext executionContext)
     {
         ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
-        //await importingService.StartImporting().ConfigAwait();
+        await importingService.StartImporting().ConfigAwait();
         logger.LogInformation("Finished StartImporting.");
-        return "StartImporting";
+        //return "StartImporting";
     }
 
     [Function(nameof(GetWinePages))]
@@ -132,58 +132,60 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
 
     [Function(nameof(Product))]
     public async Task Product([BlobTrigger("products/{productId}", Connection = "AzureWebJobsStorage")] string myBlob,
-        string productId, ILogger logger)
+        string productId)
     {
         await importingService.ProcessProductBlob(productId).ConfigAwait();
-        logger.LogInformation($"C# Blob trigger function processed product blob\n Name:{productId} \n Size: {myBlob.Length} Bytes");
+        this.logger.LogInformation($"C# Blob trigger function processed product blob\n Name:{productId} \n Size: {myBlob.Length} Bytes");
     }
 
 
     [Function(nameof(SignalLastProductDone))]
-    public async Task SignalLastProductDone([ActivityTrigger] string name, ILogger logger)
+    public async Task SignalLastProductDone([ActivityTrigger] string name, FunctionContext executionContext)
     {
+        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
         await importingService.SignalLastProductDone().ConfigAwait();
         logger.LogInformation($"Finished SignalLastProductDone.");
     }
 
     [Function(nameof(Inventory))]
     public async Task Inventory([BlobTrigger("inventories/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string name, ILogger logger)
+        string name)
     {
-        logger.LogInformation("Inventory blob trigger called for {name}", name);
+        this.logger.LogInformation("Inventory blob trigger called for {name}", name);
         await importingService.ProcessInventoryBlob(name, myBlob).ConfigAwait();
-        logger.LogInformation($"C# Blob trigger function processed inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+        this.logger.LogInformation($"C# Blob trigger function processed inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
     [Function(nameof(Store))]
     public async Task Store([BlobTrigger("stores/{storeId}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string storeId, ILogger logger)
+        string storeId)
     {
         await importingService.ProcessStoreBlob(storeId, myBlob).ConfigAwait();
-        logger.LogInformation($"C# Blob trigger function processed store blob\n Name:{storeId} \n Size: {myBlob.Length} Bytes");
+        this.logger.LogInformation($"C# Blob trigger function processed store blob\n Name:{storeId} \n Size: {myBlob.Length} Bytes");
     }
 
     [Function(nameof(LastProduct))]
     public async Task LastProduct([BlobTrigger("last-product/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string name, ILogger logger)
+        string name)
     {
         await importingService.ProcessLastProductBlob(name).ConfigAwait();
-        logger.LogInformation($"C# Blob trigger function Processed last product blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+        this.logger.LogInformation($"C# Blob trigger function Processed last product blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
     [Function(nameof(LastInventory))]
     public async Task LastInventory([BlobTrigger("last-inventory/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string name, ILogger logger)
+        string name)
     {
         await importingService.ProcessLastInventoryBlob(name).ConfigAwait();
-        logger.LogInformation($"C# Blob trigger function Processed last inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+        this.logger.LogInformation($"C# Blob trigger function Processed last inventory blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
     }
 
     [Function(nameof(UpdateHttpStart))]
     public async Task<HttpResponseData> UpdateHttpStart(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
-        [DurableClient] DurableTaskClient client, ILogger logger)
+        [DurableClient] DurableTaskClient client, FunctionContext executionContext)
     {
+        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
         // Function input comes from the request content.
         var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(UpdateOrch));
 
@@ -195,17 +197,18 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [Function(nameof(UpdateOrch))]
     // [Singleton]
     public async Task<string> UpdateOrch(
-       [OrchestrationTrigger] TaskOrchestrationContext context, ILogger logger)
+       [OrchestrationTrigger] TaskOrchestrationContext context)
     {
+        ILogger logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
         await context.CallActivityAsync(nameof(Update));
         logger.LogInformation($"Finished UpdateOrch.");
         return "Done UpdateOrch";
     }
 
     [Function(nameof(Update))]
-    public async Task Update([ActivityTrigger] string name, ILogger logger)
+    public async Task Update([ActivityTrigger] string name)
     {
         await importingService.UpdateAll().ConfigAwait();
-        logger.LogInformation($"Finished Update.");
+        this.logger.LogInformation($"Finished Update.");
     }
 }
