@@ -26,7 +26,7 @@ public interface ISpuriousRepository : IDisposable
     Task ClearIncomingProducts();
     Task ClearIncomingInventory();
     Task UpdateIncomingStore(StoreIncoming store);
-    Task ImportAFewProducts(List<ProductIncoming> products);
+    Task<int> ImportAFewProducts(List<ProductIncoming> products);
     Task AddIncomingStoreIds(List<int> storeIds);
     Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories);
     Task MarkIncomingProductDone(string productId);

@@ -174,6 +174,10 @@ public class DbTests
         productsIncoming[0].ProductName.Should().Be("Red Wine 1");
 
         productsIncoming[1].Volume.Should().Be(2046);
+
+        // Try to import the same again, should not fail
+        var imported = await repo.ImportAFewProducts(products).ConfigAwait();
+        imported.Should().Be(0);
     }
 }
 

@@ -367,7 +367,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             .ConfigAwait();
     }
 
-    public async Task ImportAFewProducts(List<ProductIncoming> products)
+    public async Task<int> ImportAFewProducts(List<ProductIncoming> products)
     {
         ArgumentNullException.ThrowIfNull(products);
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
@@ -377,7 +377,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingProduct"
         };
-        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
+        return await dbContext.Database.ExecuteSqlRawAsync(@"
                         insert into ProductIncoming (id, productname, category, volume, productdone)
                         select Id, ProductName, Category, Volume, ProductDone
                         from @products
