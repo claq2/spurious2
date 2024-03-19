@@ -377,11 +377,14 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingProduct"
         };
-        return await dbContext.Database.ExecuteSqlRawAsync(@"
+        using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
+        var insertedCount = await dbContext.Database.ExecuteSqlRawAsync(@"
                         insert into ProductIncoming (id, productname, category, volume, productdone)
                         select Id, ProductName, Category, Volume, ProductDone
                         from @products
                         where Id not in (select Id from ProductIncoming)", param).ConfigAwait();
+        await transaction.CommitAsync().ConfigAwait();
+        return insertedCount;
     }
 
     public async Task AddIncomingStoreIds(List<int> storeIds)
@@ -394,11 +397,13 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingStore"
         };
+        using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlRawAsync(@"
                         insert into StoreIncoming (id)
                         select Id
                         from @storeIds
                         where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
+        await transaction.CommitAsync().ConfigAwait();
     }
 
     public async Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories)
@@ -411,11 +416,13 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingInventory"
         };
+        using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlRawAsync(@"
                         insert into InventoryIncoming (ProductId, StoreId, Quantity)
                         select ProductId, StoreId, Quantity
                         from @inventories
                         except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
+        await transaction.CommitAsync().ConfigAwait();
     }
 
     public async Task MarkIncomingProductDone(string productId)

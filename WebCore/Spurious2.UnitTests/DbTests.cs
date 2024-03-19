@@ -179,6 +179,63 @@ public class DbTests
         var imported = await repo.ImportAFewProducts(products).ConfigAwait();
         imported.Should().Be(0);
     }
+
+    [Test]
+    public async Task ImportAFewProductsAtTheSameTime()
+    {
+        using var repo = new SpuriousRepository(this.mockFactory.Object);
+
+        await repo.AddIncomingStoreIds([1, 2, 3]).ConfigAwait();
+
+        List<ProductIncoming> products = [
+                new ProductIncoming
+                {
+                    Category = "Wine",
+                    Id = 1,
+                    ProductDone = false, // Repo method sets this to true
+                    ProductName = "Red Wine 1",
+                    Size = "750",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+                new ProductIncoming
+                {
+                    Category = "Beer",
+                    Id = 2,
+                    ProductDone = false,
+                    ProductName = "Beer 1",
+                    Size = "6 x 341",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+                new ProductIncoming
+                {
+                    Category = "Spirits",
+                    Id = 3,
+                    ProductDone = false,
+                    ProductName = "Spirit 1",
+                    Size = "500",
+                    ProductPageUrl = new Uri("https://lcbo.com")
+                },
+            ];
+
+        await Task.WhenAll([
+            repo.ImportAFewProducts(products),
+            repo.ImportAFewProducts(products)])
+            .ConfigAwait();
+
+        using var context2 = new SpuriousContext(this.ob.Options);
+
+        // ProductIncoming can't be used for reading. Use custom type.
+        var productsIncoming = context2.Database.SqlQuery<CustomProductIncoming>($"select * from ProductIncoming").ToList();
+        productsIncoming.Count.Should().Be(3);
+
+        productsIncoming[0].Id.Should().Be(1);
+        productsIncoming[0].ProductDone.Should().BeTrue();
+        productsIncoming[0].Volume.Should().Be(750);
+        productsIncoming[0].Category.Should().Be("Wine");
+        productsIncoming[0].ProductName.Should().Be("Red Wine 1");
+
+        productsIncoming[1].Volume.Should().Be(2046);
+    }
 }
 
 public class CustomProductIncoming
