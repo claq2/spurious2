@@ -42,7 +42,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         {
             await context.CallActivityAsync(nameof(StartImporting));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             throw;
         }
@@ -110,24 +110,24 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(GetWinePages))]
-    public async Task GetWinePages([ActivityTrigger] string name, ILogger logger)
+    public async Task GetWinePages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Wine).ConfigAwait();
-        logger.LogInformation($"Finished GetWinePages.");
+        this.logger.LogInformation($"Finished GetWinePages.");
     }
 
     [Function(nameof(GetBeerPages))]
-    public async Task GetBeerPages([ActivityTrigger] string name, ILogger logger)
+    public async Task GetBeerPages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Beer).ConfigAwait();
-        logger.LogInformation($"Finished GetBeerPages.");
+        this.logger.LogInformation($"Finished GetBeerPages.");
     }
 
     [Function(nameof(GetSpiritsPages))]
-    public async Task GetSpiritsPages([ActivityTrigger] string name, ILogger logger)
+    public async Task GetSpiritsPages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
-        logger.LogInformation($"Finished GetSpiritsPages.");
+        this.logger.LogInformation($"Finished GetSpiritsPages.");
     }
 
     [Function(nameof(Product))]
