@@ -33,11 +33,11 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
     public async Task<List<Store>> GetStoresBySubdivisionId(int subdivisionId, CancellationToken cancellationToken)
     {
         using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
-        var stores = await (from s in dbContext.Stores
-                            from sd in dbContext.Subdivisions
-                            where sd.Id == subdivisionId
-                            where s.LocationGeog.Intersects(sd.Boundary)
-                            select s).ToListAsync(cancellationToken).ConfigAwait();
+        var stores = await dbContext
+            .Stores
+            .Where(s => s.SubdivisionId == subdivisionId)
+            .ToListAsync(cancellationToken)
+            .ConfigAwait();
 
         foreach (var store in stores)
         {
