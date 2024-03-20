@@ -590,6 +590,14 @@ BEGIN
             WHERE [i].[StoreId] = [Store].[Id]
                 AND [p].[Category] = N'Spirits'
             )
+
+            update store 
+set subdivisionid = x.suid
+
+from (select st.Id as stid, su.Id as suid from store st
+inner join Subdivision su on su.Boundary.STIntersects(st.Location) = 1
+) x
+where id= x.stid
 END
 GO
 
