@@ -17,8 +17,8 @@ public class CategorizedProductListClientTests
         var client = CreateCategorizedProductListClient();
         var prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
-        prods.results.Count.Should().Be(9);
-        var productList = prods.results.GetProducts(ProductType.Wine);
+        prods.results.Count().Should().Be(9);
+        var productList = prods.results.GetProducts(ProductType.Wine).ToList();
         productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
         productList.Should().OnlyContain(p => p.Category == "Wine");
@@ -31,8 +31,8 @@ public class CategorizedProductListClientTests
         // Get page 2
         prods = await client.GetProductList(9, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
-        prods.results.Count.Should().Be(9);
-        productList = prods.results.GetProducts(ProductType.Wine);
+        prods.results.Count().Should().Be(9);
+        productList = prods.results.GetProducts(ProductType.Wine).ToList();
         productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
         productList.Should().OnlyContain(p => p.Category == "Wine");

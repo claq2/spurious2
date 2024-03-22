@@ -3,8 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace Lcbo;
 
 #pragma warning disable IDE1006 // Naming Styles
-[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
-[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
 public class Rootobject
 {
     public int totalCount { get; set; }
@@ -18,16 +16,16 @@ public class Rootobject
     public string? index { get; set; }
     public string? indexRegion { get; set; }
     public string? indexToken { get; set; }
-    public List<object>? refinedKeywords { get; set; }
-    public List<object>? triggers { get; set; }
+    public IEnumerable<object>? refinedKeywords { get; set; }
+    public IEnumerable<object>? triggers { get; set; }
     public Termstohighlight? termsToHighlight { get; set; }
     public Phrasestohighlight? phrasesToHighlight { get; set; }
-    public List<object>? queryCorrections { get; set; }
-    public List<object>? groupByResults { get; set; }
-    public List<object>? facets { get; set; }
-    public List<object>? suggestedFacets { get; set; }
-    public List<object>? categoryFacets { get; set; }
-    public List<Result> results { get; set; }
+    public IEnumerable<object>? queryCorrections { get; set; }
+    public IEnumerable<object>? groupByResults { get; set; }
+    public IEnumerable<object>? facets { get; set; }
+    public IEnumerable<object>? suggestedFacets { get; set; }
+    public IEnumerable<object>? categoryFacets { get; set; }
+    public IEnumerable<Result> results { get; set; }
 
     public Rootobject() => this.results = [];
 }
@@ -41,8 +39,6 @@ public class Phrasestohighlight
 }
 
 #pragma warning disable CA1708 // Identifiers should differ by more than case
-[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
-[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
 public class Result
 #pragma warning restore CA1708 // Identifiers should differ by more than case
 {
@@ -64,15 +60,15 @@ public class Result
     public bool isTopResult { get; set; }
     public bool isRecommendation { get; set; }
     public bool isUserActionView { get; set; }
-    public List<object>? titleHighlights { get; set; }
-    public List<object>? firstSentencesHighlights { get; set; }
-    public List<object>? excerptHighlights { get; set; }
-    public List<object>? printableUriHighlights { get; set; }
-    public List<object>? summaryHighlights { get; set; }
+    public IEnumerable<object>? titleHighlights { get; set; }
+    public IEnumerable<object>? firstSentencesHighlights { get; set; }
+    public IEnumerable<object>? excerptHighlights { get; set; }
+    public IEnumerable<object>? printableUriHighlights { get; set; }
+    public IEnumerable<object>? summaryHighlights { get; set; }
     public object? parentResult { get; set; }
-    public List<object>? childResults { get; set; }
+    public IEnumerable<object>? childResults { get; set; }
     public int totalNumberOfChildResults { get; set; }
-    public List<object>? absentTerms { get; set; }
+    public IEnumerable<object>? absentTerms { get; set; }
     public Raw raw { get; set; }
     public string? Title { get; set; }
     public Uri? Uri { get; set; }
@@ -90,8 +86,6 @@ public class Result
     }
 }
 
-[SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
-[SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>")]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
 public class Raw
 {
@@ -109,8 +103,8 @@ public class Raw
     public float validityscore { get; set; }
     public string? stores_low_stock_combined { get; set; }
     public int min_cart_qty { get; set; }
-    public List<string>? lcbo_current_offer { get; set; }
-    public List<string>? ec_skus { get; set; }
+    public IEnumerable<string>? lcbo_current_offer { get; set; }
+    public IEnumerable<string>? ec_skus { get; set; }
     public long sysindexeddate { get; set; }
     public int out_of_stock_threshold { get; set; }
     public string? permanentid { get; set; }
@@ -143,10 +137,10 @@ public class Raw
     public string? lcbo_selling_package_name { get; set; }
     public string? enabled { get; set; }
     public int wordcount { get; set; }
-    public List<string>? ec_category { get; set; }
+    public IEnumerable<string>? ec_category { get; set; }
     public string? source { get; set; }
     public float ec_price { get; set; }
-    public List<string> ec_category_filter { get; set; }
+    public IEnumerable<string> ec_category_filter { get; set; }
     public int sell_rank_monthly { get; set; }
     public string? collection { get; set; }
     public int qty_increments { get; set; }
@@ -167,13 +161,13 @@ public class Raw
     public string? lcbo_region_name { get; set; }
     public string? sysconcepts { get; set; }
     public string? concepts { get; set; }
-    public List<string>? syslanguage { get; set; }
+    public IEnumerable<string>? syslanguage { get; set; }
     public string? ec_shortdesc { get; set; }
     public string? lcbo_tastingnotes { get; set; }
     public string? filetype { get; set; }
     public string? sysfiletype { get; set; }
-    public List<string>? language { get; set; }
-    public List<string>? lcbo_program { get; set; }
+    public IEnumerable<string>? language { get; set; }
+    public IEnumerable<string>? lcbo_program { get; set; }
 
     public Raw()
     {

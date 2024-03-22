@@ -29,7 +29,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     {
         await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
         {
-            await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
+            _ = await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
             foreach (var product in products)
             {
                 await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
@@ -50,7 +50,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Mark prod-inv done
         var inventories = await lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryStream).ConfigAwait();
         logger.LogInformation("Found {Count} inventory items for product {ProductId}",
-            inventories.Count,
+            inventories.Count(),
             productId);
         var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
         await spuriousRepository.AddIncomingStoreIds(storeIds).ConfigAwait();

@@ -133,7 +133,7 @@ public class LcboAdapterTests
                                             CreateInventoryClient(),
                                             CreateStoreClient());
             using var stream = File.OpenRead("80127Inventory.html");
-            var inventories = await adapter.ExtractInventoriesAndStoreIds("80127", stream).ConfigAwait();
+            var inventories = (await adapter.ExtractInventoriesAndStoreIds("80127", stream).ConfigAwait()).ToList();
             Assert.That(inventories, Has.Count.EqualTo(619));
             Assert.Multiple(() =>
             {

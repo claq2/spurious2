@@ -5,11 +5,10 @@ using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Core2;
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
 public interface ISpuriousRepository : IDisposable
 {
     Task CalculateBoundaryGeogs();
-    Task ImportBoundaryBulk(List<BoundaryIncoming> boundaries);
+    Task ImportBoundaryBulk(IEnumerable<BoundaryIncoming> boundaries);
     Task ClearPopulationIncoming();
     Task ImportPopulation(PopulationIncoming population);
     Task UpdatePopulationsFromIncoming();
@@ -26,8 +25,8 @@ public interface ISpuriousRepository : IDisposable
     Task ClearIncomingProducts();
     Task ClearIncomingInventory();
     Task UpdateIncomingStore(StoreIncoming store);
-    Task<int> ImportAFewProducts(List<ProductIncoming> products);
-    Task AddIncomingStoreIds(List<int> storeIds);
+    Task<int> ImportAFewProducts(IEnumerable<ProductIncoming> products);
+    Task AddIncomingStoreIds(IEnumerable<int> storeIds);
     Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories);
     Task MarkIncomingProductDone(string productId);
     Task UpdateStoresFromIncoming();

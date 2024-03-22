@@ -7,8 +7,7 @@ namespace Lcbo;
 
 public static class ResultExtensions
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
-    public static List<ProductIncoming> GetProducts(this List<Result> results, ProductType productType)
+    public static IEnumerable<ProductIncoming> GetProducts(this IEnumerable<Result> results, ProductType productType)
     {
         var result = results
             .Where(p => !string.IsNullOrEmpty(p.raw.lcbo_unit_volume))

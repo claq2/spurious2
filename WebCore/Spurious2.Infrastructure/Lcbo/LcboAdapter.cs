@@ -15,7 +15,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
     InventoryClient inventoryClient,
     StoreClient storeClient) : ILcboAdapter
 {
-    public List<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents)
+    public IEnumerable<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents)
     {
         List<(InventoryIncoming, Uri)> result = [];
         HtmlDocument doc = new();
@@ -81,7 +81,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         return result;
     }
 
-    public async Task<List<(InventoryIncoming Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
+    public async Task<IEnumerable<(InventoryIncoming Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
     {
         string contents;
         using var sr = new StreamReader(inventoryStream, Encoding.UTF8);
@@ -94,24 +94,24 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
     /// Gets the products for the given product type
     /// </summary>
     /// <returns>IAsyncEnumerable<List<Product2>>></returns>
-    public async IAsyncEnumerable<List<ProductIncoming>> GetCategorizedProducts(ProductType productType)
+    public async IAsyncEnumerable<IEnumerable<ProductIncoming>> GetCategorizedProducts(ProductType productType)
     {
         var subs = TypesAndSubTypes.ProductsToSubtypeMap[productType];
         foreach (var productSubtype in subs)
         {
             var productsRead = 0;
             var prods = await productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();
-            productsRead = prods.results.Count;
+            productsRead = prods.results.Count();
             var totalToExpect = prods.totalCountFiltered;
-            var productList = prods.results.GetProducts(productType);
+            var productList = prods.results.GetProducts(productType).ToList();
             var iterationCount = 0;
             yield return productList;
             iterationCount++;
-            while (/*productsRead < totalToExpect &&*/ prods.results.Count > 0)
+            while (/*productsRead < totalToExpect &&*/ productList.Count > 0)
             {
                 prods = await productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
-                productsRead += prods.results.Count;
-                productList = prods.results.GetProducts(productType);
+                productsRead += productList.Count;
+                productList = prods.results.GetProducts(productType).ToList();
 
                 var resultIds = productList.Select(r => r.Id).ToList();
 

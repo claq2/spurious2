@@ -20,7 +20,7 @@ public class InventoryClientTests
         LcboAdapter adapter = new(CreateCategorizedProductListClient(),
                                         CreateInventoryClient(),
                                         CreateStoreClient());
-        var inventories = adapter.ExtractInventoriesAndStoreIds("80127", html);
+        var inventories = adapter.ExtractInventoriesAndStoreIds("80127", html).ToList();
         inventories.Count.Should().BeGreaterThanOrEqualTo(600);
         inventories.Should().OnlyContain(i => i.Inventory.ProductId > 0);
         inventories.Should().OnlyContain(i => i.Inventory.Quantity > 0);

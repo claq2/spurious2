@@ -134,7 +134,7 @@ where id = {boundary.Id}").ConfigAwait();
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
-    public async Task ImportBoundaryBulk(List<BoundaryIncoming> boundaries)
+    public async Task ImportBoundaryBulk(IEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
@@ -367,7 +367,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             .ConfigAwait();
     }
 
-    public async Task<int> ImportAFewProducts(List<ProductIncoming> products)
+    public async Task<int> ImportAFewProducts(IEnumerable<ProductIncoming> products)
     {
         ArgumentNullException.ThrowIfNull(products);
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
@@ -387,7 +387,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         return insertedCount;
     }
 
-    public async Task AddIncomingStoreIds(List<int> storeIds)
+    public async Task AddIncomingStoreIds(IEnumerable<int> storeIds)
     {
         ArgumentNullException.ThrowIfNull(storeIds);
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
