@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "PopulationImporter": {
-      "commandName": "Project",
-      "commandLineArgs": "G:\\Downloads\\98-401-X2021005_eng_CSV\\population.csv"
-    }
-  }
-}

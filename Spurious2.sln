@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Core", "Spurious2.Core\Spurious2.Core.csproj", "{B8612108-085F-425B-ABC7-712D16D7BBFE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PopulationImporter", "PopulationImporter\PopulationImporter.csproj", "{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoundryImporter", "BoundryImporter\BoundryImporter.csproj", "{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F4756106-F750-4CE1-93B7-0A272ACF8CFF}"
 	ProjectSection(SolutionItems) = preProject
 		ImportGeoJson.sql = ImportGeoJson.sql
@@ -17,20 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F475
 		sqlsetup.sql = sqlsetup.sql
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LcboWebsiteAdapter", "LcboWebsiteAdapter\LcboWebsiteAdapter.csproj", "{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.SqlRepositories", "Spurious2.SqlRepositories\Spurious2.SqlRepositories.csproj", "{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{478FA7C7-DDEC-418D-8696-3482B059C76F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Function", "Spurious2.Function\Spurious2.Function.csproj", "{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Tests", "Spurious2.Tests\Spurious2.Tests.csproj", "{4FFD8A70-75B2-4E9B-95B2-B99FBB58B76C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.AzureStorageAdapter", "Spurious2.AzureStorageAdapter\Spurious2.AzureStorageAdapter.csproj", "{C0731F39-6685-4764-828E-EC45564E2599}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebCore", "WebCore", "{3199017E-7761-4B6A-86CA-479144D3F1BA}"
 	ProjectSection(SolutionItems) = preProject
@@ -55,38 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8612108-085F-425B-ABC7-712D16D7BBFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD85C1B0-3333-4E18-B3C4-0C34ABDD1085}.Release|Any CPU.Build.0 = Release|Any CPU
-		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{767E656C-9A50-45F3-9A5F-1D10B5F00CFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71DB144C-3723-4DA3-A18C-5E6EB0BA5B1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D94D6C34-CDF0-4D69-ADD4-2582DB58158F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B96DC25C-4561-4A3A-88AD-2A974EC3F3F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FFD8A70-75B2-4E9B-95B2-B99FBB58B76C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FFD8A70-75B2-4E9B-95B2-B99FBB58B76C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FFD8A70-75B2-4E9B-95B2-B99FBB58B76C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FFD8A70-75B2-4E9B-95B2-B99FBB58B76C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0731F39-6685-4764-828E-EC45564E2599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0731F39-6685-4764-828E-EC45564E2599}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0731F39-6685-4764-828E-EC45564E2599}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0731F39-6685-4764-828E-EC45564E2599}.Release|Any CPU.Build.0 = Release|Any CPU
 		{615EFF0F-0F8D-4F74-9488-C2EED473A673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{615EFF0F-0F8D-4F74-9488-C2EED473A673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615EFF0F-0F8D-4F74-9488-C2EED473A673}.Release|Any CPU.ActiveCfg = Release|Any CPU
