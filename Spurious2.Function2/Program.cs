@@ -9,35 +9,11 @@ using Serilog;
 using Serilog.Events;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
-using Spurious2.Function2;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.AzureStorage;
 
 IHost host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
-    //.ConfigureLogging((hostingContext, logging) =>
-    //{
-    //    var filepath = string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("WEBSITE_CONTENTSHARE")) ?
-    //                    "log.txt" :
-    //                    @"D:\home\LogFiles\Application\log.txt";
-
-    //    Log.Logger = new LoggerConfiguration()
-    //        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    //        .MinimumLevel.Override("Worker", LogEventLevel.Warning)
-    //        .MinimumLevel.Override("Host", LogEventLevel.Warning)
-    //        .MinimumLevel.Override("System", LogEventLevel.Error)
-    //        .MinimumLevel.Override("Function", LogEventLevel.Debug)
-    //        .MinimumLevel.Override("Azure.Storage", LogEventLevel.Error)
-    //        .MinimumLevel.Override("Azure.Core", LogEventLevel.Error)
-    //        .MinimumLevel.Override("Azure.Identity", LogEventLevel.Error)
-    //        .Enrich.WithProperty("Application", "SHDev Blog Functions")
-    //        .Enrich.FromLogContext()
-    //        .WriteTo.Console(LogEventLevel.Debug, outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level}] {Message}{NewLine}{Exception}{NewLine}")
-    //        .WriteTo.File(filepath, LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
-    //        .CreateLogger();
-
-    //    logging.AddSerilog(Log.Logger, true);
-    //})
     .ConfigureServices(services =>
     {
         NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices(
@@ -88,7 +64,6 @@ IHost host = new HostBuilder()
                    .MigrationsAssembly("Spurious2"))
         );
 
-        services.AddScoped<IGreeterService, GreeterService>();
         services.AddScoped<ISpuriousRepository, SpuriousRepository>();
         services.AddScoped<IImportingService, ImportingService>();
         services.AddScoped<IStorageAdapter, StorageAdapter>();
