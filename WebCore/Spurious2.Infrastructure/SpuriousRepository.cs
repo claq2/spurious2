@@ -353,7 +353,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
                 new NetTopologySuite.Geometries.PrecisionModel(1000d),
                 4326).CreateGeometryFactory();
 
-        var point = fact.CreatePoint(new NetTopologySuite.Geometries.Coordinate((double)store.Longitude.Value, (double)store.Latitude.Value));
+        var point = fact.CreatePoint(new NetTopologySuite.Geometries.Coordinate((double)store.Longitude!.Value, (double)store.Latitude!.Value));
 
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         _ = await dbContext.StoreIncomings
