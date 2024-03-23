@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Lcbo;
 
@@ -86,93 +86,136 @@ public class Result
     }
 }
 
-[SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
 public class Raw
 {
-    public int view_rank_monthly { get; set; }
+    [JsonPropertyName("view_rank_monthly")]
+    public int ViewRankMonthly { get; set; }
     public string? systitle { get; set; }
-    public long created_at { get; set; }
-    public string? is_buyable { get; set; }
+    [JsonPropertyName("created_at")]
+    public long CreatedAt { get; set; }
+    [JsonPropertyName("is_buyable")]
+    public string? IsBuyable { get; set; }
     public string? sysurihash { get; set; }
     public string? urihash { get; set; }
     public string? sysuri { get; set; }
-    public string? lcbo_stock_type { get; set; }
+    [JsonPropertyName("lcbo_stock_type")]
+    public string? LcboStockType { get; set; }
     public string? commontabs { get; set; }
     public int systransactionid { get; set; }
-    public float ec_rating { get; set; }
+    [JsonPropertyName("ec_rating")]
+    public float EcRating { get; set; }
     public float validityscore { get; set; }
-    public string? stores_low_stock_combined { get; set; }
-    public int min_cart_qty { get; set; }
-    public IEnumerable<string>? lcbo_current_offer { get; set; }
-    public IEnumerable<string>? ec_skus { get; set; }
+    [JsonPropertyName("stores_low_stock_combined")]
+    public string? StoresLowStockCombined { get; set; }
+    [JsonPropertyName("min_cart_qty")]
+    public int MinCartQty { get; set; }
+    [JsonPropertyName("lcbo_current_offer")]
+    public IEnumerable<string>? LcboCurrentOoffer { get; set; }
+    [JsonPropertyName("ec_skus")]
+    public IEnumerable<string>? EcSkus { get; set; }
     public long sysindexeddate { get; set; }
-    public int out_of_stock_threshold { get; set; }
+    [JsonPropertyName("out_of_stock_threshold")]
+    public int OutOfStockThreshold { get; set; }
     public string? permanentid { get; set; }
     public int transactionid { get; set; }
     public string? title { get; set; }
-    public string? ec_brand { get; set; }
+    [JsonPropertyName("ec_brand")]
+    public string? EcBrand { get; set; }
     public long date { get; set; }
     public string? objecttype { get; set; }
-    public string? stores_stock { get; set; }
-    public int low_stock_threshold { get; set; }
-    public string? country_of_manufacture { get; set; }
-    public int online_inventory { get; set; }
+    [JsonPropertyName("stores_stock")]
+    public string? StoresStock { get; set; }
+    [JsonPropertyName("low_stock_threshold")]
+    public int LowStockThreshold { get; set; }
+    [JsonPropertyName("country_of_manufacture")]
+    public string? CountryOfManufacture { get; set; }
+    [JsonPropertyName("online_inventory")]
+    public int OnlineInventory { get; set; }
     public long rowid { get; set; }
-    public string? stores_stock_combined { get; set; }
-    public float ec_overall_promo_price { get; set; }
+    [JsonPropertyName("stores_stock_combined")]
+    public string? StoresStockCombined { get; set; }
+    [JsonPropertyName("ec_overall_promo_price")]
+    public float EcOverallPromoPrice { get; set; }
     public int size { get; set; }
-    public string? ec_name { get; set; }
+    [JsonPropertyName("ec_name")]
+    public string? EcName { get; set; }
     public string? clickableuri { get; set; }
-    public int avg_reviews { get; set; }
+    [JsonPropertyName("avg_reviews")]
+    public int AvgReviews { get; set; }
     public string? syssource { get; set; }
     public long orderingid { get; set; }
     public int syssize { get; set; }
     public long sysdate { get; set; }
-    public float lcbo_alcohol_percent { get; set; }
-    public string? ec_thumbnails { get; set; }
-    public string? stores_low_stock { get; set; }
-    public int lcbo_bottles_per_pack { get; set; }
-    public string? out_of_stock { get; set; }
-    public string lcbo_unit_volume { get; set; }
-    public string? lcbo_selling_package_name { get; set; }
+    [JsonPropertyName("lcbo_alcohol_percent")]
+    public float LcboAlcoholPercent { get; set; }
+    [JsonPropertyName("ec_thumbnails")]
+    public string? EcThumbnails { get; set; }
+    [JsonPropertyName("stores_low_stock")]
+    public string? StoresLowStock { get; set; }
+    [JsonPropertyName("lcbo_bottles_per_pack")]
+    public int LcboBottlesPerPack { get; set; }
+    [JsonPropertyName("out_of_stock")]
+    public string? OutOfStock { get; set; }
+    [JsonPropertyName("lcbo_unit_volume")]
+    public string LcboUnitVolume { get; set; }
+    [JsonPropertyName("lcbo_selling_package_name")]
+    public string? LcboSellingPackageName { get; set; }
     public string? enabled { get; set; }
     public int wordcount { get; set; }
-    public IEnumerable<string>? ec_category { get; set; }
+    [JsonPropertyName("ec_category")]
+    public IEnumerable<string>? EcCategory { get; set; }
     public string? source { get; set; }
-    public float ec_price { get; set; }
-    public IEnumerable<string> ec_category_filter { get; set; }
-    public int sell_rank_monthly { get; set; }
+    [JsonPropertyName("ec_price")]
+    public float EcPrice { get; set; }
+    [JsonPropertyName("ec_category_filter")]
+    public IEnumerable<string> EcCategoryFilter { get; set; }
+    [JsonPropertyName("sell_rank_monthly")]
+    public int SellRankMonthly { get; set; }
     public string? collection { get; set; }
-    public int qty_increments { get; set; }
+    [JsonPropertyName("qty_increments")]
+    public int QtyIncrements { get; set; }
     public long indexeddate { get; set; }
-    public string? default_low_stock { get; set; }
+    [JsonPropertyName("default_low_stock")]
+    public string? DefaultLowStock { get; set; }
     public string? sysclickableuri { get; set; }
-    public int lcbo_total_volume { get; set; }
-    public float ec_promo_price { get; set; }
-    public string? default_stock { get; set; }
-    public string? stores_inventory { get; set; }
-    public int lcbo_unit_volume_int { get; set; }
+    [JsonPropertyName("lcbo_total_volume")]
+    public int LcboTotalVolume { get; set; }
+    [JsonPropertyName("ec_promo_price")]
+    public float EcPromoPrice { get; set; }
+    [JsonPropertyName("default_stock")]
+    public string? DefaultStock { get; set; }
+    [JsonPropertyName("stores_inventory")]
+    public string? StoresInventory { get; set; }
+    [JsonPropertyName("lcbo_unit_volume_int")]
+    public int LcboUnitVolumeInt { get; set; }
     public long sysrowid { get; set; }
     public Uri? uri { get; set; }
     public string? syscollection { get; set; }
-    public int max_cart_qty { get; set; }
-    public int lcbo_bottles_per_case { get; set; }
-    public float ec_overall_price { get; set; }
-    public string? lcbo_region_name { get; set; }
+    [JsonPropertyName("max_cart_qty")]
+    public int MaxCartQty { get; set; }
+    [JsonPropertyName("lcbo_bottles_per_case")]
+    public int LcboBottlesPerCase { get; set; }
+    [JsonPropertyName("ec_overall_price")]
+    public float EcOverallPrice { get; set; }
+    [JsonPropertyName("lcbo_region_name")]
+    public string? LcboRegionName { get; set; }
     public string? sysconcepts { get; set; }
     public string? concepts { get; set; }
     public IEnumerable<string>? syslanguage { get; set; }
-    public string? ec_shortdesc { get; set; }
-    public string? lcbo_tastingnotes { get; set; }
+    [JsonPropertyName("ec_shortdesc")]
+    public string? EcShortdesc { get; set; }
+    [JsonPropertyName("lcbo_tastingnotes")]
+    public string? LcboTastingnotes { get; set; }
     public string? filetype { get; set; }
     public string? sysfiletype { get; set; }
     public IEnumerable<string>? language { get; set; }
-    public IEnumerable<string>? lcbo_program { get; set; }
+    [JsonPropertyName("lcbo_program")]
+    public IEnumerable<string>? LcboProgram { get; set; }
 
     public Raw()
     {
-        this.ec_category_filter = [];
-        this.lcbo_unit_volume = string.Empty;
+        this.EcCategoryFilter = [];
+        this.LcboUnitVolume = string.Empty;
     }
 }
 #pragma warning restore IDE1006 // Naming Styles
