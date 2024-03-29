@@ -5,12 +5,12 @@ using Spurious2.Core2.Stores;
 
 namespace Spurious2.Infrastructure;
 
-[SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
 [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class StoreConfiguration : IEntityTypeConfiguration<Store>
 {
     public void Configure(EntityTypeBuilder<Store> builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
         builder.HasKey(e => e.Id);
 
         builder.ToTable("Store");

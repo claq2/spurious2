@@ -36,10 +36,10 @@ public partial class SpuriousContext : DbContext
 
     public virtual DbSet<Subdivision> Subdivisions { get; set; }
 
-    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
     [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ArgumentNullException.ThrowIfNull(modelBuilder);
         modelBuilder.ApplyConfiguration(new BoundaryIncomingConfiguration());
 
         modelBuilder.Entity<Inventory>(entity =>

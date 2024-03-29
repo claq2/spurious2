@@ -18,7 +18,7 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         var storesClient = clientFactory.Invoke("stores");
         var lastProductClient = clientFactory.Invoke("last-product");
         var lastInventoryClient = clientFactory.Invoke("last-inventory");
-        logger.LogInformation("Deleting containers");
+        logger.DeletingContainers();
         await Task.WhenAll(
         [
             productsClient.DeleteIfExistsAsync(),
@@ -28,99 +28,81 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
             lastInventoryClient.DeleteIfExistsAsync()
         ]).ConfigAwait();
 
-        logger.LogInformation("Deleted containers");
+        logger.DeletedContainers();
 
         for (var i = 0; i < 3; i++)
         {
-            logger.LogInformation("Creating containers attempt {Attempt}", i + 1);
+            logger.CreatingContainers(i + 1);
 
             var errors = false;
             try
             {
                 await productsClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.LogInformation("Created products");
+                logger.CreatedProducts();
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Couldn't create products");
+                logger.CouldNotCreateProducts(ex);
                 errors = true;
             }
 
             try
             {
                 await inventoriesClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.LogInformation("Created inventories");
+                logger.CreatedInventories();
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Couldn't create inventories");
+                logger.CouldNotCreateInventories(ex);
                 errors = true;
             }
 
             try
             {
                 await storesClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.LogInformation("Created stores");
+                logger.CreatedStores();
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Couldn't create stores");
+                logger.CouldNotCreateStores(ex);
                 errors = true;
             }
 
             try
             {
                 await lastProductClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.LogInformation("Created last-product");
+                logger.CreatedLastProduct();
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Couldn't create last-product");
+                logger.CouldNotCreateLastProduct(ex);
                 errors = true;
             }
 
             try
             {
                 await lastInventoryClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.LogInformation("Created last-inventory");
+                logger.CreatedLastInventory();
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Couldn't create last inventory  ");
+                logger.CouldNotCreateLastInventory(ex);
                 errors = true;
             }
 
             if (i == 2 && errors)
             {
-                logger.LogError("Failed to create one of the containers after 3 tries");
+                logger.FailedToCreateContainer();
                 throw new InvalidOperationException();
             }
 
             if (errors)
             {
-                await Task.Delay(30000).ConfigAwait();
+                await Task.Delay(TimeSpan.FromSeconds(30)).ConfigAwait();
             }
             else
             {
                 break;
-            }
-        }
-    }
-
-    public async Task WriteProduct(string productId, string pageContent, ProductType productType)
-    {
-        var bcc = clientFactory.Invoke(productType.ToString().ToLowerInvariant());
-        var bc = bcc.GetBlobClient(productId);
-        if (!await bc.ExistsAsync().ConfigAwait())
-        {
-            var ec = BlobErrorCode.BlobAlreadyExists.ToString();
-            try
-            {
-                await bc.UploadTextAsync(pageContent).ConfigAwait();
-            }
-            catch (RequestFailedException ex) when (ex.ErrorCode == ec)
-            {
-                // Ignore only if it's not a concurrency issue
             }
         }
     }

@@ -5,12 +5,12 @@ using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Infrastructure;
 
-[SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
 [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class BoundaryIncomingConfiguration : IEntityTypeConfiguration<BoundaryIncoming>
 {
     public void Configure(EntityTypeBuilder<BoundaryIncoming> builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).ValueGeneratedNever();
 

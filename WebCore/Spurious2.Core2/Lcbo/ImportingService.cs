@@ -16,13 +16,13 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         await spuriousRepository.ClearIncomingProducts().ConfigAwait();
         await spuriousRepository.ClearIncomingInventory().ConfigAwait();
         await storageAdapter.ClearStorage().ConfigAwait();
-        logger.LogInformation("Cleared for importing");
+        logger.ClearedForImporting();
     }
 
     public async Task SignalLastProductDone()
     {
         await storageAdapter.WriteLastProduct("Done products!").ConfigAwait();
-        logger.LogInformation($"{nameof(SignalLastProductDone)}");
+        logger.SignalLastProductDone();
     }
 
     public async Task GetProductPages(ProductType productType)
@@ -41,7 +41,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     {
         var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
         await storageAdapter.WriteInventory(productId, contents).ConfigAwait();
-        logger.LogInformation("Processed product {ProductId}", productId);
+        logger.ProcessedProduct(productId);
     }
 
     public async Task ProcessInventoryBlob(string productId, Stream inventoryStream)
@@ -49,9 +49,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Add store info if blob doesn't exist
         // Mark prod-inv done
         var inventories = await lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryStream).ConfigAwait();
-        logger.LogInformation("Found {Count} inventory items for product {ProductId}",
-            inventories.Count(),
-            productId);
+        logger.FoundInventoryForProduct(inventories.Count(), productId);
         var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
         await spuriousRepository.AddIncomingStoreIds(storeIds).ConfigAwait();
         await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
@@ -60,14 +58,13 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
             if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
             {
                 var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
-                // _ = this.storageAdapter.WriteStore(inventory.StoreId.ToString(), storePage).ConfigAwait();
                 await storageAdapter.WriteStore(inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
             }
         }
 
         await spuriousRepository.MarkIncomingProductDone(productId).ConfigAwait();
 
-        logger.LogInformation("Processed inventory {ProductId}", productId);
+        logger.ProcessedInventory(productId);
     }
 
     public async Task ProcessStoreBlob(string storeId, Stream storeStream)
@@ -75,7 +72,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         var store = await lcboAdapter.GetStoreInfo(storeId, storeStream).ConfigAwait();
         // Write store to StoreIncoming, mark as done
         await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
-        logger.LogInformation("Processed store {StoreId}", storeId);
+        logger.ProcessedStore(storeId);
     }
 
     public async Task ProcessLastProductBlob(string contents)
@@ -84,7 +81,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Get inv contents, write to end prod-inv blob
         // Mark prod done
         await storageAdapter.WriteLastInventory(contents).ConfigAwait();
-        logger.LogInformation("Processed last product {Contents}", contents);
+        logger.ProcessedLastProduct(contents);
     }
 
     public async Task ProcessLastInventoryBlob(string contents)
@@ -97,13 +94,13 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         // Prods all done => inventories all done => all stores discovered
 
         await this.EndImporting().ConfigAwait();
-        logger.LogInformation("Processed last inventory {Contents}", contents);
+        logger.ProcessedLastInventory(contents);
     }
 
     public Task EndImporting()
     {
         // Do final update
-        logger.LogInformation("Ended importing, doing DB update (no, not really :)");
+        logger.EndedImporting();
         return Task.CompletedTask;
     }
 
@@ -119,6 +116,6 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         await spuriousRepository.UpdateStoreVolumes().ConfigAwait();
         // UpdateSubdivisionVolumes
         await spuriousRepository.UpdateSubdivisionVolumes().ConfigAwait();
-        logger.LogInformation("Ended DB update");
+        logger.EndedDbUpdate();
     }
 }

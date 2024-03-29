@@ -18,7 +18,6 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
        [DurableClient] DurableTaskClient client,
        FunctionContext executionContext)
     {
-        //var logger = loggerFactory.CreateLogger<Function2>();
         ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
 
         // Function input comes from the request content.

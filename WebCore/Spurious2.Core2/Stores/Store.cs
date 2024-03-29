@@ -21,7 +21,7 @@ public class Store
 
     public GeoJSON.Text.Geometry.Point Location { get; set; } = new GeoJSON.Text.Geometry.Point();
 
-    public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+    public virtual ICollection<Inventory> Inventories { get; private set; } = new List<Inventory>();
 
     public int? SubdivisionId { get; set; }
 }

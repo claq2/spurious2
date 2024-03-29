@@ -10,12 +10,12 @@ public static class ResultExtensions
     public static IEnumerable<ProductIncoming> GetProducts(this IEnumerable<Result> results, ProductType productType)
     {
         var result = results
-            .Where(p => !string.IsNullOrEmpty(p.raw.lcbo_unit_volume))
+            .Where(p => !string.IsNullOrEmpty(p.raw.LcboUnitVolume))
             .Select(p => new ProductIncoming
             {
                 ProductName = p.title,
                 Id = Convert.ToInt32(p.raw.permanentid, CultureInfo.InvariantCulture),
-                Size = p.raw.lcbo_unit_volume,
+                Size = p.raw.LcboUnitVolume,
                 ProductPageUrl = p.uri,
                 Category = productType.ToString()
             }
