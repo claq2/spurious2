@@ -7,49 +7,38 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import Link from "@mui/material/Link";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 const pages = [
-  "Top 10 Overall",
-  "Top 10 Beer",
-  "Top 10 Wine",
-  "Top 10 Spirits",
+  {
+    id: "top10overall",
+    name: "Top 10 Overall",
+  },
+  { id: "top10beer", name: "Top 10 Beer" },
+  { id: "top10wine", name: "Top 10 Wine" },
+  { id: "top10spirits", name: "Top 10 Spirits" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -80,24 +69,44 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem key="about" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">About</Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              "& > :not(style) ~ :not(style)": {
+                ml: 2,
+              },
+            }}
+          >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+              // <>
+              <Link
                 sx={{ my: 2, color: "white", display: "block" }}
+                component={RouterLink}
+                to={`/${page.id}`}
               >
-                {page}
-              </Button>
+                {page.name}
+              </Link>
+
+              // </>
             ))}
+            <Link
+              sx={{ my: 2, color: "white", display: "block" }}
+              component={RouterLink}
+              to={"/about"}
+            >
+              About
+            </Link>
           </Box>
 
           {/* <Box sx={{ flexGrow: 0 }}>
