@@ -19,6 +19,7 @@ const pages = [
   { id: "top10beer", name: "Top 10 Beer" },
   { id: "top10wine", name: "Top 10 Wine" },
   { id: "top10spirits", name: "Top 10 Spirits" },
+  { id: "bottom10overall", name: "Bottom 10 Overall" },
 ];
 
 const NavBar = () => {
@@ -80,7 +81,7 @@ const NavBar = () => {
               <MenuItem
                 key="about"
                 component={RouterLink}
-                to={"/about"}
+                to="/about"
                 onClick={handleCloseNavMenu}
               >
                 <Typography textAlign="center">About</Typography>
@@ -97,10 +98,24 @@ const NavBar = () => {
               },
             }}
           >
+            <Link
+              variant="h5"
+              sx={{ my: 2, color: "white", display: "block" }}
+              component={RouterLink}
+              to="/"
+              key="home"
+            >
+              Spurious Alcohol Statistics
+            </Link>
             {pages.map((page) => (
               // <>
               <Link
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  alignContent: "center",
+                }}
                 component={RouterLink}
                 to={`/${page.id}`}
                 key={page.id}
@@ -111,9 +126,14 @@ const NavBar = () => {
               // </>
             ))}
             <Link
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                alignContent: "center",
+              }}
               component={RouterLink}
-              to={"/about"}
+              to="/about"
               key="about"
             >
               About
