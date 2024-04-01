@@ -103,6 +103,7 @@ const NavBar = () => {
                 sx={{ my: 2, color: "white", display: "block" }}
                 component={RouterLink}
                 to={`/${page.id}`}
+                key={page.id}
               >
                 {page.name}
               </Link>
@@ -113,6 +114,7 @@ const NavBar = () => {
               sx={{ my: 2, color: "white", display: "block" }}
               component={RouterLink}
               to={"/about"}
+              key="about"
             >
               About
             </Link>
