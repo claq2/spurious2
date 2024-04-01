@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
   {
@@ -22,7 +22,6 @@ const pages = [
 ];
 
 const NavBar = () => {
-  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -69,11 +68,21 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.id}
+                  component={RouterLink}
+                  to={`/${page.id}`}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
-              <MenuItem key="about" onClick={handleCloseNavMenu}>
+              <MenuItem
+                key="about"
+                component={RouterLink}
+                to={"/about"}
+                onClick={handleCloseNavMenu}
+              >
                 <Typography textAlign="center">About</Typography>
               </MenuItem>
             </Menu>
