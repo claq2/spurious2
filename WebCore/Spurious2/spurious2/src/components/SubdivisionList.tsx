@@ -7,22 +7,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
+function createData(name: string, population: number, density: number) {
+  return { name, population, density };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("Peele", 159, 6.12),
+  createData("Pickle Lake", 237, 9.81),
+  createData("White River", 262, 16.64),
+  createData("Assiginack", 305, 3.75),
+  createData("The Archipelago", 356, 16.4),
+  createData("Killarney", Math.floor(Math.random() * 100), 16.0),
+  createData("Westport", Math.floor(Math.random() * 100), 16.0),
+  createData("Gore Bay", Math.floor(Math.random() * 100), 16.0),
+  createData("Ear Falls", Math.floor(Math.random() * 100), 16.0),
+  createData("James", Math.floor(Math.random() * 100), 16.0),
 ];
 
 const SubdivisionList = () => {
@@ -45,8 +44,8 @@ const SubdivisionList = () => {
             >
               <TableCell scope="row">{index + 1}.</TableCell>
               <TableCell>{row.name}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.population}</TableCell>
+              <TableCell align="right">{row.density}</TableCell>
             </TableRow>
           ))}
         </TableBody>
