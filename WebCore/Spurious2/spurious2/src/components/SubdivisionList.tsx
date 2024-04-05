@@ -1,11 +1,11 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 
@@ -38,18 +38,18 @@ const rows: Data[] = [
   createData(1099, "James", Math.floor(Math.random() * 100), 16.0),
 ];
 
-interface Cell {
-  cellIndex: number;
-}
+// interface Cell {
+//   cellIndex: number;
+// }
 
 const SubdivisionList = () => {
-  const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    console.log((e.target as Element).innerHTML);
-    console.log("target", e.target);
-    const x = e.target as unknown as Cell;
-    console.log("x", x);
-    console.log("e", e);
-  };
+  // const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+  //   console.log((e.target as Element).innerHTML);
+  //   console.log("target", e.target);
+  //   const x = e.target as unknown as Cell;
+  //   console.log("x", x);
+  //   console.log("e", e);
+  // };
 
   const rowClick = (params: GridRowParams) => {
     console.log("rowClick", params);
