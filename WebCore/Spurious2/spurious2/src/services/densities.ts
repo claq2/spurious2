@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { Density } from './types'
 
 export const densityApi = createApi({
   reducerPath: 'densityApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5207/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5207/api' }),
   endpoints: (builder) => ({
-    getDensities: builder.query<string[], void>({
+    getDensities: builder.query<Density[], void>({
       query: () => 'densities',
     }),
   }),
