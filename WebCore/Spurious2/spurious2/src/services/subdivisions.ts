@@ -3,7 +3,7 @@ import { Density, Subdivision } from './types'
 
 export const subdivisionApi = createApi({
   reducerPath: 'subvdivisionApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5207/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5207/api' }),
   endpoints: (builder) => ({
     getBoundaryBySubdivisionId: builder.query<Subdivision, number>({
       query: (id) => `subdivisions/${id}/boundary`,

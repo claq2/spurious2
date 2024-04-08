@@ -13,7 +13,7 @@ import { useLazyGetSubdivisionsByDensityQuery } from "./services/subdivisions";
 const App = () => {
   const [densities, setDensities] = useState<Density[]>([]);
   const resp = useGetDensitiesQuery();
-  const [getSubdivsQuery, subdivsResult, z] =
+  const [getSubdivsQuery, subdivsResult] =
     useLazyGetSubdivisionsByDensityQuery();
 
   useEffect(() => {
@@ -24,7 +24,9 @@ const App = () => {
   }, [resp]);
 
   useEffect(() => {
-    getSubdivsQuery(densities[0].shortName);
+    if (densities.length > 0) {
+      getSubdivsQuery(densities[0].shortName);
+    }
   }, [densities, getSubdivsQuery]);
 
   useEffect(() => {
