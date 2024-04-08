@@ -1,14 +1,20 @@
-﻿@page "/"
+@page "/"
 @model Spurious2.Pages.SpaModel
 @addTagHelper *, NetEscapades.AspNetCore.SecurityHeaders.TagHelpers
 @{
     Layout = "";
 }
 
-@foreach (var file in Directory.EnumerateFiles("wwwroot/dist", "*.js"))
+@foreach (var file in Directory.EnumerateFiles("wwwroot/dist2/static/css", "*.css"))
+{
+    <link rel="stylesheet" href=@file.Substring(7) asp-add-nonce defer></link>
+}
+
+@foreach (var file in Directory.EnumerateFiles("wwwroot/dist2/static/js", "*.js"))
 {
     <script src=@file.Substring(7) asp-add-nonce defer></script>
 }
 
-<body aurelia-app="main">
+<body>
+    <div id="root"></div>
 </body>
