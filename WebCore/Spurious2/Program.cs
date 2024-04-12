@@ -19,6 +19,7 @@ public class Program
 #pragma warning restore CA1506 // Avoid excessive class coupling
 #pragma warning restore CA1052 // Static holder types should be Static or NotInheritable
 {
+    private const string MyOrigins = "MyOrigins";
 #pragma warning disable CA1506 // Avoid excessive class coupling
     public static async Task Main(string[] args)
 #pragma warning restore CA1506 // Avoid excessive class coupling
@@ -80,6 +81,8 @@ public class Program
             builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
             builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
             builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
+            builder.Services.AddCors(options =>
+                options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));
 
             var app = builder.Build();
 #if DEBUG
@@ -186,7 +189,7 @@ public class Program
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors(MyOrigins);
             app.UseAuthorization();
             app.MapControllers();
             app.MapRazorPages();
