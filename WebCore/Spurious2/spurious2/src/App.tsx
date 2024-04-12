@@ -7,14 +7,20 @@ import DefaultMap from "./components/DefaultMap";
 import Container from "@mui/material/Container";
 import SubdivisionList from "./components/SubdivisionList";
 import { useGetDensitiesQuery } from "./services/densities";
-import { Density } from "./services/types";
-import { useLazyGetSubdivisionsByDensityQuery } from "./services/subdivisions";
+import { Density, Subdivision } from "./services/types";
+import {
+  useLazyGetSubdivisionsByDensityQuery,
+  useLazyGetBoundaryBySubdivisionIdQuery,
+} from "./services/subdivisions";
 
 const App = () => {
   const [densities, setDensities] = useState<Density[]>([]);
   const resp = useGetDensitiesQuery();
   const [getSubdivsQuery, subdivsResult] =
     useLazyGetSubdivisionsByDensityQuery();
+  const [getBoundary, boundaryResult] =
+    useLazyGetBoundaryBySubdivisionIdQuery();
+  const [subdivisions, setSubdivisions] = useState<Subdivision[]>([]);
 
   useEffect(() => {
     if (resp.isSuccess && resp.data) {
@@ -32,8 +38,21 @@ const App = () => {
   useEffect(() => {
     if (subdivsResult.isSuccess && subdivsResult.data) {
       console.log(subdivsResult.data);
+      setSubdivisions(subdivsResult.data);
     }
   }, [subdivsResult]);
+
+  useEffect(() => {
+    if (subdivisions.length > 0) {
+      getBoundary(subdivisions[0].id);
+    }
+  }, [subdivisions, getBoundary]);
+
+  useEffect(() => {
+    if (boundaryResult.isSuccess && boundaryResult.data) {
+      console.log("boundaryResult", boundaryResult.data);
+    }
+  }, [boundaryResult]);
 
   return (
     <BrowserRouter>
