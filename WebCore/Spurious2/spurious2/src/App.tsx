@@ -15,7 +15,7 @@ import {
 
 const App = () => {
   const [densities, setDensities] = useState<Density[]>([]);
-  const resp = useGetDensitiesQuery();
+  const denstitiesResponse = useGetDensitiesQuery();
   const [getSubdivsQuery, subdivsResult] =
     useLazyGetSubdivisionsByDensityQuery();
   const [getBoundary, boundaryResult] =
@@ -23,11 +23,11 @@ const App = () => {
   const [subdivisions, setSubdivisions] = useState<Subdivision[]>([]);
 
   useEffect(() => {
-    if (resp.isSuccess && resp.data) {
-      console.log("data", resp.data);
-      setDensities(resp.data);
+    if (denstitiesResponse.isSuccess && denstitiesResponse.data) {
+      console.log("densities", denstitiesResponse.data);
+      setDensities(denstitiesResponse.data);
     }
-  }, [resp]);
+  }, [denstitiesResponse]);
 
   useEffect(() => {
     if (densities.length > 0) {
@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     if (subdivsResult.isSuccess && subdivsResult.data) {
-      console.log(subdivsResult.data);
+      console.log("subdivsResult.data", subdivsResult.data);
       setSubdivisions(subdivsResult.data);
     }
   }, [subdivsResult]);
