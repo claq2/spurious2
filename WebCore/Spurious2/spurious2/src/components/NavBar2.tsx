@@ -18,7 +18,6 @@ const NavBar2 = () => {
           <Link to={`/${res.shortName}`}>
             <h1>{res.title}</h1>
           </Link>
-          <p>{res.title}</p>
         </div>
       ))}
     </div>
