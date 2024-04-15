@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import { Density } from "../services/types";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
@@ -45,79 +45,96 @@ const NavBar = () => {
   }
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {result.map((page) => (
+    <>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {result.map((page) => (
+                  <MenuItem
+                    key={page.shortName}
+                    component={RouterLink}
+                    to={`/${page.shortName}`}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign="center">{page.title}</Typography>
+                  </MenuItem>
+                ))}
                 <MenuItem
-                  key={page.shortName}
+                  key="about"
                   component={RouterLink}
-                  to={`/${page.shortName}`}
+                  to="/about"
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page.title}</Typography>
+                  <Typography textAlign="center">About</Typography>
                 </MenuItem>
-              ))}
-              <MenuItem
-                key="about"
-                component={RouterLink}
-                to="/about"
-                onClick={handleCloseNavMenu}
-              >
-                <Typography textAlign="center">About</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
 
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              "& > :not(style) ~ :not(style)": {
-                ml: 2,
-              },
-            }}
-          >
-            <Link
-              variant="h5"
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={RouterLink}
-              to="/"
-              key="home"
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                "& > :not(style) ~ :not(style)": {
+                  ml: 2,
+                },
+              }}
             >
-              Spurious Alcohol Statistics
-            </Link>
-            {result.map((page) => (
-              // <>
+              <Link
+                variant="h5"
+                sx={{ my: 2, color: "white", display: "block" }}
+                component={RouterLink}
+                to="/"
+                key="home"
+              >
+                Spurious Alcohol Statistics
+              </Link>
+              {result.map((page) => (
+                // <>
+                <Link
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    alignContent: "center",
+                  }}
+                  component={RouterLink}
+                  to={`/${page.shortName}`}
+                  key={page.shortName}
+                >
+                  {page.title}
+                </Link>
+
+                // </>
+              ))}
               <Link
                 sx={{
                   my: 2,
@@ -126,31 +143,17 @@ const NavBar = () => {
                   alignContent: "center",
                 }}
                 component={RouterLink}
-                to={`/${page.shortName}`}
-                key={page.shortName}
+                to="/about"
+                key="about"
               >
-                {page.title}
+                About
               </Link>
-
-              // </>
-            ))}
-            <Link
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                alignContent: "center",
-              }}
-              component={RouterLink}
-              to="/about"
-              key="about"
-            >
-              About
-            </Link>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Outlet />
+    </>
   );
 };
 

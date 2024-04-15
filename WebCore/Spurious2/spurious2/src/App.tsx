@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  RouterProvider,
+  Outlet,
+} from "react-router-dom";
 import NavBar, { dataLoader } from "./components/NavBar";
 import DefaultMap from "./components/DefaultMap";
 import Container from "@mui/material/Container";
@@ -19,7 +25,9 @@ import {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<NavBar />} loader={dataLoader}></Route>
+    <Route path="/" element={<NavBar />} loader={dataLoader}>
+      <Route path="/:id" element={<Home />} />
+    </Route>
   )
 );
 
@@ -67,19 +75,17 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <BrowserRouter>
-        <Container>
-          <div>
-            <h1>Alcohol Density per Census Subdivision</h1>
-          </div>
-          <DefaultMap />
-          <SubdivisionList />
-        </Container>
-        <Routes>
+      <Container>
+        <div>
+          <h1>Alcohol Density per Census Subdivision</h1>
+        </div>
+        <DefaultMap />
+        <SubdivisionList />
+      </Container>
+      {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:id" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+        </Routes> */}
     </>
   );
 };
