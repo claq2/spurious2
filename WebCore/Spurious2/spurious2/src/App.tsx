@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route, RouterProvider } from "react-router-dom";
-import NavBar from "./components/NavBar";
+import NavBar, { dataLoader } from "./components/NavBar";
 import DefaultMap from "./components/DefaultMap";
 import Container from "@mui/material/Container";
 import SubdivisionList from "./components/SubdivisionList";
@@ -16,11 +16,10 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import NavBar2, { dataLoader } from "./components/NavBar2";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<NavBar2 />} loader={dataLoader}></Route>
+    <Route path="/" element={<NavBar />} loader={dataLoader}></Route>
   )
 );
 
@@ -69,7 +68,6 @@ const App = () => {
     <>
       <RouterProvider router={router} />
       <BrowserRouter>
-        <NavBar />
         <Container>
           <div>
             <h1>Alcohol Density per Census Subdivision</h1>

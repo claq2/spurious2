@@ -1,3 +1,7 @@
+import { useLoaderData, useNavigation } from "react-router-dom";
+import { Density } from "../services/types";
+import { store } from "../store";
+import { densityApi } from "../services/densities";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,18 +15,19 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
 
-const pages = [
-  {
-    id: "top10overall",
-    name: "Top 10 Overall",
-  },
-  { id: "top10beer", name: "Top 10 Beer" },
-  { id: "top10wine", name: "Top 10 Wine" },
-  { id: "top10spirits", name: "Top 10 Spirits" },
-  { id: "bottom10overall", name: "Bottom 10 Overall" },
-];
+// const pages = [
+//   {
+//     id: "top10overall",
+//     name: "Top 10 Overall",
+//   },
+//   { id: "top10beer", name: "Top 10 Beer" },
+//   { id: "top10wine", name: "Top 10 Wine" },
+//   { id: "top10spirits", name: "Top 10 Spirits" },
+//   { id: "bottom10overall", name: "Bottom 10 Overall" },
+// ];
 
 const NavBar = () => {
+  const result: Density[] = useLoaderData() as Density[];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -34,6 +39,10 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const navigation = useNavigation();
+  if (navigation.state === "loading") {
+    return <h1>Loading!</h1>;
+  }
 
   return (
     <AppBar position="static">
@@ -68,14 +77,14 @@ const NavBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {result.map((page) => (
                 <MenuItem
-                  key={page.id}
+                  key={page.shortName}
                   component={RouterLink}
-                  to={`/${page.id}`}
+                  to={`/${page.shortName}`}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
               <MenuItem
@@ -107,7 +116,7 @@ const NavBar = () => {
             >
               Spurious Alcohol Statistics
             </Link>
-            {pages.map((page) => (
+            {result.map((page) => (
               // <>
               <Link
                 sx={{
@@ -117,10 +126,10 @@ const NavBar = () => {
                   alignContent: "center",
                 }}
                 component={RouterLink}
-                to={`/${page.id}`}
-                key={page.id}
+                to={`/${page.shortName}`}
+                key={page.shortName}
               >
-                {page.name}
+                {page.title}
               </Link>
 
               // </>
@@ -144,4 +153,16 @@ const NavBar = () => {
     </AppBar>
   );
 };
+
 export default NavBar;
+
+export const dataLoader = async () => {
+  const p = store.dispatch(densityApi.endpoints.getDensities.initiate());
+  try {
+    const ds = await p.unwrap();
+    console.log("ds", ds);
+    return ds;
+  } finally {
+    p.unsubscribe();
+  }
+};
