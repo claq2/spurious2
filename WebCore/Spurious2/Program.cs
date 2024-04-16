@@ -151,29 +151,29 @@ public class Program
                 b.AddFrameSrc().From("https://challenges.cloudflare.com");
                 b.AddImgSrc().Self().Blob().Data();
             })
-    .AddFrameOptionsDeny()
-    .AddContentTypeOptionsNoSniff()
-    .AddReferrerPolicyNoReferrer()
-    .AddPermissionsPolicy(b =>
-    {
-        b.AddMidi().None();
-        b.AddFullscreen().None();
-        b.AddAccelerometer().None();
-        b.AddAmbientLightSensor().None();
-        b.AddAutoplay().None();
-        b.AddCamera().None();
-        b.AddEncryptedMedia().None();
-        b.AddFederatedLearningOfCohortsCalculation().None();
-        b.AddGeolocation().None();
-        b.AddMagnetometer().None();
-        b.AddMicrophone().None();
-        b.AddPayment().None();
-        b.AddPictureInPicture().Self().For("https://challenges.cloudflare.com");
-        b.AddSpeaker().None();
-        b.AddSyncXHR().None();
-        b.AddUsb().None();
-        b.AddVR().None();
-    }));
+            .AddFrameOptionsDeny()
+            .AddContentTypeOptionsNoSniff()
+            .AddReferrerPolicyNoReferrer()
+            .AddPermissionsPolicy(b =>
+            {
+                b.AddMidi().None();
+                b.AddFullscreen().None();
+                b.AddAccelerometer().None();
+                b.AddAmbientLightSensor().None();
+                b.AddAutoplay().None();
+                b.AddCamera().None();
+                b.AddEncryptedMedia().None();
+                b.AddFederatedLearningOfCohortsCalculation().None();
+                b.AddGeolocation().None();
+                b.AddMagnetometer().None();
+                b.AddMicrophone().None();
+                b.AddPayment().None();
+                b.AddPictureInPicture().Self().For("https://challenges.cloudflare.com");
+                b.AddSpeaker().None();
+                b.AddSyncXHR().None();
+                b.AddUsb().None();
+                b.AddVR().None();
+            }));
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
