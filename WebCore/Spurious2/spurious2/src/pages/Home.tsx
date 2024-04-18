@@ -1,6 +1,8 @@
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
 import { useMemo } from "react";
+import DefaultMap from "../components/DefaultMap";
+import SubdivisionList from "../components/SubdivisionList";
 
 export interface HomeProps {
   id: string;
@@ -16,6 +18,10 @@ const Home = () => {
       <div className="App">
         <Container sx={{ marginY: 5 }}>Hi {id}</Container>
       </div>
+      <Container>
+        <DefaultMap />
+        <SubdivisionList />
+      </Container>
     </>
   );
 };
