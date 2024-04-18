@@ -28,7 +28,7 @@ import About from "./components/About";
 export type StaticRoute = { route: string; element: JSX.Element };
 
 export const staticRoutes: StaticRoute[] = [
-  { route: "/about", element: <About /> },
+  { route: "about", element: <About /> },
 ];
 
 const router = createBrowserRouter(
@@ -38,7 +38,7 @@ const router = createBrowserRouter(
         {staticRoutes.map((r) => (
           <Route path={r.route} element={r.element} />
         ))}
-        <Route path="/:id" element={<Home />}></Route>
+        <Route path=":id" element={<Home />}></Route>
       </Route>
     </>
   )
