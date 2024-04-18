@@ -11,8 +11,9 @@ const About = () => {
           <h1>Alcohol Density per Census Subdivision</h1>
         </div>
       </Container>
-
-      <div className="App">About</div>
+      <div className="App">
+        <Container sx={{ marginY: 5 }}>About</Container>
+      </div>
     </>
   );
 };
