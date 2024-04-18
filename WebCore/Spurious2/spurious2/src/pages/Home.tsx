@@ -1,6 +1,5 @@
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
 import { useMemo } from "react";
 
 export interface HomeProps {
@@ -14,13 +13,6 @@ const Home = () => {
   }, [id]);
   return (
     <>
-      <NavBar />
-      <Container>
-        <div>
-          <h1>Alcohol Density per Census Subdivision</h1>
-        </div>
-      </Container>
-
       <div className="App">
         <Container sx={{ marginY: 5 }}>Hi {id}</Container>
       </div>

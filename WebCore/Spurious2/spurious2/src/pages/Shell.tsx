@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
 import { staticRoutes } from "../App";
+import NavBar from "../components/NavBar";
+import Container from "@mui/material/Container";
 
 const Shell = () => {
   const { id } = useParams();
@@ -32,6 +34,12 @@ const Shell = () => {
 
   return (
     <>
+      <NavBar />
+      <Container>
+        <div>
+          <h1>Alcohol Density per Census Subdivision</h1>
+        </div>
+      </Container>
       <Outlet />
     </>
   );

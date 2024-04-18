@@ -36,7 +36,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
         {staticRoutes.map((r) => (
-          <Route path={r.route} element={r.element} />
+          <Route key={r.route} path={r.route} element={r.element} />
         ))}
         <Route path=":id" element={<Home />}></Route>
       </Route>
