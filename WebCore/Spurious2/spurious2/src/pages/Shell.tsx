@@ -4,6 +4,7 @@ import {
   useLoaderData,
   useParams,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import { Density } from "../services/types";
 import { useEffect, useState } from "react";
@@ -12,15 +13,17 @@ import { densityApi } from "../services/densities";
 
 const Shell = () => {
   const { id } = useParams();
+  const location = useLocation();
   const result: Density[] = useLoaderData() as Density[];
   const navigate = useNavigate();
   useEffect(() => {
+    console.log("location", location);
     console.log("id in shell", id);
     console.log("result in shell", result);
-    if (!id && result.length > 0) {
+    if (!id && result.length > 0 && location.pathname !== "/about") {
       navigate(`/${result[0].shortName}`, { replace: true });
     }
-  }, [id, result, navigate]);
+  }, [id, result, navigate, location]);
 
   return (
     <>

@@ -24,12 +24,14 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Shell, { dataLoader } from "./pages/Shell";
+import About from "./components/About";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
-        <Route path="/:id" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/:id" element={<Home />}></Route>
       </Route>
     </>
   )
