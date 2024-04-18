@@ -7,9 +7,10 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Density } from "../services/types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
+import { staticRoutes } from "../App";
 
 const Shell = () => {
   const { id } = useParams();
@@ -20,14 +21,17 @@ const Shell = () => {
     console.log("location", location);
     console.log("id in shell", id);
     console.log("result in shell", result);
-    if (!id && result.length > 0 && location.pathname !== "/about") {
+    if (
+      !id &&
+      result.length > 0 &&
+      !staticRoutes.find((r) => r.route === location.pathname)
+    ) {
       navigate(`/${result[0].shortName}`, { replace: true });
     }
   }, [id, result, navigate, location]);
 
   return (
     <>
-      {/* <NavBar /> */}
       <Outlet />
     </>
   );

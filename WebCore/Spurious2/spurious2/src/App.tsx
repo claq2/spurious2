@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import {
@@ -6,7 +6,6 @@ import {
   // Routes,
   Route,
   RouterProvider,
-  Routes,
   // Outlet,
 } from "react-router-dom";
 // import NavBar, { dataLoader } from "./components/NavBar";
@@ -26,11 +25,19 @@ import {
 import Shell, { dataLoader } from "./pages/Shell";
 import About from "./components/About";
 
+export type StaticRoute = { route: string; element: JSX.Element };
+
+export const staticRoutes: StaticRoute[] = [
+  { route: "/about", element: <About /> },
+];
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
-        <Route path="/about" element={<About />} />
+        {staticRoutes.map((r) => (
+          <Route path={r.route} element={r.element} />
+        ))}
         <Route path="/:id" element={<Home />}></Route>
       </Route>
     </>
