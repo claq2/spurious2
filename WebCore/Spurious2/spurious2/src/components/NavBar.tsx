@@ -1,9 +1,4 @@
-import {
-  Outlet,
-  useLoaderData,
-  useRouteLoaderData,
-  useNavigation,
-} from "react-router-dom";
+import { useRouteLoaderData, useNavigation } from "react-router-dom";
 import { Density } from "../services/types";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
@@ -157,7 +152,6 @@ const NavBar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Outlet />
     </>
   );
 };

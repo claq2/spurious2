@@ -6,6 +6,7 @@ import {
   // Routes,
   Route,
   RouterProvider,
+  Routes,
   // Outlet,
 } from "react-router-dom";
 // import NavBar, { dataLoader } from "./components/NavBar";
@@ -26,9 +27,11 @@ import Shell, { dataLoader } from "./pages/Shell";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
-      <Route path="/:id" element={<Home />} />
-    </Route>
+    <>
+      <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
+        <Route path="/:id" element={<Home />} />
+      </Route>
+    </>
   )
 );
 

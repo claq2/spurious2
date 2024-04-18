@@ -1,7 +1,5 @@
 import * as React from "react";
-import Container from "@mui/material/Container";
 import {
-  Navigate,
   Outlet,
   useLoaderData,
   useParams,
@@ -15,13 +13,11 @@ import { densityApi } from "../services/densities";
 const Shell = () => {
   const { id } = useParams();
   const result: Density[] = useLoaderData() as Density[];
-  const [nav, setNav] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     console.log("id in shell", id);
     console.log("result in shell", result);
     if (!id && result.length > 0) {
-      setNav(true);
       navigate(`/${result[0].shortName}`, { replace: true });
     }
   }, [id, result, navigate]);
