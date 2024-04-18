@@ -1,4 +1,9 @@
-import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
+import {
+  Outlet,
+  useLoaderData,
+  useRouteLoaderData,
+  useNavigation,
+} from "react-router-dom";
 import { Density } from "../services/types";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
@@ -27,7 +32,7 @@ import { Link as RouterLink } from "react-router-dom";
 // ];
 
 const NavBar = () => {
-  const result: Density[] = useLoaderData() as Density[];
+  const result: Density[] = useRouteLoaderData("root") as Density[];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );

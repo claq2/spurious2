@@ -1,5 +1,6 @@
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 export interface HomeProps {
   id: string;
@@ -8,9 +9,18 @@ export interface HomeProps {
 const Home = () => {
   const { id } = useParams();
   return (
-    <div className="App">
-      <Container sx={{ marginY: 5 }}>Hi {id}</Container>
-    </div>
+    <>
+      <NavBar />
+      <Container>
+        <div>
+          <h1>Alcohol Density per Census Subdivision</h1>
+        </div>
+      </Container>
+
+      <div className="App">
+        <Container sx={{ marginY: 5 }}>Hi {id}</Container>
+      </div>
+    </>
   );
 };
 
