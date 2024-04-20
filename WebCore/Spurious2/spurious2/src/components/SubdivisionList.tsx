@@ -111,8 +111,9 @@ const SubdivisionList = () => {
           </TableBody>
         </Table>
       </TableContainer> */}
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", height: "400px" }}>
         <DataGrid
+          autoPageSize
           onRowClick={rowClick}
           rows={rows}
           columns={columns}

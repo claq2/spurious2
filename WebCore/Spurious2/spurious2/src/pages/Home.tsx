@@ -15,9 +15,9 @@ const Home = () => {
   }, [id]);
   return (
     <>
-      <div className="App">
+      {/* <div className="App">
         <Container sx={{ marginY: 5 }}>Hi {id}</Container>
-      </div>
+      </div> */}
       <Container>
         <DefaultMap />
         <SubdivisionList />
