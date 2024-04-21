@@ -26,7 +26,7 @@ function createData(
 }
 
 const rows: Data[] = [
-  createData(11, "Peele", 159, 6.12),
+  createData(10, "Peele", 159, 6.12),
   createData(2344, "Pickle Lake", 237, 9.81),
   createData(323, "White River", 262, 16.64),
   createData(44432, "Assiginack", 305, 3.75),
@@ -36,6 +36,7 @@ const rows: Data[] = [
   createData(81244, "Gore Bay", Math.floor(Math.random() * 100), 16.0),
   createData(91235, "Ear Falls", Math.floor(Math.random() * 100), 16.0),
   createData(1099, "James", Math.floor(Math.random() * 100), 16.0),
+  createData(11, "Eleven", Math.floor(Math.random() * 100), 11.0),
 ];
 
 // interface Cell {
@@ -111,20 +112,19 @@ const SubdivisionList = () => {
           </TableBody>
         </Table>
       </TableContainer> */}
-      <Box sx={{ width: "100%", height: "400px" }}>
+      <Box sx={{ width: "100%", height: 400 }}>
         <DataGrid
-          autoPageSize
           onRowClick={rowClick}
           rows={rows}
           columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 10,
-              },
-            },
-          }}
-          pageSizeOptions={[10]}
+          // initialState={{
+          //   pagination: {
+          //     paginationModel: {
+          //       pageSize: 10,
+          //     },
+          //   },
+          // }}
+          pageSizeOptions={[]}
         />
       </Box>
     </>
