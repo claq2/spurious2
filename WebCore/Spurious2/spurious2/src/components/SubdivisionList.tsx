@@ -6,7 +6,12 @@ import * as React from "react";
 // import TableHead from "@mui/material/TableHead";
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
-import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridRowParams,
+  gridClasses,
+} from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 
 interface Data {
@@ -117,6 +122,16 @@ const SubdivisionList = () => {
           onRowClick={rowClick}
           rows={rows}
           columns={columns}
+          sx={{
+            [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+              {
+                outline: "none",
+              },
+            [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+              {
+                outline: "none",
+              },
+          }}
           // initialState={{
           //   pagination: {
           //     paginationModel: {
