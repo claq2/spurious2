@@ -1,4 +1,8 @@
-import { useRouteLoaderData, useNavigation } from "react-router-dom";
+import {
+  useRouteLoaderData,
+  useNavigation,
+  useLocation,
+} from "react-router-dom";
 import { Density } from "../services/types";
 import { store } from "../store";
 import { densityApi } from "../services/densities";
@@ -14,6 +18,7 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
+import { useEffect } from "react";
 
 // const pages = [
 //   {
@@ -40,6 +45,8 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
   const navigation = useNavigation();
+  const location = useLocation();
+
   if (navigation.state === "loading") {
     return <h1>Loading!</h1>;
   }
@@ -122,7 +129,9 @@ const NavBar = () => {
                 <Link
                   sx={{
                     my: 2,
-                    color: "white",
+                    color: location.pathname.endsWith(page.shortName)
+                      ? "white"
+                      : "lightgray",
                     display: "block",
                     alignContent: "center",
                   }}
@@ -138,7 +147,9 @@ const NavBar = () => {
               <Link
                 sx={{
                   my: 2,
-                  color: "white",
+                  color: location.pathname.endsWith("/about")
+                    ? "white"
+                    : "lightgray",
                   display: "block",
                   alignContent: "center",
                 }}

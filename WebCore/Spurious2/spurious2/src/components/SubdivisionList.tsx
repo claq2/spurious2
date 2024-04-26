@@ -132,14 +132,14 @@ const SubdivisionList = () => {
                 outline: "none",
               },
           }}
-          // initialState={{
-          //   pagination: {
-          //     paginationModel: {
-          //       pageSize: 10,
-          //     },
-          //   },
-          // }}
-          pageSizeOptions={[]}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
+              },
+            },
+          }}
+          pageSizeOptions={[10]}
         />
       </Box>
     </>
