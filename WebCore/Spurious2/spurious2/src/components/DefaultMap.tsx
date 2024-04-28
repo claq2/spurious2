@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AzureMap,
   AzureMapsProvider,
   IAzureMapOptions,
   AuthenticationType,
+  AzureMapDataSourceProvider,
+  AzureMapLayerProvider,
+  AzureMapFeature,
 } from "react-azure-maps";
 import { data } from "azure-maps-control";
 import { useLazyGetBoundaryBySubdivisionIdQuery } from "../services/subdivisions";
@@ -23,24 +26,45 @@ export interface DefaultMapProps {
 
 const DefaultMap = ({ subdivisionId }: DefaultMapProps) => {
   const [getBoundaryQuery, result] = useLazyGetBoundaryBySubdivisionIdQuery();
+  const [coords, setCoords] = useState<[number[]] | undefined>(undefined);
 
   useEffect(() => {
     console.log("subdivid in defaultmap", subdivisionId);
     if (subdivisionId) {
-      getBoundaryQuery(subdivisionId);
+      getBoundaryQuery(subdivisionId, true);
     }
   }, [subdivisionId, getBoundaryQuery]);
 
   useEffect(() => {
-    if (!result.isLoading && result.isSuccess) {
+    if (!result.isFetching && result.isSuccess) {
       console.log("result in defaultmap", result);
+      setCoords(result.data.coordinates);
     }
   }, [result]);
 
   return (
     <AzureMapsProvider>
       <div style={{ height: "400px" }}>
-        <AzureMap options={option} />
+        <AzureMap options={option}>
+          <AzureMapDataSourceProvider
+            id={"polygonExample AzureMapDataSourceProvider"}
+            options={{}}
+          >
+            <AzureMapLayerProvider
+              id={"polygonExample LayerProvider"}
+              options={{
+                fillOpacity: 0.5,
+                fillColor: "#ff0000",
+              }}
+              type={"PolygonLayer"}
+            />
+            <AzureMapFeature
+              id={"polygonExample MapFeature"}
+              type="Polygon"
+              coordinates={coords}
+            />
+          </AzureMapDataSourceProvider>
+        </AzureMap>
       </div>
     </AzureMapsProvider>
   );
