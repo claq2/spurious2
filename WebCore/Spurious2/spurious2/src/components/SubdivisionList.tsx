@@ -52,7 +52,11 @@ import { Subdivision } from "../services/types";
 //   cellIndex: number;
 // }
 
-const SubdivisionList = () => {
+interface SubdivisionListProps {
+  onSubdivisionChange: (subdivisionId: number) => void;
+}
+
+const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   const { id } = useParams();
   const { data, isLoading, isSuccess, isError } =
     useGetSubdivisionsByDensityQuery(id as string);
@@ -67,6 +71,7 @@ const SubdivisionList = () => {
 
   const rowClick = (params: GridRowParams) => {
     console.log("rowClick", params);
+    onSubdivisionChange(params.row.id);
   };
 
   const columns: GridColDef<Subdivision[][number]>[] = [

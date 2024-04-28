@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AzureMap,
   AzureMapsProvider,
@@ -6,6 +6,8 @@ import {
   AuthenticationType,
 } from "react-azure-maps";
 import { data } from "azure-maps-control";
+import { useLazyGetBoundaryBySubdivisionIdQuery } from "../services/subdivisions";
+
 const option: IAzureMapOptions = {
   authOptions: {
     authType: AuthenticationType.subscriptionKey,
@@ -15,12 +17,33 @@ const option: IAzureMapOptions = {
   zoom: 4,
 };
 
-const DefaultMap: React.FC = () => (
-  <AzureMapsProvider>
-    <div style={{ height: "400px" }}>
-      <AzureMap options={option} />
-    </div>
-  </AzureMapsProvider>
-);
+export interface DefaultMapProps {
+  subdivisionId: number | undefined;
+}
+
+const DefaultMap = ({ subdivisionId }: DefaultMapProps) => {
+  const [getBoundaryQuery, result] = useLazyGetBoundaryBySubdivisionIdQuery();
+
+  useEffect(() => {
+    console.log("subdivid in defaultmap", subdivisionId);
+    if (subdivisionId) {
+      getBoundaryQuery(subdivisionId);
+    }
+  }, [subdivisionId, getBoundaryQuery]);
+
+  useEffect(() => {
+    if (!result.isLoading && result.isSuccess) {
+      console.log("result in defaultmap", result);
+    }
+  }, [result]);
+
+  return (
+    <AzureMapsProvider>
+      <div style={{ height: "400px" }}>
+        <AzureMap options={option} />
+      </div>
+    </AzureMapsProvider>
+  );
+};
 
 export default DefaultMap;

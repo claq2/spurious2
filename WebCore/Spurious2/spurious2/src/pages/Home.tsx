@@ -1,6 +1,6 @@
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import DefaultMap from "../components/DefaultMap";
 import SubdivisionList from "../components/SubdivisionList";
 
@@ -13,14 +13,23 @@ const Home = () => {
   useMemo(() => {
     console.log("id in home", id);
   }, [id]);
+
+  const [selectedSubdivisionId, setSelectedSubdivisionId] = useState<
+    number | undefined
+  >(undefined);
+
+  const onSubdivisionChange = (subdivisionId: number) => {
+    setSelectedSubdivisionId(subdivisionId);
+  };
+
   return (
     <>
       {/* <div className="App">
         <Container sx={{ marginY: 5 }}>Hi {id}</Container>
       </div> */}
       <Container>
-        <DefaultMap />
-        <SubdivisionList />
+        <DefaultMap subdivisionId={selectedSubdivisionId} />
+        <SubdivisionList onSubdivisionChange={onSubdivisionChange} />
       </Container>
     </>
   );
