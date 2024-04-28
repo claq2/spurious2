@@ -18,7 +18,6 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
-import { useEffect } from "react";
 
 // const pages = [
 //   {
@@ -129,9 +128,12 @@ const NavBar = () => {
                 <Link
                   sx={{
                     my: 2,
-                    color: location.pathname.endsWith(page.shortName)
-                      ? "white"
-                      : "lightgray",
+                    color:
+                      location.pathname.endsWith(page.shortName) ||
+                      (location.pathname === "/" &&
+                        page.shortName === result[0].shortName)
+                        ? "white"
+                        : "lightgray",
                     display: "block",
                     alignContent: "center",
                   }}
