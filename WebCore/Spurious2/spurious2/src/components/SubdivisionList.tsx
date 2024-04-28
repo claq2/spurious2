@@ -13,42 +13,50 @@ import {
   gridClasses,
 } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { useGetSubdivisionsByDensityQuery } from "../services/subdivisions";
+import { useEffect, useState } from "react";
+import { Subdivision } from "../services/types";
 
-interface Data {
-  id: number;
-  name: string;
-  population: number;
-  density: number;
-}
+// interface Data {
+//   id: number;
+//   name: string;
+//   population: number;
+//   density: number;
+// }
 
-function createData(
-  id: number,
-  name: string,
-  population: number,
-  density: number
-): Data {
-  return { id, name, population, density };
-}
+// function createData(
+//   id: number,
+//   name: string,
+//   population: number,
+//   density: number
+// ): Data {
+//   return { id, name, population, density };
+// }
 
-const rows: Data[] = [
-  createData(10, "Peele", 159, 6.12),
-  createData(2344, "Pickle Lake", 237, 9.81),
-  createData(323, "White River", 262, 16.64),
-  createData(44432, "Assiginack", 305, 3.75),
-  createData(51, "The Archipelago", 356, 16.4),
-  createData(653223, "Killarney", Math.floor(Math.random() * 100), 16.0),
-  createData(37, "Westport", Math.floor(Math.random() * 100), 16.0),
-  createData(81244, "Gore Bay", Math.floor(Math.random() * 100), 16.0),
-  createData(91235, "Ear Falls", Math.floor(Math.random() * 100), 16.0),
-  createData(1099, "James", Math.floor(Math.random() * 100), 16.0),
-  createData(11, "Eleven", Math.floor(Math.random() * 100), 11.0),
-];
+// const rows: Data[] = [
+//   createData(10, "Peele", 159, 6.12),
+//   createData(2344, "Pickle Lake", 237, 9.81),
+//   createData(323, "White River", 262, 16.64),
+//   createData(44432, "Assiginack", 305, 3.75),
+//   createData(51, "The Archipelago", 356, 16.4),
+//   createData(653223, "Killarney", Math.floor(Math.random() * 100), 16.0),
+//   createData(37, "Westport", Math.floor(Math.random() * 100), 16.0),
+//   createData(81244, "Gore Bay", Math.floor(Math.random() * 100), 16.0),
+//   createData(91235, "Ear Falls", Math.floor(Math.random() * 100), 16.0),
+//   createData(1099, "James", Math.floor(Math.random() * 100), 16.0),
+//   createData(11, "Eleven", Math.floor(Math.random() * 100), 11.0),
+// ];
 
 // interface Cell {
 //   cellIndex: number;
 // }
 
 const SubdivisionList = () => {
+  const { id } = useParams();
+  const { data, isLoading, isSuccess, isError } =
+    useGetSubdivisionsByDensityQuery(id as string);
+  const [tableData, setTableData] = useState<Subdivision[]>([]);
   // const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
   //   console.log((e.target as Element).innerHTML);
   //   console.log("target", e.target);
@@ -61,7 +69,7 @@ const SubdivisionList = () => {
     console.log("rowClick", params);
   };
 
-  const columns: GridColDef<(typeof rows)[number]>[] = [
+  const columns: GridColDef<Subdivision[][number]>[] = [
     // { field: "id", headerName: "ID", width: 90 },
     {
       field: "name",
@@ -80,7 +88,7 @@ const SubdivisionList = () => {
       flex: 1,
     },
     {
-      field: "density",
+      field: "requestedDensityAmount",
       headerName: "Density (L/person)",
       type: "number",
       // width: 110,
@@ -89,38 +97,19 @@ const SubdivisionList = () => {
     },
   ];
 
+  useEffect(() => {
+    if (!isLoading && data && isSuccess) {
+      setTableData(data);
+    }
+  }, [data, isError, isSuccess, isLoading]);
+
   return (
     <>
-      {/* <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Subdivision&nbsp;Name</TableCell>
-              <TableCell align="right">Population</TableCell>
-              <TableCell align="right">Density&nbsp;(L/person)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow
-                onClick={tableCellClickHandler}
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell scope="row">{index + 1}.</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell align="right">{row.population}</TableCell>
-                <TableCell align="right">{row.density}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
       <Box sx={{ width: "100%" }}>
         <DataGrid
+          loading={isLoading}
           onRowClick={rowClick}
-          rows={rows}
+          rows={tableData}
           columns={columns}
           sx={{
             [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
