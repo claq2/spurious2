@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import DefaultMap from "../components/DefaultMap";
 import SubdivisionList from "../components/SubdivisionList";
+import MapWrapper from "../components/MapWrapper";
 
 export interface HomeProps {
   id: string;
@@ -28,7 +29,8 @@ const Home = () => {
         <Container sx={{ marginY: 5 }}>Hi {id}</Container>
       </div> */}
       <Container>
-        <DefaultMap subdivisionId={selectedSubdivisionId} />
+        {/* <DefaultMap subdivisionId={selectedSubdivisionId} /> */}
+        <MapWrapper />
         <SubdivisionList onSubdivisionChange={onSubdivisionChange} />
       </Container>
     </>
