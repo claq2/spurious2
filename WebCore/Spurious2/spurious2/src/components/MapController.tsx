@@ -5,8 +5,22 @@ import MapComponent from "./MapComponent";
 import Button from "@mui/material/Button";
 
 const dataSourceRef = new source.DataSource();
-const layerRef = new layer.SymbolLayer(dataSourceRef);
-
+const lineLayer = new layer.LineLayer(dataSourceRef, undefined, {
+  strokeColor: "black",
+  strokeWidth: 0.7,
+});
+const polygonLayer = new layer.PolygonLayer(dataSourceRef, undefined, {
+  fillOpacity: 0.3,
+  filter: [
+    "any",
+    ["==", ["geometry-type"], "Polygon"],
+    ["==", ["geometry-type"], "MultiPolygon"],
+  ], //Only render Polygon or MultiPolygon in this layer.
+});
+const layerRef = new layer.SymbolLayer(dataSourceRef, "symbol", {
+  filter: ["==", ["geometry-type"], "Point"],
+  iconOptions: { allowOverlap: true, image: "pin-blue" },
+});
 const getRandomPosition = () => {
   const randomLongitude = Math.floor(Math.random() * (180 - -180) + -180);
   const randomLatitude = Math.floor(Math.random() * (-90 - 90) + 90);
@@ -46,6 +60,8 @@ const MapController = () => {
     if (isMapReady && mapRef) {
       // Need to add source and layer to map on init and ready
       mapRef.sources.add(dataSourceRef);
+      mapRef.layers.add(lineLayer);
+      mapRef.layers.add(polygonLayer);
       mapRef.layers.add(layerRef);
     }
   }, [isMapReady, mapRef]);
@@ -62,11 +78,27 @@ const MapController = () => {
   };
 
   const addRandomMarker = () => {
+    dataSourceRef.clear();
     const randomLongitude = Math.floor(Math.random() * (180 - -180) + -180);
     const randomLatitude = Math.floor(Math.random() * (-90 - 90) + 90);
     const newPoint = new data.Position(randomLongitude, randomLatitude);
 
     dataSourceRef.add(new data.Feature(new data.Point(newPoint)));
+  };
+
+  const addShape = async () => {
+    dataSourceRef.clear();
+    await dataSourceRef.importDataFromUrl(
+      "http://localhost:5207/api/subdivisions/3537001/boundary"
+    );
+    const shapes = dataSourceRef.getShapes();
+    const bounds = shapes[0].getBounds();
+    const centre = data.BoundingBox.getCenter(bounds);
+    mapRef?.setCamera({ bounds: bounds, center: centre });
+    const currentZoom = mapRef?.getCamera().zoom;
+    if (currentZoom) {
+      mapRef.setCamera({ zoom: currentZoom - 1 });
+    }
   };
 
   return (
@@ -96,6 +128,14 @@ const MapController = () => {
           onClick={addRandomMarker}
         >
           Add Pin
+        </Button>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={addShape}
+        >
+          Add Shape
         </Button>
       </div>
       <MapComponent />
