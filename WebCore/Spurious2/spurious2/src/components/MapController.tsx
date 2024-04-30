@@ -43,7 +43,11 @@ const styles = {
   },
 };
 
-const MapController = () => {
+interface MapControllerProps {
+  subdivisionId: number | undefined;
+}
+
+const MapController = ({ subdivisionId }: MapControllerProps) => {
   // Here you use mapRef from context
   const { mapRef, isMapReady } =
     useContext<IAzureMapsContextProps>(AzureMapsContext);
@@ -86,6 +90,26 @@ const MapController = () => {
     dataSourceRef.add(new data.Feature(new data.Point(newPoint)));
   };
 
+  useEffect(() => {
+    if (subdivisionId) {
+      const populate = async () => {
+        dataSourceRef.clear();
+        await dataSourceRef.importDataFromUrl(
+          `http://localhost:5207/api/subdivisions/${subdivisionId}/boundary`
+        );
+        const shapes = dataSourceRef.getShapes();
+        const bounds = shapes[0].getBounds();
+        const centre = data.BoundingBox.getCenter(bounds);
+        mapRef?.setCamera({ bounds: bounds, center: centre });
+        const currentZoom = mapRef?.getCamera().zoom;
+        if (currentZoom) {
+          mapRef.setCamera({ zoom: currentZoom - 1 });
+        }
+      };
+      populate();
+    }
+  }, [subdivisionId, mapRef]);
+
   const addShape = async () => {
     dataSourceRef.clear();
     await dataSourceRef.importDataFromUrl(
@@ -103,7 +127,6 @@ const MapController = () => {
 
   return (
     <>
-      <div>Map Controller</div>
       <div style={styles.buttonContainer}>
         <Button
           size="small"

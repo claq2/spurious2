@@ -30,7 +30,7 @@ const Home = () => {
       </div> */}
       <Container>
         {/* <DefaultMap subdivisionId={selectedSubdivisionId} /> */}
-        <MapWrapper />
+        <MapWrapper subdivisionId={selectedSubdivisionId} />
         <SubdivisionList onSubdivisionChange={onSubdivisionChange} />
       </Container>
     </>

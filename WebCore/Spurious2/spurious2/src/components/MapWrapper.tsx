@@ -2,13 +2,14 @@ import React from "react";
 import { AzureMapsProvider } from "react-azure-maps";
 import MapController from "./MapController";
 
-const MapWrapper = () => {
+interface MapWrapperProps {
+  subdivisionId: number | undefined;
+}
+
+const MapWrapper = ({ subdivisionId }: MapWrapperProps) => {
   return (
     <AzureMapsProvider>
-      <>
-        <div>Map Wrapper</div>
-        <MapController />
-      </>
+      <MapController subdivisionId={subdivisionId} />
     </AzureMapsProvider>
   );
 };
