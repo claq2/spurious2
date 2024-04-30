@@ -24,9 +24,10 @@ const Shell = () => {
     console.log("id in shell", id);
     console.log("result in shell", result);
     if (
-      !id &&
-      result.length > 0 &&
-      !staticRoutes.find((r) => `/${r.route}` === location.pathname)
+      (!id &&
+        result.length > 0 &&
+        !staticRoutes.find((r) => `/${r.route}` === location.pathname)) ||
+      (id && !result.find((r) => r.shortName === id))
     ) {
       navigate(`/${result[0].shortName}`, { replace: true });
     }
