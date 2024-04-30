@@ -125,45 +125,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     }
   };
 
-  return (
-    <>
-      <div style={styles.buttonContainer}>
-        <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={toggleTitleBoundaries}
-        >
-          Toggle Title Boundaries
-        </Button>
-        <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={changeMapCenter}
-        >
-          Change Map Center
-        </Button>
-        <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={addRandomMarker}
-        >
-          Add Pin
-        </Button>
-        <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={addShape}
-        >
-          Add Shape
-        </Button>
-      </div>
-      <MapComponent />
-    </>
-  );
+  return <MapComponent />;
 };
 
 export default MapController;
