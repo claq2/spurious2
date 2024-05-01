@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AzureMapsProvider } from "react-azure-maps";
 import MapController from "./MapController";
 
@@ -7,6 +7,9 @@ interface MapWrapperProps {
 }
 
 const MapWrapper = ({ subdivisionId }: MapWrapperProps) => {
+  useEffect(() => {
+    console.log("subdivisionId in MapWrapper", subdivisionId);
+  }, [subdivisionId]);
   return (
     <AzureMapsProvider>
       <MapController subdivisionId={subdivisionId} />

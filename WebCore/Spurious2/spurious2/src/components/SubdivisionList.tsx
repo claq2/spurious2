@@ -110,6 +110,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
 
   useEffect(() => {
     // Set selection to undefined when id changes so that it gets set when data changes because of id change
+    console.log("id in subdivlist", id);
     setSelection(undefined);
   }, [id]);
 
@@ -119,10 +120,10 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
     if (!isLoading && !isFetching && data && isSuccess) {
       console.log("setting table data", data);
       setTableData(data);
-      onSubdivisionChange(data[0].id);
       if (selection === undefined) {
         console.log("selection undefined setting to first item", data[0]);
         setSelection(data[0].id);
+        onSubdivisionChange(data[0].id);
       }
     }
   }, [
