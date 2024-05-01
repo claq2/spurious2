@@ -109,8 +109,9 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   useEffect(() => {
     if (!isLoading && data && isSuccess) {
       setTableData(data);
+      onSubdivisionChange(data[0].id);
     }
-  }, [data, isError, isSuccess, isLoading]);
+  }, [data, isError, isSuccess, isLoading, onSubdivisionChange]);
 
   return (
     <>
