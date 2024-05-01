@@ -80,6 +80,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   // };
 
   useEffect(() => {
+    console.log("subdividionId in map", subdivisionId);
     if (subdivisionId) {
       const populate = async () => {
         dataSourceRef.clear();

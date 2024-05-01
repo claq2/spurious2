@@ -60,7 +60,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   const result: Density[] = useRouteLoaderData("root") as Density[];
   const { id } = useParams();
   // Skip if the id in the route isn't one of the known densities
-  const { data, isLoading, isSuccess, isError } =
+  const { data, isLoading, isFetching, isSuccess, isError } =
     useGetSubdivisionsByDensityQuery(id as string, {
       skip: !!!result.find((r) => r.shortName === id),
     });
@@ -109,14 +109,31 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   ];
 
   useEffect(() => {
-    if (!isLoading && data && isSuccess) {
+    // Set selection to undefined when id changes so that it gets set when data changes because of id change
+    setSelection(undefined);
+  }, [id]);
+
+  useEffect(() => {
+    console.log("isLoading", isLoading);
+    console.log("isFetching", isFetching);
+    if (!isLoading && !isFetching && data && isSuccess) {
+      console.log("setting table data", data);
       setTableData(data);
       onSubdivisionChange(data[0].id);
       if (selection === undefined) {
+        console.log("selection undefined setting to first item", data[0]);
         setSelection(data[0].id);
       }
     }
-  }, [data, isError, isSuccess, isLoading, onSubdivisionChange, selection]);
+  }, [
+    data,
+    isError,
+    isSuccess,
+    isLoading,
+    isFetching,
+    onSubdivisionChange,
+    selection,
+  ]);
 
   return (
     <>
