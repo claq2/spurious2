@@ -49,12 +49,14 @@ const Shell = () => {
 export default Shell;
 
 export const dataLoader = async () => {
-  const p = store.dispatch(densityApi.endpoints.getDensities.initiate());
+  const densitiesResult = store.dispatch(
+    densityApi.endpoints.getDensities.initiate()
+  );
   try {
-    const ds = await p.unwrap();
-    console.log("ds", ds);
-    return ds;
+    const densities = await densitiesResult.unwrap();
+    console.log("densities in Shell", densities);
+    return densities;
   } finally {
-    p.unsubscribe();
+    densitiesResult.unsubscribe();
   }
 };

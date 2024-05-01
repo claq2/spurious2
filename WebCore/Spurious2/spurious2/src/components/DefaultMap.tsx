@@ -31,7 +31,7 @@ const DefaultMap = ({ subdivisionId }: DefaultMapProps) => {
   useEffect(() => {
     console.log("subdivid in defaultmap", subdivisionId);
     if (subdivisionId) {
-      getBoundaryQuery(subdivisionId, true);
+      void getBoundaryQuery(subdivisionId, true);
     }
   }, [subdivisionId, getBoundaryQuery]);
 

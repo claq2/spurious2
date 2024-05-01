@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { AzureMapsContext, IAzureMapsContextProps } from "react-azure-maps";
 import { data, layer, source } from "azure-maps-control";
 import MapComponent from "./MapComponent";
+import { useLazyGetStoresBySubdivisionIdQuery } from "../services/stores";
+import { Store } from "../services/types";
 // import Button from "@mui/material/Button";
 
 const dataSourceRef = new source.DataSource();
@@ -51,6 +53,8 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   // Here you use mapRef from context
   const { mapRef, isMapReady } =
     useContext<IAzureMapsContextProps>(AzureMapsContext);
+  const [getStoresQuery, getStoresResult] =
+    useLazyGetStoresBySubdivisionIdQuery();
   // const [showTileBoundaries, setShowTileBoundaries] = useState(true);
 
   // useEffect(() => {
@@ -82,7 +86,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   useEffect(() => {
     console.log("subdividionId in map", subdivisionId);
     if (subdivisionId) {
-      const populate = async () => {
+      const populateShape = async () => {
         dataSourceRef.clear();
         await dataSourceRef.importDataFromUrl(
           `http://localhost:5207/api/subdivisions/${subdivisionId}/boundary`
@@ -97,9 +101,31 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
         }
       };
 
-      void populate();
+      void getStoresQuery(subdivisionId);
+      void populateShape();
     }
-  }, [subdivisionId, mapRef]);
+  }, [subdivisionId, mapRef, getStoresQuery]);
+
+  useEffect(() => {
+    if (getStoresResult.isSuccess) {
+      getStoresResult.data.forEach((s: Store) => {
+        if (s.locationCoordinates && s.locationCoordinates.coordinates) {
+          const f = new data.Feature(
+            new data.Point(
+              new data.Position(
+                s.locationCoordinates.coordinates[0],
+                s.locationCoordinates.coordinates[1]
+              )
+            ),
+            { name: s.name, city: s.city, inventories: s.inventories }
+          );
+          //console.log('f');
+          //console.log(f);
+          dataSourceRef.add(f);
+        }
+      });
+    }
+  }, [getStoresResult]);
 
   return <MapComponent />;
 };
