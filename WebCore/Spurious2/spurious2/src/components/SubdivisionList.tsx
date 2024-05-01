@@ -13,10 +13,10 @@ import {
   gridClasses,
 } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteLoaderData } from "react-router-dom";
 import { useGetSubdivisionsByDensityQuery } from "../services/subdivisions";
 import { useEffect, useState } from "react";
-import { Subdivision } from "../services/types";
+import { Density, Subdivision } from "../services/types";
 
 // interface Data {
 //   id: number;
@@ -57,9 +57,13 @@ interface SubdivisionListProps {
 }
 
 const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
+  const result: Density[] = useRouteLoaderData("root") as Density[];
   const { id } = useParams();
+  // Skip if the id in the route isn't one of the known densities
   const { data, isLoading, isSuccess, isError } =
-    useGetSubdivisionsByDensityQuery(id as string);
+    useGetSubdivisionsByDensityQuery(id as string, {
+      skip: !!!result.find((r) => r.shortName === id),
+    });
   const [tableData, setTableData] = useState<Subdivision[]>([]);
   // const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
   //   console.log((e.target as Element).innerHTML);
