@@ -65,6 +65,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
       skip: !!!result.find((r) => r.shortName === id),
     });
   const [tableData, setTableData] = useState<Subdivision[]>([]);
+  const [selection, setSelection] = useState<any | undefined>(undefined);
   // const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
   //   console.log((e.target as Element).innerHTML);
   //   console.log("target", e.target);
@@ -75,6 +76,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
 
   const rowClick = (params: GridRowParams) => {
     console.log("rowClick", params);
+    setSelection(params.row.id);
     onSubdivisionChange(params.row.id);
   };
 
@@ -110,8 +112,11 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
     if (!isLoading && data && isSuccess) {
       setTableData(data);
       onSubdivisionChange(data[0].id);
+      if (selection === undefined) {
+        setSelection(data[0].id);
+      }
     }
-  }, [data, isError, isSuccess, isLoading, onSubdivisionChange]);
+  }, [data, isError, isSuccess, isLoading, onSubdivisionChange, selection]);
 
   return (
     <>
@@ -120,6 +125,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
           loading={isLoading}
           onRowClick={rowClick}
           rows={tableData}
+          rowSelectionModel={selection}
           columns={columns}
           sx={{
             [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
