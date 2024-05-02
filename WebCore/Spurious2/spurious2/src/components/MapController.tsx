@@ -101,7 +101,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
         }
       };
 
-      populateShape().then(() => getStoresQuery(subdivisionId));
+      populateShape().then(() => getStoresQuery(subdivisionId, true));
     }
   }, [subdivisionId, mapRef, getStoresQuery]);
 
