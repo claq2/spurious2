@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   AzureMapsContext,
   IAzureMapsContextProps,
@@ -56,10 +56,23 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   const [getBoundaryQuery, getBoundaryResult] =
     useLazyGetBoundaryBySubdivisionIdQuery();
 
+  const [storeName, setStoreName] = useState("");
+  const [storeCity, setStoreCity] = useState("");
+  const [alcoholTypes, setAlcoholTypes] = useState<Inventory[]>([]);
   const popup = useRef(
     useCreatePopup({
       options: { pixelOffset: [0, -18] },
-      popupContent: popupTemplate,
+      popupContent: (
+        <div className="customInfobox">
+          <div className="name">{storeName}</div>
+          <div className="name">{storeCity}</div>
+          {alcoholTypes.map((at) => (
+            <div>
+              {at.alcoholType}: {at.volume}
+            </div>
+          ))}
+        </div>
+      ),
       isVisible: false,
     })
   );
@@ -78,6 +91,25 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
         if (e.shapes && e.shapes.length > 0) {
           const s = e.shapes[0] as Shape;
           // console.log("s", s);
+          const storeName: string = s.getProperties()["name"] as string;
+          setStoreName(storeName);
+          const cityName: string = s.getProperties()["city"] as string;
+          setStoreCity(cityName);
+          const inventories: Inventory[] = s.getProperties()[
+            "inventories"
+          ] as Inventory[];
+          setAlcoholTypes(inventories);
+          // let inventoryDiv = "";
+          // inventories.forEach((i) => {
+          //   if (i.alcoholType && i.volume)
+          //     return (inventoryDiv += alcoholTemplate
+          //       .replace(/{alcoholType}/g, i.alcoholType)
+          //       .replace(/{volume}/g, i.volume.toString()));
+          // });
+          // const content: string = popupTemplate
+          //   .replace(/{name}/g, storeName)
+          //   .replace(/{city}/g, cityName)
+          //   .replace(/{alcoholTypes}/g, inventoryDiv);
           popup.current.setOptions({
             position: s.getCoordinates() as data.Position,
             pixelOffset: [0, -18],
