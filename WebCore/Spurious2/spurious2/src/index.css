@@ -8,3 +8,15 @@
 /* body {
   width: 100vw;
 } */
+
+.customInfobox {
+  max-width: 500px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.customInfobox .name {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
