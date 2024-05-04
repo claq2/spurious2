@@ -7,6 +7,14 @@ export const storeApi = createApi({
   endpoints: (builder) => ({
     getStoresBySubdivisionId: builder.query<Store[], number>({
       query: (id) => `subdivisions/${id}/stores`,
+      // transformResponse: (response: Store[]) => response.map(s =>
+      // ({
+      //   ...s,
+      //   inventories: s.inventories.map(i =>
+      //     ({ ...i, key: i.alcoholType }),
+      //   )
+      // }
+      // )),
     }),
   }),
 });

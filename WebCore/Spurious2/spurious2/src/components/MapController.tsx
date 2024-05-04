@@ -52,7 +52,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
           <div className="name">{storeName}</div>
           <div className="name">{storeCity}</div>
           {alcoholTypes.map((at) => (
-            <div>
+            <div key={at.alcoholType}>
               {at.alcoholType}: {at.volume}
             </div>
           ))}
