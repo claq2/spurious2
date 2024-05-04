@@ -1,5 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { AzureMapsContext, IAzureMapsContextProps } from "react-azure-maps";
+import React, { useContext, useEffect, useRef } from "react";
+import {
+  AzureMapsContext,
+  IAzureMapsContextProps,
+  useCreatePopup,
+} from "react-azure-maps";
 import {
   MapMouseEvent,
   PopupOptions,
@@ -32,8 +36,12 @@ const pointLayer = new layer.SymbolLayer(dataSourceRef, "symbol", {
 });
 
 const alcoholTemplate = "<div>{alcoholType}: {volume} L</div>";
-const popupTemplate =
-  '<div class="customInfobox"><div class="name">{name}</div><div class="name">{city}</div>{alcoholTypes}</div>';
+const popupTemplate = (
+  <div className="customInfobox">
+    <div className="name">_name_</div>
+    <div className="name">_city_</div>_alcoholTypes_
+  </div>
+);
 
 interface MapControllerProps {
   subdivisionId: number | undefined;
@@ -48,6 +56,14 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   const [getBoundaryQuery, getBoundaryResult] =
     useLazyGetBoundaryBySubdivisionIdQuery();
 
+  const popup = useRef(
+    useCreatePopup({
+      options: { pixelOffset: [0, -18] },
+      popupContent: popupTemplate,
+      isVisible: false,
+    })
+  );
+
   useEffect(() => {
     if (isMapReady && mapRef) {
       // Need to add source and layer to map on init and ready
@@ -56,65 +72,85 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
       mapRef.layers.add(polygonLayer);
       mapRef.layers.add(pointLayer);
 
-      const popup: PopupOptions = {
-        pixelOffset: [0, -18],
-        //closeButton: false
-      };
+      mapRef.popups.add(popup.current);
 
-      mapRef.events.add("click", pointLayer, (e: MapMouseEvent) => {
-        //console.log('click');
-        //Make sure that the point exists.
+      mapRef.events.add("mouseenter", pointLayer, (e: MapMouseEvent) => {
         if (e.shapes && e.shapes.length > 0) {
-          //console.log(e.shapes[0]);
-          //const x: data.Feature<data.Geometry, any> = e.shapes[0] as data.Feature<data.Geometry, any>;
           const s = e.shapes[0] as Shape;
-          //x.properties;
-          // console.log(x);
-          // console.log(s);
-          //console.log('x.prop');
-          //console.log(x.properties['name']);
-          const storeName: string = s.getProperties()["name"] as string;
-          const cityName: string = s.getProperties()["city"] as string;
-          const inventories: Inventory[] = s.getProperties()[
-            "inventories"
-          ] as Inventory[];
-          let inventoryDiv = "";
-          inventories.forEach((i) => {
-            if (i.alcoholType && i.volume)
-              return (inventoryDiv += alcoholTemplate
-                .replace(/{alcoholType}/g, i.alcoholType)
-                .replace(/{volume}/g, i.volume.toString()));
+          // console.log("s", s);
+          popup.current.setOptions({
+            position: s.getCoordinates() as data.Position,
+            pixelOffset: [0, -18],
           });
-          const content: string = popupTemplate
-            .replace(/{name}/g, storeName)
-            .replace(/{city}/g, cityName)
-            .replace(/{alcoholTypes}/g, inventoryDiv);
-          //console.log('s.getProp');
-          //console.log(s.getProperties()['name']);
-          //console.log(s.getProperties()['inventories']);
-          //let properties = e.shapes[0].properties;// getProperties();
-          //content = popupTemplate.replace(/{name}/g, properties.name).replace(/{description}/g, properties.description);
-          const coordinate = s.getCoordinates();
-
-          popup.setOptions({
-            //Update the content of the popup.
-            content: content,
-
-            //Update the popup's position with the symbol's coordinate.
-            position: coordinate as data.Position,
-          });
-          //Open the popup.
-          popup.open(mapRef);
+          popup.current.open();
         }
       });
+
+      mapRef.events.add("mouseleave", pointLayer, (e: MapMouseEvent) => {
+        popup.current.close();
+      });
+
+      // const popup: PopupOptions = {
+      //   pixelOffset: [0, -18],
+      //   //closeButton: false
+      // };
+
+      // mapRef.events.add("click", pointLayer, (e: MapMouseEvent) => {
+      //   //console.log('click');
+      //   //Make sure that the point exists.
+      //   if (e.shapes && e.shapes.length > 0) {
+      //     //console.log(e.shapes[0]);
+      //     //const x: data.Feature<data.Geometry, any> = e.shapes[0] as data.Feature<data.Geometry, any>;
+      //     const s = e.shapes[0] as Shape;
+      //     //x.properties;
+      //     // console.log(x);
+      //     // console.log(s);
+      //     //console.log('x.prop');
+      //     //console.log(x.properties['name']);
+      //     const storeName: string = s.getProperties()["name"] as string;
+      //     const cityName: string = s.getProperties()["city"] as string;
+      //     const inventories: Inventory[] = s.getProperties()[
+      //       "inventories"
+      //     ] as Inventory[];
+      //     let inventoryDiv = "";
+      //     inventories.forEach((i) => {
+      //       if (i.alcoholType && i.volume)
+      //         return (inventoryDiv += alcoholTemplate
+      //           .replace(/{alcoholType}/g, i.alcoholType)
+      //           .replace(/{volume}/g, i.volume.toString()));
+      //     });
+      //     const content: string = popupTemplate
+      //       .replace(/{name}/g, storeName)
+      //       .replace(/{city}/g, cityName)s
+      //       .replace(/{alcoholTypes}/g, inventoryDiv);
+      //     //console.log('s.getProp');
+      //     //console.log(s.getProperties()['name']);
+      //     //console.log(s.getProperties()['inventories']);
+      //     //let properties = e.shapes[0].properties;// getProperties();
+      //     //content = popupTemplate.replace(/{name}/g, properties.name).replace(/{description}/g, properties.description);
+      //     const coordinate = s.getCoordinates();
+
+      //     popup.setOptions({
+      //       //Update the content of the popup.
+      //       content: content,
+
+      //       //Update the popup's position with the symbol's coordinate.
+      //       position: coordinate as data.Position,
+      //     });
+      //     //Open the popup.
+      //     popup.open(mapRef);
+      //   }
+      // });
     }
-  }, [isMapReady, mapRef]);
+  }, [isMapReady, mapRef, popup]);
 
   useEffect(() => {
+    console.log("subdivid changed, closing popup");
+    popup.current.close();
     if (subdivisionId) {
       void getBoundaryQuery(subdivisionId, true);
     }
-  }, [subdivisionId, getBoundaryQuery]);
+  }, [subdivisionId, getBoundaryQuery, popup]);
 
   useEffect(() => {
     if (getBoundaryResult.isSuccess) {
