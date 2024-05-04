@@ -8,7 +8,7 @@ interface MapWrapperProps {
 
 const MapWrapper = ({ subdivisionId }: MapWrapperProps) => {
   useEffect(() => {
-    console.log("subdivisionId in MapWrapper", subdivisionId);
+    console.debug("subdivisionId in MapWrapper", subdivisionId);
   }, [subdivisionId]);
   return (
     <AzureMapsProvider>

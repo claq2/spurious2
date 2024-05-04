@@ -175,7 +175,6 @@ export const dataLoader = async () => {
   const p = store.dispatch(densityApi.endpoints.getDensities.initiate());
   try {
     const ds = await p.unwrap();
-    console.log("ds", ds);
     return ds;
   } finally {
     p.unsubscribe();

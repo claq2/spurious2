@@ -29,7 +29,7 @@ const DefaultMap = ({ subdivisionId }: DefaultMapProps) => {
   const [coords, setCoords] = useState<[number[]] | undefined>(undefined);
 
   useEffect(() => {
-    console.log("subdivid in defaultmap", subdivisionId);
+    console.debug("subdivid in defaultmap", subdivisionId);
     if (subdivisionId) {
       void getBoundaryQuery(subdivisionId, true);
     }
@@ -37,7 +37,7 @@ const DefaultMap = ({ subdivisionId }: DefaultMapProps) => {
 
   useEffect(() => {
     if (!result.isFetching && result.isSuccess) {
-      console.log("result in defaultmap", result);
+      console.debug("result in defaultmap", result);
       setCoords(result.data.coordinates);
     }
   }, [result]);

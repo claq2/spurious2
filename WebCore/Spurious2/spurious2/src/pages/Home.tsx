@@ -11,7 +11,7 @@ export interface HomeProps {
 const Home = () => {
   const { id } = useParams();
   useMemo(() => {
-    console.log("id in home", id);
+    console.debug("id in home", id);
   }, [id]);
 
   const [selectedSubdivisionId, setSelectedSubdivisionId] = useState<
@@ -19,7 +19,7 @@ const Home = () => {
   >(undefined);
 
   const onSubdivisionChange = (subdivisionId: number) => {
-    console.log("subdivisionId in onSubdivisionChange", subdivisionId);
+    console.debug("subdivisionId in onSubdivisionChange", subdivisionId);
     setSelectedSubdivisionId(subdivisionId);
   };
 

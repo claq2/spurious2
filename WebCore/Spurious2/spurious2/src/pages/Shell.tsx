@@ -20,9 +20,9 @@ const Shell = () => {
   const result: Density[] = useLoaderData() as Density[];
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("location", location);
-    console.log("id in shell", id);
-    console.log("result in shell", result);
+    console.debug("location", location);
+    console.debug("id in shell", id);
+    console.debug("result in shell", result);
     if (
       (!id &&
         result.length > 0 &&
@@ -54,7 +54,7 @@ export const dataLoader = async () => {
   );
   try {
     const densities = await densitiesResult.unwrap();
-    console.log("densities in Shell", densities);
+    console.debug("densities in Shell", densities);
     return densities;
   } finally {
     densitiesResult.unsubscribe();

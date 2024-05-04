@@ -45,46 +45,6 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
-  // const [densities, setDensities] = useState<Density[]>([]);
-  // const denstitiesResponse = useGetDensitiesQuery();
-  // const [getSubdivsQuery, subdivsResult] =
-  //   useLazyGetSubdivisionsByDensityQuery();
-  // const [getBoundary, boundaryResult] =
-  //   useLazyGetBoundaryBySubdivisionIdQuery();
-  // const [subdivisions, setSubdivisions] = useState<Subdivision[]>([]);
-
-  // useEffect(() => {
-  //   if (denstitiesResponse.isSuccess && denstitiesResponse.data) {
-  //     console.log("densities", denstitiesResponse.data);
-  //     setDensities(denstitiesResponse.data);
-  //   }
-  // }, [denstitiesResponse]);
-
-  // useEffect(() => {
-  //   if (densities.length > 0) {
-  //     getSubdivsQuery(densities[0].shortName);
-  //   }
-  // }, [densities, getSubdivsQuery]);
-
-  // useEffect(() => {
-  //   if (subdivsResult.isSuccess && subdivsResult.data) {
-  //     console.log("subdivsResult.data", subdivsResult.data);
-  //     setSubdivisions(subdivsResult.data);
-  //   }
-  // }, [subdivsResult]);
-
-  // useEffect(() => {
-  //   if (subdivisions.length > 0) {
-  //     getBoundary(subdivisions[0].id);
-  //   }
-  // }, [subdivisions, getBoundary]);
-
-  // useEffect(() => {
-  //   if (boundaryResult.isSuccess && boundaryResult.data) {
-  //     console.log("boundaryResult", boundaryResult.data);
-  //   }
-  // }, [boundaryResult]);
-
   return (
     <>
       <RouterProvider router={router} />

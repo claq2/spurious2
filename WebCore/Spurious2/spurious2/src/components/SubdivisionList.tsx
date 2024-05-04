@@ -18,40 +18,6 @@ import { useGetSubdivisionsByDensityQuery } from "../services/subdivisions";
 import { useEffect, useState } from "react";
 import { Density, Subdivision } from "../services/types";
 
-// interface Data {
-//   id: number;
-//   name: string;
-//   population: number;
-//   density: number;
-// }
-
-// function createData(
-//   id: number,
-//   name: string,
-//   population: number,
-//   density: number
-// ): Data {
-//   return { id, name, population, density };
-// }
-
-// const rows: Data[] = [
-//   createData(10, "Peele", 159, 6.12),
-//   createData(2344, "Pickle Lake", 237, 9.81),
-//   createData(323, "White River", 262, 16.64),
-//   createData(44432, "Assiginack", 305, 3.75),
-//   createData(51, "The Archipelago", 356, 16.4),
-//   createData(653223, "Killarney", Math.floor(Math.random() * 100), 16.0),
-//   createData(37, "Westport", Math.floor(Math.random() * 100), 16.0),
-//   createData(81244, "Gore Bay", Math.floor(Math.random() * 100), 16.0),
-//   createData(91235, "Ear Falls", Math.floor(Math.random() * 100), 16.0),
-//   createData(1099, "James", Math.floor(Math.random() * 100), 16.0),
-//   createData(11, "Eleven", Math.floor(Math.random() * 100), 11.0),
-// ];
-
-// interface Cell {
-//   cellIndex: number;
-// }
-
 interface SubdivisionListProps {
   onSubdivisionChange: (subdivisionId: number) => void;
 }
@@ -66,22 +32,14 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
     });
   const [tableData, setTableData] = useState<Subdivision[]>([]);
   const [selection, setSelection] = useState<any | undefined>(undefined);
-  // const tableCellClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-  //   console.log((e.target as Element).innerHTML);
-  //   console.log("target", e.target);
-  //   const x = e.target as unknown as Cell;
-  //   console.log("x", x);
-  //   console.log("e", e);
-  // };
 
   const rowClick = (params: GridRowParams) => {
-    console.log("rowClick", params);
+    console.debug("rowClick", params);
     setSelection(params.row.id);
     onSubdivisionChange(params.row.id);
   };
 
   const columns: GridColDef<Subdivision[][number]>[] = [
-    // { field: "id", headerName: "ID", width: 90 },
     {
       field: "name",
       headerName: "Subdivision Name",
@@ -110,18 +68,14 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
 
   useEffect(() => {
     // Set selection to undefined when id changes so that it gets set when data changes because of id change
-    console.log("id in subdivlist", id);
+    console.debug("id in subdivlist", id);
     setSelection(undefined);
   }, [id]);
 
   useEffect(() => {
-    console.log("isLoading", isLoading);
-    console.log("isFetching", isFetching);
     if (!isLoading && !isFetching && data && isSuccess) {
-      console.log("setting table data", data);
       setTableData(data);
       if (selection === undefined) {
-        console.log("selection undefined setting to first item", data[0]);
         setSelection(data[0].id);
         onSubdivisionChange(data[0].id);
       }
