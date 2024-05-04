@@ -3,8 +3,8 @@ import { AzureMapsContext, IAzureMapsContextProps } from "react-azure-maps";
 import { data, layer, source } from "azure-maps-control";
 import MapComponent from "./MapComponent";
 import { useLazyGetStoresBySubdivisionIdQuery } from "../services/stores";
+import { useLazyGetBoundaryBySubdivisionIdQuery } from "../services/subdivisions";
 import { Store } from "../services/types";
-// import Button from "@mui/material/Button";
 
 const dataSourceRef = new source.DataSource();
 const lineLayer = new layer.LineLayer(dataSourceRef, undefined, {
@@ -23,27 +23,6 @@ const layerRef = new layer.SymbolLayer(dataSourceRef, "symbol", {
   filter: ["==", ["geometry-type"], "Point"],
   iconOptions: { allowOverlap: true, image: "pin-blue" },
 });
-// const getRandomPosition = () => {
-//   const randomLongitude = Math.floor(Math.random() * (180 - -180) + -180);
-//   const randomLatitude = Math.floor(Math.random() * (-90 - 90) + 90);
-//   return [randomLatitude, randomLongitude];
-// };
-
-// const styles = {
-//   buttonContainer: {
-//     display: "grid",
-//     gridAutoFlow: "column",
-//     gridGap: "10px",
-//     gridAutoColumns: "max-content",
-//     padding: "10px 0",
-//     alignItems: "center",
-//   },
-//   button: {
-//     height: 35,
-//     width: 80,
-//     backgroundColor: "#68aba3",
-//   },
-// };
 
 interface MapControllerProps {
   subdivisionId: number | undefined;
@@ -55,14 +34,8 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     useContext<IAzureMapsContextProps>(AzureMapsContext);
   const [getStoresQuery, getStoresResult] =
     useLazyGetStoresBySubdivisionIdQuery();
-  // const [showTileBoundaries, setShowTileBoundaries] = useState(true);
-
-  // useEffect(() => {
-  //   if (mapRef) {
-  //     // Simple Style modification
-  //     mapRef.setStyle({ showTileBoundaries: !showTileBoundaries });
-  //   }
-  // }, [showTileBoundaries, mapRef]);
+  const [getBoundaryQuery, getBoundaryResult] =
+    useLazyGetBoundaryBySubdivisionIdQuery();
 
   useEffect(() => {
     if (isMapReady && mapRef) {
@@ -74,42 +47,37 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     }
   }, [isMapReady, mapRef]);
 
-  // const addRandomMarker = () => {
-  //   dataSourceRef.clear();
-  //   const randomLongitude = Math.floor(Math.random() * (180 - -180) + -180);
-  //   const randomLatitude = Math.floor(Math.random() * (-90 - 90) + 90);
-  //   const newPoint = new data.Position(randomLongitude, randomLatitude);
-
-  //   dataSourceRef.add(new data.Feature(new data.Point(newPoint)));
-  // };
+  useEffect(() => {
+    if (subdivisionId) {
+      void getBoundaryQuery(subdivisionId, true);
+    }
+  }, [subdivisionId, getBoundaryQuery]);
 
   useEffect(() => {
-    console.log("subdividionId in map", subdivisionId);
-    if (subdivisionId) {
-      const populateShape = async () => {
-        dataSourceRef.clear();
-        await dataSourceRef.importDataFromUrl(
-          `http://localhost:5207/api/subdivisions/${subdivisionId}/boundary`
-        );
-        const shapes = dataSourceRef.getShapes();
-        const bounds = shapes[0].getBounds();
-        const centre = data.BoundingBox.getCenter(bounds);
-        mapRef?.setCamera({ bounds: bounds, center: centre });
-        const currentZoom = mapRef?.getCamera().zoom;
-        if (currentZoom) {
-          mapRef.setCamera({ zoom: currentZoom - 1 });
-        }
-      };
+    if (getBoundaryResult.isSuccess) {
+      // console.log("getBoundaryResult.data", getBoundaryResult.data);
+      dataSourceRef.clear();
+      dataSourceRef.add(getBoundaryResult.data);
+      const shapes = dataSourceRef.getShapes();
+      const bounds = shapes[0].getBounds();
+      const centre = data.BoundingBox.getCenter(bounds);
+      mapRef?.setCamera({ bounds: bounds, center: centre });
+      const currentZoom = mapRef?.getCamera().zoom;
+      if (currentZoom) {
+        mapRef.setCamera({ zoom: currentZoom - 1 });
+      }
 
-      populateShape().then(() => getStoresQuery(subdivisionId, true));
+      if (subdivisionId) {
+        void getStoresQuery(subdivisionId, true);
+      }
     }
-  }, [subdivisionId, mapRef, getStoresQuery]);
+  }, [getBoundaryResult, mapRef, getStoresQuery, subdivisionId]);
 
   useEffect(() => {
     if (getStoresResult.isSuccess) {
       getStoresResult.data.forEach((s: Store) => {
         if (s.locationCoordinates && s.locationCoordinates.coordinates) {
-          const f = new data.Feature(
+          const storeFeature = new data.Feature(
             new data.Point(
               new data.Position(
                 s.locationCoordinates.coordinates[0],
@@ -120,7 +88,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
           );
           //console.log('f');
           //console.log(f);
-          dataSourceRef.add(f);
+          dataSourceRef.add(storeFeature);
         }
       });
     }
