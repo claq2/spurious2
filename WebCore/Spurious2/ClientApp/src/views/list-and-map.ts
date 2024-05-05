@@ -55,8 +55,17 @@ export class ListAndMap {
     //console.log('attached');
     this.map = new Map(this.container, {
       authOptions: {
-        authType: AuthenticationType.subscriptionKey,
-        subscriptionKey: this.apiKey,
+        authType: AuthenticationType.anonymous,
+        clientId: "6c2581ec-8018-4346-8b4e-d18b27b420b2",
+        getToken: function (resolve, reject, map) {
+          fetch("https://spurious2.azurewebsites.net/api/azure-maps-token")
+            .then(function (response) {
+              return response.text();
+            })
+            .then(function (token) {
+              resolve(token);
+            });
+        },
       },
       // Start centered on all of Ontario
       center: new data.Position(-83.9355468749954, 48.25394114468216),
