@@ -144,6 +144,7 @@ public class Program
                     .WithHashTagHelper();
                 b.AddWorkerSrc().From("blob:");
                 b.AddConnectSrc().Self()
+                    .From("spurious2.azurewebsites.net")
                     .From("canadacentral-1.in.applicationinsights.azure.com")
                     .From("atlas.microsoft.com")
                     .From("dc.services.visualstudio.com");
