@@ -129,9 +129,11 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
         void getStoresQuery(subdivisionId, true);
       }
     }
+    console.debug("completed shape update");
   }, [getBoundaryResult, mapRef, getStoresQuery, subdivisionId]);
 
   useEffect(() => {
+    console.debug("getStoresResult", getStoresResult);
     if (
       getStoresResult.isSuccess &&
       !getStoresResult.isFetching &&
