@@ -101,12 +101,18 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     console.debug("subdivid changed, closing popup");
     popup.current.close();
     if (subdivisionId) {
+      console.debug("launching getboundaryquery");
       void getBoundaryQuery(subdivisionId, true);
     }
   }, [subdivisionId, getBoundaryQuery, popup]);
 
   useEffect(() => {
-    if (getBoundaryResult.isSuccess) {
+    if (
+      getBoundaryResult.isSuccess &&
+      !getBoundaryResult.isFetching &&
+      !getBoundaryResult.isLoading
+    ) {
+      console.debug("clearing datasource");
       dataSourceRef.clear();
       dataSourceRef.add(getBoundaryResult.data);
       const shapes = dataSourceRef.getShapes();
@@ -119,6 +125,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
       }
 
       if (subdivisionId) {
+        console.debug("launching getstoresquery");
         void getStoresQuery(subdivisionId, true);
       }
     }
