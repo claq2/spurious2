@@ -3,7 +3,7 @@ import { Store } from "./types";
 
 export const storeApi = createApi({
   reducerPath: "storeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5207/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
     getStoresBySubdivisionId: builder.query<Store[], number>({
       query: (id) => `subdivisions/${id}/stores`,

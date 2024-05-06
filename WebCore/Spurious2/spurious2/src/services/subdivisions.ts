@@ -3,7 +3,7 @@ import { Boundary, Subdivision } from './types'
 
 export const subdivisionApi = createApi({
   reducerPath: 'subvdivisionApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5207/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   endpoints: (builder) => ({
     getBoundaryBySubdivisionId: builder.query<Boundary, number>({
       query: (id) => `subdivisions/${id}/boundary`,

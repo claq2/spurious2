@@ -4,8 +4,17 @@ import { AuthenticationType } from "azure-maps-control";
 
 const option: IAzureMapOptions = {
   authOptions: {
-    authType: AuthenticationType.subscriptionKey,
-    subscriptionKey: "UHo_yP7VRSrUF-ZA_GFnT7YOz1b-MoRMT90xMbDybzs", // Your subscription key
+    authType: AuthenticationType.anonymous,
+    clientId: "6c2581ec-8018-4346-8b4e-d18b27b420b2",
+    getToken: function (resolve, reject, map) {
+      fetch("https://spurious2.azurewebsites.net/api/azure-maps-token")
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (token) {
+          resolve(token);
+        });
+    },
   },
 };
 

@@ -125,8 +125,13 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
   }, [getBoundaryResult, mapRef, getStoresQuery, subdivisionId]);
 
   useEffect(() => {
-    if (getStoresResult.isSuccess) {
+    if (
+      getStoresResult.isSuccess &&
+      !getStoresResult.isFetching &&
+      !getStoresResult.isLoading
+    ) {
       getStoresResult.data.forEach((s: Store) => {
+        console.debug("s", s);
         if (s.locationCoordinates && s.locationCoordinates.coordinates) {
           const storeFeature = new data.Feature(
             new data.Point(
@@ -138,6 +143,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
             { name: s.name, city: s.city, inventories: s.inventories }
           );
           dataSourceRef.add(storeFeature);
+          console.debug("added store", storeFeature);
         }
       });
     }
