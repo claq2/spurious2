@@ -40,6 +40,9 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     useLazyGetStoresBySubdivisionIdQuery();
   const [getBoundaryQuery, getBoundaryResult] =
     useLazyGetBoundaryBySubdivisionIdQuery();
+  const [subdivisionIdForStores, setSubdivisionIdForStores] = useState<
+    number | undefined
+  >(undefined);
 
   const [storeName, setStoreName] = useState("");
   const [storeCity, setStoreCity] = useState("");
@@ -103,6 +106,7 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
     if (subdivisionId) {
       console.debug("launching getboundaryquery");
       void getBoundaryQuery(subdivisionId, true);
+      setSubdivisionIdForStores(subdivisionId);
     }
   }, [subdivisionId, getBoundaryQuery, popup]);
 
@@ -124,13 +128,13 @@ const MapController = ({ subdivisionId }: MapControllerProps) => {
         mapRef.setCamera({ zoom: currentZoom - 1 });
       }
 
-      if (subdivisionId) {
+      if (subdivisionIdForStores) {
         console.debug("launching getstoresquery");
-        void getStoresQuery(subdivisionId, true);
+        void getStoresQuery(subdivisionIdForStores, true);
       }
     }
     console.debug("completed shape update");
-  }, [getBoundaryResult, mapRef, getStoresQuery, subdivisionId]);
+  }, [getBoundaryResult, mapRef, getStoresQuery, subdivisionIdForStores]);
 
   useEffect(() => {
     console.debug("getStoresResult", getStoresResult);
