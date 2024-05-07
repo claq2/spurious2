@@ -21,7 +21,4 @@ export const storeApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {
-  useLazyGetStoresBySubdivisionIdQuery,
-  useGetStoresBySubdivisionIdQuery,
-} = storeApi;
+export const { useLazyGetStoresBySubdivisionIdQuery } = storeApi;
