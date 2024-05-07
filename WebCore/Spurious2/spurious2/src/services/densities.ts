@@ -3,7 +3,7 @@ import { Density } from './types'
 
 export const densityApi = createApi({
   reducerPath: 'densityApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: "__REACT_DEVTOOLS_GLOBAL_HOOK__" in window ? "http://localhost:5207/api" : "/api" }),
   endpoints: (builder) => ({
     getDensities: builder.query<Density[], void>({
       query: () => 'densities',
