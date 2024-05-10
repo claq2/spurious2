@@ -32,7 +32,7 @@ const Shell = () => {
       (id &&
         !result.find((r) => r.shortName.toLowerCase() === id.toLowerCase()))
     ) {
-      navigate(`/${result[0].shortName}`, { replace: true });
+      navigate(`/${result[0].shortName.toLowerCase()}`, { replace: true });
     }
   }, [id, result, navigate, location]);
 
