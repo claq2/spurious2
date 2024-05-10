@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Store } from "./types";
+import { url } from "../constants";
 
 export const storeApi = createApi({
   reducerPath: "storeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
     getStoresBySubdivisionId: builder.query<Store[], number>({
       query: (id) => `subdivisions/${id}/stores`,

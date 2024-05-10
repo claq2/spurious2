@@ -87,6 +87,7 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
     <>
       <Box sx={{ width: "100%" }}>
         <DataGrid
+          autoHeight
           loading={isLoading}
           onRowClick={rowClick}
           rows={tableData}

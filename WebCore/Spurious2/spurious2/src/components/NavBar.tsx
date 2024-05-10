@@ -129,9 +129,12 @@ const NavBar = () => {
                   sx={{
                     my: 2,
                     color:
-                      location.pathname.endsWith(page.shortName) ||
+                      location.pathname
+                        .toLowerCase()
+                        .endsWith(page.shortName.toLowerCase()) ||
                       (location.pathname === "/" &&
-                        page.shortName === result[0].shortName)
+                        page.shortName.toLowerCase() ===
+                          result[0].shortName.toLowerCase())
                         ? "white"
                         : "lightgray",
                     display: "block",

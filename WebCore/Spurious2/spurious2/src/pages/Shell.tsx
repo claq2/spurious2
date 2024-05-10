@@ -26,8 +26,11 @@ const Shell = () => {
     if (
       (!id &&
         result.length > 0 &&
-        !staticRoutes.find((r) => `/${r.route}` === location.pathname)) ||
-      (id && !result.find((r) => r.shortName === id))
+        !staticRoutes.find(
+          (r) => `/${r.route.toLowerCase()}` === location.pathname.toLowerCase()
+        )) ||
+      (id &&
+        !result.find((r) => r.shortName.toLowerCase() === id.toLowerCase()))
     ) {
       navigate(`/${result[0].shortName}`, { replace: true });
     }

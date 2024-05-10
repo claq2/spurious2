@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.css";
 import Home from "./pages/Home";
-import { Route, RouterProvider } from "react-router-dom";
 import {
-  createBrowserRouter,
+  Route,
+  RouterProvider,
+  createHashRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import Shell, { dataLoader } from "./pages/Shell";
@@ -15,7 +16,7 @@ export const staticRoutes: StaticRoute[] = [
   { route: "about", element: <About /> },
 ];
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Shell />} id="root" loader={dataLoader}>
