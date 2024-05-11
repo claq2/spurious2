@@ -81,8 +81,10 @@ public class Program
             builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
             builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
             builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
+#if DEBUG
             builder.Services.AddCors(options =>
                 options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));
+#endif
 
             var app = builder.Build();
 #if DEBUG
@@ -191,7 +193,9 @@ public class Program
             app.UseStaticFiles();
 
             app.UseRouting();
+#if DEBUG
             app.UseCors(MyOrigins);
+#endif
             app.UseAuthorization();
             app.MapControllers();
             app.MapRazorPages();
