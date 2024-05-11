@@ -86,9 +86,9 @@ const NavBar = () => {
               >
                 {result.map((page) => (
                   <MenuItem
-                    key={page.shortName}
+                    key={page.shortName.toLowerCase()}
                     component={RouterLink}
-                    to={`/${page.shortName}`}
+                    to={`/${page.shortName.toLowerCase()}`}
                     onClick={handleCloseNavMenu}
                   >
                     <Typography textAlign="center">{page.title}</Typography>
@@ -141,8 +141,8 @@ const NavBar = () => {
                     alignContent: "center",
                   }}
                   component={RouterLink}
-                  to={`/${page.shortName}`}
-                  key={page.shortName}
+                  to={`/${page.shortName.toLowerCase()}`}
+                  key={page.shortName.toLowerCase()}
                 >
                   {page.title}
                 </Link>

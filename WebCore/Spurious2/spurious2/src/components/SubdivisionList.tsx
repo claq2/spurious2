@@ -21,7 +21,9 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   // Skip if the id in the route isn't one of the known densities
   const { data, isLoading, isFetching, isSuccess, isError } =
     useGetSubdivisionsByDensityQuery(id as string, {
-      skip: !!!result.find((r) => r.shortName === id),
+      skip: !!!result.find(
+        (r) => r.shortName.toLowerCase() === id?.toLowerCase()
+      ),
     });
   const [tableData, setTableData] = useState<Subdivision[]>([]);
   const [selection, setSelection] = useState<any | undefined>(undefined);
