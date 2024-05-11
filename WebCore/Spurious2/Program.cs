@@ -19,7 +19,9 @@ public class Program
 #pragma warning restore CA1506 // Avoid excessive class coupling
 #pragma warning restore CA1052 // Static holder types should be Static or NotInheritable
 {
+#if DEBUG
     private const string MyOrigins = "MyOrigins";
+#endif
 #pragma warning disable CA1506 // Avoid excessive class coupling
     public static async Task Main(string[] args)
 #pragma warning restore CA1506 // Avoid excessive class coupling
