@@ -5,9 +5,14 @@
   font-family: "Roboto";
 }
 
-/* body {
-  width: 100vw;
-} */
+html {
+  overflow: scroll;
+
+  @supports (scrollbar-gutter: stable both-edges) {
+    overflow: auto;
+    scrollbar-gutter: stable both-edges;
+  }
+}
 
 .customInfobox {
   max-width: 500px;
