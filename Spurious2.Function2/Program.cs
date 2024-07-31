@@ -11,6 +11,7 @@ using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.AzureStorage;
+using System.Globalization;
 
 IHost host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -43,10 +44,10 @@ IHost host = new HostBuilder()
             .MinimumLevel.Override("Azure.Core", LogEventLevel.Error)
             .MinimumLevel.Override("Azure.Identity", LogEventLevel.Error)
             .Enrich.FromLogContext()
-            .WriteTo.Console(LogEventLevel.Debug
+            .WriteTo.Console(LogEventLevel.Debug, formatProvider: CultureInfo.InvariantCulture
             //, outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level}] [{SourceContext}] {Message}{NewLine}{Exception}{NewLine}"
             )
-            .WriteTo.File(filepath, LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
+            .WriteTo.File(filepath, LogEventLevel.Debug, rollingInterval: RollingInterval.Day, formatProvider: CultureInfo.InvariantCulture)
 #if DEBUG
             .WriteTo.Seq("http://spurious2.seq:5341", LogEventLevel.Debug)
 #endif
