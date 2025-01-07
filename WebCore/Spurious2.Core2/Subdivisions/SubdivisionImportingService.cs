@@ -93,7 +93,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
 
         var batch = new List<BoundaryIncoming>();
-        await foreach (var item in boundaries)
+        await foreach (var item in boundaries.ConfigAwait())
         {
             batch.Add(item);
             if (batch.Count == 30)
@@ -179,7 +179,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
 
         // First pass is to extract province/territory names and IDs
         var provincesDict = new Dictionary<int, string>();
-        await foreach ((var id, var name) in ReadProvinces(filenameAndPath))
+        await foreach ((var id, var name) in ReadProvinces(filenameAndPath).ConfigAwait())
         {
             provincesDict[id] = name;
         }

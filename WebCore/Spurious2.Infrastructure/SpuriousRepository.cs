@@ -185,7 +185,7 @@ where id = {boundary.Id}").ConfigAwait();
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
 
-        await foreach (var boundary in boundaries)
+        await foreach (var boundary in boundaries.ConfigAwait())
         {
 
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into boundaryincoming (id, 
@@ -216,7 +216,7 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
 
-        await foreach (var store in stores)
+        await foreach (var store in stores.ConfigAwait())
         {
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into storeincoming (id, 
 [LocationWellKnownText],
@@ -277,7 +277,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM PopulationIncoming").ConfigAwait();
 
-        await foreach (var subdivisionPopulation in populations)
+        await foreach (var subdivisionPopulation in populations.ConfigAwait())
         {
             _ = await dbContext.Database.ExecuteSqlAsync($@"insert into PopulationIncoming (id, population, Province) 
                                                 values ({subdivisionPopulation.Id}, {subdivisionPopulation.Population}
