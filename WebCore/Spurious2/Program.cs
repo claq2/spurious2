@@ -130,7 +130,16 @@ public class Program
             app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
             {
                 b.AddDefaultSrc().Self();
-                b.AddScriptSrc().WithNonce().StrictDynamic();
+                b.AddScriptSrc()
+                    .Self()
+#if DEBUG
+                    .From("http://localhost:5000")
+                    .UnsafeInline()
+#elif !DEBUG
+                    .WithNonce()
+                    .StrictDynamic()
+#endif
+                ;
                 b.AddStyleSrc()
                     .Self()
                     .WithNonce()
@@ -144,6 +153,9 @@ public class Program
                     .WithHash256("Z6RGWavasjMLZb2NLu4EKzJTvaO9kMpipSZMf7zv4WI=")
                     .WithHash256("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=")
                     .WithHash256("mjCXvCiI7QM+qc3wUjLfE81NQ63GSsJcdb/iy9A0DgM=")
+                    .WithHash256("eQb4zJpe7nMvGK1tnNau+U5o09f19pPVp/UqBkpD87A=")
+                    .WithHash256("p5OBltPlKyHqPir3S9YLIBKtZi7Y65BbhvmELl+UvcQ=")
+                    .WithHash256("oHFeCgntvQ+95lgWp14PoPyLMUxSYMB2jBm/OqwiYho=")
                     .UnsafeHashes() // allow use of hashes on style elements, including the login error list
                     .StrictDynamic()
                     .WithHashTagHelper();
@@ -155,7 +167,11 @@ public class Program
                     .From("dc.services.visualstudio.com");
                 b.AddFontSrc().Self().From("atlas.microsoft.com");
                 b.AddFrameSrc().From("https://challenges.cloudflare.com");
-                b.AddImgSrc().Self().Blob().Data();
+                b.AddImgSrc().Self()
+#if DEBUG
+                    .From("localhost:5000")
+#endif
+                    .Blob().Data();
             })
             .AddFrameOptionsDeny()
             .AddContentTypeOptionsNoSniff()

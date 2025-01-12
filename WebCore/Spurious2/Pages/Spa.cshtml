@@ -5,16 +5,37 @@
     Layout = "";
 }
 
-@foreach (var file in Directory.EnumerateFiles("wwwroot/dist2/static/css", "*.css"))
-{
-    <link rel="stylesheet" href=@file.Substring(7) asp-add-nonce defer></link>
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <environment include="Production">
+        @foreach (var file in Directory.EnumerateFiles("wwwroot/client/assets", "*.css"))
+        {
+            <link asp-add-nonce rel="stylesheet" href=@file.Substring(7) />
+        }
+    </environment>
+</head>
 
-@foreach (var file in Directory.EnumerateFiles("wwwroot/dist2/static/js", "*.js"))
-{
-    <script src=@file.Substring(7) asp-add-nonce defer></script>
-}
 
 <body>
     <div id="root"></div>
+    <environment include="Development">
+        <script type="module">
+            import RefreshRuntime from 'http:localhost:5000/@@react-refresh'
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {}
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+        <script type="module" src="http://localhost:5000/src/main.tsx"></script>
+    </environment>
+    <environment include="Production">
+        @foreach (var file in Directory.EnumerateFiles("wwwroot/client/assets", "*.js"))
+        {
+            <script type="module" src=@file.Substring(7) asp-add-nonce defer></script>
+        }
+    </environment>
 </body>
+</html>
