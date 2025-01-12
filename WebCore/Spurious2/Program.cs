@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Carter;
@@ -132,30 +131,38 @@ public class Program
                 b.AddDefaultSrc().Self();
                 b.AddScriptSrc()
                     .Self()
-#if DEBUG
+                    //#if DEBUG
                     .From("http://localhost:5000")
                     .UnsafeInline()
-#elif !DEBUG
-                    .WithNonce()
-                    .StrictDynamic()
-#endif
+                //#elif !DEBUG
+                //                    .WithNonce()
+                //                    .StrictDynamic()
+                //#endif
                 ;
                 b.AddStyleSrc()
                     .Self()
                     .WithNonce()
-                    .WithHash256("ATeSIcqM6UxTblzmyyICgZWZUpvkDFfJxeK3WjeUN90=")
-                    .WithHash256("6IXr1202gJ13H3beeZ6W5EIY+3gdXFsD2u9avWEe/90=")
-                    .WithHash256("5ad8McBu1lCYD+EOXcLRS1FeuI8rw9mYscXkLiGKyRc=")
-                    .WithHash256("4frXBI2FwF2LM/qKBg0E03wsgxAwjM9XkjmuHhsolJU=")
-                    .WithHash256("Ev6x8tBHdhQy7B3Y75SlaTnHyEhorCajhRI7BtClp8w=")
-                    .WithHash256("qYi3FSs1kDVtElTOOutxMXxwH9WdFVpZX7kmJrNrzCc=")
-                    .WithHash256("m7uLf4sajs4mz/koWWRl6t0CSOeIW5CBjCzWfQD1h6U=")
-                    .WithHash256("Z6RGWavasjMLZb2NLu4EKzJTvaO9kMpipSZMf7zv4WI=")
+                    //.WithHash256("ATeSIcqM6UxTblzmyyICgZWZUpvkDFfJxeK3WjeUN90=")
+                    //.WithHash256("6IXr1202gJ13H3beeZ6W5EIY+3gdXFsD2u9avWEe/90=")
+                    //.WithHash256("5ad8McBu1lCYD+EOXcLRS1FeuI8rw9mYscXkLiGKyRc=")
+                    //.WithHash256("4frXBI2FwF2LM/qKBg0E03wsgxAwjM9XkjmuHhsolJU=")
+                    //.WithHash256("Ev6x8tBHdhQy7B3Y75SlaTnHyEhorCajhRI7BtClp8w=")
+                    //.WithHash256("qYi3FSs1kDVtElTOOutxMXxwH9WdFVpZX7kmJrNrzCc=")
+                    //.WithHash256("m7uLf4sajs4mz/koWWRl6t0CSOeIW5CBjCzWfQD1h6U=")
+                    //.WithHash256("Z6RGWavasjMLZb2NLu4EKzJTvaO9kMpipSZMf7zv4WI=")
+                    //.WithHash256("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=")
+                    //.WithHash256("mjCXvCiI7QM+qc3wUjLfE81NQ63GSsJcdb/iy9A0DgM=")
+                    //.WithHash256("eQb4zJpe7nMvGK1tnNau+U5o09f19pPVp/UqBkpD87A=")
+                    //.WithHash256("p5OBltPlKyHqPir3S9YLIBKtZi7Y65BbhvmELl+UvcQ=")
+                    //.WithHash256("oHFeCgntvQ+95lgWp14PoPyLMUxSYMB2jBm/OqwiYho=")
+                    .WithHash256("NOqkZFG2ZdtACrMCaTo1EEwwqcEiIlzuYuXVVoLIb7o=")
+                    .WithHash256("+69+i2WixHVJ8zb6nUNKV8YNsYG6sjfJ3wmXgULgJJY=")
+                    .WithHash256("j7D01FWM6XmRMJqQn3kMs5KI69yIOCSCFsd3HyMWhxg=")
+                    .WithHash256("3h4buiXsKpWAN+mt/D+CqpDUe38t8xgvRR8xBrUlYlo=")
+                    .WithHash256("YUmm0H/7mTRbX1ONX5ovu/D21KzruIabKVGqKnnSSnY=")
+                    .WithHash256("2v7G6UZEWMyIosAgMnziCoeiu95yWo7Fi0IaIlRrcfA=")
+                    .WithHash256("Gigilx1DnI9IZyIHGiSVRO21Eb/w7wxCAXEAVYH3vo4=")
                     .WithHash256("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=")
-                    .WithHash256("mjCXvCiI7QM+qc3wUjLfE81NQ63GSsJcdb/iy9A0DgM=")
-                    .WithHash256("eQb4zJpe7nMvGK1tnNau+U5o09f19pPVp/UqBkpD87A=")
-                    .WithHash256("p5OBltPlKyHqPir3S9YLIBKtZi7Y65BbhvmELl+UvcQ=")
-                    .WithHash256("oHFeCgntvQ+95lgWp14PoPyLMUxSYMB2jBm/OqwiYho=")
                     .UnsafeHashes() // allow use of hashes on style elements, including the login error list
                     .StrictDynamic()
                     .WithHashTagHelper();
@@ -165,12 +172,16 @@ public class Program
                     .From("canadacentral-1.in.applicationinsights.azure.com")
                     .From("atlas.microsoft.com")
                     .From("dc.services.visualstudio.com");
-                b.AddFontSrc().Self().From("atlas.microsoft.com");
+                b.AddFontSrc().Self()
+                    //#if DEBUG
+                    .From("http://localhost:5000")
+                    //#endif
+                    .From("atlas.microsoft.com");
                 b.AddFrameSrc().From("https://challenges.cloudflare.com");
                 b.AddImgSrc().Self()
-#if DEBUG
+                    //#if DEBUG
                     .From("localhost:5000")
-#endif
+                    //#endif
                     .Blob().Data();
             })
             .AddFrameOptionsDeny()
