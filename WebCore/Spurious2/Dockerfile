@@ -8,6 +8,7 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Packages", "."]
 COPY ["WebCore/Spurious2/Spurious2.csproj", "WebCore/Spurious2/"]
 COPY ["WebCore/Spurious2.Core2/Spurious2.Core2.csproj", "WebCore/Spurious2.Core2/"]
 COPY ["WebCore/Spurious2.Infrastructure/Spurious2.Infrastructure.csproj", "WebCore/Spurious2.Infrastructure/"]
