@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Carter;
@@ -173,6 +174,7 @@ public class Program
                     .From("atlas.microsoft.com")
                     .From("dc.services.visualstudio.com");
                 b.AddFontSrc().Self()
+                    .Data()
                     //#if DEBUG
                     .From("http://localhost:5000")
                     //#endif
