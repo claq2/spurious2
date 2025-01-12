@@ -14,7 +14,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>9f4cce2f-eea3-463c-8db0-1531b657a630</UserSecretsId>
-    <SpaRoot>spurious2\</SpaRoot>
+    <SpaRoot>spurious2-vite\</SpaRoot>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -61,6 +61,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="spurious2\**" />
+    <None Remove="spurious2\**" />
+    <None Include="spurious2\**" Exclude="spurious2\node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="spurious2-vite\**" />
+    <None Remove="spurious2-vite\**" />
+    <None Include="spurious2-vite\**" Exclude="spurious2-vite\node_modules\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\Spurious2.Core2\Spurious2.Core2.csproj" />
     <ProjectReference Include="..\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
   </ItemGroup>
@@ -81,12 +95,27 @@
     </None>
   </ItemGroup>
 
-    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+  
+  <Target Name='CompileClient' BeforeTargets="Publish">
+    <Exec WorkingDirectory="./inst-vite" Command="npm install" />
+    <Exec WorkingDirectory="./inst-vite" Command="npm run build" />
+  </Target>
+
+    <!--<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        --><!-- As part of publishing, ensure the JS resources are freshly built in production mode --><!--
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
 
-        <!-- Include the newly-built files in the publish output -->
+        --><!-- Include the newly-built files in the publish output --><!--
         <ItemGroup>
             <DistFiles Include="$(SpaRoot)dist2\**; $(SpaRoot)dist2-server\**" />
             <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
@@ -96,5 +125,5 @@
                 <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             </ResolvedFileToPublish>
         </ItemGroup>
-    </Target>
+    </Target>-->
 </Project>
