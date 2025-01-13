@@ -237,12 +237,3 @@ public class DbTests
         productsIncoming[1].Volume.Should().Be(2046);
     }
 }
-
-public class CustomProductIncoming
-{
-    public string Category { get; set; }
-    public int Id { get; set; }
-    public bool ProductDone { get; set; }
-    public string ProductName { get; set; }
-    public int Volume { get; set; }
-}

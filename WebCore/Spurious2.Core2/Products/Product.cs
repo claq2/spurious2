@@ -12,5 +12,5 @@ public partial class Product
 
     public int? Volume { get; set; }
 
-    public virtual ICollection<Inventory> Inventories { get; private set; } = new List<Inventory>();
+    public virtual ICollection<Inventory> Inventories { get; private set; } = [];
 }

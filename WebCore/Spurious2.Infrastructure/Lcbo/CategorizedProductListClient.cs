@@ -8,7 +8,7 @@ namespace Lcbo;
 public class CategorizedProductListClient
 {
     private static readonly ReadOnlyDictionary<ProductType, string> productTypeTabTemplateMap =
-        new ReadOnlyDictionary<ProductType, string>(
+        new(
             new Dictionary<ProductType, string>
             {
                 { ProductType.Beer, "clp-products-beer_&_cider-{0}" },
@@ -18,7 +18,7 @@ public class CategorizedProductListClient
             });
 
     private static readonly ReadOnlyDictionary<ProductType, string> productTypeCategoryTemplateMap =
-       new ReadOnlyDictionary<ProductType, string>(
+       new(
            new Dictionary<ProductType, string>
            {
                 { ProductType.Beer, "\\\"Products|Beer & Cider|{0}\\\"" },

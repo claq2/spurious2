@@ -157,7 +157,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         return store;
     }
 
-    public async Task<string> GetStorePage(Uri storeUri) => await storeClient.GetStorePage(storeUri).ConfigAwait();
+    public Task<string> GetStorePage(Uri storeUri) => storeClient.GetStorePage(storeUri);
 
     public async Task<string> GetAllStoresInventory(string productId)
     {
