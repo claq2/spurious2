@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5000,
     origin: "http://localhost:5000",
   },
-  base: "/",
+  base: "/client",
   build: {
     outDir: "../wwwroot/client",
     emptyOutDir: true,
