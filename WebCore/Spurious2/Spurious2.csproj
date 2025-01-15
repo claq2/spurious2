@@ -106,8 +106,8 @@
   </Target>
   
   <Target Name='CompileClient' BeforeTargets="Publish">
-    <Exec WorkingDirectory="./inst-vite" Command="npm install" />
-    <Exec WorkingDirectory="./inst-vite" Command="npm run build" />
+    <Exec WorkingDirectory="./spurious2-vite" Command="npm install" />
+    <Exec WorkingDirectory="./spurious2-vite" Command="npm run build" />
   </Target>
 
     <!--<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
