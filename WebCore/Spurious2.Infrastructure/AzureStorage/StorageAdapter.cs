@@ -9,8 +9,6 @@ namespace Spurious2.Infrastructure.AzureStorage;
 
 public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILogger<StorageAdapter> logger) : IStorageAdapter
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     public async Task ClearStorage()
     {
         var productsClient = clientFactory.Invoke("products");

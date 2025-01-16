@@ -3,7 +3,7 @@ using System.Globalization;
 using Spurious2.Core2.Lcbo;
 using Spurious2.Core2.Products;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 public static class ResultExtensions
 {

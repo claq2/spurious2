@@ -1,10 +1,8 @@
 using System.Globalization;
 using System.Text;
 using CsvHelper;
-using Spurious2.Core2;
-using Spurious2.Core2.Subdivisions;
 
-namespace Spurious2.Core.SubdivisionImporting.Services;
+namespace Spurious2.Core2.Subdivisions;
 
 public class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {

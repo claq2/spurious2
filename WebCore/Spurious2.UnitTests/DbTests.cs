@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +11,6 @@ using Spurious2.Infrastructure;
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class DbTests
 {
     private IConfigurationRoot config;
@@ -20,9 +18,7 @@ public class DbTests
     private Mock<IDbContextFactory<SpuriousContext>> mockFactory;
 
     [SetUp]
-#pragma warning disable CA1506 // Avoid excessive class coupling
     public async Task Setup()
-#pragma warning restore CA1506 // Avoid excessive class coupling
     {
         NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices(
                 NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,

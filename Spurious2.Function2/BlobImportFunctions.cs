@@ -16,29 +16,32 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task<HttpResponseData> HttpStart(
        [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
        [DurableClient] DurableTaskClient client,
-       FunctionContext executionContext)
+       FunctionContext executionContext,
+       CancellationToken cancellationToken)
     {
-        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
+        ArgumentNullException.ThrowIfNull(client, nameof(client));
+        var logger = executionContext.GetLogger<BlobImportFunctions>();
 
         // Function input comes from the request content.
         var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
-            "Lcbo");
+            "Lcbo", cancellationToken).ConfigAwait();
 
-        logger.LogInformation("Started orchestration with ID = '{instanceId}'.", instanceId);
+        logger.LogInformation("Started orchestration with ID = '{InstanceId}'.", instanceId);
 
         // Returns an HTTP 202 response with an instance management payload.
         // See https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-http-api#start-orchestration
-        return await client.CreateCheckStatusResponseAsync(req, instanceId);
+        return await client.CreateCheckStatusResponseAsync(req, instanceId, cancellationToken).ConfigAwait();
     }
 
     [Function("Lcbo")]
     public async Task<string> RunOrchestrator(
         [OrchestrationTrigger] TaskOrchestrationContext context)
     {
-        ILogger logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+        var logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
         try
         {
-            await context.CallActivityAsync(nameof(StartImporting));
+            await context.CallActivityAsync(nameof(StartImporting)).ConfigAwait();
         }
         catch (Exception)
         {
@@ -50,9 +53,9 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
             context.CallActivityAsync(nameof(GetWinePages)),
             context.CallActivityAsync(nameof(GetBeerPages)),
             context.CallActivityAsync(nameof(GetSpiritsPages)),
-        });
+        }).ConfigAwait();
 
-        await context.CallActivityAsync(nameof(SignalLastProductDone));
+        await context.CallActivityAsync(nameof(SignalLastProductDone)).ConfigAwait();
         logger.LogInformation($"Finished BlobImportFunctions.");
         return "Done BlobImportFunctions";
     }
@@ -60,7 +63,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [Function(nameof(StartImporting))]
     public async Task StartImporting([ActivityTrigger] string name, FunctionContext executionContext)
     {
-        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
+        var logger = executionContext.GetLogger<BlobImportFunctions>();
         await importingService.StartImporting().ConfigAwait();
         logger.LogInformation("Finished StartImporting.");
     }
@@ -98,7 +101,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [Function(nameof(SignalLastProductDone))]
     public async Task SignalLastProductDone([ActivityTrigger] string name, FunctionContext executionContext)
     {
-        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
+        var logger = executionContext.GetLogger<BlobImportFunctions>();
         await importingService.SignalLastProductDone().ConfigAwait();
         logger.LogInformation("Finished SignalLastProductDone.");
     }
@@ -107,7 +110,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task Inventory([BlobTrigger("inventories/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
         string name)
     {
-        this.logger.LogInformation("Inventory blob trigger called for {name}", name);
+        this.logger.LogInformation("Inventory blob trigger called for {Name}", name);
         await importingService.ProcessInventoryBlob(name, myBlob).ConfigAwait();
         this.logger.LogInformation("C# Blob trigger function processed inventory blob\n Name: {Name} \n Size: {Length} Bytes", name, myBlob.Length);
     }
@@ -141,13 +144,14 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
         [DurableClient] DurableTaskClient client, FunctionContext executionContext)
     {
-        ILogger<BlobImportFunctions> logger = executionContext.GetLogger<BlobImportFunctions>();
+        ArgumentNullException.ThrowIfNull(client, nameof(client));
+        var logger = executionContext.GetLogger<BlobImportFunctions>();
         // Function input comes from the request content.
-        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(UpdateOrch));
+        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(UpdateOrch)).ConfigAwait();
 
         logger.LogInformation("Started update orchestration with ID = '{InstanceId}'.", instanceId);
 
-        return await client.CreateCheckStatusResponseAsync(req, instanceId);
+        return await client.CreateCheckStatusResponseAsync(req, instanceId).ConfigAwait();
     }
 
     [Function(nameof(UpdateOrch))]
@@ -155,8 +159,9 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task<string> UpdateOrch(
        [OrchestrationTrigger] TaskOrchestrationContext context)
     {
-        ILogger logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
-        await context.CallActivityAsync(nameof(Update));
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+        var logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
+        await context.CallActivityAsync(nameof(Update)).ConfigAwait();
         logger.LogInformation($"Finished UpdateOrch.");
         return "Done UpdateOrch";
     }

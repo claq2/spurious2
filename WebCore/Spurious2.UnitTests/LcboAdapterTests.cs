@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using Lcbo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -9,11 +8,11 @@ using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 using Spurious2.Core2.Products;
 using Spurious2.Infrastructure;
+using Spurious2.Infrastructure.Lcbo;
 
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class LcboAdapterTests
 {
     private IConfigurationRoot config;
@@ -21,9 +20,7 @@ public class LcboAdapterTests
     private Mock<IDbContextFactory<SpuriousContext>> mockFactory;
 
     [SetUp]
-#pragma warning disable CA1506 // Avoid excessive class coupling
     public async Task Setup()
-#pragma warning restore CA1506 // Avoid excessive class coupling
     {
         NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometryServices(
                 NetTopologySuite.Geometries.Implementation.CoordinateArraySequenceFactory.Instance,
