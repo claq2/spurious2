@@ -41,7 +41,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     {
                         Id = csduid,
                         BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
+                        SubdivisionName = csdname!,
                         Province = string.Empty,
                     };
                 }
@@ -79,7 +79,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     {
                         Id = csduid,
                         BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
+                        SubdivisionName = csdname!,
                         Province = string.Empty,
                     };
                 }
@@ -131,7 +131,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                         // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
                         )
                         {
-                            yield return (id, name);
+                            yield return (id, name!);
                         }
                     }
                 }
