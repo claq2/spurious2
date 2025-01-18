@@ -1,10 +1,8 @@
 using System.Globalization;
 using System.Text;
 using CsvHelper;
-using Spurious2.Core2;
-using Spurious2.Core2.Subdivisions;
 
-namespace Spurious2.Core.SubdivisionImporting.Services;
+namespace Spurious2.Core2.Subdivisions;
 
 public class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {
@@ -43,7 +41,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     {
                         Id = csduid,
                         BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
+                        SubdivisionName = csdname!,
                         Province = string.Empty,
                     };
                 }
@@ -81,7 +79,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                     {
                         Id = csduid,
                         BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname,
+                        SubdivisionName = csdname!,
                         Province = string.Empty,
                     };
                 }
@@ -133,7 +131,7 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
                         // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
                         )
                         {
-                            yield return (id, name);
+                            yield return (id, name!);
                         }
                     }
                 }

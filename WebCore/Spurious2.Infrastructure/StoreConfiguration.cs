@@ -1,11 +1,9 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Spurious2.Core2.Stores;
 
 namespace Spurious2.Infrastructure;
 
-[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class StoreConfiguration : IEntityTypeConfiguration<Store>
 {
     public void Configure(EntityTypeBuilder<Store> builder)

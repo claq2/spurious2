@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Spurious2;
-using Spurious2.Core.SubdivisionImporting.Services;
 using Spurious2.Core2;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
 
 #if DEBUG
@@ -21,7 +21,6 @@ Log.Logger = new LoggerConfiguration()
             .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
             .CreateBootstrapLogger();
 
-#pragma warning disable CA1031 // Do not catch general exception types
 try
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -228,4 +227,3 @@ finally
 {
     await Log.CloseAndFlushAsync().ConfigAwait();
 }
-#pragma warning restore CA1031 // Do not catch general exception types

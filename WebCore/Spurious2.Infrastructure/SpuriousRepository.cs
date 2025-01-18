@@ -133,7 +133,6 @@ where id = {boundary.Id}").ConfigAwait();
         //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     public async Task ImportBoundaryBulk(IEnumerable<BoundaryIncoming> boundaries)
     {
         ArgumentNullException.ThrowIfNull(boundaries);
@@ -476,7 +475,6 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     private static DataTable ToDataTable(IEnumerable<ProductIncoming> products)
     {
         DataTable table = new();
@@ -493,7 +491,6 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         return table;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     private static DataTable ToDataTable(IEnumerable<int> storeIds)
     {
         DataTable table = new();
@@ -506,7 +503,6 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         return table;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     private static DataTable ToDataTable(IEnumerable<InventoryIncoming> inventories)
     {
         DataTable table = new();
