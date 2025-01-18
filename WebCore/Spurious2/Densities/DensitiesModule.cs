@@ -9,7 +9,7 @@ public class DensitiesModule : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app.MapGet("/api/densities",
             async (ISender mediator) =>
-                await mediator.Send(new GetDensitiesRequest()).ConfigAwait())
+                await mediator.Send(new GetDensitiesRequest(), CancellationToken.None).ConfigAwait())
             .WithTags("Densities")
             .WithName("GetDensities")
             .WithOpenApi();
