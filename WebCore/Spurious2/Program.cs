@@ -1,11 +1,9 @@
-using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using Spurious2;
 using Spurious2.Core2;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
@@ -132,13 +130,13 @@ try
             .Self()
 #if !DEBUG
                     .WithNonce()
-                    .WithHash256("NOqkZFG2ZdtACrMCaTo1EEwwqcEiIlzuYuXVVoLIb7o=")
-                    .WithHash256("+69+i2WixHVJ8zb6nUNKV8YNsYG6sjfJ3wmXgULgJJY=")
-                    .WithHash256("j7D01FWM6XmRMJqQn3kMs5KI69yIOCSCFsd3HyMWhxg=")
-                    .WithHash256("3h4buiXsKpWAN+mt/D+CqpDUe38t8xgvRR8xBrUlYlo=")
-                    .WithHash256("YUmm0H/7mTRbX1ONX5ovu/D21KzruIabKVGqKnnSSnY=")
-                    .WithHash256("2v7G6UZEWMyIosAgMnziCoeiu95yWo7Fi0IaIlRrcfA=")
-                    .WithHash256("Gigilx1DnI9IZyIHGiSVRO21Eb/w7wxCAXEAVYH3vo4=")
+                    //.WithHash256("NOqkZFG2ZdtACrMCaTo1EEwwqcEiIlzuYuXVVoLIb7o=")
+                    //.WithHash256("+69+i2WixHVJ8zb6nUNKV8YNsYG6sjfJ3wmXgULgJJY=")
+                    //.WithHash256("j7D01FWM6XmRMJqQn3kMs5KI69yIOCSCFsd3HyMWhxg=")
+                    //.WithHash256("3h4buiXsKpWAN+mt/D+CqpDUe38t8xgvRR8xBrUlYlo=")
+                    //.WithHash256("YUmm0H/7mTRbX1ONX5ovu/D21KzruIabKVGqKnnSSnY=")
+                    //.WithHash256("2v7G6UZEWMyIosAgMnziCoeiu95yWo7Fi0IaIlRrcfA=")
+                    //.WithHash256("Gigilx1DnI9IZyIHGiSVRO21Eb/w7wxCAXEAVYH3vo4=")
                     .WithHash256("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=")
                     .StrictDynamic()
 #elif DEBUG
