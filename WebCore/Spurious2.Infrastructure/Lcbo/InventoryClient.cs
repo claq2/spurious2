@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text;
 using Spurious2.Core2;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 public class InventoryClient
 {

@@ -18,13 +18,11 @@ public static class TaskExtensions
 
     public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task)
     {
-        ArgumentNullException.ThrowIfNull(task, nameof(task));
         return task.ConfigureAwait(false);
     }
 
     public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task)
     {
-        ArgumentNullException.ThrowIfNull(task, nameof(task));
         return task.ConfigureAwait(false);
     }
 

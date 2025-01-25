@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using Lcbo;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 public class CategorizedProductListClient
 {

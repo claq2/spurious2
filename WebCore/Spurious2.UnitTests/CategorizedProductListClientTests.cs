@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using FluentAssertions;
-using Lcbo;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
+using Spurious2.Infrastructure.Lcbo;
 
 namespace Spurious2.UnitTests;
 

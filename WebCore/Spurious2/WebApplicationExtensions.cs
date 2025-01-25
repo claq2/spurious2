@@ -11,7 +11,6 @@ public static class WebApplicationExtensions
         using (var scope = webHost.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
-#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 var db = services.GetRequiredService<T>();
@@ -22,7 +21,6 @@ public static class WebApplicationExtensions
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.MigrationError(ex);
             }
-#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         return webHost;

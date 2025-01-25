@@ -11,6 +11,7 @@ using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.AzureStorage;
+using Spurious2.Infrastructure.Lcbo;
 using System.Globalization;
 
 IHost host = new HostBuilder()

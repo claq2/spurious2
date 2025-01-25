@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 public class LcboHttpClientHandler : HttpClientHandler
 {

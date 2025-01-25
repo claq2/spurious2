@@ -1,4 +1,4 @@
-namespace Spurious2.Core.SubdivisionImporting.Services;
+namespace Spurious2.Core2.Subdivisions;
 
 public interface ISubdivisionImportingService : IDisposable
 {
