@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Globalization;
-using System.Text.Json.Serialization;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -11,6 +8,9 @@ using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
+using System.Diagnostics;
+using System.Globalization;
+using System.Text.Json.Serialization;
 
 #if DEBUG
 const string MyOrigins = "MyOrigins";
