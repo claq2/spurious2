@@ -1,10 +1,10 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Net;
 using FluentAssertions;
 using Lcbo;
 using Spurious2.Core2;
 using Spurious2.Infrastructure.Lcbo;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Net;
 
 namespace Spurious2.UnitTests;
 
@@ -15,7 +15,7 @@ public class InventoryClientTests
     [Test]
     public async Task GetThatInventoryAndStores()
     {
-        var client = CreateInventoryClient();
+        InventoryClient client = CreateInventoryClient();
         var html = await client.GetInventoryPage("80127").ConfigAwait();
 
         LcboAdapter adapter = new(CreateCategorizedProductListClient(),
@@ -28,13 +28,13 @@ public class InventoryClientTests
         inventories.Should().OnlyContain(i => i.Inventory.StoreId > 0);
         inventories.Should().OnlyContain(i => i.Uri.DnsSafeHost == "www.lcbo.com");
 
-        var inventory = inventories.Single(i => i.Uri.ToString().EndsWith("-1", StringComparison.Ordinal));
+        (Core2.Inventories.InventoryIncoming Inventory, Uri Uri) inventory = inventories.Single(i => i.Uri.ToString().EndsWith("-1", StringComparison.Ordinal));
 
         var storeHtml = await adapter.GetStorePage(inventory.Uri).ConfigAwait();
-        var storeInfo = adapter.GetStoreInfo(inventory.Inventory.StoreId.ToString(CultureInfo.InvariantCulture),
+        Core2.Stores.StoreIncoming storeInfo = adapter.GetStoreInfo(inventory.Inventory.StoreId.ToString(CultureInfo.InvariantCulture),
             storeHtml);
         storeInfo.Id.Should().Be(1);
-        storeInfo.StoreName.Should().Be("Hwy 401 & Weston (Crossroads)");
+        storeInfo.StoreName.Should().Be("Highway 401 & Weston");
         storeInfo.City.Should().Be("Toronto-North York");
         storeInfo.Latitude.Should().Be(43.712679m);
         storeInfo.Longitude.Should().Be(-79.531037m);
