@@ -1,9 +1,8 @@
+using System.Net;
 using FluentAssertions;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 using Spurious2.Infrastructure.Lcbo;
-using System.Diagnostics.CodeAnalysis;
-using System.Net;
 
 namespace Spurious2.UnitTests;
 
@@ -14,7 +13,7 @@ public class CategorizedProductListClientTests
     public async Task GetProductListParses()
     {
         CategorizedProductListClient client = CreateCategorizedProductListClient();
-        Lcbo.Rootobject prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red)
+        Rootobject prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         var productList = prods.results.GetProducts(ProductType.Wine).ToList();

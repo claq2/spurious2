@@ -1,3 +1,4 @@
+using System.Globalization;
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,6 @@ using Spurious2.Core2.Lcbo;
 using Spurious2.Infrastructure;
 using Spurious2.Infrastructure.AzureStorage;
 using Spurious2.Infrastructure.Lcbo;
-using System.Globalization;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -49,7 +49,7 @@ var host = new HostBuilder()
             )
             .WriteTo.File(filepath, LogEventLevel.Debug, rollingInterval: RollingInterval.Day, formatProvider: CultureInfo.InvariantCulture)
 #if DEBUG
-            .WriteTo.Seq("http://spurious2.seq:5341", LogEventLevel.Debug)
+            .WriteTo.Seq("http://spurious2.seq:5341", LogEventLevel.Debug, formatProvider: CultureInfo.InvariantCulture)
 #endif
             .CreateLogger();
         //services.AddSingleton(Log.Logger);
