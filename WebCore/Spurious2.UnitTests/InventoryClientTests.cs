@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Lcbo;
 using Spurious2.Core2;
 using Spurious2.Infrastructure.Lcbo;
 using System.Diagnostics.CodeAnalysis;
@@ -9,7 +8,6 @@ using System.Net;
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class InventoryClientTests
 {
     [Test]

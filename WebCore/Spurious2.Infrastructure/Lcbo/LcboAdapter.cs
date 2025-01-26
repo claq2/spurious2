@@ -10,7 +10,7 @@ using Spurious2.Core2.Products;
 using Spurious2.Core2.Stores;
 using Spurious2.Infrastructure.Lcbo;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 public class LcboAdapter(CategorizedProductListClient productListClient,
     InventoryClient inventoryClient,

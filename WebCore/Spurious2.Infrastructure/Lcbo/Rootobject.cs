@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Lcbo;
+namespace Spurious2.Infrastructure.Lcbo;
 
 #pragma warning disable IDE1006 // Naming Styles
 public class Rootobject

@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using Lcbo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,7 +13,6 @@ using Spurious2.Infrastructure.Lcbo;
 namespace Spurious2.UnitTests;
 
 [TestFixture]
-[SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
 public class LcboAdapterTests
 {
     private IConfigurationRoot config;

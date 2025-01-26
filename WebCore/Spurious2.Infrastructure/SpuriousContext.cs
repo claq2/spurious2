@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Spurious2.Core2.Inventories;
 using Spurious2.Core2.Products;
@@ -36,7 +35,6 @@ public partial class SpuriousContext : DbContext
 
     public virtual DbSet<Subdivision> Subdivisions { get; set; }
 
-    [SuppressMessage("Style", "IDE0058:Expression value is never used", Justification = "<Pending>")]
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
