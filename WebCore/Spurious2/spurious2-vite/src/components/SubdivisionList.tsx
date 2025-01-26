@@ -88,32 +88,33 @@ const SubdivisionList = ({ onSubdivisionChange }: SubdivisionListProps) => {
   return (
     <>
       <Box sx={{ width: "100%" }}>
-        <DataGrid
-          autoHeight
-          loading={isLoading}
-          onRowClick={rowClick}
-          rows={tableData}
-          rowSelectionModel={selection}
-          columns={columns}
-          sx={{
-            [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-              {
-                outline: "none",
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <DataGrid
+            loading={isLoading}
+            onRowClick={rowClick}
+            rows={tableData}
+            rowSelectionModel={selection}
+            columns={columns}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
               },
-            [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-              {
-                outline: "none",
-              },
-          }}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 10,
-              },
-            },
-          }}
-          pageSizeOptions={[10]}
-        />
+            }}
+            pageSizeOptions={[10]}
+          />
+        </div>
       </Box>
     </>
   );
