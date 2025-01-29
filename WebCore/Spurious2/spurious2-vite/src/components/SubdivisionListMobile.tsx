@@ -42,12 +42,12 @@ const SubdivisionListMobile = ({
       // editable: true,
       flex: 0.5,
       renderCell: (params) => {
-        console.log("row params", params);
         return (
           <>
-            {params.row.name} <p />
-            Pop: {params.row.population} Density:{" "}
-            {params.row.requestedDensityAmount}
+            <b>{params.row.name}</b>
+            <p />
+            Population: {params.row.population} Density:{" "}
+            {params.row.requestedDensityAmount} L/person
           </>
         );
       },
