@@ -4,8 +4,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Density } from "../services/types";
-import { store } from "../store";
-import { densityApi } from "../services/densities";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -174,12 +172,12 @@ const NavBar = () => {
 
 export default NavBar;
 
-export const dataLoader = async () => {
-  const p = store.dispatch(densityApi.endpoints.getDensities.initiate());
-  try {
-    const ds = await p.unwrap();
-    return ds;
-  } finally {
-    p.unsubscribe();
-  }
-};
+// export const dataLoader = async () => {
+//   const p = store.dispatch(densityApi.endpoints.getDensities.initiate());
+//   try {
+//     const ds = await p.unwrap();
+//     return ds;
+//   } finally {
+//     p.unsubscribe();
+//   }
+// };

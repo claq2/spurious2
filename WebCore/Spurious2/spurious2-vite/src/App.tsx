@@ -3,19 +3,14 @@ import Home from "./pages/Home";
 import {
   Route,
   RouterProvider,
-  createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Shell, { dataLoader } from "./pages/Shell";
-import About from "./components/About";
+import Shell from "./pages/Shell";
+import { staticRoutes } from "./staticRoutes";
+import { dataLoader } from "./pages/dataLoader";
 
-export type StaticRoute = { route: string; element: JSX.Element };
-
-export const staticRoutes: StaticRoute[] = [
-  { route: "about", element: <About /> },
-];
-
-const router = createHashRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Shell />} id="root" loader={dataLoader}>

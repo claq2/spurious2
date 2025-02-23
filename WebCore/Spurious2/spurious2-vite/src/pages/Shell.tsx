@@ -7,11 +7,9 @@ import {
 } from "react-router-dom";
 import { Density } from "../services/types";
 import { useEffect } from "react";
-import { store } from "../store";
-import { densityApi } from "../services/densities";
-import { staticRoutes } from "../App";
 import NavBar from "../components/NavBar";
 import Container from "@mui/material/Container";
+import { staticRoutes } from "../staticRoutes";
 
 const Shell = () => {
   const { id } = useParams();
@@ -49,16 +47,3 @@ const Shell = () => {
 };
 
 export default Shell;
-
-export const dataLoader = async () => {
-  const densitiesResult = store.dispatch(
-    densityApi.endpoints.getDensities.initiate()
-  );
-  try {
-    const densities = await densitiesResult.unwrap();
-    console.debug("densities in Shell", densities);
-    return densities;
-  } finally {
-    densitiesResult.unsubscribe();
-  }
-};

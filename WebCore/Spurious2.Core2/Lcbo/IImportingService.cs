@@ -2,14 +2,14 @@ namespace Spurious2.Core2.Lcbo;
 
 public interface IImportingService
 {
-    Task ProcessStoreBlob(string storeId, Stream storeStream);
-    Task SignalLastProductDone();
-    Task StartImporting();
-    Task ProcessInventoryBlob(string productId, Stream inventoryStream);
-    Task ProcessProductBlob(string productId);
-    Task ProcessLastProductBlob(string contents);
-    Task ProcessLastInventoryBlob(string contents);
-    Task EndImporting();
-    Task GetProductPages(ProductType productType);
-    Task UpdateAll();
+    public Task ProcessStoreBlob(string storeId, Stream storeStream);
+    public Task SignalLastProductDone();
+    public Task StartImporting();
+    public Task ProcessInventoryBlob(string productId, Stream inventoryStream);
+    public Task ProcessProductBlob(string productId);
+    public Task ProcessLastProductBlob(string contents);
+    public Task ProcessLastInventoryBlob(string contents);
+    public Task EndImporting();
+    public Task GetProductPages(ProductType productType);
+    public Task UpdateAll();
 }
