@@ -23,13 +23,13 @@
     <div id="root"></div>
     <environment include="Development">
         <script type="module">
-            import RefreshRuntime from 'http:localhost:5000/@@react-refresh'
+            import RefreshRuntime from 'http:localhost:5000/client/@@react-refresh'
             RefreshRuntime.injectIntoGlobalHook(window)
             window.$RefreshReg$ = () => {}
             window.$RefreshSig$ = () => (type) => type
             window.__vite_plugin_react_preamble_installed__ = true
         </script>
-        <script type="module" src="http://localhost:5000/src/main.tsx"></script>
+        <script type="module" src="http://localhost:5000/client/src/main.tsx"></script>
     </environment>
     <environment include="Production">
         @foreach (var file in Directory.EnumerateFiles("wwwroot/client/assets", "*.js"))
