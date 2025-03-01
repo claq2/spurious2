@@ -9,6 +9,16 @@ services:
     volumes:
       # map the dotnet user-secret folder
       - $APPDATA/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+ 
+  spurious2-front:
+    container_name: spurious2.front
+    build:
+      context: WebCore/Spurious2/spurious2-vite
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
 
   spurious2-seq:
     image: datalust/seq:latest

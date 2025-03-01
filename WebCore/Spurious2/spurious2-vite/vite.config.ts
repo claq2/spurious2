@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 5000,
     origin: "http://localhost:5000",
+    host: true
   },
   base: "/",
   build: {
