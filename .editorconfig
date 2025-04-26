@@ -1894,7 +1894,7 @@ dotnet_diagnostic.IDE0059.severity = warning
 dotnet_diagnostic.IDE0060.severity=error
 
 # Remove unnecessary suppression
-dotnet_diagnostic.IDE0079.severity=error
+dotnet_diagnostic.IDE0079.severity=silent
 
 # Remove unnecessary suppression operator
 dotnet_diagnostic.IDE0080.severity=suggestion

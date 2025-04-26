@@ -61,6 +61,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(StartImporting))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task StartImporting([ActivityTrigger] string name, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger<BlobImportFunctions>();
@@ -69,6 +70,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(GetWinePages))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetWinePages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Wine).ConfigAwait();
@@ -76,6 +78,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(GetBeerPages))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetBeerPages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Beer).ConfigAwait();
@@ -83,6 +86,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(GetSpiritsPages))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetSpiritsPages([ActivityTrigger] string name)
     {
         await importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
@@ -99,6 +103,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
 
 
     [Function(nameof(SignalLastProductDone))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task SignalLastProductDone([ActivityTrigger] string name, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger<BlobImportFunctions>();
@@ -167,6 +172,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     }
 
     [Function(nameof(Update))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task Update([ActivityTrigger] string name)
     {
         await importingService.UpdateAll().ConfigAwait();
