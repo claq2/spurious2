@@ -42,6 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebCore\Spurious2.Core2\Spurious2.Core2.csproj" />
     <ProjectReference Include="..\WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
+    <ProjectReference Include="..\WebCore\Spurious2.ServiceDefaults\Spurious2.ServiceDefaults.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
