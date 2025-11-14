@@ -5,6 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="9.5.2-preview.1.25522.3" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.5.2" />
     <PackageVersion Include="AutoMapper" Version="14.0.0" />
     <PackageVersion Include="Azure.Identity" Version="1.17.0" />
     <PackageVersion Include="Azure.Storage.Blobs" Version="12.26.0" />
@@ -73,5 +74,6 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
   </ItemGroup>
 </Project>

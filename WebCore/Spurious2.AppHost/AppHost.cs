@@ -8,12 +8,19 @@ var storage = builder.AddAzureStorage("storage")
 
 var blobs = storage.AddBlobs("blobs");
 
+var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurious2-migrationservice")
+    .WithReference(db)
+                        .WaitFor(db)
+;
+
 var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("functions")
                        .WithHostStorage(storage)
                        .WithReference(db)
                        .WithReference(blobs)
                        .WaitFor(db)
                        .WaitFor(storage)
-                       .WaitFor(blobs);
+                       .WaitFor(blobs)
+                       .WaitFor(migrations);
+
 
 builder.Build().Run();

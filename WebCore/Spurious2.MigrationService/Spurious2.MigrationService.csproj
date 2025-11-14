@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Spurious2.MigrationService-1cf5861d-4e79-4383-a2bf-63b11cf25d7b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
+    <ProjectReference Include="..\Spurious2.ServiceDefaults\Spurious2.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Spurious2\Spurious2.csproj" />
+  </ItemGroup>
+</Project>
