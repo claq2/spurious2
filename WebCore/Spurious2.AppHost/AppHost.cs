@@ -20,7 +20,7 @@ var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("
                        .WaitFor(db)
                        .WaitFor(storage)
                        .WaitFor(blobs)
-                       .WaitFor(migrations);
+                       .WaitForCompletion(migrations);
 
 
 builder.Build().Run();

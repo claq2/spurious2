@@ -1,11 +1,9 @@
-using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using Spurious2;
 using Spurious2.Core2;
 using Spurious2.Core2.Densities;
 using Spurious2.Core2.Stores;
@@ -78,44 +76,44 @@ try
 #endif
     var app = builder.Build();
 
-#if DEBUG
-    var sw = new Stopwatch();
-    sw.Start();
-    await app.MigrateDatabase<SpuriousContext>().ConfigAwait();
-    var importTasks = new List<Task>();
-    using (var scope = app.Services.CreateScope())
-    {
-        var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
-        var subdivsWithBoundary = await context.Subdivisions.CountAsync(sd => sd.Boundary != null).ConfigAwait();
-        if (subdivsWithBoundary < 5161)
-        {
-            // add from boundary file
-            var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-            importTasks.Add(subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv"));
-        }
+    //#if DEBUG
+    //    var sw = new Stopwatch();
+    //    sw.Start();
+    //    await app.MigrateDatabase<SpuriousContext>().ConfigAwait();
+    //    var importTasks = new List<Task>();
+    //    using (var scope = app.Services.CreateScope())
+    //    {
+    //        var context = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
+    //        var subdivsWithBoundary = await context.Subdivisions.CountAsync(sd => sd.Boundary != null).ConfigAwait();
+    //        if (subdivsWithBoundary < 5161)
+    //        {
+    //            // add from boundary file
+    //            var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+    //            importTasks.Add(subDivImporter.ImportBoundaryFromCsvFile("subdiv.csv"));
+    //        }
 
-        var subdivsWithPopulation = await context.Subdivisions.CountAsync(sd => sd.Population > 0).ConfigAwait();
-        if (subdivsWithPopulation < 4830)
-        {
-            // add from population file
-            var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-            importTasks.Add(subDivImporter.ImportPopulationFrom98File("population.csv"));
-        }
+    //        var subdivsWithPopulation = await context.Subdivisions.CountAsync(sd => sd.Population > 0).ConfigAwait();
+    //        if (subdivsWithPopulation < 4830)
+    //        {
+    //            // add from population file
+    //            var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+    //            importTasks.Add(subDivImporter.ImportPopulationFrom98File("population.csv"));
+    //        }
 
-        await Task.WhenAll(importTasks).ConfigAwait();
-        Log.Information("Took {Elapsed} to import subdiv data", sw.Elapsed);
+    //        await Task.WhenAll(importTasks).ConfigAwait();
+    //        Log.Information("Took {Elapsed} to import subdiv data", sw.Elapsed);
 
-        var storeCount = await context.Stores.CountAsync().ConfigAwait();
-        if (storeCount < 653)
-        {
-            var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
-            await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
-        }
-    }
+    //        var storeCount = await context.Stores.CountAsync().ConfigAwait();
+    //        if (storeCount < 653)
+    //        {
+    //            var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
+    //            await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
+    //        }
+    //    }
 
-    sw.Stop();
-    Log.Information("Took {Elapsed} to set up DB", sw.Elapsed);
-#endif
+    //    sw.Stop();
+    //    Log.Information("Took {Elapsed} to set up DB", sw.Elapsed);
+    //#endif
     app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
     {
         b.AddDefaultSrc().Self();

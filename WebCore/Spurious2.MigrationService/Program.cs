@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Spurious2.Core2;
+using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
 using Spurious2.MigrationService;
 
@@ -36,6 +39,15 @@ builder.AddSqlServerDbContext<SpuriousContext>("spuriousdb",
         c.MigrationsAssembly("Spurious2")
         .UseNetTopologySuite();
     }));
+
+builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("spuriousdb"),
+    b => b.UseNetTopologySuite()
+        .EnableRetryOnFailure()
+        .MigrationsAssembly("Spurious2")));
+
+builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
+builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
+builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
 
 var host = builder.Build();
 host.Run();

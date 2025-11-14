@@ -1,5 +1,8 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Spurious2.Core2;
+using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
 
 namespace Spurious2.MigrationService;
@@ -21,7 +24,7 @@ public class Worker(IServiceProvider serviceProvider,
             var dbContext = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
 
             await RunMigrationAsync(dbContext, stoppingToken).ConfigureAwait(false);
-            //await SeedDataAsync(dbContext, stoppingToken).ConfigureAwait(false);
+            await SeedDataAsync(dbContext, stoppingToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -39,5 +42,47 @@ public class Worker(IServiceProvider serviceProvider,
         await strategy.ExecuteAsync(async () =>
             // Run migration in a transaction to avoid partial migration if it fails.
             await dbContext.Database.MigrateAsync(cancellationToken).ConfigureAwait(false)).ConfigureAwait(false);
+    }
+
+    private async Task SeedDataAsync(SpuriousContext dbContext, CancellationToken cancellationToken)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+        var strategy = dbContext.Database.CreateExecutionStrategy();
+        var importTasks = new List<Task>();
+        using (var scope = serviceProvider.CreateScope())
+        {
+            await strategy.ExecuteAsync(async () =>
+            {
+                var subdivsWithBoundary = await dbContext.Subdivisions.CountAsync(sd => sd.Boundary != null, cancellationToken).ConfigureAwait(false);
+                if (subdivsWithBoundary < 5161)
+                {
+                    var subdivisionImportingService = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+                    // add from boundary file
+                    importTasks.Add(subdivisionImportingService.ImportBoundaryFromCsvFile("subdiv.csv"));
+                }
+            }).ConfigureAwait(false);
+
+            var subdivsWithPopulation = await dbContext.Subdivisions.CountAsync(sd => sd.Population > 0, cancellationToken).ConfigAwait();
+            if (subdivsWithPopulation < 4830)
+            {
+                // add from population file
+                var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
+                importTasks.Add(subDivImporter.ImportPopulationFrom98File("population.csv"));
+            }
+
+            await Task.WhenAll(importTasks).ConfigAwait();
+            Console.WriteLine("Took {0} to import subdiv data", sw.Elapsed);
+
+            var storeCount = await dbContext.Stores.CountAsync(cancellationToken).ConfigAwait();
+            if (storeCount < 653)
+            {
+                var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
+                await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
+            }
+        }
+
+        sw.Stop();
+        Console.WriteLine("Took {0} to set up DB", sw.Elapsed);
     }
 }
