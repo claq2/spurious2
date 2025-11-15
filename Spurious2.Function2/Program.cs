@@ -74,8 +74,8 @@ builder.Services.AddSingleton<Func<string, BlobContainerClient>>((blobContainerN
     clientOptions.Retry.MaxRetries = 4;
     //if (isDevelopment)
     //{
-    var x = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
-    return new BlobContainerClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), blobContainerName, clientOptions);
+    var x = Environment.GetEnvironmentVariable("blobs");
+    return new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
     //}
     //else
     //{
