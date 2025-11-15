@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -6,6 +6,24 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-Spurious2.MigrationService-1cf5861d-4e79-4383-a2bf-63b11cf25d7b</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="population.csv" />
+    <None Remove="stores.csv" />
+    <None Remove="subdiv.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="population.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="stores.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="subdiv.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
