@@ -14,7 +14,7 @@ import { useLazyGetBoundaryBySubdivisionIdQuery } from "../services/subdivisions
 const option: IAzureMapOptions = {
   authOptions: {
     authType: AuthenticationType.subscriptionKey,
-    subscriptionKey: "UHo_yP7VRSrUF-ZA_GFnT7YOz1b-MoRMT90xMbDybzs", // Your subscription key
+    subscriptionKey: "6KJcHIURh6jiExCbI5pXR0yIO35ymVzJWGv2yrMbtbWxSy3T8thGJQQJ99BKACYeBjFEMSdPAAAgAZMPT8Q6", // Your subscription key
   },
   center: new data.Position(-83.9355468749954, 48.25394114468216),
   zoom: 4,
