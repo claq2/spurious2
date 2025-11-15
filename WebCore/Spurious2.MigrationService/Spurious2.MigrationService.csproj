@@ -17,4 +17,14 @@
     <ProjectReference Include="..\Spurious2.ServiceDefaults\Spurious2.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Spurious2\Spurious2.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.job">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
 </Project>
