@@ -4,7 +4,7 @@ import { AuthenticationType } from "azure-maps-control";
 const option: IAzureMapOptions = {
   authOptions: {
     authType: AuthenticationType.anonymous,
-    clientId: "6c2581ec-8018-4346-8b4e-d18b27b420b2",
+    clientId: "44657cb2-16f2-4afa-b207-635cf196d22e",
     getToken: function (resolve) {
       fetch("/api/azure-maps-token")
         .then(function (response) {
