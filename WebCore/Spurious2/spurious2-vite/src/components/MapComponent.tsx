@@ -6,7 +6,7 @@ const option: IAzureMapOptions = {
     authType: AuthenticationType.anonymous,
     clientId: "6c2581ec-8018-4346-8b4e-d18b27b420b2",
     getToken: function (resolve) {
-      fetch("https://spurious2.azurewebsites.net/api/azure-maps-token")
+      fetch("/api/azure-maps-token")
         .then(function (response) {
           return response.text();
         })
