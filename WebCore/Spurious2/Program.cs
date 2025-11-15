@@ -49,12 +49,14 @@ try
     ////.EnableSensitiveDataLogging()
     //);
 
-    builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
+    builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("spuriousdb"),
         b => b.UseNetTopologySuite()
             .EnableRetryOnFailure()
             .MigrationsAssembly("Spurious2"))
-//.EnableSensitiveDataLogging()
-);
+    //.EnableSensitiveDataLogging()
+    );
+
+    builder.EnrichSqlServerDbContext<SpuriousContext>();
 
     // Add services to the container.
     builder.Services.AddRazorPages();
@@ -70,10 +72,10 @@ try
     builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
     builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
     builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
-#if DEBUG
-    builder.Services.AddCors(options =>
-        options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));
-#endif
+    //#if DEBUG
+    //    builder.Services.AddCors(options =>
+    //        options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));
+    //#endif
     var app = builder.Build();
 
     //#if DEBUG
@@ -120,7 +122,7 @@ try
         b.AddScriptSrc()
             .Self()
 #if DEBUG
-            .From("http://localhost:5000")
+            .From(Environment.GetEnvironmentVariable("services__spurious2-vite__https__0")!)
             .UnsafeInline()
 #elif !DEBUG
                     .WithNonce()
@@ -161,13 +163,13 @@ try
         b.AddFontSrc().Self()
             .Data()
 #if DEBUG
-            .From("http://localhost:5000")
+            .From(Environment.GetEnvironmentVariable("services__spurious2-vite__https__0")!)
 #endif
             .From("atlas.microsoft.com");
         b.AddFrameSrc().From("https://challenges.cloudflare.com");
         b.AddImgSrc().Self()
 #if DEBUG
-            .From("localhost:5000")
+            .From(Environment.GetEnvironmentVariable("services__spurious2-vite__https__0")!)
 #endif
             .Blob().Data();
     })
@@ -209,9 +211,9 @@ try
     app.UseStaticFiles();
 
     app.UseRouting();
-#if DEBUG
-    app.UseCors(MyOrigins);
-#endif
+    //#if DEBUG
+    //    app.UseCors(MyOrigins);
+    //#endif
     app.UseAuthorization();
     app.MapControllers();
     app.MapRazorPages();

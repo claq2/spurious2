@@ -49,6 +49,7 @@ builder.Services.AddDbContextFactory<SpuriousContext>((s, opt) => opt.UseSqlServ
                    .EnableRetryOnFailure()
                    .MigrationsAssembly("Spurious2"))
         );
+builder.EnrichSqlServerDbContext<SpuriousContext>();
 
 builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
 builder.Services.AddScoped<IImportingService, ImportingService>();

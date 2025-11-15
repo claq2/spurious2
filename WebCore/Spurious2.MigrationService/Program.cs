@@ -32,18 +32,20 @@ NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometry
             new NetTopologySuite.Geometries.CoordinateEqualityComparer() */
     );
 
-builder.AddSqlServerDbContext<SpuriousContext>("spuriousdb",
-    configureDbContextOptions: b => b.UseSqlServer(c =>
-    {
+//builder.AddSqlServerDbContext<SpuriousContext>("spuriousdb",
+//    configureDbContextOptions: b => b.UseSqlServer(c =>
+//    {
 
-        c.MigrationsAssembly("Spurious2")
-        .UseNetTopologySuite();
-    }));
+//        c.MigrationsAssembly("Spurious2")
+//        .UseNetTopologySuite();
+//    }));
 
 builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("spuriousdb"),
     b => b.UseNetTopologySuite()
         .EnableRetryOnFailure()
         .MigrationsAssembly("Spurious2")));
+
+builder.EnrichSqlServerDbContext<SpuriousContext>();
 
 builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
 builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
