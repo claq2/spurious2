@@ -96,8 +96,8 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
     /// <returns>IAsyncEnumerable<List<Product2>>></returns>
     public async IAsyncEnumerable<IEnumerable<ProductIncoming>> GetCategorizedProducts(ProductType productType)
     {
-        var subs = TypesAndSubTypes.ProductsToSubtypeMap[productType];
-        foreach (var productSubtype in subs)
+        var subtypes = TypesAndSubTypes.ProductsToSubtypeMap[productType];
+        foreach (var productSubtype in subtypes)
         {
             var productsRead = 0;
             var prods = await productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();

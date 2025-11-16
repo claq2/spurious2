@@ -25,9 +25,9 @@ var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("
     .WaitFor(blobs)
     .WaitForCompletion(migrations);
 
-var function2 = builder.AddAzureFunctionsProject<Projects.FunctionApp2>("function2")
-    .WithHostStorage(storage)
-    .WaitFor(storage);
+//var function2 = builder.AddAzureFunctionsProject<Projects.FunctionApp2>("function2")
+//    .WithHostStorage(storage)
+//    .WaitFor(storage);
 
 var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
@@ -47,7 +47,7 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
     devFrontend.RunWithHttpsDevCertificate("HTTPS_CERT_FILE", "HTTPS_CERT_KEY_FILE");
 }
 
-builder.AddAzureFunctionsProject<Projects.FunctionApp1>("functionapp1");
+//builder.AddAzureFunctionsProject<Projects.FunctionApp1>("functionapp1");
 
 //builder.AddAzureFunctionsProject<Projects.FunctionApp2>("functionapp2");
 
