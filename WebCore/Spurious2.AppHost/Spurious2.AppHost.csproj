@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FunctionApp1\FunctionApp1.csproj" />
+    <ProjectReference Include="..\..\FunctionApp2\FunctionApp2.csproj" />
     <ProjectReference Include="..\..\Spurious2.Function2\Spurious2.Function2.csproj" />
     <ProjectReference Include="..\Spurious2.MigrationService\Spurious2.MigrationService.csproj" />
     <ProjectReference Include="..\Spurious2\Spurious2.csproj" />

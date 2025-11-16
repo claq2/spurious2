@@ -15,7 +15,9 @@ public class Function1
     }
 
     [Function("Function1")]
+#pragma warning disable IDE0060 // Remove unused parameter
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
         return new OkObjectResult("Welcome to Azure Functions!");

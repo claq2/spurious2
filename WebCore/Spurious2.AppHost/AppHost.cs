@@ -16,7 +16,7 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
     .WaitFor(db)
 ;
 
-var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("functions")
+var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("spurious2-functions")
     .WithHostStorage(storage)
     .WithReference(db)
     .WithReference(blobs)
@@ -24,6 +24,10 @@ var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("
     .WaitFor(storage)
     .WaitFor(blobs)
     .WaitForCompletion(migrations);
+
+var function2 = builder.AddAzureFunctionsProject<Projects.FunctionApp2>("function2")
+    .WithHostStorage(storage)
+    .WaitFor(storage);
 
 var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
@@ -44,5 +48,7 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
 }
 
 builder.AddAzureFunctionsProject<Projects.FunctionApp1>("functionapp1");
+
+//builder.AddAzureFunctionsProject<Projects.FunctionApp2>("functionapp2");
 
 builder.Build().Run();
