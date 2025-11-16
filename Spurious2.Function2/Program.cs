@@ -1,7 +1,9 @@
+using Azure.Identity;
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -64,18 +66,43 @@ builder.Services.AddHttpClient<InventoryClient>()
    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
 builder.Services.AddHttpClient<StoreClient>()
    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-builder.Services.AddSingleton<Func<string, BlobContainerClient>>((blobContainerName) =>
+builder.AddAzureBlobContainerClient("blobs", b =>
 {
+    b.Credential = new DefaultAzureCredential();
+}, c => c.ConfigureOptions(o =>
+{
+    o.Retry.Delay = TimeSpan.FromSeconds(30);
+    o.Retry.MaxRetries = 4;
+}));
+
+
+
+builder.Services.AddSingleton<Func<string, BlobContainerClient>>(sp =>
+{
+
     //var vars = Environment.GetEnvironmentVariables();
     //var devEnvironmentVariable = Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT");
     //var isDevelopment = !string.IsNullOrEmpty(devEnvironmentVariable) && devEnvironmentVariable.ToUpperInvariant() == "DEVELOPMENT";
-    BlobClientOptions clientOptions = new();
-    clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
-    clientOptions.Retry.MaxRetries = 4;
+    //BlobClientOptions clientOptions = new();
+    //clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
+    //clientOptions.Retry.MaxRetries = 4;
     //if (isDevelopment)
     //{
-    var x = Environment.GetEnvironmentVariable("blobs");
-    return new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
+    //var x = Environment.GetEnvironmentVariable("blobs");
+    var bcc = sp.GetRequiredService<BlobContainerClient>();
+    BlobContainerClient Myfunc(string blobContainerName)
+    {
+        BlobClientOptions clientOptions = new();
+        clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
+        clientOptions.Retry.MaxRetries = 4;
+        var x = new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
+        return bcc;
+    }
+
+    return Myfunc;
+    //bcc.Name = blobContainerName;
+    //return bcc;
+    //return new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
     //}
     //else
     //{
