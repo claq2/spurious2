@@ -18,6 +18,8 @@ var builder = FunctionsApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.ConfigureFunctionsWebApplication();
+
 builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
@@ -66,7 +68,7 @@ builder.Services.AddHttpClient<InventoryClient>()
    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
 builder.Services.AddHttpClient<StoreClient>()
    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-builder.AddAzureBlobContainerClient("blobs", b =>
+builder.AddAzureBlobServiceClient("blobs", b =>
 {
     b.Credential = new DefaultAzureCredential();
 }, c => c.ConfigureOptions(o =>
@@ -74,6 +76,14 @@ builder.AddAzureBlobContainerClient("blobs", b =>
     o.Retry.Delay = TimeSpan.FromSeconds(30);
     o.Retry.MaxRetries = 4;
 }));
+//builder.AddAzureBlobContainerClient("blobs", b =>
+//{
+//    b.Credential = new DefaultAzureCredential();
+//}, c => c.ConfigureOptions(o =>
+//{
+//    o.Retry.Delay = TimeSpan.FromSeconds(30);
+//    o.Retry.MaxRetries = 4;
+//}));
 
 
 
@@ -89,14 +99,18 @@ builder.Services.AddSingleton<Func<string, BlobContainerClient>>(sp =>
     //if (isDevelopment)
     //{
     //var x = Environment.GetEnvironmentVariable("blobs");
-    var bcc = sp.GetRequiredService<BlobContainerClient>();
+    var bsc = sp.GetRequiredService<BlobServiceClient>();
+
+    //var bcc = sp.GetRequiredService<BlobContainerClient>();
     BlobContainerClient Myfunc(string blobContainerName)
     {
-        BlobClientOptions clientOptions = new();
-        clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
-        clientOptions.Retry.MaxRetries = 4;
-        var x = new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
-        return bcc;
+        //BlobClientOptions clientOptions = new();
+        //clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
+        //clientOptions.Retry.MaxRetries = 4;
+        //var x = new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
+        var y = bsc.GetBlobContainerClient(blobContainerName);
+
+        return y;
     }
 
     return Myfunc;

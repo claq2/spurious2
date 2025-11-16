@@ -43,4 +43,6 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
     devFrontend.RunWithHttpsDevCertificate("HTTPS_CERT_FILE", "HTTPS_CERT_KEY_FILE");
 }
 
+builder.AddAzureFunctionsProject<Projects.FunctionApp1>("functionapp1");
+
 builder.Build().Run();

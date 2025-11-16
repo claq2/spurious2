@@ -50,9 +50,11 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
 
         await Task.WhenAll(new List<Task>
         {
-            context.CallActivityAsync(nameof(GetWinePages)),
-            context.CallActivityAsync(nameof(GetBeerPages)),
-            context.CallActivityAsync(nameof(GetSpiritsPages)),
+            //context.CallActivityAsync(nameof(GetWinePages)),
+            //context.CallActivityAsync(nameof(GetBeerPages)),
+            //context.CallActivityAsync(nameof(GetSpiritsPages)),
+
+            context.CallActivityAsync(nameof(DoNothing)),
         }).ConfigAwait();
 
         await context.CallActivityAsync(nameof(SignalLastProductDone)).ConfigAwait();
@@ -67,6 +69,14 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         var logger = executionContext.GetLogger<BlobImportFunctions>();
         await importingService.StartImporting().ConfigAwait();
         logger.LogInformation("Finished StartImporting.");
+    }
+
+    [Function(nameof(DoNothing))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    public Task DoNothing([ActivityTrigger] string name)
+    {
+        this.logger.LogInformation("Finished DoNothing.");
+        return Task.CompletedTask;
     }
 
     [Function(nameof(GetWinePages))]
