@@ -41,7 +41,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         var logger = context.CreateReplaySafeLogger<BlobImportFunctions>();
         try
         {
-            await context.CallActivityAsync(nameof(StartImporting)).ConfigAwait();
+            await context.CallActivityAsync(nameof(StartImporting), "").ConfigureAwait(true);
         }
         catch (Exception)
         {
@@ -51,13 +51,13 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         await Task.WhenAll(new List<Task>
         {
             //context.CallActivityAsync(nameof(GetWinePages)),
-            //context.CallActivityAsync(nameof(GetBeerPages)),
+            context.CallActivityAsync(nameof(GetBeerPages), string.Empty),
             //context.CallActivityAsync(nameof(GetSpiritsPages)),
 
-            context.CallActivityAsync(nameof(DoNothing)),
-        }).ConfigAwait();
+            //context.CallActivityAsync(nameof(DoNothing), "blah"),
+        }).ConfigureAwait(true);
 
-        await context.CallActivityAsync(nameof(SignalLastProductDone)).ConfigAwait();
+        await context.CallActivityAsync(nameof(SignalLastProductDone), "").ConfigureAwait(true);
         logger.LogInformation($"Finished BlobImportFunctions.");
         return "Done BlobImportFunctions";
     }
@@ -73,9 +73,9 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
 
     [Function(nameof(DoNothing))]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    public Task DoNothing([ActivityTrigger] string name)
+    public Task DoNothing([ActivityTrigger] string name, FunctionContext executionContext)
     {
-        this.logger.LogInformation("Finished DoNothing.");
+        this.logger.LogInformation("Finished DoNothing this logger.");
         return Task.CompletedTask;
     }
 
@@ -110,7 +110,6 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         await importingService.ProcessProductBlob(productId).ConfigAwait();
         this.logger.LogInformation("C# Blob trigger function processed product blob\n Name:{ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
     }
-
 
     [Function(nameof(SignalLastProductDone))]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]

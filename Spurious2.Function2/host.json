@@ -17,6 +17,7 @@
       "Function.BlobImportFunctionsHttpStart.User": "Information",
       "Function.BlobImportFunctions.User": "Information",
       "Function.StartImporting.User": "Information",
+      "Function.DoNothing.User": "Information",
       "Function.GetWinePages.User": "Information",
       "Function.GetBeerPages.User": "Information",
       "Function.GetSpiritsPages.User": "Information",

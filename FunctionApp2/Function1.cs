@@ -17,9 +17,9 @@ public static class Function1
         var outputs = new List<string>();
 
         // Replace name and input with values relevant for your Durable Functions Activity
-        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "Tokyo").ConfigureAwait(false));
-        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "Seattle").ConfigureAwait(false));
-        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "London").ConfigureAwait(false));
+        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "Tokyo").ConfigureAwait(true));
+        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "Seattle").ConfigureAwait(true));
+        outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), "London").ConfigureAwait(true));
 
         // returns ["Hello Tokyo!", "Hello Seattle!", "Hello London!"]
         return outputs;
@@ -49,6 +49,6 @@ public static class Function1
 
         // Returns an HTTP 202 response with an instance management payload.
         // See https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-http-api#start-orchestration
-        return await client.CreateCheckStatusResponseAsync(req, instanceId).ConfigureAwait(false);
+        return await client.CreateCheckStatusResponseAsync(req, instanceId).ConfigureAwait(true);
     }
 }
