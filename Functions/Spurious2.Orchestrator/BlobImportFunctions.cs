@@ -50,9 +50,9 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
 
         await Task.WhenAll(new List<Task>
         {
-            //context.CallActivityAsync(nameof(GetWinePages)),
+            context.CallActivityAsync(nameof(GetWinePages), string.Empty),
             context.CallActivityAsync(nameof(GetBeerPages), string.Empty),
-            //context.CallActivityAsync(nameof(GetSpiritsPages)),
+            context.CallActivityAsync(nameof(GetSpiritsPages), string.Empty),
 
             //context.CallActivityAsync(nameof(DoNothing), "blah"),
         }).ConfigureAwait(true);
