@@ -2,6 +2,8 @@ namespace Spurious2.Core2.Lcbo;
 
 public interface IStorageAdapter
 {
+    public Task<string> GetStoreContents(string storeId);
+    public Task<string> GetInventoryContents(string productId);
     public Task<bool> StoreExists(string storeId);
     public Task WriteProductId(string productId);
     public Task WriteInventory(string productId, string pageContent);

@@ -1,8 +1,7 @@
 {
   "profiles": {
-    "Spurious2.QueueProcessors.Products": {
+    "Spurious2.QueueProcessors.Stores": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7064",
       "launchBrowser": false
     }
   }

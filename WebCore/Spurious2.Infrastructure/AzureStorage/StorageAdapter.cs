@@ -179,4 +179,20 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
+
+    public async Task<string> GetInventoryContents(string productId)
+    {
+        var bcc = clientFactory.Invoke("inventories");
+        var bc = bcc.GetBlobClient(productId);
+        var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
+        return downloadInfo.Value.Content.ToString();
+    }
+
+    public async Task<string> GetStoreContents(string storeId)
+    {
+        var bcc = clientFactory.Invoke("stores");
+        var bc = bcc.GetBlobClient(storeId);
+        var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
+        return downloadInfo.Value.Content.ToString();
+    }
 }

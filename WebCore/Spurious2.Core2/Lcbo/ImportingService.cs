@@ -44,6 +44,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     {
         var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
         await storageAdapter.WriteInventory(productId, contents).ConfigAwait();
+        await queueAdapter.WriteInventoryId(productId).ConfigAwait();
         logger.ProcessedProduct(productId);
     }
 
@@ -70,9 +71,43 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ProcessedInventory(productId);
     }
 
+    public async Task ProcessInventoryBlob(string productId)
+    {
+        // Add store info if blob doesn't exist
+        // Mark prod-inv done
+        var inventoryContents = await storageAdapter.GetInventoryContents(productId).ConfigAwait();
+        var inventories = lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryContents);
+        logger.FoundInventoryForProduct(inventories.Count, productId);
+        var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
+        await spuriousRepository.AddIncomingStoreIds(storeIds).ConfigAwait();
+        await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
+        foreach (var (inventory, uri) in inventories)
+        {
+            if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
+            {
+                var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
+                await storageAdapter.WriteStore(inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+                await queueAdapter.WriteStoreId(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+            }
+        }
+
+        await spuriousRepository.MarkIncomingProductDone(productId).ConfigAwait();
+
+        logger.ProcessedInventory(productId);
+    }
+
     public async Task ProcessStoreBlob(string storeId, Stream storeStream)
     {
         var store = await lcboAdapter.GetStoreInfo(storeId, storeStream).ConfigAwait();
+        // Write store to StoreIncoming, mark as done
+        await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
+        logger.ProcessedStore(storeId);
+    }
+
+    public async Task ProcessStoreBlob(string storeId)
+    {
+        var storeContents = await storageAdapter.GetStoreContents(storeId).ConfigAwait();
+        var store = lcboAdapter.GetStoreInfo(storeId, storeContents);
         // Write store to StoreIncoming, mark as done
         await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
         logger.ProcessedStore(storeId);

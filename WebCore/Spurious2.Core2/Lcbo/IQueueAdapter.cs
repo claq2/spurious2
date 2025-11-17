@@ -4,4 +4,6 @@ public interface IQueueAdapter
 {
     public Task ClearQueues();
     public Task WriteProductId(string productId);
+    public Task WriteInventoryId(string productId);
+    public Task WriteStoreId(string storeId);
 }

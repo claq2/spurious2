@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Spurious2.Function2": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7137"
+    "Spurious2.Orchestrator": {
+      "commandName": "Project"
+
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",

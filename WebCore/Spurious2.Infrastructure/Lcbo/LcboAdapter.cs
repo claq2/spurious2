@@ -15,7 +15,9 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
     InventoryClient inventoryClient,
     StoreClient storeClient) : ILcboAdapter
 {
-    public IEnumerable<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents)
+#pragma warning disable CA1002 // Do not expose generic lists
+    public List<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents)
+#pragma warning restore CA1002 // Do not expose generic lists
     {
         List<(InventoryIncoming, Uri)> result = [];
         HtmlDocument doc = new();

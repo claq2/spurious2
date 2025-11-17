@@ -36,4 +36,16 @@ public class QueueAdapter(Func<string, QueueClient> clientFactory, ILogger<Queue
         var bcc = clientFactory.Invoke("products");
         await bcc.SendMessageAsync(productId).ConfigAwait();
     }
+
+    public async Task WriteInventoryId(string productId)
+    {
+        var bcc = clientFactory.Invoke("inventories");
+        await bcc.SendMessageAsync(productId).ConfigAwait();
+    }
+
+    public async Task WriteStoreId(string storeId)
+    {
+        var bcc = clientFactory.Invoke("stores");
+        await bcc.SendMessageAsync(storeId).ConfigAwait();
+    }
 }

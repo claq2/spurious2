@@ -1,21 +1,17 @@
-using Azure.Storage.Queues.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Spurious2.Core2;
+using Spurious2.Core2.Lcbo;
 
 namespace Spurious2.QueueProcessors.Stores;
 
-public class StoresProcessor
+public class StoresProcessor(ILogger<StoresProcessor> logger, IImportingService importingService)
 {
-    private readonly ILogger<StoresProcessor> _logger;
-
-    public StoresProcessor(ILogger<StoresProcessor> logger)
-    {
-        _logger = logger;
-    }
-
     [Function(nameof(StoresProcessor))]
-    public void Run([QueueTrigger("stores", Connection = "queues")] QueueMessage message)
+    public async Task Run([QueueTrigger("stores", Connection = "queues")] string storeId)
     {
-        _logger.LogInformation("C# Queue trigger function processed: {messageText}", message.MessageText);
+        logger.LogInformation("Store queue trigger called for {StoreId}", storeId);
+        await importingService.ProcessStoreBlob(storeId).ConfigAwait();
+        logger.LogInformation("C# queue trigger function processed store blob Name: {StoreId}", storeId);
     }
 }

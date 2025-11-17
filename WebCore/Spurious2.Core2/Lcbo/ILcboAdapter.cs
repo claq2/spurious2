@@ -7,7 +7,9 @@ namespace Spurious2.Core2.Lcbo;
 public interface ILcboAdapter
 {
     public StoreIncoming GetStoreInfo(string storeId, string contents);
-    public IEnumerable<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents);
+#pragma warning disable CA1002 // Do not expose generic lists
+    public List<(InventoryIncoming Inventory, Uri Uri)> ExtractInventoriesAndStoreIds(string productId, string contents);
+#pragma warning restore CA1002 // Do not expose generic lists
     public Task<StoreIncoming> GetStoreInfo(string storeId, Stream storeStream);
     public Task<string> GetStorePage(Uri storeUri);
 
