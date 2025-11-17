@@ -7,6 +7,7 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
+    Task<List<int>> GetStoresToBeAdded(List<int> storeIds);
     public Task CalculateBoundaryGeogs();
     public Task ImportBoundaryBulk(IEnumerable<BoundaryIncoming> boundaries);
     public Task ClearPopulationIncoming();

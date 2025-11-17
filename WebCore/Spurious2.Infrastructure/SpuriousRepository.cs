@@ -156,7 +156,7 @@ where id = {boundary.Id}").ConfigAwait();
     public async Task CalculateBoundaryGeogs()
     {
         /*
-           update BoundaryIncoming 
+           update BoundaryIncoming
   set OriginalBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid(),
   ReorientedBoundary = geography::STGeomFromText(BoundaryWellKnownText, 4326).MakeValid().ReorientObject() */
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
@@ -403,6 +403,21 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
                         from @storeIds
                         where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
         await transaction.CommitAsync().ConfigAwait();
+    }
+
+#pragma warning disable CA1002 // Do not expose generic lists
+    public async Task<List<int>> GetStoresToBeAdded(List<int> storeIds)
+#pragma warning restore CA1002 // Do not expose generic lists
+    {
+        ArgumentNullException.ThrowIfNull(storeIds);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        var existingStoreIds = await dbContext.StoreIncomings
+            .Where(si => storeIds.Contains(si.Id))
+            .Select(si => si.Id)
+            .ToListAsync()
+            .ConfigAwait();
+        var storesToBeAdded = storeIds.Except(existingStoreIds).ToList();
+        return storesToBeAdded;
     }
 
     public async Task AddIncomingInventories(IEnumerable<InventoryIncoming> inventories)
