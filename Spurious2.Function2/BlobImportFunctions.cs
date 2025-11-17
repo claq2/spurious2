@@ -111,6 +111,13 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     //    this.logger.LogInformation("C# Blob trigger function processed product blob\n Name:{ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
     //}
 
+    [Function(nameof(Product))]
+    public void Product([QueueTrigger("products", Connection = "queues")] string productId)
+    {
+        //await importingService.ProcessProductBlob(productId).ConfigAwait();
+        this.logger.LogInformation("C# Blob trigger function processed product blob\n ProductId:{ProductId} \n Size: {Length} Bytes", productId, productId.Length);
+    }
+
     [Function(nameof(SignalLastProductDone))]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task SignalLastProductDone([ActivityTrigger] string name, FunctionContext executionContext)
