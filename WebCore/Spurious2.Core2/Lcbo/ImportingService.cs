@@ -5,6 +5,7 @@ namespace Spurious2.Core2.Lcbo;
 
 public class ImportingService(ISpuriousRepository spuriousRepository,
     IStorageAdapter storageAdapter,
+    IQueueAdapter queueAdapter,
     ILcboAdapter lcboAdapter,
     ILogger<ImportingService> logger) : IImportingService
 {
@@ -16,6 +17,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         await spuriousRepository.ClearIncomingProducts().ConfigAwait();
         await spuriousRepository.ClearIncomingInventory().ConfigAwait();
         await storageAdapter.ClearStorage().ConfigAwait();
+        await queueAdapter.ClearQueues().ConfigAwait();
         logger.ClearedForImporting();
     }
 
@@ -32,7 +34,8 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
             _ = await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
             foreach (var product in products)
             {
-                await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+                //await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+                await queueAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
             }
         }
     }

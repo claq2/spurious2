@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,7 @@ builder.EnrichSqlServerDbContext<SpuriousContext>();
 builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
 builder.Services.AddScoped<IImportingService, ImportingService>();
 builder.Services.AddScoped<IStorageAdapter, StorageAdapter>();
+builder.Services.AddScoped<IQueueAdapter, QueueAdapter>();
 builder.Services.AddScoped<ILcboAdapter, LcboAdapter>();
 builder.Services.AddTransient<LcboHttpClientHandler>();
 builder.Services.AddHttpClient<CategorizedProductListClient>()
@@ -76,6 +78,14 @@ builder.AddAzureBlobServiceClient("blobs", b =>
     o.Retry.Delay = TimeSpan.FromSeconds(30);
     o.Retry.MaxRetries = 4;
 }));
+builder.AddAzureQueueServiceClient("queues", b =>
+{
+    b.Credential = new DefaultAzureCredential();
+}, c => c.ConfigureOptions(o =>
+{
+    o.Retry.Delay = TimeSpan.FromSeconds(30);
+    o.Retry.MaxRetries = 4;
+}));
 //builder.AddAzureBlobContainerClient("blobs", b =>
 //{
 //    b.Credential = new DefaultAzureCredential();
@@ -85,44 +95,28 @@ builder.AddAzureBlobServiceClient("blobs", b =>
 //    o.Retry.MaxRetries = 4;
 //}));
 
-
-
 builder.Services.AddSingleton<Func<string, BlobContainerClient>>(sp =>
 {
-
-    //var vars = Environment.GetEnvironmentVariables();
-    //var devEnvironmentVariable = Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT");
-    //var isDevelopment = !string.IsNullOrEmpty(devEnvironmentVariable) && devEnvironmentVariable.ToUpperInvariant() == "DEVELOPMENT";
-    //BlobClientOptions clientOptions = new();
-    //clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
-    //clientOptions.Retry.MaxRetries = 4;
-    //if (isDevelopment)
-    //{
-    //var x = Environment.GetEnvironmentVariable("blobs");
-    var bsc = sp.GetRequiredService<BlobServiceClient>();
-
-    //var bcc = sp.GetRequiredService<BlobContainerClient>();
+    var blobServiceClient = sp.GetRequiredService<BlobServiceClient>();
     BlobContainerClient Myfunc(string blobContainerName)
     {
-        //BlobClientOptions clientOptions = new();
-        //clientOptions.Retry.Delay = TimeSpan.FromSeconds(30);
-        //clientOptions.Retry.MaxRetries = 4;
-        //var x = new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
-        var y = bsc.GetBlobContainerClient(blobContainerName);
-
-        return y;
+        var blobContainerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+        return blobContainerClient;
     }
 
     return Myfunc;
-    //bcc.Name = blobContainerName;
-    //return bcc;
-    //return new BlobContainerClient(Environment.GetEnvironmentVariable("blobs"), blobContainerName, clientOptions);
-    //}
-    //else
-    //{
-    //    var storageUri = new Uri($"{Environment.GetEnvironmentVariable("AzureWebJobsStorage")}/{blobContainerName}");
-    //    return new BlobContainerClient(storageUri, new DefaultAzureCredential(), options: clientOptions);
-    //}
+});
+
+builder.Services.AddSingleton<Func<string, QueueClient>>(sp =>
+{
+    var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
+    QueueClient Myfunc(string queueName)
+    {
+        var queueClient = queueServiceClient.GetQueueClient(queueName);
+        return queueClient;
+    }
+
+    return Myfunc;
 });
 
 //var host = new HostBuilder()

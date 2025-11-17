@@ -5,12 +5,14 @@
   <ItemGroup>
     <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageVersion Include="Aspire.Azure.Storage.Blobs" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Azure.Storage.Queues" Version="9.5.2" />
     <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="9.5.2-preview.1.25522.3" />
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.5.2" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.5.2" />
     <PackageVersion Include="AutoMapper" Version="14.0.0" />
     <PackageVersion Include="Azure.Identity" Version="1.17.0" />
     <PackageVersion Include="Azure.Storage.Blobs" Version="12.26.0" />
+    <PackageVersion Include="Azure.Storage.Queues" Version="12.23.0" />
     <PackageVersion Include="Carter" Version="8.2.1" />
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
     <PackageVersion Include="Fizzler.Systems.HtmlAgilityPack" Version="1.2.1" />

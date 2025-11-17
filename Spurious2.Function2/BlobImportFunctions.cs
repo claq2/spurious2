@@ -103,13 +103,13 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         this.logger.LogInformation("Finished GetSpiritsPages.");
     }
 
-    [Function(nameof(Product))]
-    public async Task Product([BlobTrigger("products/{productId}", Connection = "AzureWebJobsStorage")] string myBlob,
-        string productId)
-    {
-        await importingService.ProcessProductBlob(productId).ConfigAwait();
-        this.logger.LogInformation("C# Blob trigger function processed product blob\n Name:{ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
-    }
+    //[Function(nameof(Product))]
+    //public async Task Product([BlobTrigger("products/{productId}", Connection = "AzureWebJobsStorage")] string myBlob,
+    //    string productId)
+    //{
+    //    await importingService.ProcessProductBlob(productId).ConfigAwait();
+    //    this.logger.LogInformation("C# Blob trigger function processed product blob\n Name:{ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
+    //}
 
     [Function(nameof(SignalLastProductDone))]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
@@ -120,22 +120,22 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
         logger.LogInformation("Finished SignalLastProductDone.");
     }
 
-    [Function(nameof(Inventory))]
-    public async Task Inventory([BlobTrigger("inventories/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string name)
-    {
-        this.logger.LogInformation("Inventory blob trigger called for {Name}", name);
-        await importingService.ProcessInventoryBlob(name, myBlob).ConfigAwait();
-        this.logger.LogInformation("C# Blob trigger function processed inventory blob\n Name: {Name} \n Size: {Length} Bytes", name, myBlob.Length);
-    }
+    //[Function(nameof(Inventory))]
+    //public async Task Inventory([BlobTrigger("inventories/{productId}", Connection = "AzureWebJobsStorage")] Stream myBlob,
+    //    string productId)
+    //{
+    //    this.logger.LogInformation("Inventory blob trigger called for {Name}", productId);
+    //    await importingService.ProcessInventoryBlob(productId, myBlob).ConfigAwait();
+    //    this.logger.LogInformation("C# Blob trigger function processed inventory blob\n ProductId: {ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
+    //}
 
-    [Function(nameof(Store))]
-    public async Task Store([BlobTrigger("stores/{storeId}", Connection = "AzureWebJobsStorage")] Stream myBlob,
-        string storeId)
-    {
-        await importingService.ProcessStoreBlob(storeId, myBlob).ConfigAwait();
-        this.logger.LogInformation("C# Blob trigger function processed store blob\n Name: {StoreId} \n Size: {Length} Bytes", storeId, myBlob.Length);
-    }
+    //[Function(nameof(Store))]
+    //public async Task Store([BlobTrigger("stores/{storeId}", Connection = "AzureWebJobsStorage")] Stream myBlob,
+    //    string storeId)
+    //{
+    //    await importingService.ProcessStoreBlob(storeId, myBlob).ConfigAwait();
+    //    this.logger.LogInformation("C# Blob trigger function processed store blob\n Name: {StoreId} \n Size: {Length} Bytes", storeId, myBlob.Length);
+    //}
 
     [Function(nameof(LastProduct))]
     public async Task LastProduct([BlobTrigger("last-product/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
