@@ -85,6 +85,7 @@ builder.AddAzureQueueServiceClient("queues", b =>
 {
     o.Retry.Delay = TimeSpan.FromSeconds(30);
     o.Retry.MaxRetries = 4;
+    o.MessageEncoding = QueueMessageEncoding.Base64;
 }));
 //builder.AddAzureBlobContainerClient("blobs", b =>
 //{

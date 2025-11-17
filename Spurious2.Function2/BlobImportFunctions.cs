@@ -1,3 +1,4 @@
+using Azure.Storage.Queues.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.DurableTask;
@@ -112,10 +113,10 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     //}
 
     [Function(nameof(Product))]
-    public void Product([QueueTrigger("products", Connection = "queues")] string productId)
+    public void Product([QueueTrigger("products", Connection = "queues")] QueueMessage productId)
     {
         //await importingService.ProcessProductBlob(productId).ConfigAwait();
-        this.logger.LogInformation("C# Blob trigger function processed product blob\n ProductId:{ProductId} \n Size: {Length} Bytes", productId, productId.Length);
+        this.logger.LogInformation("C# Blob trigger function processed product blob\n ProductId: {ProductId} \n Size: {Length} Bytes", productId.Body.ToString(), productId.Body.Length);
     }
 
     [Function(nameof(SignalLastProductDone))]
