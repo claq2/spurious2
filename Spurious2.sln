@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20 d17.14
+VisualStudioVersion = 17.14.36705.20
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F4756106-F750-4CE1-93B7-0A272ACF8CFF}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,17 +33,21 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.UnitTests", "WebCore\Spurious2.UnitTests\Spurious2.UnitTests.csproj", "{C589A044-724A-4537-9BF1-AA72BF16C4E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spurious2.Function2", "Spurious2.Function2\Spurious2.Function2.csproj", "{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.AppHost", "WebCore\Spurious2.AppHost\Spurious2.AppHost.csproj", "{9793F000-2B11-4947-8A71-21DFD8986CC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.ServiceDefaults", "WebCore\Spurious2.ServiceDefaults\Spurious2.ServiceDefaults.csproj", "{9523476A-4272-4A0B-B2B5-85C6CB500042}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.MigrationService", "WebCore\Spurious2.MigrationService\Spurious2.MigrationService.csproj", "{8DFC8797-8D16-329B-4AE8-FF26A0B81DDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp1", "FunctionApp1\FunctionApp1.csproj", "{245563A0-C1B9-3806-EC0F-1C822C9D34F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp2", "FunctionApp2\FunctionApp2.csproj", "{71DE7A46-EAEB-B8AF-8A1C-D23F2D6BD813}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Orchestrator", "Functions\Spurious2.Orchestrator\Spurious2.Orchestrator.csproj", "{6B878C01-D43C-563D-EF78-803347626B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.QueueProcessors.Products", "Functions\Spurious2.QueueProcessors.Products\Spurious2.QueueProcessors.Products.csproj", "{64A40CDE-C66C-1841-288B-428752938102}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.QueueProcessors.Inventories", "Functions\Spurious2.QueueProcessors.Inventories\Spurious2.QueueProcessors.Inventories.csproj", "{2C0D839A-3987-8F38-CEFA-9015CAA714B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.QueueProcessors.Stores", "Functions\Spurious2.QueueProcessors.Stores\Spurious2.QueueProcessors.Stores.csproj", "{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,10 +74,6 @@ Global
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C589A044-724A-4537-9BF1-AA72BF16C4E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3B00BA3-5A6C-4A2B-ADB4-BD5062C79E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9793F000-2B11-4947-8A71-21DFD8986CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9793F000-2B11-4947-8A71-21DFD8986CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9793F000-2B11-4947-8A71-21DFD8986CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -86,14 +86,22 @@ Global
 		{8DFC8797-8D16-329B-4AE8-FF26A0B81DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DFC8797-8D16-329B-4AE8-FF26A0B81DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DFC8797-8D16-329B-4AE8-FF26A0B81DDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{245563A0-C1B9-3806-EC0F-1C822C9D34F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{245563A0-C1B9-3806-EC0F-1C822C9D34F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{245563A0-C1B9-3806-EC0F-1C822C9D34F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{245563A0-C1B9-3806-EC0F-1C822C9D34F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71DE7A46-EAEB-B8AF-8A1C-D23F2D6BD813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71DE7A46-EAEB-B8AF-8A1C-D23F2D6BD813}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71DE7A46-EAEB-B8AF-8A1C-D23F2D6BD813}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71DE7A46-EAEB-B8AF-8A1C-D23F2D6BD813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B878C01-D43C-563D-EF78-803347626B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B878C01-D43C-563D-EF78-803347626B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B878C01-D43C-563D-EF78-803347626B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B878C01-D43C-563D-EF78-803347626B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A40CDE-C66C-1841-288B-428752938102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A40CDE-C66C-1841-288B-428752938102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A40CDE-C66C-1841-288B-428752938102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A40CDE-C66C-1841-288B-428752938102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0D839A-3987-8F38-CEFA-9015CAA714B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0D839A-3987-8F38-CEFA-9015CAA714B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0D839A-3987-8F38-CEFA-9015CAA714B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0D839A-3987-8F38-CEFA-9015CAA714B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,10 @@ Global
 		{9793F000-2B11-4947-8A71-21DFD8986CC9} = {3199017E-7761-4B6A-86CA-479144D3F1BA}
 		{9523476A-4272-4A0B-B2B5-85C6CB500042} = {3199017E-7761-4B6A-86CA-479144D3F1BA}
 		{8DFC8797-8D16-329B-4AE8-FF26A0B81DDC} = {3199017E-7761-4B6A-86CA-479144D3F1BA}
+		{6B878C01-D43C-563D-EF78-803347626B3A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{64A40CDE-C66C-1841-288B-428752938102} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2C0D839A-3987-8F38-CEFA-9015CAA714B7} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7CE7210-A357-42F8-9624-1DAF635C1D19}

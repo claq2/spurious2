@@ -17,7 +17,6 @@
       "maxConcurrentOrchestratorFunctions": 1
     }
   },
-  "functionTimeout": "00:10:00",
   "logging": {
     "logLevel": {
       "default": "None",
@@ -27,8 +26,10 @@
       "DurableTask.AzureStorage": "Error",
       "DurableTask.Core": "Error",
       "Azure": "Error",
-      "Spurious2.Function2.Function2": "Information",
-      "Spurious2.Function2": "Information",
+      "Spurious2.QueueProcessors.Stores.StoresProcessor.Run": "Information",
+      "Spurious2.QueueProcessors.Stores.StoresProcessor": "Information",
+      "Spurious2.QueueProcessors.Stores": "Information",
+      "Spurious2.QueueProcessors": "Information",
       "Spurious2": "Information",
       "Function.Function2.User": "Information",
       "Function.BlobImportFunctionsHttpStart.User": "Information",
@@ -38,7 +39,7 @@
       "Function.GetWinePages.User": "Information",
       "Function.GetBeerPages.User": "Information",
       "Function.GetSpiritsPages.User": "Information",
-      "Function.Product.User": "Information",
+      "Function.StoresProcessor.User": "Information",
       "Function.SignalLastProductDone.User": "Information",
       "Function.Inventory.User": "Information",
       "Function.Store.User": "Information",

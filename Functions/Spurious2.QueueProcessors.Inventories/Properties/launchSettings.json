@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "FunctionApp1": {
+    "Spurious2.QueueProcessors.Products": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7108",
+      "commandLineArgs": "--port 7064",
       "launchBrowser": false
     }
   }

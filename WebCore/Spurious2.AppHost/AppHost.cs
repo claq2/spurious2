@@ -17,7 +17,7 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
     .WaitFor(db)
 ;
 
-var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("spurious2-functions")
+builder.AddAzureFunctionsProject<Projects.Spurious2_Orchestrator>("spurious2-functions")
     .WithHostStorage(storage)
     .WithReference(db)
     .WithReference(blobs)
@@ -27,10 +27,6 @@ var functions = builder.AddAzureFunctionsProject<Projects.Spurious2_Function2>("
     .WaitFor(blobs)
     .WaitFor(queues)
     .WaitForCompletion(migrations);
-
-//var function2 = builder.AddAzureFunctionsProject<Projects.FunctionApp2>("function2")
-//    .WithHostStorage(storage)
-//    .WaitFor(storage);
 
 var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
@@ -50,8 +46,37 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
     devFrontend.RunWithHttpsDevCertificate("HTTPS_CERT_FILE", "HTTPS_CERT_KEY_FILE");
 }
 
-//builder.AddAzureFunctionsProject<Projects.FunctionApp1>("functionapp1");
+builder.AddAzureFunctionsProject<Projects.Spurious2_QueueProcessors_Products>("spurious2-queueprocessors-products")
+    .WithHostStorage(storage)
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(storage)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
 
-//builder.AddAzureFunctionsProject<Projects.FunctionApp2>("functionapp2");
+builder.AddAzureFunctionsProject<Projects.Spurious2_QueueProcessors_Stores>("spurious2-queueprocessors-stores")
+    .WithHostStorage(storage)
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(storage)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
+
+builder.AddAzureFunctionsProject<Projects.Spurious2_QueueProcessors_Inventories>("spurious2-queueprocessors-inventories")
+    .WithHostStorage(storage)
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(storage)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
 
 builder.Build().Run();

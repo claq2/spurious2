@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Spurious2.Core2;
 using Spurious2.Core2.Lcbo;
 
-namespace Spurious2.Function2;
+namespace Spurious2.Orchestrator;
 
 public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService importingService)
 {
@@ -111,13 +111,13 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     //    this.logger.LogInformation("C# Blob trigger function processed product blob\n Name:{ProductId} \n Size: {Length} Bytes", productId, myBlob.Length);
     //}
 
-    [Function(nameof(Product))]
-    public async Task Product([QueueTrigger("products", Connection = "queues")] string productId)
-    {
-        //await importingService.ProcessProductBlob(productId).ConfigAwait();
-        await Task.Delay(500).ConfigureAwait(false);
-        this.logger.LogInformation("C# Blob trigger function processed product blob\n ProductId: {ProductId} \n Size: {Length} Bytes", productId, productId.Length);
-    }
+    //[Function(nameof(Product))]
+    //public async Task Product([QueueTrigger("products", Connection = "queues")] string productId)
+    //{
+    //    //await importingService.ProcessProductBlob(productId).ConfigAwait();
+    //    await Task.Delay(500).ConfigureAwait(false);
+    //    this.logger.LogInformation("C# Blob trigger function processed product blob\n ProductId: {ProductId} \n Size: {Length} Bytes", productId, productId.Length);
+    //}
 
     [Function(nameof(SignalLastProductDone))]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
