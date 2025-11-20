@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20
+VisualStudioVersion = 17.14.36717.8 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F4756106-F750-4CE1-93B7-0A272ACF8CFF}"
 	ProjectSection(SolutionItems) = preProject
@@ -48,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.QueueProcessors.Inventories", "Functions\Spurious2.QueueProcessors.Inventories\Spurious2.QueueProcessors.Inventories.csproj", "{2C0D839A-3987-8F38-CEFA-9015CAA714B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.QueueProcessors.Stores", "Functions\Spurious2.QueueProcessors.Stores\Spurious2.QueueProcessors.Stores.csproj", "{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Processors.Products", "Functions\Spurious2.Processors.Products\Spurious2.Processors.Products.csproj", "{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{64A40CDE-C66C-1841-288B-428752938102} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2C0D839A-3987-8F38-CEFA-9015CAA714B7} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ABE291B8-CC96-3821-4A9F-F1229B87EBD1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1FC7B65F-6F98-4C54-A937-92A4AE0A9C8D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7CE7210-A357-42F8-9624-1DAF635C1D19}
