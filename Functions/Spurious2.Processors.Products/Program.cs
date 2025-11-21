@@ -2,7 +2,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 var builder = new HostBuilder();
-builder.UseEnvironment(EnvironmentName.Development);
+builder.UseEnvironment(Environments.Development);
 builder.ConfigureWebJobs(b =>
 {
     b.AddAzureStorageCoreServices();

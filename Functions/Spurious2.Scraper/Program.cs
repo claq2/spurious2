@@ -39,7 +39,7 @@ NetTopologySuite.NtsGeometryServices.Instance = new NetTopologySuite.NtsGeometry
 //                   .MigrationsAssembly("Spurious2"))
 //        );
 
-builder.UseEnvironment(EnvironmentName.Development);
+builder.UseEnvironment(Environments.Development);
 builder.ConfigureWebJobs(b =>
 {
     b.AddAzureStorageCoreServices();
