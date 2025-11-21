@@ -1,3 +1,5 @@
+using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +65,29 @@ builder.ConfigureWebJobs(b =>
        .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
     b.Services.AddHttpClient<StoreClient>()
        .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+    b.Services.AddSingleton<Func<string, BlobContainerClient>>(sp =>
+    {
+        var blobServiceClient = sp.GetRequiredService<BlobServiceClient>();
+        BlobContainerClient Myfunc(string blobContainerName)
+        {
+            var blobContainerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+            return blobContainerClient;
+        }
+
+        return Myfunc;
+    });
+
+    b.Services.AddSingleton<Func<string, QueueClient>>(sp =>
+    {
+        var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
+        QueueClient Myfunc(string queueName)
+        {
+            var queueClient = queueServiceClient.GetQueueClient(queueName);
+            return queueClient;
+        }
+
+        return Myfunc;
+    });
 }).ConfigureServices(s =>
 {
     //s.Add

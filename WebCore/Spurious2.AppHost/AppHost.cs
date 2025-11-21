@@ -90,7 +90,11 @@ builder.AddProject<Projects.Spurious2_Processors_Products>("spurious2-processors
 
 builder.AddProject<Projects.Spurious2_Scraper>("spurious2-scraper")
     .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
     .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
     .WaitForCompletion(migrations);
 
 builder.Build().Run();

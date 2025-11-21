@@ -13,7 +13,7 @@ public static class Functions
     }
 
     public static async Task StartByQueue([QueueTrigger("start", Connection = "queues")] string message,
-        [Blob("products", FileAccess.Write)] BlobContainerClient bc,
+        [Blob("products", FileAccess.Write, Connection = "blobs")] BlobContainerClient bc,
         ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(message);
