@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Inventories\Spurious2.QueueProcessors.Inventories.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Products\Spurious2.QueueProcessors.Products.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Stores\Spurious2.QueueProcessors.Stores.csproj" />
+    <ProjectReference Include="..\..\Functions\Spurious2.Scraper\Spurious2.Scraper.csproj" />
     <ProjectReference Include="..\Spurious2.MigrationService\Spurious2.MigrationService.csproj" />
     <ProjectReference Include="..\Spurious2\Spurious2.csproj" />
   </ItemGroup>
