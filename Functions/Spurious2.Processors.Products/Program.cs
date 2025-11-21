@@ -15,11 +15,6 @@ builder.ConfigureLogging((context, b) =>
     b.AddFilter("Host", LogLevel.Debug);
     b.AddConsole();
 });
-builder.ConfigureWebJobs(b =>
-{
-    b.AddAzureStorageCoreServices();
-    b.AddAzureStorageQueues();
-});
 
 var host = builder.Build();
 using (host)

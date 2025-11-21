@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.Host.Storage" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebCore\Spurious2.Core2\Spurious2.Core2.csproj" />
+    <ProjectReference Include="..\..\WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>
