@@ -18,8 +18,8 @@ public static class Functions
     {
         ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(bc);
-        var client = bc.GetBlobClient(message);
-        await client.UploadAsync(BinaryData.FromString("started"), overwrite: true).ConfigureAwait(false);
+        var client = bc.GetBlobClient("start-message");
+        await client.UploadAsync(BinaryData.FromString(message), overwrite: true).ConfigureAwait(false);
         logger.LogInformation("Starting because of {Message}", message);
     }
 }
