@@ -55,14 +55,17 @@ builder.ConfigureWebJobs(b =>
     b.Services.AddScoped<IQueueAdapter, QueueAdapter>();
     b.Services.AddScoped<ILcboAdapter, LcboAdapter>();
     b.Services.AddTransient<LcboHttpClientHandler>();
-    //b.Services.AddHttpClient<CategorizedProductListClient>()
+    b.Services.AddHttpClient<CategorizedProductListClient>()
+        .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+    //builder.Services.AddHttpClient<AllProductsListClient>()
     //    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    ////builder.Services.AddHttpClient<AllProductsListClient>()
-    ////    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    //b.Services.AddHttpClient<InventoryClient>()
-    //   .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    //b.Services.AddHttpClient<StoreClient>()
-    //   .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+    b.Services.AddHttpClient<InventoryClient>()
+       .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+    b.Services.AddHttpClient<StoreClient>()
+       .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+}).ConfigureServices(s =>
+{
+    //s.Add
 });
 
 builder.ConfigureLogging((context, b) =>
