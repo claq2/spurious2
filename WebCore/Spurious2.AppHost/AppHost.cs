@@ -17,16 +17,16 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
     .WaitFor(db)
 ;
 
-builder.AddAzureFunctionsProject<Projects.Spurious2_Orchestrator>("spurious2-functions")
-    .WithHostStorage(storage)
-    .WithReference(db)
-    .WithReference(blobs)
-    .WithReference(queues)
-    .WaitFor(db)
-    .WaitFor(storage)
-    .WaitFor(blobs)
-    .WaitFor(queues)
-    .WaitForCompletion(migrations);
+//builder.AddAzureFunctionsProject<Projects.Spurious2_Orchestrator>("spurious2-functions")
+//    .WithHostStorage(storage)
+//    .WithReference(db)
+//    .WithReference(blobs)
+//    .WithReference(queues)
+//    .WaitFor(db)
+//    .WaitFor(storage)
+//    .WaitFor(blobs)
+//    .WaitFor(queues)
+//    .WaitForCompletion(migrations);
 
 var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
