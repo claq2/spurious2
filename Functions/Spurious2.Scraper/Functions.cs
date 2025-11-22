@@ -15,17 +15,29 @@ public static class Functions
     }
 
     public static async Task StartByQueue([QueueTrigger("start", Connection = "queues")] string message,
-        [Blob("products", FileAccess.Write, Connection = "blobs")] BlobContainerClient bc,
+        [Blob("products", FileAccess.Write, Connection = "blobs")] BlobContainerClient productsClient,
+        [Blob("inventories", FileAccess.Write, Connection = "blobs")] BlobContainerClient inventoriesClient,
+        [Blob("stores", FileAccess.Write, Connection = "blobs")] BlobContainerClient storesClient,
         [Queue("products", Connection = "queues")] QueueClient productsQueue,
+        [Queue("inventories", Connection = "queues")] QueueClient inventoriesQueue,
+        [Queue("stores", Connection = "queues")] QueueClient storesQueue,
         IImportingService importingService,
         ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(message);
-        ArgumentNullException.ThrowIfNull(bc);
+        ArgumentNullException.ThrowIfNull(productsClient);
+        ArgumentNullException.ThrowIfNull(storesClient);
+        ArgumentNullException.ThrowIfNull(inventoriesClient);
         ArgumentNullException.ThrowIfNull(productsQueue);
         ArgumentNullException.ThrowIfNull(importingService);
-        var client = bc.GetBlobClient("start-message");
-        await client.UploadAsync(BinaryData.FromString(message), overwrite: true).ConfigureAwait(false);
+        await importingService.StartImporting(productsClient,
+            storesClient,
+            inventoriesClient,
+            productsQueue,
+            inventoriesQueue,
+            storesQueue).ConfigureAwait(false);
+        //var client = bc.GetBlobClient("start-message");
+        //await client.UploadAsync(BinaryData.FromString(message), overwrite: true).ConfigureAwait(false);
         logger.LogInformation("Starting because of {Message}", message);
         await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Beer).ConfigureAwait(false))
         {

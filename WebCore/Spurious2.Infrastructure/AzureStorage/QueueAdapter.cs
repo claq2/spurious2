@@ -7,11 +7,13 @@ namespace Spurious2.Infrastructure.AzureStorage;
 
 public class QueueAdapter(Func<string, QueueClient> clientFactory, ILogger<QueueAdapter> logger) : IQueueAdapter
 {
-    public async Task ClearQueues()
+    public async Task ClearQueues(QueueClient? productsQueue = null,
+        QueueClient? inventoriesQueue = null,
+        QueueClient? storesQueue = null)
     {
-        var productsQueue = clientFactory.Invoke("products");
-        var inventoriesQueue = clientFactory.Invoke("inventories");
-        var storesQueue = clientFactory.Invoke("stores");
+        productsQueue ??= clientFactory.Invoke("products");
+        inventoriesQueue ??= clientFactory.Invoke("inventories");
+        storesQueue ??= clientFactory.Invoke("stores");
         logger.LogInformation("Creating queues");
         await Task.WhenAll(
         [

@@ -1,4 +1,6 @@
 using System.Globalization;
+using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
 using Microsoft.Extensions.Logging;
 
 namespace Spurious2.Core2.Lcbo;
@@ -9,15 +11,19 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     ILcboAdapter lcboAdapter,
     ILogger<ImportingService> logger) : IImportingService
 {
-
-    public async Task StartImporting()
+    public async Task StartImporting(BlobContainerClient? productsClient = null,
+        BlobContainerClient? inventoriesClient = null,
+        BlobContainerClient? storesClient = null,
+        QueueClient? productsQueue = null,
+        QueueClient? inventoriesQueue = null,
+        QueueClient? storesQueue = null)
     {
         // Clear incoming tables
         await spuriousRepository.ClearIncomingStores().ConfigAwait();
         await spuriousRepository.ClearIncomingProducts().ConfigAwait();
         await spuriousRepository.ClearIncomingInventory().ConfigAwait();
-        await storageAdapter.ClearStorage().ConfigAwait();
-        await queueAdapter.ClearQueues().ConfigAwait();
+        await storageAdapter.ClearStorage(productsClient, inventoriesClient, storesClient).ConfigAwait();
+        await queueAdapter.ClearQueues(productsQueue, inventoriesQueue, storesQueue).ConfigAwait();
         logger.ClearedForImporting();
     }
 

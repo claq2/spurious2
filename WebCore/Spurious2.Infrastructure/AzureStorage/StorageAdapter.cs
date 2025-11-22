@@ -9,21 +9,23 @@ namespace Spurious2.Infrastructure.AzureStorage;
 
 public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILogger<StorageAdapter> logger) : IStorageAdapter
 {
-    public async Task ClearStorage()
+    public async Task ClearStorage(BlobContainerClient? productsClient = null,
+        BlobContainerClient? inventoriesClient = null,
+        BlobContainerClient? storesClient = null)
     {
-        var productsClient = clientFactory.Invoke("products");
-        var inventoriesClient = clientFactory.Invoke("inventories");
-        var storesClient = clientFactory.Invoke("stores");
-        var lastProductClient = clientFactory.Invoke("last-product");
-        var lastInventoryClient = clientFactory.Invoke("last-inventory");
+        productsClient ??= clientFactory.Invoke("products");
+        inventoriesClient ??= clientFactory.Invoke("inventories");
+        storesClient ??= clientFactory.Invoke("stores");
+        //var lastProductClient = clientFactory.Invoke("last-product");
+        //var lastInventoryClient = clientFactory.Invoke("last-inventory");
         logger.DeletingContainers();
         await Task.WhenAll(
         [
             productsClient.DeleteIfExistsAsync(),
             inventoriesClient.DeleteIfExistsAsync(),
             storesClient.DeleteIfExistsAsync(),
-            lastProductClient.DeleteIfExistsAsync(),
-            lastInventoryClient.DeleteIfExistsAsync()
+            //lastProductClient.DeleteIfExistsAsync(),
+            //lastInventoryClient.DeleteIfExistsAsync()
         ]).ConfigAwait();
 
         logger.DeletedContainers();
@@ -66,27 +68,27 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
                 errors = true;
             }
 
-            try
-            {
-                await lastProductClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.CreatedLastProduct();
-            }
-            catch (Exception ex)
-            {
-                logger.CouldNotCreateLastProduct(ex);
-                errors = true;
-            }
+            //try
+            //{
+            //    await lastProductClient.CreateIfNotExistsAsync().ConfigAwait();
+            //    logger.CreatedLastProduct();
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.CouldNotCreateLastProduct(ex);
+            //    errors = true;
+            //}
 
-            try
-            {
-                await lastInventoryClient.CreateIfNotExistsAsync().ConfigAwait();
-                logger.CreatedLastInventory();
-            }
-            catch (Exception ex)
-            {
-                logger.CouldNotCreateLastInventory(ex);
-                errors = true;
-            }
+            //try
+            //{
+            //    await lastInventoryClient.CreateIfNotExistsAsync().ConfigAwait();
+            //    logger.CreatedLastInventory();
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.CouldNotCreateLastInventory(ex);
+            //    errors = true;
+            //}
 
             if (i == 2 && errors)
             {

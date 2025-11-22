@@ -1,3 +1,5 @@
+using Azure.Storage.Blobs;
+
 namespace Spurious2.Core2.Lcbo;
 
 public interface IStorageAdapter
@@ -10,5 +12,6 @@ public interface IStorageAdapter
     public Task WriteStore(string storeId, string pageContent);
     public Task WriteLastProduct(string input);
     public Task WriteLastInventory(string input);
-    public Task ClearStorage();
+    public Task ClearStorage(BlobContainerClient? productsClient = null, BlobContainerClient? inventoriesClient = null,
+        BlobContainerClient? storesClient = null);
 }
