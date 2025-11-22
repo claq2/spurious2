@@ -40,6 +40,20 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         }
     }
 
+    public async IAsyncEnumerable<string> GetProductPagesAndReturnIds(ProductType productType)
+    {
+        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
+        {
+            _ = await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
+            foreach (var product in products)
+            {
+                yield return product.Id.ToString(CultureInfo.InvariantCulture);
+                //await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+                //await queueAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+            }
+        }
+    }
+
     public async Task ProcessProductBlob(string productId)
     {
         var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();

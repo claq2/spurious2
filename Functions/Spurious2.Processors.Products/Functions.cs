@@ -5,7 +5,8 @@ namespace Spurious2.Processors.Products;
 
 public static class Functions
 {
-    public static void ProcessQueueMessage([QueueTrigger("products", Connection = "queues")] string message, ILogger logger)
+    public static void ProcessQueueMessage([QueueTrigger("products", Connection = "queues")] string message, 
+        ILogger logger)
     {
         logger.LogInformation(message);
     }
