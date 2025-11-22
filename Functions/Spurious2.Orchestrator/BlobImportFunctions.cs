@@ -67,7 +67,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task StartImporting([ActivityTrigger] string name, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger<BlobImportFunctions>();
-        await importingService.StartImporting().ConfigAwait();
+        //await importingService.StartImporting().ConfigAwait();
         logger.LogInformation("Finished StartImporting.");
     }
 
@@ -83,7 +83,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetWinePages([ActivityTrigger] string name)
     {
-        await importingService.GetProductPages(ProductType.Wine).ConfigAwait();
+        //await importingService.GetProductPages(ProductType.Wine).ConfigAwait();
         this.logger.LogInformation("Finished GetWinePages.");
     }
 
@@ -91,7 +91,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetBeerPages([ActivityTrigger] string name)
     {
-        await importingService.GetProductPages(ProductType.Beer).ConfigAwait();
+        //await importingService.GetProductPages(ProductType.Beer).ConfigAwait();
         this.logger.LogInformation("Finished GetBeerPages.");
     }
 
@@ -99,7 +99,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public async Task GetSpiritsPages([ActivityTrigger] string name)
     {
-        await importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
+        //await importingService.GetProductPages(ProductType.Spirits).ConfigAwait();
         this.logger.LogInformation("Finished GetSpiritsPages.");
     }
 
@@ -124,7 +124,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task SignalLastProductDone([ActivityTrigger] string name, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger<BlobImportFunctions>();
-        await importingService.SignalLastProductDone().ConfigAwait();
+        //await importingService.SignalLastProductDone().ConfigAwait();
         logger.LogInformation("Finished SignalLastProductDone.");
     }
 
@@ -149,7 +149,7 @@ public class BlobImportFunctions(ILoggerFactory loggerFactory, IImportingService
     public async Task LastProduct([BlobTrigger("last-product/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
         string name)
     {
-        await importingService.ProcessLastProductBlob(name).ConfigAwait();
+        //await importingService.ProcessLastProductBlob(name).ConfigAwait();
         this.logger.LogInformation("C# Blob trigger function Processed last product blob\n Name: {Name} \n Size: {Length} Bytes", name, myBlob.Length);
     }
 

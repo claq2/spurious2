@@ -45,27 +45,30 @@ builder.ConfigureWebJobs(b =>
     b.AddAzureStorageCoreServices();
     b.AddAzureStorageQueues();
     b.AddAzureStorageBlobs();
-    b.Services.AddDbContextFactory<SpuriousContext>((s, opt) => opt.UseSqlServer(
+
+}).ConfigureServices(s =>
+{
+    s.AddDbContextFactory<SpuriousContext>((s, opt) => opt.UseSqlServer(
             s.GetRequiredService<IConfiguration>().GetConnectionString("spuriousdb"),
                b => b.UseNetTopologySuite()
                    .EnableRetryOnFailure()
                    .MigrationsAssembly("Spurious2"))
         );
-    b.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
-    b.Services.AddScoped<IImportingService, ImportingService>();
-    b.Services.AddScoped<IStorageAdapter, StorageAdapter>();
-    b.Services.AddScoped<IQueueAdapter, QueueAdapter>();
-    b.Services.AddScoped<ILcboAdapter, LcboAdapter>();
-    b.Services.AddTransient<LcboHttpClientHandler>();
-    b.Services.AddHttpClient<CategorizedProductListClient>()
+    s.AddScoped<ISpuriousRepository, SpuriousRepository>();
+    s.AddScoped<IImportingService, ImportingService>();
+    s.AddScoped<IStorageAdapter, StorageAdapter>();
+    s.AddScoped<IQueueAdapter, QueueAdapter>();
+    s.AddScoped<ILcboAdapter, LcboAdapter>();
+    s.AddTransient<LcboHttpClientHandler>();
+    s.AddHttpClient<CategorizedProductListClient>()
         .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
     //builder.Services.AddHttpClient<AllProductsListClient>()
     //    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    b.Services.AddHttpClient<InventoryClient>()
+    s.AddHttpClient<InventoryClient>()
        .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    b.Services.AddHttpClient<StoreClient>()
+    s.AddHttpClient<StoreClient>()
        .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
-    b.Services.AddSingleton<Func<string, BlobContainerClient>>(sp =>
+    s.AddSingleton<Func<string, BlobContainerClient>>(sp =>
     {
         var blobServiceClient = sp.GetRequiredService<BlobServiceClient>();
         BlobContainerClient Myfunc(string blobContainerName)
@@ -77,7 +80,7 @@ builder.ConfigureWebJobs(b =>
         return Myfunc;
     });
 
-    b.Services.AddSingleton<Func<string, QueueClient>>(sp =>
+    s.AddSingleton<Func<string, QueueClient>>(sp =>
     {
         var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
         QueueClient Myfunc(string queueName)
@@ -88,9 +91,6 @@ builder.ConfigureWebJobs(b =>
 
         return Myfunc;
     });
-}).ConfigureServices(s =>
-{
-    //s.Add
 });
 
 builder.ConfigureLogging((context, b) =>

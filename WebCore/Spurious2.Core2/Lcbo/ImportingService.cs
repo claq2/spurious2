@@ -11,12 +11,12 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     ILcboAdapter lcboAdapter,
     ILogger<ImportingService> logger) : IImportingService
 {
-    public async Task StartImporting(BlobContainerClient? productsClient = null,
-        BlobContainerClient? inventoriesClient = null,
-        BlobContainerClient? storesClient = null,
-        QueueClient? productsQueue = null,
-        QueueClient? inventoriesQueue = null,
-        QueueClient? storesQueue = null)
+    public async Task StartImporting(BlobContainerClient productsClient,
+        BlobContainerClient inventoriesClient,
+        BlobContainerClient storesClient,
+        QueueClient productsQueue,
+        QueueClient inventoriesQueue,
+        QueueClient storesQueue)
     {
         // Clear incoming tables
         await spuriousRepository.ClearIncomingStores().ConfigAwait();
@@ -27,13 +27,13 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ClearedForImporting();
     }
 
-    public async Task SignalLastProductDone()
+    public async Task SignalLastProductDone(BlobContainerClient bcc)
     {
-        await storageAdapter.WriteLastProduct("Done products!").ConfigAwait();
+        await storageAdapter.WriteLastProduct(bcc, "Done products!").ConfigAwait();
         logger.SignalLastProductDone();
     }
 
-    public async Task GetProductPages(ProductType productType)
+    public async Task GetProductPages(QueueClient qc, ProductType productType)
     {
         await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
         {
@@ -41,7 +41,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
             foreach (var product in products)
             {
                 //await storageAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
-                await queueAdapter.WriteProductId(product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+                await queueAdapter.WriteProductId(qc, product.Id.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
             }
         }
     }
@@ -60,15 +60,15 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         }
     }
 
-    public async Task ProcessProductBlob(string productId)
+    public async Task ProcessProductBlob(BlobContainerClient bcc, QueueClient qc, string productId)
     {
         var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
-        await storageAdapter.WriteInventory(productId, contents).ConfigAwait();
-        await queueAdapter.WriteInventoryId(productId).ConfigAwait();
+        await storageAdapter.WriteInventory(bcc, productId, contents).ConfigAwait();
+        await queueAdapter.WriteInventoryId(qc, productId).ConfigAwait();
         logger.ProcessedProduct(productId);
     }
 
-    public async Task ProcessInventoryBlob(string productId, Stream inventoryStream)
+    public async Task ProcessInventoryBlob(BlobContainerClient bcc, string productId, Stream inventoryStream)
     {
         // Add store info if blob doesn't exist
         // Mark prod-inv done
@@ -79,10 +79,10 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
         foreach (var (inventory, uri) in inventories)
         {
-            if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
+            if (!await storageAdapter.StoreExists(bcc, inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
             {
                 var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
-                await storageAdapter.WriteStore(inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+                await storageAdapter.WriteStore(bcc, inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
             }
         }
 
@@ -91,11 +91,11 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ProcessedInventory(productId);
     }
 
-    public async Task ProcessInventoryBlob(string productId)
+    public async Task ProcessInventoryBlob(BlobContainerClient invBcc, BlobContainerClient storeBcc, QueueClient qc, string productId)
     {
         // Add store info if blob doesn't exist
         // Mark prod-inv done
-        var inventoryContents = await storageAdapter.GetInventoryContents(productId).ConfigAwait();
+        var inventoryContents = await storageAdapter.GetInventoryContents(invBcc, productId).ConfigAwait();
         var inventories = lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryContents);
         logger.FoundInventoryForProduct(inventories.Count, productId);
         var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
@@ -108,8 +108,8 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
             //if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
             {
                 var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
-                await storageAdapter.WriteStore(inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
-                await queueAdapter.WriteStoreId(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+                await storageAdapter.WriteStore(storeBcc, inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+                await queueAdapter.WriteStoreId(qc, inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
             }
         }
 
@@ -126,21 +126,21 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ProcessedStore(storeId);
     }
 
-    public async Task ProcessStoreBlob(string storeId)
+    public async Task ProcessStoreBlob(BlobContainerClient bcc, string storeId)
     {
-        var storeContents = await storageAdapter.GetStoreContents(storeId).ConfigAwait();
+        var storeContents = await storageAdapter.GetStoreContents(bcc, storeId).ConfigAwait();
         var store = lcboAdapter.GetStoreInfo(storeId, storeContents);
         // Write store to StoreIncoming, mark as done
         await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
         logger.ProcessedStore(storeId);
     }
 
-    public async Task ProcessLastProductBlob(string contents)
+    public async Task ProcessLastProductBlob(BlobContainerClient bcc, string contents)
     {
         // Get volume info and prod IDs, put in DB
         // Get inv contents, write to end prod-inv blob
         // Mark prod done
-        await storageAdapter.WriteLastInventory(contents).ConfigAwait();
+        await storageAdapter.WriteLastInventory(bcc, contents).ConfigAwait();
         logger.ProcessedLastProduct(contents);
     }
 

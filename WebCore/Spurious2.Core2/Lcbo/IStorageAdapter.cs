@@ -4,14 +4,14 @@ namespace Spurious2.Core2.Lcbo;
 
 public interface IStorageAdapter
 {
-    public Task<string> GetStoreContents(string storeId);
-    public Task<string> GetInventoryContents(string productId);
-    public Task<bool> StoreExists(string storeId);
-    public Task WriteProductId(string productId);
-    public Task WriteInventory(string productId, string pageContent);
-    public Task WriteStore(string storeId, string pageContent);
-    public Task WriteLastProduct(string input);
-    public Task WriteLastInventory(string input);
-    public Task ClearStorage(BlobContainerClient? productsClient = null, BlobContainerClient? inventoriesClient = null,
-        BlobContainerClient? storesClient = null);
+    public Task<string> GetStoreContents(BlobContainerClient bcc, string storeId);
+    public Task<string> GetInventoryContents(BlobContainerClient bcc, string productId);
+    public Task<bool> StoreExists(BlobContainerClient bcc, string storeId);
+    public Task WriteProductId(BlobContainerClient bcc, string productId);
+    public Task WriteInventory(BlobContainerClient bcc, string productId, string pageContent);
+    public Task WriteStore(BlobContainerClient bcc, string storeId, string pageContent);
+    public Task WriteLastProduct(BlobContainerClient bcc, string input);
+    public Task WriteLastInventory(BlobContainerClient bcc, string input);
+    public Task ClearStorage(BlobContainerClient productsClient, BlobContainerClient inventoriesClient,
+        BlobContainerClient storesClient);
 }

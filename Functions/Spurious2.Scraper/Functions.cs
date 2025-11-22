@@ -6,7 +6,7 @@ using Spurious2.Core2.Lcbo;
 
 namespace Spurious2.Scraper;
 
-public static class Functions
+public class Functions(IImportingService importingService)
 {
     [NoAutomaticTrigger]
     public static void Start(ILogger logger)
@@ -14,14 +14,14 @@ public static class Functions
         logger.LogInformation("Starting");
     }
 
-    public static async Task StartByQueue([QueueTrigger("start", Connection = "queues")] string message,
+    public async Task StartByQueue([QueueTrigger("start", Connection = "queues")] string message,
         [Blob("products", FileAccess.Write, Connection = "blobs")] BlobContainerClient productsClient,
         [Blob("inventories", FileAccess.Write, Connection = "blobs")] BlobContainerClient inventoriesClient,
         [Blob("stores", FileAccess.Write, Connection = "blobs")] BlobContainerClient storesClient,
         [Queue("products", Connection = "queues")] QueueClient productsQueue,
         [Queue("inventories", Connection = "queues")] QueueClient inventoriesQueue,
-        [Queue("stores", Connection = "queues")] QueueClient storesQueue,
-        IImportingService importingService,
+        [Queue("stores", Connection = "queues")] QueueClient storesQueue
+        ,
         ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(message);

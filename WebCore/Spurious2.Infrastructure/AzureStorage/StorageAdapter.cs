@@ -7,15 +7,20 @@ using Spurious2.Core2.Lcbo;
 
 namespace Spurious2.Infrastructure.AzureStorage;
 
-public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILogger<StorageAdapter> logger) : IStorageAdapter
+public class StorageAdapter(
+    //Func<string, BlobContainerClient> clientFactory,
+    ILogger<StorageAdapter> logger) : IStorageAdapter
 {
-    public async Task ClearStorage(BlobContainerClient? productsClient = null,
-        BlobContainerClient? inventoriesClient = null,
-        BlobContainerClient? storesClient = null)
+    public async Task ClearStorage(BlobContainerClient productsClient,
+        BlobContainerClient inventoriesClient,
+        BlobContainerClient storesClient)
     {
-        productsClient ??= clientFactory.Invoke("products");
-        inventoriesClient ??= clientFactory.Invoke("inventories");
-        storesClient ??= clientFactory.Invoke("stores");
+        ArgumentNullException.ThrowIfNull(productsClient);
+        ArgumentNullException.ThrowIfNull(inventoriesClient);
+        ArgumentNullException.ThrowIfNull(storesClient);
+        //productsClient ??= clientFactory.Invoke("products");
+        //inventoriesClient ??= clientFactory.Invoke("inventories");
+        //storesClient ??= clientFactory.Invoke("stores");
         //var lastProductClient = clientFactory.Invoke("last-product");
         //var lastInventoryClient = clientFactory.Invoke("last-inventory");
         logger.DeletingContainers();
@@ -107,9 +112,11 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         }
     }
 
-    public async Task WriteProductId(string productId)
+    public async Task WriteProductId(BlobContainerClient bcc, string productId)
     {
-        var bcc = clientFactory.Invoke("products");
+        //var bcc = clientFactory.Invoke("products");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(productId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
@@ -125,9 +132,11 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         }
     }
 
-    public async Task WriteInventory(string productId, string pageContent)
+    public async Task WriteInventory(BlobContainerClient bcc, string productId, string pageContent)
     {
-        var bcc = clientFactory.Invoke("inventories");
+        //var bcc = clientFactory.Invoke("inventories");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(productId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
@@ -143,16 +152,21 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         }
     }
 
-    public async Task<bool> StoreExists(string storeId)
+    public async Task<bool> StoreExists(BlobContainerClient bcc, string storeId)
     {
-        var bcc = clientFactory.Invoke("stores");
+        //var bcc = clientFactory.Invoke("stores");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(storeId);
         return await bc.ExistsAsync().ConfigAwait();
     }
 
-    public async Task WriteStore(string storeId, string pageContent)
+    public async Task WriteStore(BlobContainerClient bcc, string storeId, string pageContent)
     {
-        var bcc = clientFactory.Invoke("stores");
+        //var bcc = clientFactory.Invoke("stores");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(pageContent);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(storeId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
@@ -168,31 +182,39 @@ public class StorageAdapter(Func<string, BlobContainerClient> clientFactory, ILo
         }
     }
 
-    public async Task WriteLastInventory(string input)
+    public async Task WriteLastInventory(BlobContainerClient bcc, string input)
     {
-        var bcc = clientFactory.Invoke("last-inventory");
+        //var bcc = clientFactory.Invoke("last-inventory");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
 
-    public async Task WriteLastProduct(string input)
+    public async Task WriteLastProduct(BlobContainerClient bcc, string input)
     {
-        var bcc = clientFactory.Invoke("last-product");
+        //var bcc = clientFactory.Invoke("last-product");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
 
-    public async Task<string> GetInventoryContents(string productId)
+    public async Task<string> GetInventoryContents(BlobContainerClient bcc, string productId)
     {
-        var bcc = clientFactory.Invoke("inventories");
+        //var bcc = clientFactory.Invoke("inventories");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(productId);
         var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
         return downloadInfo.Value.Content.ToString();
     }
 
-    public async Task<string> GetStoreContents(string storeId)
+    public async Task<string> GetStoreContents(BlobContainerClient bcc, string storeId)
     {
-        var bcc = clientFactory.Invoke("stores");
+        //var bcc = clientFactory.Invoke("stores");
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
+        ArgumentNullException.ThrowIfNull(bcc);
         var bc = bcc.GetBlobClient(storeId);
         var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
         return downloadInfo.Value.Content.ToString();
