@@ -200,22 +200,22 @@ public class StorageAdapter(
         await bc.UploadTextAsync(input).ConfigAwait();
     }
 
-    public async Task<string> GetInventoryContents(BlobContainerClient bcc, string productId)
+    public async Task<string> GetInventoryContents(BlobContainerClient inventoryBcc, string productId)
     {
         //var bcc = clientFactory.Invoke("inventories");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(productId);
+        ArgumentNullException.ThrowIfNull(inventoryBcc);
+        var bc = inventoryBcc.GetBlobClient(productId);
         var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
         return downloadInfo.Value.Content.ToString();
     }
 
-    public async Task<string> GetStoreContents(BlobContainerClient bcc, string storeId)
+    public async Task<string> GetStoreContents(BlobContainerClient storeBcc, string storeId)
     {
         //var bcc = clientFactory.Invoke("stores");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(storeId);
+        ArgumentNullException.ThrowIfNull(storeBcc);
+        var bc = storeBcc.GetBlobClient(storeId);
         var downloadInfo = await bc.DownloadContentAsync().ConfigAwait();
         return downloadInfo.Value.Content.ToString();
     }

@@ -18,7 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Functions\Spurious2.Orchestrator\Spurious2.Orchestrator.csproj" />
+    <ProjectReference Include="..\..\Functions\Spurious2.Processors.Inventories\Spurious2.Processors.Inventories.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.Processors.Products\Spurious2.Processors.Products.csproj" />
+    <ProjectReference Include="..\..\Functions\Spurious2.Processors.Stores\Spurious2.Processors.Stores.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Inventories\Spurious2.QueueProcessors.Inventories.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Products\Spurious2.QueueProcessors.Products.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.QueueProcessors.Stores\Spurious2.QueueProcessors.Stores.csproj" />

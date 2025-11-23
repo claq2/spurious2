@@ -97,4 +97,22 @@ builder.AddProject<Projects.Spurious2_Scraper>("spurious2-scraper")
     .WaitFor(queues)
     .WaitForCompletion(migrations);
 
+builder.AddProject<Projects.Spurious2_Processors_Inventories>("spurious2-processors-inventories")
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
+
+builder.AddProject<Projects.Spurious2_Processors_Stores>("spurious2-processors-stores")
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
+
 builder.Build().Run();
