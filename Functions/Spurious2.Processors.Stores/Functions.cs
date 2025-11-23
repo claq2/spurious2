@@ -8,7 +8,7 @@ namespace Spurious2.Processors.Stores;
 
 public class Functions(IImportingService importingService)
 {
-    public async Task ProcessQueueMessage([QueueTrigger("products", Connection = "queues")] string storeId,
+    public async Task ProcessQueueMessage([QueueTrigger("stores", Connection = "queues")] string storeId,
         [Blob("stores", FileAccess.Write, Connection = "blobs")] BlobContainerClient storesClient,
         ILogger logger)
     {
