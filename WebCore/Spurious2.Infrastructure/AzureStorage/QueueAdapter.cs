@@ -38,27 +38,27 @@ public class QueueAdapter(
         logger.LogInformation("Queues cleared");
     }
 
-    public async Task WriteProductId(QueueClient bcc, string productId)
+    public async Task WriteProductId(QueueClient productQc, string productId)
     {
         //var bcc = clientFactory.Invoke("products");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        await bcc.SendMessageAsync(productId).ConfigAwait();
+        ArgumentNullException.ThrowIfNull(productQc);
+        await productQc.SendMessageAsync(productId).ConfigAwait();
     }
 
-    public async Task WriteInventoryId(QueueClient bcc, string productId)
+    public async Task WriteInventoryId(QueueClient inventoryQc, string productId)
     {
         //var bcc = clientFactory.Invoke("inventories");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        await bcc.SendMessageAsync(productId).ConfigAwait();
+        ArgumentNullException.ThrowIfNull(inventoryQc);
+        await inventoryQc.SendMessageAsync(productId).ConfigAwait();
     }
 
-    public async Task WriteStoreId(QueueClient bcc, string storeId)
+    public async Task WriteStoreId(QueueClient storeQc, string storeId)
     {
         //var bcc = clientFactory.Invoke("stores");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        await bcc.SendMessageAsync(storeId).ConfigAwait();
+        ArgumentNullException.ThrowIfNull(storeQc);
+        await storeQc.SendMessageAsync(storeId).ConfigAwait();
     }
 }

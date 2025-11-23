@@ -31,8 +31,8 @@ public class Functions(IImportingService importingService)
         ArgumentNullException.ThrowIfNull(productsQueue);
         ArgumentNullException.ThrowIfNull(importingService);
         await importingService.StartImporting(productsClient,
-            storesClient,
             inventoriesClient,
+            storesClient,
             productsQueue,
             inventoriesQueue,
             storesQueue).ConfigureAwait(false);

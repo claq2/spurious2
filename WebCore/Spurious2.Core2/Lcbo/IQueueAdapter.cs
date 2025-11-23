@@ -7,7 +7,7 @@ public interface IQueueAdapter
     public Task ClearQueues(QueueClient productsQueue,
         QueueClient inventoriesQueue,
         QueueClient storesQueue);
-    public Task WriteProductId(QueueClient bcc, string productId);
-    public Task WriteInventoryId(QueueClient bcc, string productId);
-    public Task WriteStoreId(QueueClient bcc, string storeId);
+    public Task WriteProductId(QueueClient productQc, string productId);
+    public Task WriteInventoryId(QueueClient inventoryQc, string productId);
+    public Task WriteStoreId(QueueClient storeQc, string storeId);
 }

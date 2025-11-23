@@ -6,12 +6,13 @@ public interface IStorageAdapter
 {
     public Task<string> GetStoreContents(BlobContainerClient storeBcc, string storeId);
     public Task<string> GetInventoryContents(BlobContainerClient inventoryBcc, string productId);
-    public Task<bool> StoreExists(BlobContainerClient bcc, string storeId);
-    public Task WriteProductId(BlobContainerClient bcc, string productId);
-    public Task WriteInventory(BlobContainerClient bcc, string productId, string pageContent);
-    public Task WriteStore(BlobContainerClient bcc, string storeId, string pageContent);
-    public Task WriteLastProduct(BlobContainerClient bcc, string input);
-    public Task WriteLastInventory(BlobContainerClient bcc, string input);
-    public Task ClearStorage(BlobContainerClient productsClient, BlobContainerClient inventoriesClient,
+    public Task<bool> StoreExists(BlobContainerClient storeBcc, string storeId);
+    public Task WriteProductId(BlobContainerClient productBcc, string productId);
+    public Task WriteInventory(BlobContainerClient inventoryBcc, string productId, string pageContent);
+    public Task WriteStore(BlobContainerClient storesBcc, string storeId, string pageContent);
+    public Task WriteLastProduct(BlobContainerClient lastProductBcc, string input);
+    public Task WriteLastInventory(BlobContainerClient lastInventoryBcc, string input);
+    public Task ClearStorage(BlobContainerClient productsClient,
+        BlobContainerClient inventoriesClient,
         BlobContainerClient storesClient);
 }

@@ -112,12 +112,12 @@ public class StorageAdapter(
         }
     }
 
-    public async Task WriteProductId(BlobContainerClient bcc, string productId)
+    public async Task WriteProductId(BlobContainerClient productBcc, string productId)
     {
         //var bcc = clientFactory.Invoke("products");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(productId);
+        ArgumentNullException.ThrowIfNull(productBcc);
+        var bc = productBcc.GetBlobClient(productId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
             var ec = BlobErrorCode.BlobAlreadyExists.ToString();
@@ -132,12 +132,12 @@ public class StorageAdapter(
         }
     }
 
-    public async Task WriteInventory(BlobContainerClient bcc, string productId, string pageContent)
+    public async Task WriteInventory(BlobContainerClient inventoryBcc, string productId, string pageContent)
     {
         //var bcc = clientFactory.Invoke("inventories");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(productId);
+        ArgumentNullException.ThrowIfNull(inventoryBcc);
+        var bc = inventoryBcc.GetBlobClient(productId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
             var ec = BlobErrorCode.BlobAlreadyExists.ToString();
@@ -152,22 +152,22 @@ public class StorageAdapter(
         }
     }
 
-    public async Task<bool> StoreExists(BlobContainerClient bcc, string storeId)
+    public async Task<bool> StoreExists(BlobContainerClient storeBcc, string storeId)
     {
         //var bcc = clientFactory.Invoke("stores");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(storeId);
+        ArgumentNullException.ThrowIfNull(storeBcc);
+        var bc = storeBcc.GetBlobClient(storeId);
         return await bc.ExistsAsync().ConfigAwait();
     }
 
-    public async Task WriteStore(BlobContainerClient bcc, string storeId, string pageContent)
+    public async Task WriteStore(BlobContainerClient storesBcc, string storeId, string pageContent)
     {
         //var bcc = clientFactory.Invoke("stores");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
         ArgumentNullException.ThrowIfNullOrWhiteSpace(pageContent);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(storeId);
+        ArgumentNullException.ThrowIfNull(storesBcc);
+        var bc = storesBcc.GetBlobClient(storeId);
         if (!await bc.ExistsAsync().ConfigAwait())
         {
             var ec = BlobErrorCode.BlobAlreadyExists.ToString();
@@ -182,21 +182,21 @@ public class StorageAdapter(
         }
     }
 
-    public async Task WriteLastInventory(BlobContainerClient bcc, string input)
+    public async Task WriteLastInventory(BlobContainerClient lastInventoryBcc, string input)
     {
         //var bcc = clientFactory.Invoke("last-inventory");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
+        ArgumentNullException.ThrowIfNull(lastInventoryBcc);
+        var bc = lastInventoryBcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
 
-    public async Task WriteLastProduct(BlobContainerClient bcc, string input)
+    public async Task WriteLastProduct(BlobContainerClient lastProductBcc, string input)
     {
         //var bcc = clientFactory.Invoke("last-product");
         ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
-        ArgumentNullException.ThrowIfNull(bcc);
-        var bc = bcc.GetBlobClient(Guid.NewGuid().ToString());
+        ArgumentNullException.ThrowIfNull(lastProductBcc);
+        var bc = lastProductBcc.GetBlobClient(Guid.NewGuid().ToString());
         await bc.UploadTextAsync(input).ConfigAwait();
     }
 
