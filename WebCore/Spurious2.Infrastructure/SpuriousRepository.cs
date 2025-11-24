@@ -402,13 +402,16 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         //                select Id
         //                from @storeIds
         //                where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
-        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
-            MERGE INTO StoreIncoming AS [target]
-            USING @storeIds AS [source]
-            ON [target].[Id] = [source].[Id]
-            WHEN NOT MATCHED BY TARGET THEN
-                INSERT ([Id])
-                VALUES ([source].[Id]);", param).ConfigAwait();
+        var strat = dbContext.Database.CreateExecutionStrategy();
+        await strat.ExecuteAsync(async () =>
+            await dbContext.Database.ExecuteSqlRawAsync(@"
+                MERGE INTO StoreIncoming AS [target]
+                USING @storeIds AS [source]
+                ON [target].[Id] = [source].[Id]
+                WHEN NOT MATCHED BY TARGET THEN
+                    INSERT ([Id])
+                    VALUES ([source].[Id]);", param).ConfigAwait()
+        ).ConfigAwait();
         //await transaction.CommitAsync().ConfigAwait();
     }
 
@@ -443,13 +446,16 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         //                select ProductId, StoreId, Quantity
         //                from @inventories
         //                except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
-        _ = await dbContext.Database.ExecuteSqlRawAsync(@"
+        var strat = dbContext.Database.CreateExecutionStrategy();
+        await strat.ExecuteAsync(async () =>
+            await dbContext.Database.ExecuteSqlRawAsync(@"
                         merge into InventoryIncoming As [target]
                         using @inventories As [source]
                         on [target].ProductId = [source].ProductId and [target].StoreId = [source].StoreId and [target].Quantity = [source].Quantity
                         when not matched by target then
                         insert ([ProductId], [StoreId], [Quantity])
-                            values ([source].ProductId, [source].StoreId, [source].Quantity);", param).ConfigAwait();
+                            values ([source].ProductId, [source].StoreId, [source].Quantity);", param).ConfigAwait()
+        ).ConfigAwait();
 
         //await transaction.CommitAsync().ConfigAwait();
     }
