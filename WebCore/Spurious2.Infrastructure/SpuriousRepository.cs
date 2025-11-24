@@ -396,13 +396,20 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingStore"
         };
-        using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
+        //using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
+        //_ = await dbContext.Database.ExecuteSqlRawAsync(@"
+        //                insert into StoreIncoming (id)
+        //                select Id
+        //                from @storeIds
+        //                where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlRawAsync(@"
-                        insert into StoreIncoming (id)
-                        select Id
-                        from @storeIds
-                        where Id not in (select Id from StoreIncoming)", param).ConfigAwait();
-        await transaction.CommitAsync().ConfigAwait();
+            MERGE INTO StoreIncoming AS [target]
+            USING @storeIds AS [source]
+            ON [target].[Id] = [source].[Id]
+            WHEN NOT MATCHED BY TARGET THEN
+                INSERT ([Id])
+                VALUES ([source].[Id]);", param).ConfigAwait();
+        //await transaction.CommitAsync().ConfigAwait();
     }
 
 #pragma warning disable CA1002 // Do not expose generic lists
@@ -430,13 +437,21 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             SqlDbType = SqlDbType.Structured,
             TypeName = "dbo.IncomingInventory"
         };
-        using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
+        //using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.Serializable).ConfigAwait();
+        //_ = await dbContext.Database.ExecuteSqlRawAsync(@"
+        //                insert into InventoryIncoming (ProductId, StoreId, Quantity)
+        //                select ProductId, StoreId, Quantity
+        //                from @inventories
+        //                except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
         _ = await dbContext.Database.ExecuteSqlRawAsync(@"
-                        insert into InventoryIncoming (ProductId, StoreId, Quantity)
-                        select ProductId, StoreId, Quantity
-                        from @inventories
-                        except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
-        await transaction.CommitAsync().ConfigAwait();
+                        merge into InventoryIncoming As [target]
+                        using @inventories As [source]
+                        on [target].ProductId = [source].ProductId and [target].StoreId = [source].StoreId and [target].Quantity = [source].Quantity
+                        when not matched by target then
+                        insert ([ProductId], [StoreId], [Quantity])
+                            values ([source].ProductId, [source].StoreId, [source].Quantity);", param).ConfigAwait();
+
+        //await transaction.CommitAsync().ConfigAwait();
     }
 
     public async Task MarkIncomingProductDone(string productId)

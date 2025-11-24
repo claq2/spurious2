@@ -24,7 +24,7 @@ builder.ConfigureWebJobs(b =>
     s.AddDbContextFactory<SpuriousContext>((s, opt) => opt.UseSqlServer(
             s.GetRequiredService<IConfiguration>().GetConnectionString("spuriousdb"),
                b => b.UseNetTopologySuite()
-                   .EnableRetryOnFailure()
+                   .EnableRetryOnFailure([2627]) // duplicate key is ok to retry
                    .MigrationsAssembly("Spurious2"))
         );
     s.AddScoped<ISpuriousRepository, SpuriousRepository>();
