@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk;Microsoft.NET.Sdk.Publish">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -18,5 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\WebCore\Spurious2.Core2\Spurious2.Core2.csproj" />
     <ProjectReference Include="..\..\WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.job">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
