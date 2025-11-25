@@ -20,4 +20,10 @@
     <ProjectReference Include="..\..\WebCore\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Settings.job">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
