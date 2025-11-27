@@ -23,6 +23,8 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
     builder.AddServiceDefaults();
+    builder.Services.AddHealthChecks()
+        .AddDbContextCheck<SpuriousContext>("spuriousdb");
 
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
@@ -116,6 +118,7 @@ try
     //    sw.Stop();
     //    Log.Information("Took {Elapsed} to set up DB", sw.Elapsed);
     //#endif
+    app.UseHealthChecks("/isgood");
     app.UseSecurityHeaders(o => o.AddContentSecurityPolicy(b =>
     {
         b.AddDefaultSrc().Self();
