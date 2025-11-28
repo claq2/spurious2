@@ -7,6 +7,7 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
+    Task<List<int>> AddIncomingStoreIdsAndReturnAddedIds(IEnumerable<int> storeIds);
 #pragma warning disable CA1002 // Do not expose generic lists
     public Task<List<int>> GetStoresToBeAdded(List<int> storeIds);
 #pragma warning restore CA1002 // Do not expose generic lists

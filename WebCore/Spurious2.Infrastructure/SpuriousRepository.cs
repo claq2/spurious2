@@ -415,6 +415,63 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         //await transaction.CommitAsync().ConfigAwait();
     }
 
+    public async Task<List<int>> AddIncomingStoreIdsAndReturnAddedIds(IEnumerable<int> storeIds)
+    {
+        ArgumentNullException.ThrowIfNull(storeIds);
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var datatable = ToDataTable(storeIds);
+        var param = new SqlParameter("@storeIds", datatable)
+        {
+            SqlDbType = SqlDbType.Structured,
+            TypeName = "dbo.IncomingStore"
+        };
+
+        var insertedIds = new List<int>();
+        var strat = dbContext.Database.CreateExecutionStrategy();
+        await strat.ExecuteAsync(async () =>
+        {
+            using var connection = dbContext.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
+            {
+                await connection.OpenAsync().ConfigAwait();
+            }
+
+            using var cmd = connection.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = @"
+MERGE INTO StoreIncoming AS [target]
+USING @storeIds AS [source]
+ON [target].[Id] = [source].[Id]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id])
+    VALUES ([source].[Id])
+OUTPUT inserted.Id;";
+
+            if (cmd is SqlCommand sqlCmd)
+            {
+                sqlCmd.Parameters.Add(param);
+            }
+            else
+            {
+                var p = cmd.CreateParameter();
+                p.ParameterName = "@storeIds";
+                p.Value = datatable;
+                cmd.Parameters.Add(p);
+            }
+
+            using var reader = await cmd.ExecuteReaderAsync().ConfigAwait();
+            while (await reader.ReadAsync().ConfigAwait())
+            {
+                if (!await reader.IsDBNullAsync(0).ConfigAwait())
+                {
+                    insertedIds.Add(reader.GetInt32(0));
+                }
+            }
+        }).ConfigAwait();
+
+        return insertedIds;
+    }
+
 #pragma warning disable CA1002 // Do not expose generic lists
     public async Task<List<int>> GetStoresToBeAdded(List<int> storeIds)
 #pragma warning restore CA1002 // Do not expose generic lists

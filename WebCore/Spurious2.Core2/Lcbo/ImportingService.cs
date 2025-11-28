@@ -102,12 +102,12 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         var inventories = lcboAdapter.ExtractInventoriesAndStoreIds(productId, inventoryContents);
         logger.FoundInventoryForProduct(inventories.Count, productId);
         var storeIds = inventories.Select(i => i.Inventory.StoreId).ToList();
-        var storeIdsToBeAdded = await spuriousRepository.GetStoresToBeAdded(storeIds).ConfigAwait();
-        await spuriousRepository.AddIncomingStoreIds(storeIdsToBeAdded).ConfigAwait();
+        //var storeIdsToBeAdded = await spuriousRepository.GetStoresToBeAdded(storeIds).ConfigAwait();
+        var storeIdsToAdd = await spuriousRepository.AddIncomingStoreIdsAndReturnAddedIds(storeIds).ConfigAwait();
         await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
         foreach (var (inventory, uri) in inventories)
         {
-            if (storeIdsToBeAdded.Contains(inventory.StoreId))
+            if (storeIdsToAdd.Contains(inventory.StoreId))
             //if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
             {
                 var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
