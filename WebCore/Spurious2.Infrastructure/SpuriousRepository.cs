@@ -19,7 +19,7 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
 {
     private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
 
-    private static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
+    internal static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, decimal?>>> map = new()
     {
         { AlcoholType.All, s => s.AlcoholDensity },
         { AlcoholType.Beer, s => s.BeerDensity },
