@@ -4,7 +4,7 @@ using Spurious2.Core2.Stores;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public class SubdivisionsByDensity : Specification<Subdivision>
+public class SubdivisionsByDensitySpec : Specification<Subdivision>
 {
     internal static readonly Dictionary<AlcoholType, Expression<Func<Subdivision, object?>>> map = new()
     {
@@ -14,7 +14,7 @@ public class SubdivisionsByDensity : Specification<Subdivision>
         { AlcoholType.Wine, s => s.WineDensity },
     };
 
-    public SubdivisionsByDensity(AlcoholType alcoholType,
+    public SubdivisionsByDensitySpec(AlcoholType alcoholType,
         EndOfDistribution endOfDistribution,
         int limit)
     {
