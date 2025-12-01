@@ -1,6 +1,8 @@
 using System.Globalization;
 using System.Text;
 using CsvHelper;
+using CsvHelper.Configuration;
+using NetTopologySuite.Geometries;
 
 namespace Spurious2.Core2.Subdivisions;
 
@@ -190,5 +192,53 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
             .ConfigAwait();
         await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
+    }
+
+    public async Task<List<Subdivision>> ImportWithData()
+    {
+        byte[] wkb = NetTopologySuite.IO.WKBReader.HexToBytes(
+    "01B90B00E0E8640000295C8FC2F5281E40CBA145B6F3BD4A40000000000000F8FF000000000038B540");
+        var rdr = new NetTopologySuite.IO.WKBReader
+        {
+            HandleOrdinates = NetTopologySuite.Geometries.Ordinates.AllOrdinates,
+            HandleSRID = true
+        };
+
+        var ptAUR = rdr.Read(wkb) as Point;
+
+        var subdivisions = new List<Subdivision>();
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = false,
+        };
+        using var reader = new StreamReader("subDivsWithData.csv", Encoding.UTF8);
+        using var csv = new CsvReader(reader, config);
+        csv.Context.RegisterClassMap<SubdivMap>();
+        while (await csv.ReadAsync().ConfigAwait())
+        {
+            var subdiv = csv.GetRecord<Subdivision>();
+            var center = csv.GetField<string>(15);
+            var boundary = csv.GetField<string>(16);
+
+
+        }
+
+        return subdivisions;
+    }
+
+    private class SubdivMap : ClassMap<Subdivision>
+    {
+        public SubdivMap()
+        {
+            Map(m => m.Id).Index(0);
+            Map(m => m.Population).Index(1);
+            Map(m => m.SubdivisionName).Index(6);
+            Map(m => m.AlcoholDensity).Index(11);
+            Map(m => m.BeerDensity).Index(12);
+            Map(m => m.WineDensity).Index(13);
+            Map(m => m.SpiritsVolume).Index(14);
+            //Map(m => m.GeographicCentre).Index(15);
+            //Map(m => m.Boundary).Index(16);
+        }
     }
 }
