@@ -70,6 +70,20 @@
     <None Remove="spurious2-vite\**" />
     <None Include="spurious2-vite\**" Exclude="spurious2-vite\node_modules\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="storesWithData.csv" />
+    <None Remove="subdivsWIthData.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="storesWithData.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="subdivsWIthData.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Spurious2.Core2\Spurious2.Core2.csproj" />
