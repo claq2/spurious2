@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F4756106-F750-4CE1-93B7-0A272ACF8CFF}"
 	ProjectSection(SolutionItems) = preProject
@@ -56,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Processors.Inventories", "Functions\Spurious2.Processors.Inventories\Spurious2.Processors.Inventories.csproj", "{AC6390F9-B6B2-4BD3-B6B8-A0B4456D59E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spurious2.Processors.Stores", "Functions\Spurious2.Processors.Stores\Spurious2.Processors.Stores.csproj", "{DA176132-0E5F-491E-8695-61E8B41B7EC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneTimeExporter", "OneTimeExporter\OneTimeExporter.csproj", "{288A39CB-4A5E-42CF-92A2-37FAE921DDDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +128,10 @@ Global
 		{DA176132-0E5F-491E-8695-61E8B41B7EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA176132-0E5F-491E-8695-61E8B41B7EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA176132-0E5F-491E-8695-61E8B41B7EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288A39CB-4A5E-42CF-92A2-37FAE921DDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288A39CB-4A5E-42CF-92A2-37FAE921DDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288A39CB-4A5E-42CF-92A2-37FAE921DDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288A39CB-4A5E-42CF-92A2-37FAE921DDDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
