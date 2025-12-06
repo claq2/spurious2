@@ -38,8 +38,6 @@ var serviceProvider = new ServiceCollection()
 
 var context = serviceProvider.GetRequiredService<SpuriousContext>();
 var subdivs = context.Subdivisions.Where(s => s.Province == "Ontario").ToList();
-var bound = subdivs.First()?.Boundary?.ToText();
-var center = subdivs.First()?.GeographicCentreGeog?.ToText();
 
 var subdivTextOnly = subdivs.Select(s => new
 {
@@ -61,6 +59,24 @@ using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
     csv.WriteRecords(subdivTextOnly);
 }
 
+var stores = context.Stores.ToList();
+var storeTextOnly = stores.Select(s => new
+{
+    s.Id,
+    s.StoreName,
+    LocationWkt = s.LocationGeog!.ToText(),
+    s.City,
+    s.SubdivisionId,
+    s.BeerVolume,
+    s.WineVolume,
+    s.SpiritsVolume,
+}).ToList();
+
+using (var writer = new StreamWriter("cachedstores.csv"))
+using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+{
+    csv.WriteRecords(storeTextOnly);
+}
 
 Console.WriteLine("Hello, World!");
 
