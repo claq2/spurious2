@@ -120,3 +120,17 @@ public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionReposit
         return result;
     }
 }
+
+public class InMemoryRepo
+{
+    private readonly List<Subdivision> inMemSubdivisions = [new()];
+    //private readonly List<Store> inMemStores = [new()];
+    //private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
+
+    public InMemoryRepo(ISubdivisionImportingService subdivisionImportingService
+        //,IStoreImportingService storeImportingService
+        )
+    {
+        this.inMemSubdivisions.AddRange(subdivisionImportingService.ImportWithData());
+    }
+}

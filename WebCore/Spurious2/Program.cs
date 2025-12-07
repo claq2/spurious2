@@ -72,12 +72,15 @@ try
     builder.Services.AddCarter();
 
     builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
-    builder.Services.AddTransient<IStoreImportingService, StoreImportingService>();
-    builder.Services.AddTransient<ISubdivisionImportingService, SubdivisionImportingService>();
+    builder.Services.AddSingleton<ISpuriousRepository, SpuriousRepository>();
+    builder.Services.AddSingleton<IStoreImportingService, StoreImportingService>();
+    builder.Services.AddSingleton<ISubdivisionImportingService, SubdivisionImportingService>();
     //#if DEBUG
     //    builder.Services.AddCors(options =>
     //        options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));
     //#endif
+    builder.Services.AddSingleton<InMemoryRepo>();
+    builder.Services.ActivateSingleton<InMemoryRepo>();
     var app = builder.Build();
 
     //#if DEBUG

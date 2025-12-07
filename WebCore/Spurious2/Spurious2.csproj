@@ -72,15 +72,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="storesWithData.csv" />
-    <None Remove="subdivsWIthData.csv" />
+    <None Remove="cachedstores.csv" />
+    <None Remove="cachedsubdivs.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="storesWithData.csv">
+    <Content Include="cachedstores.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="subdivsWIthData.csv">
+    <Content Include="cachedsubdivs.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
