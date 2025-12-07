@@ -4,7 +4,7 @@ using Spurious2.Core2.Stores;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public class GetSubdivisionsByDensityHandler(ISpuriousRepository spuriousRepository) : IRequestHandler<GetSubdivisionsByDensityRequest, List<Subdivision>>
+public class GetSubdivisionsByDensityHandler(ISpuriousService spuriousService) : IRequestHandler<GetSubdivisionsByDensityRequest, List<Subdivision>>
 {
     private static readonly Dictionary<string, (AlcoholType at, EndOfDistribution eod, int lim)> densityToParametersMap = new()
     {
@@ -20,7 +20,7 @@ public class GetSubdivisionsByDensityHandler(ISpuriousRepository spuriousReposit
     {
         ArgumentNullException.ThrowIfNull(request);
         var (at, eofd, lim) = densityToParametersMap[request.DensityName.ToUpperInvariant()];
-        var subdivs = await spuriousRepository
+        var subdivs = await spuriousService
             .GetSubdivisionsForDensity(at, eofd, lim, cancellationToken)
             .ConfigAwait();
         return subdivs;

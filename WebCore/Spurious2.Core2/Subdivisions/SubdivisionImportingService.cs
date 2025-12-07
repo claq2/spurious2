@@ -1,12 +1,10 @@
 using System.Globalization;
 using System.Text;
 using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
+public partial class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {
     public void Dispose()
     {
@@ -192,58 +190,5 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
         await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
             .ConfigAwait();
         await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
-    }
-
-    public List<Subdivision> ImportWithData()
-    {
-        //    byte[] wkb = NetTopologySuite.IO.WKBReader.HexToBytes(
-        //"01B90B00E0E8640000295C8FC2F5281E40CBA145B6F3BD4A40000000000000F8FF000000000038B540");
-        //    var rdr = new NetTopologySuite.IO.WKBReader
-        //    {
-        //        HandleOrdinates = NetTopologySuite.Geometries.Ordinates.AllOrdinates,
-        //        HandleSRID = true
-        //    };
-
-        //    var ptAUR = rdr.Read(wkb) as Point;
-
-        //    var subdivisions = new List<Subdivision>();
-        //    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-        //    {
-        //        HasHeaderRecord = false,
-        //    };
-        using var reader = new StreamReader("cachedsubdivs.csv", Encoding.UTF8);
-        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        csv.Context.RegisterClassMap<SubdivMap>();
-
-        var subdivs = csv.GetRecords<Subdivision>().ToList();
-        return subdivs;
-    }
-
-    public class SubdivMap : ClassMap<Subdivision>
-    {
-        public SubdivMap()
-        {
-            Map(m => m.Id);
-            Map(m => m.Population);
-            Map(m => m.SubdivisionName);
-            Map(m => m.AlcoholDensity);
-            Map(m => m.BeerDensity);
-            Map(m => m.WineDensity);
-            Map(m => m.SpiritsDensity);
-            Map(m => m.Province);
-            Map(m => m.GeographicCentreGeog).Name("CentreWkt").TypeConverter<X>();
-            //Map(m => m.GeographicCentre).Index(15);
-            //Map(m => m.Boundary).Index(16);
-        }
-    }
-
-    public class X : DefaultTypeConverter
-    {
-        public override object? ConvertFromString(string? text, IReaderRow row, MemberMapData memberMapData)
-        {
-            var rdr = new NetTopologySuite.IO.WKTReader();
-            var geom = rdr.Read(text);
-            return geom;
-        }
     }
 }

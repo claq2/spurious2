@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
+using Ardalis.Specification;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -44,6 +45,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
+    builder.Services.AddScoped<ISpuriousService, SpuriousService>();
+    builder.Services.AddScoped(typeof(IReadRepositoryBase<>), typeof(SpuriousSpecRepository<>));
     //builder.Services.AddDbContext<SpuriousContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SpuriousSqlDb"),
     //        b => b.UseNetTopologySuite()
     //            .EnableRetryOnFailure()
@@ -72,9 +75,8 @@ try
     builder.Services.AddCarter();
 
     builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetDensitiesRequest>());
-    builder.Services.AddSingleton<ISpuriousRepository, SpuriousRepository>();
-    builder.Services.AddSingleton<IStoreImportingService, StoreImportingService>();
-    builder.Services.AddSingleton<ISubdivisionImportingService, SubdivisionImportingService>();
+    builder.Services.AddSingleton<IStoreInMemImportingService, StoreInMemImportingService>();
+    builder.Services.AddSingleton<ISubdivisionInMemImportingService, SubdivisionInMemImportingService>();
     //#if DEBUG
     //    builder.Services.AddCors(options =>
     //        options.AddPolicy(name: MyOrigins, policy => policy.AllowAnyOrigin()));

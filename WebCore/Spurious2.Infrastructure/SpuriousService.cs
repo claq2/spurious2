@@ -3,6 +3,7 @@ using System.Text.Json;
 using Ardalis.Specification;
 using GeoJSON.Text.Geometry;
 using Microsoft.Extensions.Logging;
+using NetTopologySuite.IO.Converters;
 using Spurious2.Core2;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
@@ -11,15 +12,13 @@ namespace Spurious2.Infrastructure;
 
 public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionRepository,
     IReadRepositoryBase<Store> storeRepository,
-    ILogger<SpuriousService> logger)
+    ILogger<SpuriousService> logger,
+    InMemoryRepo inMemoryRepo)
+: ISpuriousService
 {
-    private static readonly List<Subdivision> inMemSubdivisions = [new()];
-    private static readonly List<Store> inMemStores = [new()];
     private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
-    static SpuriousService()
-    {
-        // TODO: Load subdivisions and stores into in-memory list for fallback
-    }
+
+    static SpuriousService() => jsonOptions.Converters.Add(new GeoJsonConverterFactory());
 
     public async Task<string> GetBoundaryForSubdivision(int subdivisionId, CancellationToken cancellationToken)
     {
@@ -35,7 +34,7 @@ public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionReposit
         catch (Exception ex)
         {
             logger.LogWarning(ex, "Error retrieving boundary for subdivision {SubdivisionId}, returning from in memory list", subdivisionId);
-            subdivGeom = spec.Evaluate(inMemSubdivisions).SingleOrDefault();
+            subdivGeom = spec.Evaluate(inMemoryRepo.InMemSubdivisions).SingleOrDefault();
         }
 
         using var memStream = new MemoryStream();
@@ -62,7 +61,7 @@ public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionReposit
         catch (Exception ex)
         {
             logger.LogWarning(ex, "Error retrieving subdivisions for density {AlcoholType} {EndOfDistribution}, returning from in memory list", alcoholType, endOfDistribution);
-            subdivs = [.. spec.Evaluate(inMemSubdivisions)];
+            subdivs = [.. spec.Evaluate(inMemoryRepo.InMemSubdivisions)];
         }
 
         foreach (var subdiv in subdivs)
@@ -91,7 +90,7 @@ public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionReposit
         catch (Exception ex)
         {
             logger.LogWarning(ex, "Error retrieving stores for subdivision {SubdivisionId}, returning from in memory list", subdivisionId);
-            stores = [.. spec.Evaluate(inMemStores)];
+            stores = [.. spec.Evaluate(inMemoryRepo.InMemStores)];
         }
 
         foreach (var store in stores)
@@ -118,19 +117,5 @@ public class SpuriousService(IReadRepositoryBase<Subdivision> subdivisionReposit
             _ => 0,
         };
         return result;
-    }
-}
-
-public class InMemoryRepo
-{
-    private readonly List<Subdivision> inMemSubdivisions = [new()];
-    //private readonly List<Store> inMemStores = [new()];
-    //private static readonly JsonSerializerOptions jsonOptions = new() { ReadCommentHandling = JsonCommentHandling.Skip };
-
-    public InMemoryRepo(ISubdivisionImportingService subdivisionImportingService
-        //,IStoreImportingService storeImportingService
-        )
-    {
-        this.inMemSubdivisions.AddRange(subdivisionImportingService.ImportWithData());
     }
 }
