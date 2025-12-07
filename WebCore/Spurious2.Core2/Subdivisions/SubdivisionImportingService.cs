@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 
 namespace Spurious2.Core2.Subdivisions;
 
@@ -230,9 +231,19 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
             Map(m => m.WineDensity);
             Map(m => m.SpiritsDensity);
             Map(m => m.Province);
-            Map(m => m.GeographicCentreGeog).Name("CentreWkt");
+            Map(m => m.GeographicCentreGeog).Name("CentreWkt").TypeConverter<X>();
             //Map(m => m.GeographicCentre).Index(15);
             //Map(m => m.Boundary).Index(16);
+        }
+    }
+
+    public class X : DefaultTypeConverter
+    {
+        public override object? ConvertFromString(string? text, IReaderRow row, MemberMapData memberMapData)
+        {
+            var rdr = new NetTopologySuite.IO.WKTReader();
+            var geom = rdr.Read(text);
+            return geom;
         }
     }
 }
