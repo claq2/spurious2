@@ -229,6 +229,8 @@ public class SubdivisionImportingService(ISpuriousRepository spuriousRepository)
             Map(m => m.BeerDensity);
             Map(m => m.WineDensity);
             Map(m => m.SpiritsDensity);
+            Map(m => m.Province);
+            Map(m => m.GeographicCentreGeog).Name("CentreWkt");
             //Map(m => m.GeographicCentre).Index(15);
             //Map(m => m.Boundary).Index(16);
         }
