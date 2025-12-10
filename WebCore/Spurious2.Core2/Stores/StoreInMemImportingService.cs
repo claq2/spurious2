@@ -1,7 +1,7 @@
 using System.Globalization;
-using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Spurious2.Core2.Properties;
 using Spurious2.Core2.Subdivisions;
 
 namespace Spurious2.Core2.Stores;
@@ -10,7 +10,7 @@ public class StoreInMemImportingService : IStoreInMemImportingService
 {
     public List<Store> ImportWithData()
     {
-        using var reader = new StreamReader("cachedstores.csv", Encoding.UTF8);
+        using var reader = new StringReader(Resources.cachedstores);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         csv.Context.RegisterClassMap<StoreMap>();
 
@@ -18,7 +18,7 @@ public class StoreInMemImportingService : IStoreInMemImportingService
         return stores;
     }
 
-    private sealed class StoreMap : ClassMap<Store>
+    public sealed class StoreMap : ClassMap<Store>
     {
         public StoreMap()
         {
@@ -30,8 +30,6 @@ public class StoreInMemImportingService : IStoreInMemImportingService
             Map(m => m.BeerVolume);
             Map(m => m.SubdivisionId);
             Map(m => m.LocationGeog).Name("LocationWkt").TypeConverter<GeographyConverter>();
-            //Map(m => m.GeographicCentre).Index(15);
-            //Map(m => m.Boundary).Index(16);
         }
     }
 }

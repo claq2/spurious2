@@ -1,7 +1,7 @@
 using System.Globalization;
-using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Spurious2.Core2.Properties;
 
 namespace Spurious2.Core2.Subdivisions;
 
@@ -9,7 +9,7 @@ public class SubdivisionInMemImportingService : ISubdivisionInMemImportingServic
 {
     public List<Subdivision> ImportWithData()
     {
-        using var reader = new StreamReader("cachedsubdivs.csv", Encoding.UTF8);
+        using var reader = new StringReader(Resources.cachedsubdivs);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         csv.Context.RegisterClassMap<SubdivMap>();
 
@@ -31,8 +31,6 @@ public class SubdivisionInMemImportingService : ISubdivisionInMemImportingServic
             Map(m => m.Province);
             Map(m => m.GeographicCentreGeog).Name("CentreWkt").TypeConverter<GeographyConverter>();
             Map(m => m.Boundary).Name("BoundaryWkt").TypeConverter<GeographyConverter>();
-            //Map(m => m.GeographicCentre).Index(15);
-            //Map(m => m.Boundary).Index(16);
         }
     }
 }
