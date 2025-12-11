@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Spurious2.QueueProcessors.Inventories": {
-      "commandName": "Project",
-      "launchBrowser": false
-    }
-  }
-}

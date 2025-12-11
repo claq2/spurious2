@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Spurious2.QueueProcessors.Stores": {
-      "commandName": "Project",
-      "launchBrowser": false
-    }
-  }
-}
