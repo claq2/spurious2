@@ -44,4 +44,12 @@ public class Functions(IImportingService importingService)
             await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
         }
     }
+
+    [NoAutomaticTrigger]
+    public async Task UpdateAll(ILogger logger)
+    {
+        logger.LogInformation("Updating all");
+        await importingService.UpdateAll().ConfigureAwait(false);
+        logger.LogInformation("Updated all");
+    }
 }
