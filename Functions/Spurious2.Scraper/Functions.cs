@@ -43,11 +43,21 @@ public class Functions(IImportingService importingService)
         {
             await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
         }
+
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Wine).ConfigureAwait(false))
+        {
+            await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
+        }
+
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Spirits).ConfigureAwait(false))
+        {
+            await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
+        }
     }
 
-    [NoAutomaticTrigger]
-    public async Task UpdateAll(ILogger logger)
+    public async Task UpdateAll([QueueTrigger("update", Connection = "queues")] string message, ILogger logger)
     {
+        logger.LogInformation("Updating because of {Message}", message);
         logger.LogInformation("Updating all");
         await importingService.UpdateAll().ConfigureAwait(false);
         logger.LogInformation("Updated all");
