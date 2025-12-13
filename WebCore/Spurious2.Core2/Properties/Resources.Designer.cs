@@ -62,11 +62,11 @@ namespace Spurious2.Core2.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Id,StoreName,LocationWkt,City,SubdivisionId,BeerVolume,WineVolume,SpiritsVolume
-        ///1,Hwy 401 &amp; Weston (Crossroads),POINT (-79.531 43.7127),Toronto-North York,3520005,957096,236625,382200
-        ///2,St. Clair &amp; Bathurst,POINT (-79.4154 43.684),Toronto-Central,3520005,43043,1125,6000
-        ///3,Dundas &amp; Dovercourt,POINT (-79.4235 43.6496),Toronto-Central,3520005,146885,42000,134550
-        ///4,Danforth &amp; Broadview,POINT (-79.3561 43.6769),Toronto-Central,3520005,366830,390000,658400
-        ///5,Queen &amp; Coxwell (The Beach),POINT (-79.315 43.6669 [rest of string was truncated]&quot;;.
+        ///1,Highway 401 &amp; Weston,POINT (-79.531 43.7127),Toronto-North York,3520005,24401974,14880638,18488286
+        ///2,St. Clair &amp; Bathurst,POINT (-79.4154 43.684),Toronto,3520005,7247215,1204070,1032215
+        ///3,Dundas &amp; Dovercourt,POINT (-79.4235 43.6496),Toronto,3520005,8711727,6164020,8772335
+        ///4,Danforth &amp; Broadview,POINT (-79.3561 43.6769),Toronto,3520005,14198173,15580122,7268215
+        ///5,Queen &amp; Coxwell,POINT (-79.315 43.6669),Toronto,3520005,1179 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string cachedstores {
             get {
@@ -76,7 +76,7 @@ namespace Spurious2.Core2.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Id,Population,SubdivisionName,AlcoholDensity,BeerDensity,Province,SpiritsDensity,WineDensity,BoundaryWkt,CentreWkt
-        ///3501005,13330,South Glengarry,11.75,11.75,Ontario,0.00,0.00,&quot;POLYGON ((-74.653 45.0192, -74.6444 45.0228, -74.6385 45.025, -74.6371 45.0255, -74.6339 45.0266, -74.6285 45.029, -74.6249 45.0304, -74.6182 45.0329, -74.6135 45.0347, -74.6075 45.0371, -74.6074 45.0372, -74.6074 45.0372, -74.6046 45.0383, -74.5965 45.0414, -74.5923 45.0417, -74.5843 45.0423, -74.5793 45.0427, -74.5758 45.0431, -74. [rest of string was truncated]&quot;;.
+        ///3501005,13330,South Glengarry,992.34,572.91,Ontario,249.83,169.60,&quot;POLYGON ((-74.653 45.0192, -74.6444 45.0228, -74.6385 45.025, -74.6371 45.0255, -74.6339 45.0266, -74.6285 45.029, -74.6249 45.0304, -74.6182 45.0329, -74.6135 45.0347, -74.6075 45.0371, -74.6074 45.0372, -74.6074 45.0372, -74.6046 45.0383, -74.5965 45.0414, -74.5923 45.0417, -74.5843 45.0423, -74.5793 45.0427, -74.5758 45.0431 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string cachedsubdivs {
             get {
