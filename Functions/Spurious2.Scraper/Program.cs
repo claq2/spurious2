@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,15 +46,25 @@ builder.ConfigureWebJobs(b =>
     b.AddAzureStorageCoreServices();
     b.AddAzureStorageQueues();
     b.AddAzureStorageBlobs();
-
 }).ConfigureServices(s =>
 {
-    s.AddDbContextFactory<SpuriousContext>((s, opt) => opt.UseSqlServer(
+    s.AddDbContextFactory<SpuriousContext>((s, opt) => opt
+        .UseSqlServer(
             s.GetRequiredService<IConfiguration>().GetConnectionString("spuriousdb"),
-               b => b.UseNetTopologySuite()
-                   .EnableRetryOnFailure()
-                   .MigrationsAssembly("Spurious2"))
-        );
+                b => b.UseNetTopologySuite()
+                    .EnableRetryOnFailure([2627]) // duplicate key is ok to retry
+                    .MigrationsAssembly("Spurious2")
+        )
+        .LogTo(
+            filter: (eventId, level) => eventId.Id == CoreEventId.ExecutionStrategyRetrying,
+            logger: (eventData) =>
+            {
+                var retryEventData = eventData as ExecutionStrategyEventData;
+                var exceptions = retryEventData!.ExceptionsEncountered;
+                Console.WriteLine($"Retry #{exceptions.Count} with delay {retryEventData.Delay} due to error: {exceptions![exceptions.Count - 1].Message}");
+            }
+        )
+    );
     s.AddScoped<ISpuriousRepository, SpuriousRepository>();
     s.AddScoped<IImportingService, ImportingService>();
     s.AddScoped<IStorageAdapter, StorageAdapter>();

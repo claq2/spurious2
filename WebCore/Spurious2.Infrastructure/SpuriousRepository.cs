@@ -504,6 +504,7 @@ OUTPUT inserted.Id;";
         //                from @inventories
         //                except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
         var strat = dbContext.Database.CreateExecutionStrategy();
+        
         await strat.ExecuteAsync(async () =>
             await dbContext.Database.ExecuteSqlRawAsync(@"
                         merge into InventoryIncoming As [target]
