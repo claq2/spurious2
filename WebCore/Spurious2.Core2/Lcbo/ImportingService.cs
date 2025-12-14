@@ -1,7 +1,9 @@
+using System;
 using System.Globalization;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.Extensions.Logging;
+using Spurious2.Core2.Inventories;
 
 namespace Spurious2.Core2.Lcbo;
 
@@ -105,16 +107,23 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         //var storeIdsToBeAdded = await spuriousRepository.GetStoresToBeAdded(storeIds).ConfigAwait();
         var storeIdsToAdd = await spuriousRepository.AddIncomingStoreIdsAndReturnAddedIds(storeIds).ConfigAwait();
         await spuriousRepository.AddIncomingInventories(inventories.Select(i => i.Inventory).ToList()).ConfigAwait();
-        foreach (var (inventory, uri) in inventories)
+        var storeIdToStoreUrlMap = inventories.ToDictionary(i => i.Inventory.StoreId, i => i.Uri);
+        foreach (var storeId in storeIdsToAdd)
         {
-            if (storeIdsToAdd.Contains(inventory.StoreId))
-            //if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
-            {
-                var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
-                await storageAdapter.WriteStore(storeBcc, inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
-                await queueAdapter.WriteStoreId(storesQueueClient, inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
-            }
+            var storePage = await lcboAdapter.GetStorePage(storeIdToStoreUrlMap[storeId]).ConfigAwait();
+            await storageAdapter.WriteStore(storeBcc, storeId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+            await queueAdapter.WriteStoreId(storesQueueClient, storeId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
         }
+        //foreach (var (inventory, uri) in inventories)
+        //{
+        //    if (storeIdsToAdd.Contains(inventory.StoreId))
+        //    //if (!await storageAdapter.StoreExists(inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait())
+        //    {
+        //        var storePage = await lcboAdapter.GetStorePage(uri).ConfigAwait();
+        //        await storageAdapter.WriteStore(storeBcc, inventory.StoreId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
+        //        await queueAdapter.WriteStoreId(storesQueueClient, inventory.StoreId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
+        //    }
+        //}
 
         await spuriousRepository.MarkIncomingProductDone(productId).ConfigAwait();
 
