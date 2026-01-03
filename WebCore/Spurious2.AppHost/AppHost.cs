@@ -14,8 +14,7 @@ var queues = storage.AddQueues("queues");
 
 var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurious2-migrationservice")
     .WithReference(db)
-    .WaitFor(db)
-;
+    .WaitFor(db);
 
 var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
