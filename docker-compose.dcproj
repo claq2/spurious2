@@ -10,6 +10,9 @@
     <DockerServiceName>spurious2</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="global.json" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

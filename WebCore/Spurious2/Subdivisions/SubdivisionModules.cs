@@ -15,6 +15,5 @@ public class SubdivisionModules : ICarterModule
                     .ConfigAwait()))
             .WithTags("Subdivisions")
             .WithName("GetSubdivisionsByDensity")
-            .WithOpenApi()
             ;
 }

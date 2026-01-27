@@ -15,6 +15,5 @@ public class StoresModule : ICarterModule
                         new GetStoresForSubdivisionRequest { SubdivisionId = id }, cancellationToken)
                     .ConfigAwait()))
             .WithTags("Stores")
-            .WithName("GetSubdivisionStores")
-            .WithOpenApi();
+            .WithName("GetSubdivisionStores");
 }
