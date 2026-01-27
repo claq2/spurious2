@@ -16,7 +16,7 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
     .WithReference(db)
     .WaitFor(db);
 
-var devFrontend = builder.AddNpmApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
+var devFrontend = builder.AddJavaScriptApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     ;
 
 builder.AddProject<Projects.Spurious2>("spurious2-webapp")
@@ -24,6 +24,7 @@ builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WaitFor(db)
     .WaitForCompletion(migrations)
     .WithReference(devFrontend)
+    .WaitFor(devFrontend)
     .WithHttpHealthCheck("/health")
 ;
 
