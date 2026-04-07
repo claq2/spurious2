@@ -6,7 +6,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 var db = builder.AddConnectionString("spuriousdb");
 
 var storage = builder.AddAzureStorage("storage")
-    .RunAsEmulator(az => az.WithLifetime(ContainerLifetime.Persistent))
+    .RunAsEmulator(az => az.WithDataVolume("spurious-storage"))
 ;
 
 var blobs = storage.AddBlobs("blobs");
