@@ -23,7 +23,6 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" />
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="AutoMapper" />
     <PackageReference Include="Azure.Identity" />
     <PackageReference Include="Azure.Storage.Blobs" />
     <PackageReference Include="Carter" />
