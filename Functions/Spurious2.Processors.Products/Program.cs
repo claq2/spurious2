@@ -1,3 +1,5 @@
+using Azure.Core;
+using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +15,37 @@ using Spurious2.Infrastructure.AzureStorage;
 using Spurious2.Infrastructure.Lcbo;
 
 var builder = new HostBuilder();
-builder.UseEnvironment(Environments.Development);
+//builder.UseEnvironment(Environments.Development);
 builder.ConfigureWebJobs(b =>
 {
     b.AddAzureStorageCoreServices();
     b.AddAzureStorageQueues();
     b.AddAzureStorageBlobs();
-}).ConfigureServices(s =>
+}).ConfigureServices((context, s) =>
 {
-    s.AddDbContextFactory<SpuriousContext>((s, opt) => opt
+    var isProd = context.HostingEnvironment.IsProduction();
+
+    // Register DefaultAzureCredential — the WebJobs storage extensions pick this up
+    s.AddSingleton<TokenCredential>(new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        // Always exclude
+        ExcludeInteractiveBrowserCredential = true,
+        ExcludeBrokerCredential = true,
+        ExcludeWorkloadIdentityCredential = true,
+        ExcludeEnvironmentCredential = true,
+        // Use in prod only
+        ExcludeManagedIdentityCredential = !isProd,
+        // Use locally only
+        ExcludeVisualStudioCodeCredential = isProd,
+        ExcludeAzureCliCredential = isProd,
+        ExcludeAzureDeveloperCliCredential = isProd,
+        ExcludeVisualStudioCredential = isProd,
+        ExcludeAzurePowerShellCredential = isProd,
+    }));
+
+    s.AddDbContextFactory<SpuriousContext>((s2, opt) => opt
         .UseSqlServer(
-            s.GetRequiredService<IConfiguration>().GetConnectionString("spuriousdb"),
+            s2.GetRequiredService<IConfiguration>().GetConnectionString("spuriousdb"),
                b => b.UseNetTopologySuite()
                    .EnableRetryOnFailure([2627]) // duplicate key is ok to retry
                    .MigrationsAssembly("Spurious2")
