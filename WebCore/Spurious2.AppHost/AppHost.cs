@@ -26,6 +26,8 @@ builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WithReference(devFrontend)
     .WaitFor(devFrontend)
     .WithHttpHealthCheck("/health")
+    .WithHttpsEndpoint()
+
 ;
 
 var launchProfile = builder.Configuration["DOTNET_LAUNCH_PROFILE"];
