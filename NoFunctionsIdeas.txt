@@ -1,0 +1,268 @@
+Best alternatives to Azure Functions
+1. Best fit: .NET Worker Service on Azure Container Apps
+Use 1-3 worker services instead of many functions.
+•	Coordinator worker starts a scrape and enqueues work
+•	ProductWorker consumes product jobs
+•	InventoryWorker consumes inventory/store jobs
+This keeps the same queue-based design, but removes Azure Functions entirely.
+Why it fits this codebase
+•	Program.cs already wires SDK clients and DI directly.
+•	IImportingService already contains the real work.
+•	The function methods are thin wrappers around queue messages.
+Why it avoids the old problem
+•	No single long-running request/function.
+•	Work stays chunked and resumable.
+•	Container Apps is a better host for always-on workers than App Service background tasks.
+2. Azure Container Apps Jobs for full scrape runs
+If scraping is more batch-oriented than always-on:
+•	one job starts on schedule or manual trigger
+•	it processes a bounded batch
+•	it checkpoints progress in SQL/queue/blob
+•	another job instance can resume later
+This is a good replacement for the old “one long process,” but without depending on App Service lifetime behavior.
+3. Fewer services, but still message-driven
+Instead of many tiny functions, collapse into one worker service with internal handlers:
+•	one queue
+•	message type per stage
+•	one BackgroundService
+•	bounded concurrency with Channel, SemaphoreSlim, or queue polling
+That gives a simpler deployment model while keeping short, restartable units of work.
+Recommended shape
+Use:
+•	.NET Worker Service
+•	Azure Container Apps
+•	Azure Service Bus or Azure Storage Queues
+•	SQL for durable state/checkpointing
+•	Blob storage only if raw payload retention is still useful
+If the pipeline matters more than raw throughput, Service Bus is usually nicer than Storage Queues because of:
+•	dead-lettering
+•	retry behavior
+•	duplicate detection options
+•	better operational visibility
+What to avoid
+Avoid App Service + BackgroundService
+If the concern is “background work may be cut off,” App Service is not the ideal host.
+Avoid returning to one giant scraper loop
+That recreates the original failure mode:
+•	harder restarts
+•	bigger retry scope
+•	longer recovery time
+•	more fragile deployments
+Lowest-friction migration path
+Keep IImportingService and move only the triggers/hosting:
+1.	Replace each function trigger with a queue consumer in a worker service.
+2.	Keep the current stage boundaries.
+3.	Optionally merge Products + Inventories into one worker executable.
+4.	Run it in Azure Container Apps.
+Practical recommendation
+Best overall:
+A small set of .NET 9 worker services on Azure Container Apps, using queues and durable checkpoints.
+That gives:
+•	no Azure Functions
+•	no App Service background-task lifecycle concerns
+•	no need for one long-running process
+•	minimal rewrite of the current pipeline
+flowchart LR
+    A["Scheduler / Manual Start"] --> B["Coordinator Worker"]
+    B --> C["Product Queue"]
+    C --> D["Product Worker"]
+    D --> E["Inventory Queue"]
+    E --> F["Inventory Worker"]
+    F --> G["Store Queue"]
+    G --> H["Store Worker"]
+    D --> I["SQL / Blob Checkpoints"]
+    F --> I
+    H --> I
+
+Since this is manual or scheduled and does not need to be always on, Azure Container Apps Jobs is a strong fit.
+Also, your existing code already maps well to a batch job model:
+•	StartImporting(...) clears state and prepares storage/queues in WebCore\Spurious2.Core2\Lcbo\ImportingService.cs:16-30
+•	product discovery happens in GetProductPagesAndReturnIds(...) at :51-63
+•	product/inventory/store processing is already separated into small units in :65-148
+What Azure Container Apps Jobs gives you
+A job is a container that starts, runs, and exits.
+It can be triggered by:
+•	schedule
+•	manual execution
+•	event trigger in some patterns
+That means it matches a scraper run much better than an always-on app.
+Good ways to structure it
+Option 2A: One job that runs the entire scrape with checkpointing
+Use one container app job that:
+1.	starts a scrape run
+2.	gets product IDs
+3.	processes them in batches with bounded parallelism
+4.	writes progress to SQL
+5.	exits when done
+This is the simplest deployment model.
+Use this if:
+•	one scrape can complete within the job timeout you choose
+•	the site is stable enough
+•	you want fewer moving parts
+Important: do not make it one giant in-memory process.
+Make it resumable by persisting:
+•	scrape run ID
+•	current stage
+•	completed product IDs
+•	discovered store IDs
+•	retry counts
+•	timestamps/status
+Then if the job is stopped, the next run resumes.
+Option 2B: Multiple jobs by stage
+Use separate jobs for:
+•	SeedProductsJob
+•	ProcessProductsJob
+•	ProcessInventoriesJob
+•	ProcessStoresJob
+•	FinalizeJob
+These can all be manually run or scheduled in sequence, or kicked off by a small coordinator.
+Use this if:
+•	the scrape is large
+•	stages have very different runtimes
+•	you want easier reruns of only one failed stage
+This is closer to your current Azure Functions design, but with fewer Azure Functions-specific constraints.
+Best fit for your current code
+Given your code, I would lean toward Option 2A first:
+•	one job executable
+•	one BackgroundService
+•	reuse IImportingService
+•	replace queue-triggered functions with direct service calls
+•	add run tracking/checkpoint tables
+That is probably the lowest-complexity replacement.
+Your solution already has a one-shot worker pattern in WebCore\Spurious2.MigrationService\Worker.cs:10-36:
+•	derives from BackgroundService
+•	does work once
+•	calls hostApplicationLifetime.StopApplication()
+That same pattern fits a Container Apps Job very well.
+Suggested runtime design
+Job execution flow
+flowchart TD
+    A["Manual or Scheduled Job Start"] --> B["Create Scrape Run Row"]
+    B --> C["Initialize / Clear Incoming State"]
+    C --> D["Fetch Product IDs"]
+    D --> E["Process Product Details"]
+    E --> F["Process Inventory"]
+    F --> G["Process Store Details"]
+    G --> H["Finalize / Promote Data"]
+    H --> I["Mark Run Completed"]
+
+How to make it safe
+1. Add a ScrapeRun table
+Track each run:
+•	RunId
+•	StartedUtc
+•	CompletedUtc
+•	Status
+•	TriggerType
+•	ErrorMessage
+2. Add per-item work tracking
+For example:
+•	RunProducts with ProductId, Stage, Status, AttemptCount
+•	or reuse incoming tables with run-scoped columns
+3. Make every step idempotent
+Each stage should be safe to rerun.
+You already partly do this:
+•	deduping stores via AddIncomingStoreIdsAndReturnAddedIds(...) in ImportingService.cs:108
+•	DB retries are already configured in your host setup
+4. Use bounded concurrency
+Do not fan out unbounded HTTP requests.
+Use something like:
+•	Parallel.ForEachAsync
+•	SemaphoreSlim
+•	channels
+This keeps the scraper polite and predictable.
+5. Use a timeout larger than a typical run
+Container Apps Jobs let you treat the scraper as a bounded batch process instead of a request/trigger function.
+Concrete architecture recommendation
+Preferred implementation
+Create a new worker project, something like:
+•	Jobs\Spurious2.ScrapeJob
+It should:
+•	use Host.CreateApplicationBuilder(args)
+•	register your existing IImportingService, repository, adapters, HTTP clients
+•	run a single BackgroundService
+•	stop when the scrape completes
+Very similar to your migration worker.
+Two practical execution models
+Model A: single-process pipeline
+One job instance runs all stages.
+Pros:
+•	simplest
+•	easiest to debug
+•	least Azure plumbing
+Cons:
+•	less parallel scale-out
+•	run duration may become large
+Model B: job with internal batching and resume
+One job instance still owns the run, but processes products in chunks:
+•	load next 100 pending products
+•	process with concurrency 8
+•	save progress
+•	repeat
+Pros:
+•	still simple
+•	very resilient
+•	easier to resume after interruption
+Cons:
+•	a bit more DB coordination logic
+For your case, Model B is likely the sweet spot.
+What this looks like in code conceptually
+You would have a worker like:
+
+public sealed class ScrapeWorker : BackgroundService
+{
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        // create run
+        // initialize state
+        // seed products
+        // loop pending products in batches
+        // loop pending inventories
+        // loop pending stores
+        // finalize
+        // stop host
+    }
+}
+
+This is much closer to your Spurious2.MigrationService pattern than to Azure Functions.
+Scheduling and manual triggering
+Container Apps Jobs support both scenarios well:
+•	scheduled: cron-like schedule
+•	manual: run on demand from portal/CLI/pipeline
+That matches your requirement exactly.
+A typical use would be:
+•	nightly scheduled scrape
+•	occasional manual rerun after scraper changes or site issues
+Operational advantages over Functions for this scenario
+•	easier mental model: “run container, do batch, exit”
+•	fewer tiny deployment units
+•	no function trigger plumbing
+•	simpler local debugging
+•	better fit for one-off or scheduled workloads
+Tradeoffs
+Pros
+•	not always on
+•	not tied to App Service background service lifetime
+•	easier to reason about batch completion
+•	can reuse most domain/service code
+Cons
+•	you must own checkpointing/resume logic
+•	scaling is less automatic than tiny trigger-driven functions
+•	observability/job history needs to be designed
+My recommendation
+For this codebase, use:
+•	one Azure Container Apps Job
+•	implemented as a .NET 9 Worker Service
+•	with a BackgroundService
+•	with SQL-backed checkpointing
+•	with bounded concurrency
+•	optionally keep blobs only for raw payload archival
+If later a single job becomes too slow, split by stage into multiple jobs.
+Important Azure note
+Your repo instructions require Azure best-practice guidance via azmcp_bestpractices_get, but that tool is not available in this session. Enable it if you want an Azure-specific deployment recommendation pass.
+Practical next step
+If wanted, the next step should be to sketch:
+1.	the database tables for checkpointing, or
+2.	the BackgroundService job structure for a new Spurious2.ScrapeJob project.
+For your situation, I would start with the job structure first.
+
