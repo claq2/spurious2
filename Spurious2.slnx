@@ -1,0 +1,34 @@
+<Solution>
+  <Folder Name="/Functions/">
+    <Project Path="Functions/Spurious2.Processors.Inventories/Spurious2.Processors.Inventories.csproj" />
+    <Project Path="Functions/Spurious2.Processors.Products/Spurious2.Processors.Products.csproj" />
+    <Project Path="Functions/Spurious2.Processors.Stores/Spurious2.Processors.Stores.csproj" />
+    <Project Path="Functions/Spurious2.Scraper/Spurious2.Scraper.csproj" />
+  </Folder>
+  <Folder Name="/Scripts/">
+    <File Path="ImportGeoJson.sql" />
+    <File Path="pgsetup.sh" />
+    <File Path="pgsetup.sql" />
+    <File Path="sqlsetup.sql" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/WebCore/">
+    <File Path="WebCore/.editorconfig" />
+    <Project Path="WebCore/Spurious2.AppHost/Spurious2.AppHost.csproj" />
+    <Project Path="WebCore/Spurious2.Core2/Spurious2.Core2.csproj" />
+    <Project Path="WebCore/Spurious2.Infrastructure/Spurious2.Infrastructure.csproj" />
+    <Project Path="WebCore/Spurious2.MigrationService/Spurious2.MigrationService.csproj" />
+    <Project Path="WebCore/Spurious2.ServiceDefaults/Spurious2.ServiceDefaults.csproj" />
+    <Project Path="WebCore/Spurious2.UnitTests/Spurious2.UnitTests.csproj" />
+    <Project Path="WebCore/Spurious2/Spurious2.csproj" />
+  </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build Solution="Release|*" />
+  </Project>
+  <Project Path="OneTimeExporter/OneTimeExporter.csproj" />
+</Solution>

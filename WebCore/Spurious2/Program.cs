@@ -41,7 +41,7 @@ try
             // Coordinate equality comparer to use (CoordinateEqualityComparer or PerOrdinateEqualityComparer)
             new NetTopologySuite.Geometries.CoordinateEqualityComparer() */
     );
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();

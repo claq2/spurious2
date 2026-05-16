@@ -11,6 +11,5 @@ public class DensitiesModule : ICarterModule
             async (ISender mediator) =>
                 await mediator.Send(new GetDensitiesRequest(), CancellationToken.None).ConfigAwait())
             .WithTags("Densities")
-            .WithName("GetDensities")
-            .WithOpenApi();
+            .WithName("GetDensities");
 }

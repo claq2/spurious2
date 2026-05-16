@@ -1,3 +1,4 @@
+using Aspire.Hosting.JavaScript;
 using Microsoft.Extensions.Hosting;
 
 namespace Spurious2.AppHost;
@@ -8,7 +9,7 @@ internal static class NodeHostingExtensions
     /// Injects the ASP.NET Core HTTPS developer certificate into the resource via the specified environment variables when
     /// <paramref name="builder"/>.<see cref="IResourceBuilder{T}.ApplicationBuilder">ApplicationBuilder</see>.<see cref="IDistributedApplicationBuilder.ExecutionContext">ExecutionContext</see>.<see cref="DistributedApplicationExecutionContext.IsRunMode">IsRunMode</see><c> == true</c>.<br/>
     /// </summary>
-    public static IResourceBuilder<NodeAppResource> RunWithHttpsDevCertificate(this IResourceBuilder<NodeAppResource> builder, string certFileEnv, string certKeyFileEnv)
+    public static IResourceBuilder<JavaScriptAppResource> RunWithHttpsDevCertificate(this IResourceBuilder<JavaScriptAppResource> builder, string certFileEnv, string certKeyFileEnv)
     {
         if (builder.ApplicationBuilder.ExecutionContext.IsRunMode && builder.ApplicationBuilder.Environment.IsDevelopment())
         {

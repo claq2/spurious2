@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-Spurious2.MigrationService-1cf5861d-4e79-4383-a2bf-63b11cf25d7b</UserSecretsId>
@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.Data.SqlClient.Extensions.Azure" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 

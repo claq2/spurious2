@@ -15,6 +15,5 @@ public class BoundariesModule : ICarterModule
                     .ConfigAwait(), contentType: "application/json"))
             .WithTags("Boundaries")
             .WithName("GetSubdivisionBoundary")
-            .WithOpenApi()
             ;
 }
