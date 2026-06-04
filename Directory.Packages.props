@@ -8,10 +8,10 @@
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="9.3.1" />
     <PackageVersion Include="Aspire.Azure.Storage.Blobs" Version="9.5.2" />
     <PackageVersion Include="Aspire.Azure.Storage.Queues" Version="9.5.2" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.3.3" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.3.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.4.2" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.5.2" />
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.3.3" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.4.2" />
     <PackageVersion Include="AutoMapper" Version="14.0.0" />
     <PackageVersion Include="Azure.Identity" Version="1.21.0" />
     <PackageVersion Include="Azure.Storage.Blobs" Version="12.28.0" />
