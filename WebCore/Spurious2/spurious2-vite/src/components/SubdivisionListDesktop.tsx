@@ -20,17 +20,16 @@ const SubdivisionListDesktop = ({
   const { data, isLoading, isFetching, isSuccess, isError } =
     useGetSubdivisionsByDensityQuery(id as string, {
       skip: !result.find(
-        (r) => r.shortName.toLowerCase() === id?.toLowerCase()
+        (r) => r.shortName.toLowerCase() === id?.toLowerCase(),
       ),
     });
   const [tableData, setTableData] = useState<Subdivision[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selection, setSelection] = useState<any | undefined>(undefined);
+  const [selection, setSelection] = useState<number | undefined>(undefined);
 
   const rowClick = (params: GridRowParams) => {
     console.debug("rowClick", params);
-    setSelection(params.row.id);
-    onSubdivisionChange(params.row.id);
+    setSelection(params.row.id as number);
+    onSubdivisionChange(params.row.id as number);
   };
 
   const columns: GridColDef<Subdivision[][number]>[] = [
@@ -92,7 +91,19 @@ const SubdivisionListDesktop = ({
             loading={isLoading}
             onRowClick={rowClick}
             rows={tableData}
-            rowSelectionModel={selection}
+            rowSelectionModel={{
+              type: "include",
+              ids: selection === undefined ? new Set() : new Set([selection]),
+            }}
+            onRowSelectionModelChange={(newSelection) => {
+              const [selectedId] = Array.from(newSelection.ids);
+              const nextSelection =
+                selectedId === undefined ? undefined : (selectedId as number);
+              setSelection(nextSelection);
+              if (nextSelection !== undefined) {
+                onSubdivisionChange(nextSelection);
+              }
+            }}
             columns={columns}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
