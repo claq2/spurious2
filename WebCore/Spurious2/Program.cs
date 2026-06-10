@@ -1,6 +1,8 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Ardalis.Specification;
+using Azure.Core;
+using Azure.Identity;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -60,6 +62,26 @@ try
             .MigrationsAssembly("Spurious2"))
     //.EnableSensitiveDataLogging()
     );
+
+    var isProd = builder.Environment.IsProduction();
+
+    // Register DefaultAzureCredential
+    builder.Services.AddSingleton<TokenCredential>(new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        // Always exclude
+        ExcludeInteractiveBrowserCredential = true,
+        ExcludeBrokerCredential = true,
+        ExcludeWorkloadIdentityCredential = true,
+        ExcludeEnvironmentCredential = true,
+        // Use in prod only
+        ExcludeManagedIdentityCredential = !isProd,
+        // Use locally only
+        ExcludeVisualStudioCodeCredential = isProd,
+        ExcludeAzureCliCredential = isProd,
+        ExcludeAzureDeveloperCliCredential = isProd,
+        ExcludeVisualStudioCredential = isProd,
+        ExcludeAzurePowerShellCredential = isProd,
+    }));
 
     builder.EnrichSqlServerDbContext<SpuriousContext>();
 
