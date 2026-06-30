@@ -7,7 +7,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5207"
+      "applicationUrl": "https://localhost:5208"
     },
     "httpprod": {
       "commandName": "Project",
@@ -16,7 +16,16 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5207"
+      "applicationUrl": "http://localhost:5209"
+    },
+    "spurious2-webapp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:5207"
     },
     "IIS Express": {
       "commandName": "IISExpress",

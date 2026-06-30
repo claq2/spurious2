@@ -27,6 +27,7 @@ builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WaitFor(devFrontend)
     .WithHttpHealthCheck("/health")
     .WithHttpsEndpoint()
+    .WithExternalHttpEndpoints()
 
 ;
 
