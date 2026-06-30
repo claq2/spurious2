@@ -172,6 +172,7 @@ try
                     //.WithHash256("Gigilx1DnI9IZyIHGiSVRO21Eb/w7wxCAXEAVYH3vo4=")
                     .WithHash256("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=")
                     .WithHash256("RrqdLq6mH0fCi8d8oTycNaiAJS23lU5UnqPqdUXUrM8=")
+                    .WithHash256("+OsIn6RhyCZCUkkvtHxFtP0kU3CGdGeLjDd9Fzqdl3o=")
                     .StrictDynamic()
 #elif DEBUG
             .UnsafeHashes() // allow use of hashes on style elements, including the login error list
