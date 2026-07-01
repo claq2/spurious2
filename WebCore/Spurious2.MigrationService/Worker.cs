@@ -13,6 +13,7 @@ public class Worker(IServiceProvider serviceProvider,
     public const string ActivitySourceName = "Migrations";
     private static readonly ActivitySource s_activitySource = new(ActivitySourceName);
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         Console.WriteLine("Starting database migration...");
@@ -44,6 +45,7 @@ public class Worker(IServiceProvider serviceProvider,
             await dbContext.Database.MigrateAsync(cancellationToken).ConfigureAwait(false)).ConfigureAwait(false);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     private async Task SeedDataAsync(SpuriousContext dbContext, CancellationToken cancellationToken)
     {
         var sw = new Stopwatch();

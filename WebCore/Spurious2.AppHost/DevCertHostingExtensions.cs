@@ -169,13 +169,13 @@ public static class DevCertHostingExtensions
             }
             finally
             {
-                await Task.WhenAll(stdOutTask ?? Task.CompletedTask, stdErrTask ?? Task.CompletedTask).ConfigureAwait(false);
+                //await Task.WhenAll(stdOutTask ?? Task.CompletedTask, stdErrTask ?? Task.CompletedTask).ConfigureAwait(false);
             }
         }
 
         static async Task ConsumeOutput(TextReader reader, Action<string> callback)
         {
-            char[] buffer = new char[256];
+            var buffer = new char[256];
             int charsRead;
 
             while ((charsRead = await reader.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)

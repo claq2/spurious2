@@ -77,6 +77,3 @@ using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
 {
     csv.WriteRecords(storeTextOnly);
 }
-
-Console.WriteLine("Hello, World!");
-

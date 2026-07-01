@@ -13,9 +13,9 @@ using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
 
-#if DEBUG
-const string MyOrigins = "MyOrigins";
-#endif
+//#if DEBUG
+//const string MyOrigins = "MyOrigins";
+//#endif
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()

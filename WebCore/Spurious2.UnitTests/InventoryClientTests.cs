@@ -13,7 +13,7 @@ public class InventoryClientTests
     [Test]
     public async Task GetThatInventoryAndStores()
     {
-        InventoryClient client = CreateInventoryClient();
+        var client = CreateInventoryClient();
         var html = await client.GetInventoryPage("80127").ConfigAwait();
 
         LcboAdapter adapter = new(CreateCategorizedProductListClient(),
@@ -26,10 +26,10 @@ public class InventoryClientTests
         inventories.Should().OnlyContain(i => i.Inventory.StoreId > 0);
         inventories.Should().OnlyContain(i => i.Uri.DnsSafeHost == "www.lcbo.com");
 
-        (Core2.Inventories.InventoryIncoming Inventory, Uri Uri) inventory = inventories.Single(i => i.Uri.ToString().EndsWith("-1", StringComparison.Ordinal));
+        var inventory = inventories.Single(i => i.Uri.ToString().EndsWith("-1", StringComparison.Ordinal));
 
         var storeHtml = await adapter.GetStorePage(inventory.Uri).ConfigAwait();
-        Core2.Stores.StoreIncoming storeInfo = adapter.GetStoreInfo(inventory.Inventory.StoreId.ToString(CultureInfo.InvariantCulture),
+        var storeInfo = adapter.GetStoreInfo(inventory.Inventory.StoreId.ToString(CultureInfo.InvariantCulture),
             storeHtml);
         storeInfo.Id.Should().Be(1);
         storeInfo.StoreName.Should().Be("Highway 401 & Weston");
