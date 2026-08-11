@@ -1,3 +1,4 @@
+using Azure.Provisioning.AppContainers;
 using Microsoft.Extensions.Hosting;
 using Spurious2.AppHost;
 
@@ -73,5 +74,12 @@ builder.AddProject<Projects.Spurious2_Processors_Stores>("spurious2-processors-s
     .WaitFor(blobs)
     .WaitFor(queues)
     .WaitForCompletion(migrations);
+
+builder.AddProject<Projects.Scraper>("scraper")
+    .PublishAsAzureContainerAppJob((_, j) =>
+    {
+        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+        //j.Configuration.EventTriggerConfig.;
+    });
 
 builder.Build().Run();

@@ -1,32 +1,8 @@
 using System.Collections.ObjectModel;
-//using AutoMapper;
 using Riok.Mapperly.Abstractions;
 using Spurious2.Stores;
 
 namespace Spurious2;
-
-//public class AutoMapping : Profile
-//{
-//    public AutoMapping()
-//    {
-//        _ = this.CreateMap<Core2.Stores.Store, Store>()
-//            .ForMember(d => d.Name, c => c.MapFrom(s => s.StoreName))
-//            .ForMember(d => d.LocationCoordinates, c => c.MapFrom(s => s.Location))
-//            .ForMember(d => d.Inventories, c => c.MapFrom(s => new ReadOnlyCollection<Inventory>(new List<Inventory>
-//            {
-//                new () { AlcoholType = Core2.Stores.AlcoholType.Beer, Volume = (s.BeerVolume ?? 0) / 1000 },
-//                new () { AlcoholType = Core2.Stores.AlcoholType.Spirits, Volume = (s.SpiritsVolume ?? 0) / 1000 },
-//                new () { AlcoholType = Core2.Stores.AlcoholType.Wine, Volume = (s.WineVolume ?? 0) / 1000 },
-//            })));
-
-//        _ = this.CreateMap<Core2.Subdivisions.Subdivision, Subdivisions.Subdivision>()
-//            .ForMember(d => d.Name, c => c.MapFrom(s => s.SubdivisionName))
-//            .ForMember(d => d.CentreCoordinates, c => c.MapFrom(s => s.GeographicCentre))
-//            .ForMember(d => d.BoundaryLink, c => c.MapFrom(s => new Uri($"/subdivisions/{s.Id}/boundary", UriKind.Relative)));
-//    }
-//}
-
-
 
 [Mapper]
 public static partial class AutoMappingX
@@ -55,11 +31,6 @@ public static partial class AutoMappingX
     [MapperIgnoreSource(nameof(Core2.Subdivisions.Subdivision.AlcoholDensity))]
     public static partial Subdivisions.Subdivision ToSubdivision(this Core2.Subdivisions.Subdivision source);
 
-    //public static List<Store> ToStores(this IEnumerable<Core2.Stores.Store> source) =>
-    //    source.Select(static s => s.ToStore()).ToList();
-
-    //public static List<Subdivisions.Subdivision> ToSubdivisions(this IEnumerable<Core2.Subdivisions.Subdivision> source) =>
-    //    source.Select(static s => s.ToSubdivision()).ToList();
 
     private static ReadOnlyCollection<Inventory> CreateInventories(Core2.Stores.Store source) =>
         new(

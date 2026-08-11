@@ -27,6 +27,9 @@
     <Project Path="WebCore/Spurious2.UnitTests/Spurious2.UnitTests.csproj" />
     <Project Path="WebCore/Spurious2/Spurious2.csproj" />
   </Folder>
+  <Folder Name="/Workers/">
+    <Project Path="Workers/Scraper/Scraper.csproj" />
+  </Folder>
   <Project Path="docker-compose.dcproj">
     <Build Solution="Release|*" />
   </Project>
