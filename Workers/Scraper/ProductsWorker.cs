@@ -1,6 +1,6 @@
 namespace Scraper;
 
-public class ScraperWorker(ILogger<ScraperWorker> logger) : BackgroundService
+public class ProductsWorker(ILogger<ProductsWorker> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
