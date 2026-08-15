@@ -5,7 +5,7 @@ public enum ProductSubtype
     // Beer
     Ale,
     Lager,
-    Cider,
+    //Cider,
     SpecialityBeer,
     SamplersBeer,
     // Coolers

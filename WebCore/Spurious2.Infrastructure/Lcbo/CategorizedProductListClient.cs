@@ -11,27 +11,29 @@ public class CategorizedProductListClient
         new(
             new Dictionary<ProductType, string>
             {
-                { ProductType.Beer, "clp-products-beer_&_cider-{0}" },
+                { ProductType.Beer, "clp-products-beer-{0}" },
                 { ProductType.Wine, "clp-products-wine-{0}" },
                 { ProductType.Spirits, "clp-products-spirits-{0}" },
                 { ProductType.Coolers, "clp-products-coolers-{0}" },
+                { ProductType.Cider, "clp-products-cider-{0}" },
             });
 
     private static readonly ReadOnlyDictionary<ProductType, string> productTypeCategoryTemplateMap =
        new(
            new Dictionary<ProductType, string>
            {
-                { ProductType.Beer, "\\\"Products|Beer & Cider|{0}\\\"" },
+                { ProductType.Beer, "\\\"Products|Beer|{0}\\\"" },
                 { ProductType.Wine, "\\\"Products|Wine|{0}\\\"" },
                 { ProductType.Spirits, "\\\"Products|Spirits|{0}\\\"" },
                 { ProductType.Coolers, "\\\"Products|Coolers|{0}\\\"" },
+                { ProductType.Cider, "\\\"Products|Cider|{0}\\\"" },
            });
 
     private readonly Dictionary<ProductSubtype, (string Tab, string Category)> subsTabCat = new()
     {
         // Beer
         { ProductSubtype.Ale, ("ale", "Ale") },
-        { ProductSubtype.Cider, ("cider", "Cider") },
+        //{ ProductSubtype.Cider, ("cider", "Cider") },
         { ProductSubtype.SpecialityBeer, ("non-alcoholic_&_specialty", "Non-Alcoholic & Specialty") },
         { ProductSubtype.SamplersBeer, ("gifts_and_samplers", "Gifts And Samplers") },
         { ProductSubtype.Lager, ("lager", "Lager") },

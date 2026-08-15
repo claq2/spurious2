@@ -6,4 +6,5 @@ public enum ProductType
     Beer,
     Spirits,
     Coolers,
+    Cider,
 }

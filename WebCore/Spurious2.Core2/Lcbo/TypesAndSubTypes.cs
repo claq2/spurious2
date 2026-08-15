@@ -12,7 +12,7 @@ public static class TypesAndSubTypes
                 {
                     ProductSubtype.Ale,
                     ProductSubtype.Lager,
-                    ProductSubtype.Cider,
+                    //ProductSubtype.Cider,
                     ProductSubtype.SpecialityBeer,
                     ProductSubtype.SamplersBeer,
                 }
