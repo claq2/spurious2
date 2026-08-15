@@ -32,9 +32,12 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
 
                 if (message?.Body != null)
                 {
+                    //var pid = message.Body.ToString();
                     try
                     {
-                        var productId = JsonSerializer.Deserialize<string>(message.Body.ToString());
+
+                        //var productId = JsonSerializer.Deserialize<string>(message.Body.ToString());
+                        var productId = message.Body.ToString();
                         if (productId != null)
                         {
                             using var scope = serviceScopeFactory.CreateScope();
@@ -89,7 +92,7 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
         // Create a poison queue for messages that repeatedly fail
         var poisonClient = new QueueClient(
             this.connectionString,
-            "order-processing-poison",
+            "products-poison",
             new QueueClientOptions
             {
                 MessageEncoding = QueueMessageEncoding.Base64
