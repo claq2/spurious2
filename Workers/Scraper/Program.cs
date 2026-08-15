@@ -16,7 +16,7 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.AddServiceDefaults();
 builder.Services.AddHostedService<ScraperWorker>();
-builder.Services.AddHostedService<ProductsWorker>();
+//builder.Services.AddHostedService<ProductsWorker>();
 builder.Services.AddHostedService<InventoriesWorker>();
 builder.Services.AddHostedService<StoresWorker>();
 // Configure queue clients to use base64 encoding for message content

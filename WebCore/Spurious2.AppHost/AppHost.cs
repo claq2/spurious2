@@ -89,10 +89,49 @@ builder.AddProject<Projects.Scraper>("scraper")
     .WaitFor(queues)
     .WaitForCompletion(migrations);
 
-builder.AddProject<Projects.Products>("products");
+builder.AddProject<Projects.Products>("products")
+    .PublishAsAzureContainerAppJob((_, j) =>
+    {
+        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+        //j.Configuration.EventTriggerConfig.;
+    })
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
 
-builder.AddProject<Projects.Inventories>("inventories");
+builder.AddProject<Projects.Inventories>("inventories")
+    .PublishAsAzureContainerAppJob((_, j) =>
+    {
+        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+        //j.Configuration.EventTriggerConfig.;
+    })
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
 
-builder.AddProject<Projects.Stores>("stores");
+builder.AddProject<Projects.Stores>("stores")
+    .PublishAsAzureContainerAppJob((i, j) =>
+    {
+        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+
+        //j.Configuration.EventTriggerConfig.;
+    })
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations)
+
+    ;
 
 builder.Build().Run();
