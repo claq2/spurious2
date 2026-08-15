@@ -20,7 +20,10 @@
     <ProjectReference Include="..\..\Functions\Spurious2.Processors.Products\Spurious2.Processors.Products.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.Processors.Stores\Spurious2.Processors.Stores.csproj" />
     <ProjectReference Include="..\..\Functions\Spurious2.Scraper\Spurious2.Scraper.csproj" />
+    <ProjectReference Include="..\..\Workers\Inventories\Inventories.csproj" />
+    <ProjectReference Include="..\..\Workers\Products\Products.csproj" />
     <ProjectReference Include="..\..\Workers\Scraper\Scraper.csproj" />
+    <ProjectReference Include="..\..\Workers\Stores\Stores.csproj" />
     <ProjectReference Include="..\Spurious2.MigrationService\Spurious2.MigrationService.csproj" />
     <ProjectReference Include="..\Spurious2\Spurious2.csproj" />
   </ItemGroup>

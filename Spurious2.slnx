@@ -28,7 +28,10 @@
     <Project Path="WebCore/Spurious2/Spurious2.csproj" />
   </Folder>
   <Folder Name="/Workers/">
+    <Project Path="Workers/Inventories/Inventories.csproj" />
+    <Project Path="Workers/Products/Products.csproj" />
     <Project Path="Workers/Scraper/Scraper.csproj" />
+    <Project Path="Workers/Stores/Stores.csproj" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build Solution="Release|*" />

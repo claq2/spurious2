@@ -89,4 +89,10 @@ builder.AddProject<Projects.Scraper>("scraper")
     .WaitFor(queues)
     .WaitForCompletion(migrations);
 
+builder.AddProject<Projects.Products>("products");
+
+builder.AddProject<Projects.Inventories>("inventories");
+
+builder.AddProject<Projects.Stores>("stores");
+
 builder.Build().Run();
