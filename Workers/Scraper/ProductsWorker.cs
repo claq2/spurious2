@@ -70,8 +70,6 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
                     // This prevents hammering the queue when it is empty
                     await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken).ConfigureAwait(false);
                 }
-
-
             }
             catch (OperationCanceledException)
             {

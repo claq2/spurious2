@@ -34,6 +34,10 @@ public class StoreClient
 
     public async Task<string> GetStorePage(Uri storeUri)
     {
+        ArgumentNullException.ThrowIfNull(storeUri);
+        // Replace &amp;apos; with %27 in URL
+        storeUri = new Uri(storeUri.ToString().Replace("&amp;apos;", "%27", StringComparison.Ordinal));
+
         var result = await this.httpClient.GetStringAsync(storeUri).ConfigAwait();
         return result;
     }
