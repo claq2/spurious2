@@ -22,14 +22,14 @@ public class StoreInMemImportingService : IStoreInMemImportingService
     {
         public StoreMap()
         {
-            Map(m => m.Id);
-            Map(m => m.StoreName);
-            Map(m => m.City);
-            Map(m => m.SpiritsVolume);
-            Map(m => m.WineVolume);
-            Map(m => m.BeerVolume);
-            Map(m => m.SubdivisionId);
-            Map(m => m.LocationGeog).Name("LocationWkt").TypeConverter<GeographyConverter>();
+            this.Map(m => m.Id);
+            this.Map(m => m.StoreName);
+            this.Map(m => m.City);
+            this.Map(m => m.SpiritsVolume);
+            this.Map(m => m.WineVolume);
+            this.Map(m => m.BeerVolume);
+            this.Map(m => m.SubdivisionId);
+            this.Map(m => m.LocationGeog).Name("LocationWkt").TypeConverter<GeographyConverter>();
         }
     }
 }

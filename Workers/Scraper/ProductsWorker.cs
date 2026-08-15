@@ -6,8 +6,8 @@ using Spurious2.Core2.Lcbo;
 
 namespace Scraper;
 
-public class ProductsWorker(IImportingService importingService,
-    [FromKeyedServices("productsqueueclient")] QueueClient productsQueueClient,
+public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
+    [FromKeyedServices("productsqueuesclient")] QueueClient productsQueueClient,
     [FromKeyedServices("inventoriesblobsclient")] BlobContainerClient inventoriesBlobContainerClient,
     [FromKeyedServices("inventoriesqueuesclient")] QueueClient inventoriesQueueClient,
     IConfiguration configuration,
@@ -37,6 +37,8 @@ public class ProductsWorker(IImportingService importingService,
                         var productId = JsonSerializer.Deserialize<string>(message.Body.ToString());
                         if (productId != null)
                         {
+                            using var scope = serviceScopeFactory.CreateScope();
+                            var importingService = scope.ServiceProvider.GetRequiredService<IImportingService>();
                             await importingService.ProcessProductBlob(inventoriesBlobContainerClient, inventoriesQueueClient, productId).ConfigureAwait(false);
                         }
                         else
@@ -58,7 +60,7 @@ public class ProductsWorker(IImportingService importingService,
                         {
                             logger.LogError("Message {MessageId} exceeded retry limit, moving to poison queue",
                                 message.MessageId);
-                            await MoveToPoison(message, stoppingToken).ConfigureAwait(false);
+                            await this.MoveToPoison(message, stoppingToken).ConfigureAwait(false);
                         }
                     }
                 }
@@ -88,7 +90,7 @@ public class ProductsWorker(IImportingService importingService,
     {
         // Create a poison queue for messages that repeatedly fail
         var poisonClient = new QueueClient(
-            connectionString,
+            this.connectionString,
             "order-processing-poison",
             new QueueClientOptions
             {

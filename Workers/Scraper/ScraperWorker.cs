@@ -4,17 +4,20 @@ using Spurious2.Core2.Lcbo;
 
 namespace Scraper;
 
-public class ScraperWorker(IImportingService importingService,
-    [FromKeyedServices("productblobsclient")] BlobContainerClient productsBlobContainerClient,
-    [FromKeyedServices("inventoryblobsclient")] BlobContainerClient inventoryBlobContainerClient,
+public class ScraperWorker(IServiceScopeFactory serviceScopeFactory,
+    [FromKeyedServices("productsblobsclient")] BlobContainerClient productsBlobContainerClient,
+    [FromKeyedServices("inventoriesblobsclient")] BlobContainerClient inventoryBlobContainerClient,
     [FromKeyedServices("storesblobsclient")] BlobContainerClient storesBlobContainerClient,
-    [FromKeyedServices("productqueuesclient")] QueueClient productsQueueClient,
-    [FromKeyedServices("inventoryqueuesclient")] QueueClient inventoryQueueClient,
+    [FromKeyedServices("productsqueuesclient")] QueueClient productsQueueClient,
+    [FromKeyedServices("inventoriesqueuesclient")] QueueClient inventoryQueueClient,
     [FromKeyedServices("storesqueuesclient")] QueueClient storesQueueClient,
     ILogger<ScraperWorker> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        using var scope = serviceScopeFactory.CreateScope();
+        var importingService = scope.ServiceProvider.GetRequiredService<IImportingService>();
+
         await importingService.StartImporting(productsBlobContainerClient,
             inventoryBlobContainerClient,
             storesBlobContainerClient,
@@ -27,24 +30,14 @@ public class ScraperWorker(IImportingService importingService,
             await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
         }
 
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Wine).ConfigureAwait(false))
-        {
-            await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
-        }
-
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Spirits).ConfigureAwait(false))
-        {
-            await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
-        }
-
-        //while (!stoppingToken.IsCancellationRequested)
+        //await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Wine).ConfigureAwait(false))
         //{
-        //    if (logger.IsEnabled(LogLevel.Information))
-        //    {
-        //        logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        //    }
+        //    await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
+        //}
 
-        //    await Task.Delay(1000, stoppingToken).ConfigureAwait(false);
+        //await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Spirits).ConfigureAwait(false))
+        //{
+        //    await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
         //}
     }
 }

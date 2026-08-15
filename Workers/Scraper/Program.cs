@@ -5,7 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Scraper;
 using Spurious2.Core2;
+using Spurious2.Core2.Lcbo;
+using Spurious2.Core2.Stores;
+using Spurious2.Core2.Subdivisions;
 using Spurious2.Infrastructure;
+using Spurious2.Infrastructure.AzureStorage;
+using Spurious2.Infrastructure.Lcbo;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -74,9 +79,25 @@ builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(bu
 builder.EnrichSqlServerDbContext<SpuriousContext>();
 
 builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
+builder.Services.AddScoped<ISubdivisionInMemImportingService, SubdivisionInMemImportingService>();
+builder.Services.AddScoped<IStoreInMemImportingService, StoreInMemImportingService>();
+builder.Services.AddScoped<InMemoryRepo>();
 builder.Services.AddScoped<ISpuriousService, SpuriousService>();
 builder.Services.AddScoped(typeof(IReadRepositoryBase<>), typeof(SpuriousSpecRepository<>));
 builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(SpuriousSpecRepository<>));
+builder.Services.AddScoped<IImportingService, ImportingService>();
+builder.Services.AddScoped<IStorageAdapter, StorageAdapter>();
+builder.Services.AddScoped<IQueueAdapter, QueueAdapter>();
+builder.Services.AddScoped<ILcboAdapter, LcboAdapter>();
+builder.Services.AddTransient<LcboHttpClientHandler>();
+builder.Services.AddHttpClient<CategorizedProductListClient>()
+    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+//builder.Services.AddHttpClient<AllProductsListClient>()
+//    .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+builder.Services.AddHttpClient<InventoryClient>()
+   .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
+builder.Services.AddHttpClient<StoreClient>()
+   .ConfigurePrimaryHttpMessageHandler<LcboHttpClientHandler>();
 
 var host = builder.Build();
 host.Run();

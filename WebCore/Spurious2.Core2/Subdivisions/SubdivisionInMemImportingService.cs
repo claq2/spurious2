@@ -21,16 +21,16 @@ public class SubdivisionInMemImportingService : ISubdivisionInMemImportingServic
     {
         public SubdivMap()
         {
-            Map(m => m.Id);
-            Map(m => m.Population);
-            Map(m => m.SubdivisionName);
-            Map(m => m.AlcoholDensity);
-            Map(m => m.BeerDensity);
-            Map(m => m.WineDensity);
-            Map(m => m.SpiritsDensity);
-            Map(m => m.Province);
-            Map(m => m.GeographicCentreGeog).Name("CentreWkt").TypeConverter<GeographyConverter>();
-            Map(m => m.Boundary).Name("BoundaryWkt").TypeConverter<GeographyConverter>();
+            this.Map(m => m.Id);
+            this.Map(m => m.Population);
+            this.Map(m => m.SubdivisionName);
+            this.Map(m => m.AlcoholDensity);
+            this.Map(m => m.BeerDensity);
+            this.Map(m => m.WineDensity);
+            this.Map(m => m.SpiritsDensity);
+            this.Map(m => m.Province);
+            this.Map(m => m.GeographicCentreGeog).Name("CentreWkt").TypeConverter<GeographyConverter>();
+            this.Map(m => m.Boundary).Name("BoundaryWkt").TypeConverter<GeographyConverter>();
         }
     }
 }

@@ -80,6 +80,13 @@ builder.AddProject<Projects.Scraper>("scraper")
     {
         j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
         //j.Configuration.EventTriggerConfig.;
-    });
+    })
+    .WithReference(db)
+    .WithReference(blobs)
+    .WithReference(queues)
+    .WaitFor(db)
+    .WaitFor(blobs)
+    .WaitFor(queues)
+    .WaitForCompletion(migrations);
 
 builder.Build().Run();
