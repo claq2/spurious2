@@ -37,14 +37,14 @@ public class ScraperWorker(IImportingService importingService,
             await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
         }
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (logger.IsEnabled(LogLevel.Information))
-            {
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
+        //while (!stoppingToken.IsCancellationRequested)
+        //{
+        //    if (logger.IsEnabled(LogLevel.Information))
+        //    {
+        //        logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+        //    }
 
-            await Task.Delay(1000, stoppingToken).ConfigureAwait(false);
-        }
+        //    await Task.Delay(1000, stoppingToken).ConfigureAwait(false);
+        //}
     }
 }

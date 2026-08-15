@@ -2,6 +2,7 @@ using Ardalis.Specification;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Scraper;
 using Spurious2.Core2;
 using Spurious2.Infrastructure;
@@ -13,13 +14,18 @@ builder.Services.AddHostedService<ScraperWorker>();
 builder.Services.AddHostedService<ProductsWorker>();
 builder.Services.AddHostedService<InventoriesWorker>();
 builder.Services.AddHostedService<StoresWorker>();
-builder.AddAzureQueueServiceClient(connectionName: "queues");
+// Configure queue clients to use base64 encoding for message content
+
+builder.AddAzureQueueServiceClient(connectionName: "queues", configureClientBuilder: clientBuilder =>
+        clientBuilder.ConfigureOptions(options =>
+            options.MessageEncoding = QueueMessageEncoding.Base64));
 builder.AddAzureBlobServiceClient(connectionName: "blobs");
 
-builder.Services.AddKeyedSingleton("productqueuesclient", (sp, s) =>
+builder.Services.AddKeyedSingleton("productsqueuesclient", (sp, s) =>
 {
     var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
     var queueClient = queueServiceClient.GetQueueClient("products");
+    queueClient.CreateIfNotExists();
     return queueClient;
 });
 
@@ -27,17 +33,19 @@ builder.Services.AddKeyedSingleton("storesqueuesclient", (sp, s) =>
 {
     var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
     var queueClient = queueServiceClient.GetQueueClient("stores");
+    queueClient.CreateIfNotExists();
     return queueClient;
 });
 
-builder.Services.AddKeyedSingleton("inventoryqueuesclient", (sp, s) =>
+builder.Services.AddKeyedSingleton("inventoriesqueuesclient", (sp, s) =>
 {
     var queueServiceClient = sp.GetRequiredService<QueueServiceClient>();
-    var queueClient = queueServiceClient.GetQueueClient("inventory");
+    var queueClient = queueServiceClient.GetQueueClient("inventories");
+    queueClient.CreateIfNotExists();
     return queueClient;
 });
 
-builder.Services.AddKeyedSingleton("productblobsclient", (sp, s) =>
+builder.Services.AddKeyedSingleton("productsblobsclient", (sp, s) =>
 {
     var blobServiceClient = sp.GetRequiredService<BlobServiceClient>();
     var blobContainerClient = blobServiceClient.GetBlobContainerClient("products");
@@ -51,10 +59,10 @@ builder.Services.AddKeyedSingleton("storesblobsclient", (sp, s) =>
     return blobContainerClient;
 });
 
-builder.Services.AddKeyedSingleton("inventoryblobsclient", (sp, s) =>
+builder.Services.AddKeyedSingleton("inventoriesblobsclient", (sp, s) =>
 {
     var blobServiceClient = sp.GetRequiredService<BlobServiceClient>();
-    var blobContainerClient = blobServiceClient.GetBlobContainerClient("inventory");
+    var blobContainerClient = blobServiceClient.GetBlobContainerClient("inventories");
     return blobContainerClient;
 });
 

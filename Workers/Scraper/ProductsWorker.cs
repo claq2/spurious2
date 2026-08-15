@@ -1,6 +1,11 @@
+using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
+
 namespace Scraper;
 
-public class ProductsWorker(ILogger<ProductsWorker> logger) : BackgroundService
+public class ProductsWorker([FromKeyedServices("productsblobsclient")] BlobContainerClient productsBlobContainerClient,
+    [FromKeyedServices("productsqueuesclient")] QueueClient productsQueueClient,
+    ILogger<ProductsWorker> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
