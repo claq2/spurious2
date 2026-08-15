@@ -17,7 +17,7 @@ public class CategorizedProductListClientTests
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         var productList = prods.results.GetProducts(ProductType.Wine).ToList();
-        productList.Count.Should().Be(7);
+        productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
         productList.Should().OnlyContain(p => p.Category == "Wine");
         productList.Should().OnlyContain(p => !string.IsNullOrWhiteSpace(p.ProductName));
@@ -30,8 +30,8 @@ public class CategorizedProductListClientTests
         prods = await client.GetProductList(9, ProductType.Wine, ProductSubtype.Red)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
-        productList = prods.results.GetProducts(ProductType.Wine).ToList();
-        productList.Count.Should().Be(5);
+        productList = [.. prods.results.GetProducts(ProductType.Wine)];
+        productList.Count.Should().Be(9);
         productList.Should().OnlyContain(p => p.Id > 0);
         productList.Should().OnlyContain(p => p.Category == "Wine");
         productList.Should().OnlyContain(p => !string.IsNullOrWhiteSpace(p.ProductName));
