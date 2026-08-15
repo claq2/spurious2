@@ -89,11 +89,12 @@ builder.AddProject<Projects.Scraper>("scraper")
     .WaitFor(queues)
     .WaitForCompletion(migrations);
 
-builder.AddProject<Projects.Products>("products")
+var productsBuilder = builder.AddProject<Projects.Products>("products")
     .PublishAsAzureContainerAppJob((_, j) =>
     {
         j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
-        //j.Configuration.EventTriggerConfig.;
+        j.Configuration.EventTriggerConfig.Parallelism = 3;
+        j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
     })
     .WithReference(db)
     .WithReference(blobs)
@@ -102,6 +103,12 @@ builder.AddProject<Projects.Products>("products")
     .WaitFor(blobs)
     .WaitFor(queues)
     .WaitForCompletion(migrations);
+
+// Set replica count to 3 for the products job when run locally
+if (builder.Environment.IsDevelopment())
+{
+    productsBuilder.WithReplicas(3);
+}
 
 builder.AddProject<Projects.Inventories>("inventories")
     .PublishAsAzureContainerAppJob((_, j) =>
