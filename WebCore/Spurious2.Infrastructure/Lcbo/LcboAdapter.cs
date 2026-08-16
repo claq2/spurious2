@@ -113,7 +113,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
             {
                 prods = await productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
                 productsRead += productList.Count;
-                productList = prods.results.GetProducts(productType).ToList();
+                productList = [.. prods.results.GetProducts(productType)];
 
                 var resultIds = productList.Select(r => r.Id).ToList();
 
