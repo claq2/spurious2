@@ -1,17 +1,17 @@
-using System.Text.Json;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using Spurious2.Core2.Lcbo;
 
-namespace Scraper;
+namespace Inventories;
 
-public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
-    [FromKeyedServices("productsqueuesclient")] QueueClient productsQueueClient,
-    [FromKeyedServices("inventoriesblobsclient")] BlobContainerClient inventoriesBlobContainerClient,
+public class InventoriesWorker(IServiceScopeFactory serviceScopeFactory,
     [FromKeyedServices("inventoriesqueuesclient")] QueueClient inventoriesQueueClient,
+    [FromKeyedServices("inventoriesblobsclient")] BlobContainerClient inventoriesBlobContainerClient,
+    [FromKeyedServices("storesblobsclient")] BlobContainerClient storesBlobContainerClient,
+    [FromKeyedServices("storesqueuesclient")] QueueClient storesQueueClient,
     IConfiguration configuration,
-    ILogger<ProductsWorker> logger) : BackgroundService
+    ILogger<InventoriesWorker> logger) : BackgroundService
 {
     private readonly string connectionString = configuration.GetConnectionString("queues")!;
 
@@ -26,30 +26,30 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
 
             try
             {
-                QueueMessage? message = await productsQueueClient.ReceiveMessageAsync(
+                QueueMessage? message = await inventoriesQueueClient.ReceiveMessageAsync(
                         visibilityTimeout: TimeSpan.FromSeconds(30),
                         cancellationToken: stoppingToken).ConfigureAwait(false);
 
                 if (message?.Body != null)
                 {
-                    //var pid = message.Body.ToString();
                     try
                     {
-
-                        //var productId = JsonSerializer.Deserialize<string>(message.Body.ToString());
                         var productId = message.Body.ToString();
                         if (productId != null)
                         {
                             using var scope = serviceScopeFactory.CreateScope();
                             var importingService = scope.ServiceProvider.GetRequiredService<IImportingService>();
-                            await importingService.ProcessProductBlob(inventoriesBlobContainerClient, inventoriesQueueClient, productId).ConfigureAwait(false);
+                            await importingService.ProcessInventoryBlob(inventoriesBlobContainerClient,
+                                      storesBlobContainerClient,
+                                      storesQueueClient,
+                                      productId).ConfigureAwait(false);
                         }
                         else
                         {
-                            logger.LogWarning("Received message with null productId: {messageId}", message.MessageId);
+                            logger.LogWarning("Received message with null productId: {MessageId}", message.MessageId);
                         }
 
-                        await productsQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt, stoppingToken).ConfigureAwait(false);
+                        await inventoriesQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt, stoppingToken).ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {
@@ -92,13 +92,14 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
         // Create a poison queue for messages that repeatedly fail
         var poisonClient = new QueueClient(
             this.connectionString,
-            "products-poison",
+            "inventory-poison",
             new QueueClientOptions
             {
                 MessageEncoding = QueueMessageEncoding.Base64
             });
         await poisonClient.CreateIfNotExistsAsync(cancellationToken: ct).ConfigureAwait(false);
         await poisonClient.SendMessageAsync(message.Body.ToString(), ct).ConfigureAwait(false);
-        await productsQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt, ct).ConfigureAwait(false);
+        await inventoriesQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt, ct).ConfigureAwait(false);
     }
 }
+

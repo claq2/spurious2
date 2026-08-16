@@ -20,7 +20,7 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
         {
             if (logger.IsEnabled(LogLevel.Information))
             {
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
             }
 
             try
@@ -31,11 +31,8 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
 
                 if (message?.Body != null)
                 {
-                    //var pid = message.Body.ToString();
                     try
                     {
-
-                        //var productId = JsonSerializer.Deserialize<string>(message.Body.ToString());
                         var productId = message.Body.ToString();
                         if (productId != null)
                         {
@@ -45,7 +42,7 @@ public class ProductsWorker(IServiceScopeFactory serviceScopeFactory,
                         }
                         else
                         {
-                            logger.LogWarning("Received message with null productId: {messageId}", message.MessageId);
+                            logger.LogWarning("Received message with null productId: {MessageId}", message.MessageId);
                         }
 
                         await productsQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt, stoppingToken).ConfigureAwait(false);
