@@ -29,7 +29,6 @@ builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WithHttpHealthCheck("/health")
     .WithHttpsEndpoint()
     .WithExternalHttpEndpoints()
-
 ;
 
 var launchProfile = builder.Configuration["DOTNET_LAUNCH_PROFILE"];
@@ -76,11 +75,7 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
 //    .WaitForCompletion(migrations);
 
 builder.AddProject<Projects.Scraper>("scraper")
-    .PublishAsAzureContainerAppJob((_, j) =>
-    {
-        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
-        //j.Configuration.EventTriggerConfig.;
-    })
+    .PublishAsAzureContainerAppJob((_, j) => j.Configuration.TriggerType = ContainerAppJobTriggerType.Event)
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
@@ -110,11 +105,12 @@ if (builder.Environment.IsDevelopment())
     productsBuilder.WithReplicas(3);
 }
 
-builder.AddProject<Projects.Inventories>("inventories")
+var inventoriesBuilder = builder.AddProject<Projects.Inventories>("inventories")
     .PublishAsAzureContainerAppJob((_, j) =>
     {
         j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
-        //j.Configuration.EventTriggerConfig.;
+        j.Configuration.EventTriggerConfig.Parallelism = 3;
+        j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
     })
     .WithReference(db)
     .WithReference(blobs)
@@ -124,21 +120,20 @@ builder.AddProject<Projects.Inventories>("inventories")
     .WaitFor(queues)
     .WaitForCompletion(migrations);
 
-builder.AddProject<Projects.Stores>("stores")
-    .PublishAsAzureContainerAppJob((i, j) =>
-    {
-        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+// Set replica count to 3 for the inventories job when run locally
+if (builder.Environment.IsDevelopment())
+{
+    inventoriesBuilder.WithReplicas(3);
+}
 
-        //j.Configuration.EventTriggerConfig.;
-    })
+builder.AddProject<Projects.Stores>("stores")
+    .PublishAsAzureContainerAppJob((_, j) => j.Configuration.TriggerType = ContainerAppJobTriggerType.Event)
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
     .WaitFor(db)
     .WaitFor(blobs)
     .WaitFor(queues)
-    .WaitForCompletion(migrations)
-
-    ;
+    .WaitForCompletion(migrations);
 
 builder.Build().Run();
