@@ -344,7 +344,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         _ = await dbContext.InventoryIncomings.ExecuteDeleteAsync().ConfigAwait();
     }
 
-    public async Task UpdateIncomingStore(StoreIncoming store)
+    public async Task UpdateIncomingStore(StoreIncoming store, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(store);
         var fact = new NetTopologySuite.NtsGeometryServices(
@@ -354,7 +354,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 
         var point = fact.CreatePoint(new NetTopologySuite.Geometries.Coordinate((double)store.Longitude!.Value, (double)store.Latitude!.Value));
 
-        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         _ = await dbContext.StoreIncomings
             .Where(si => si.Id == store.Id)
             .ExecuteUpdateAsync(setters => setters
@@ -362,7 +362,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
                 .SetProperty(si => si.StoreName, store.StoreName)
                 .SetProperty(si => si.StoreDone, true)
                 .SetProperty(si => si.LocationWellKnownText, point.ToText())
-                )
+                , cancellationToken)
             .ConfigAwait();
     }
 
@@ -569,12 +569,12 @@ OUTPUT inserted.Id;";
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
-    public async Task<bool> AreAnyIncomingRecordsNotDone()
+    public async Task<bool> AreAnyIncomingRecordsNotDone(CancellationToken cancellationToken)
     {
-        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         // Check that there are some records and they are all done
-        var productsCount = dbContext.ProductIncomings.CountAsync();
-        var storesCount = dbContext.StoreIncomings.CountAsync();
+        var productsCount = dbContext.ProductIncomings.CountAsync(cancellationToken);
+        var storesCount = dbContext.StoreIncomings.CountAsync(cancellationToken);
         var countResults = await Task.WhenAll(productsCount, storesCount).ConfigAwait();
 
         if (countResults[0] == 0 || countResults[1] == 0)
@@ -583,8 +583,8 @@ OUTPUT inserted.Id;";
             return true;
         }
 
-        var checkProductsTask = dbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone);
-        var checkStoresTask = dbContext.StoreIncomings.AnyAsync(si => !si.StoreDone);
+        var checkProductsTask = dbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone, cancellationToken);
+        var checkStoresTask = dbContext.StoreIncomings.AnyAsync(si => !si.StoreDone, cancellationToken);
         var results = await Task.WhenAll(checkProductsTask, checkStoresTask).ConfigAwait();
         return results[0] || results[1];
     }

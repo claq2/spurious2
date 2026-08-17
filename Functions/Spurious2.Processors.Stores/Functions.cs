@@ -15,7 +15,7 @@ public class Functions(IImportingService importingService)
         ArgumentNullException.ThrowIfNullOrWhiteSpace(storeId);
         ArgumentNullException.ThrowIfNull(storesClient);
         ArgumentNullException.ThrowIfNull(importingService);
-        await importingService.ProcessStoreBlob(storesClient, storeId).ConfigAwait();
+        await importingService.ProcessStoreBlob(storesClient, storeId, CancellationToken.None).ConfigAwait();
         logger.LogInformation(storeId);
     }
 }

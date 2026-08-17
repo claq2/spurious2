@@ -37,7 +37,7 @@ public class StoresWorker(IServiceScopeFactory serviceScopeFactory,
                         {
                             using var scope = serviceScopeFactory.CreateScope();
                             var importingService = scope.ServiceProvider.GetRequiredService<IImportingService>();
-                            await importingService.ProcessStoreBlob(storesBlobContainerClient, storeId).ConfigureAwait(false);
+                            await importingService.ProcessStoreBlob(storesBlobContainerClient, storeId, stoppingToken).ConfigureAwait(false);
                         }
                         else
                         {

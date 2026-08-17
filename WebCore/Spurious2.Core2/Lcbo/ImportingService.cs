@@ -136,12 +136,12 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     //    logger.ProcessedStore(storeId);
     //}
 
-    public async Task ProcessStoreBlob(BlobContainerClient storeBcc, string storeId)
+    public async Task ProcessStoreBlob(BlobContainerClient storeBcc, string storeId, CancellationToken cancellationToken)
     {
         var storeContents = await storageAdapter.GetStoreContents(storeBcc, storeId).ConfigAwait();
         var store = lcboAdapter.GetStoreInfo(storeId, storeContents);
         // Write store to StoreIncoming, mark as done
-        await spuriousRepository.UpdateIncomingStore(store).ConfigAwait();
+        await spuriousRepository.UpdateIncomingStore(store, cancellationToken).ConfigAwait();
         logger.ProcessedStore(storeId);
     }
 
@@ -174,9 +174,9 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         return Task.CompletedTask;
     }
 
-    public async Task<bool> AreAnyIncomingRecordsNotDone()
+    public async Task<bool> AreAnyIncomingRecordsNotDone(CancellationToken cancellationToken)
     {
-        return await spuriousRepository.AreAnyIncomingRecordsNotDone().ConfigAwait();
+        return await spuriousRepository.AreAnyIncomingRecordsNotDone(cancellationToken).ConfigAwait();
     }
 
     public async Task UpdateAll()

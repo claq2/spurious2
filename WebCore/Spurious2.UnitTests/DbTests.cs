@@ -95,9 +95,9 @@ public class DbTests
         var store2 = new StoreIncoming { StoreName = "Toronto store 2", Id = 2, City = "Toronto-North", Latitude = 44.712679m, Longitude = -78.531037m };
         var store3 = new StoreIncoming { StoreName = "Toronto store 3", Id = 3, City = "Toronto-West", Latitude = 45.712679m, Longitude = -77.531037m };
 
-        await repo.UpdateIncomingStore(store1).ConfigAwait();
-        await repo.UpdateIncomingStore(store2).ConfigAwait();
-        await repo.UpdateIncomingStore(store3).ConfigAwait();
+        await repo.UpdateIncomingStore(store1, CancellationToken.None).ConfigAwait();
+        await repo.UpdateIncomingStore(store2, CancellationToken.None).ConfigAwait();
+        await repo.UpdateIncomingStore(store3, CancellationToken.None).ConfigAwait();
 
         using var context2 = new SpuriousContext(this.ob.Options);
         var storeIncomings = context2.StoreIncomings.ToList();

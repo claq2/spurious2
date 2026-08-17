@@ -15,7 +15,7 @@ public class UpdateWorker(IServiceScopeFactory serviceScopeFactory,
         {
             using var scope = serviceScopeFactory.CreateScope();
             var importingService = scope.ServiceProvider.GetRequiredService<IImportingService>();
-            if (await importingService.AreAnyIncomingRecordsNotDone().ConfigAwait())
+            if (await importingService.AreAnyIncomingRecordsNotDone(stoppingToken).ConfigAwait())
             {
                 logger.LogInformation("Updating all");
                 await importingService.UpdateAll().ConfigureAwait(false);
