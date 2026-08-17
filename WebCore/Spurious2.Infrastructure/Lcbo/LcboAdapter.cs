@@ -103,7 +103,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         foreach (var productSubtype in subtypes)
         {
             var productsRead = 0;
-            var prods = await productListClient.GetProductList(0, productType, productSubtype).ConfigAwait();
+            var prods = await productListClient.GetProductList(0, productType, productSubtype, cancellationToken).ConfigAwait();
             productsRead = prods.results.Count();
             var totalToExpect = prods.totalCountFiltered;
             var productList = prods.results.GetProducts(productType).ToList();
@@ -112,7 +112,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
             iterationCount++;
             while (/*productsRead < totalToExpect &&*/ productList.Count > 0)
             {
-                prods = await productListClient.GetProductList(productsRead, productType, productSubtype).ConfigAwait();
+                prods = await productListClient.GetProductList(productsRead, productType, productSubtype, cancellationToken).ConfigAwait();
                 productsRead += productList.Count;
                 productList = [.. prods.results.GetProducts(productType)];
 

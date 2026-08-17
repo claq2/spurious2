@@ -13,7 +13,7 @@ public class CategorizedProductListClientTests
     public async Task GetWineProductListParses()
     {
         var client = CreateCategorizedProductListClient();
-        var prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red)
+        var prods = await client.GetProductList(0, ProductType.Wine, ProductSubtype.Red, CancellationToken.None)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         var productList = prods.results.GetProducts(ProductType.Wine).ToList();
@@ -27,7 +27,7 @@ public class CategorizedProductListClientTests
         var pageOneIds = productList.Select(p => p.Id);
 
         // Get page 2
-        prods = await client.GetProductList(9, ProductType.Wine, ProductSubtype.Red)
+        prods = await client.GetProductList(9, ProductType.Wine, ProductSubtype.Red, CancellationToken.None)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         productList = [.. prods.results.GetProducts(ProductType.Wine)];
@@ -47,7 +47,7 @@ public class CategorizedProductListClientTests
     public async Task GetBeerProductListParses()
     {
         var client = CreateCategorizedProductListClient();
-        var prods = await client.GetProductList(0, ProductType.Beer, ProductSubtype.Lager)
+        var prods = await client.GetProductList(0, ProductType.Beer, ProductSubtype.Lager, CancellationToken.None)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         var productList = prods.results.GetProducts(ProductType.Beer).ToList();
@@ -61,7 +61,7 @@ public class CategorizedProductListClientTests
         var pageOneIds = productList.Select(p => p.Id);
 
         // Get page 2
-        prods = await client.GetProductList(9, ProductType.Beer, ProductSubtype.Lager)
+        prods = await client.GetProductList(9, ProductType.Beer, ProductSubtype.Lager, CancellationToken.None)
             .ConfigAwait();
         prods.results.Count().Should().Be(9);
         productList = [.. prods.results.GetProducts(ProductType.Beer)];

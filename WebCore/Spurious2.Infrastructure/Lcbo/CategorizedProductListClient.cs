@@ -97,7 +97,7 @@ public class CategorizedProductListClient
         _ = this.httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36");
     }
 
-    public async Task<Rootobject> GetProductList(int start, ProductType productType, ProductSubtype productSubtype)
+    public async Task<Rootobject> GetProductList(int start, ProductType productType, ProductSubtype productSubtype, CancellationToken cancellationToken)
     {
         var tabFormat = productTypeTabTemplateMap[productType];
         var categoryFormat = productTypeCategoryTemplateMap[productType];
@@ -118,8 +118,8 @@ public class CategorizedProductListClient
         using var content = new FormUrlEncodedContent(formVars);
         content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
         var url = new Uri("https://platform.cloud.coveo.com/rest/search/v2?organizationId=lcboproductionx2kwygnc");
-        var productsResp = await this.httpClient.PostAsync(url, content).ConfigAwait();
-        var s = await productsResp.Content.ReadAsStringAsync().ConfigAwait();
+        var productsResp = await this.httpClient.PostAsync(url, content, cancellationToken).ConfigAwait();
+        var s = await productsResp.Content.ReadAsStringAsync(cancellationToken).ConfigAwait();
         var sj = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(s);
 
         return sj ?? throw new EmptyProductListException();
