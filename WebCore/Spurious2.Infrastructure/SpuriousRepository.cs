@@ -569,6 +569,18 @@ OUTPUT inserted.Id;";
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
+    public async Task<bool> AreAnyIncomingRecordsNotDone()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        // Check that there are some records and they are all done
+        //dbContext.ProductIncomings.
+
+        var checkProductsTask = dbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone);
+        var checkStoresTask = dbContext.StoreIncomings.AnyAsync(si => !si.StoreDone);
+        var results = await Task.WhenAll(checkProductsTask, checkStoresTask).ConfigAwait();
+        return results[0] || results[1];
+    }
+
     private static DataTable ToDataTable(IEnumerable<ProductIncoming> products)
     {
         DataTable table = new();

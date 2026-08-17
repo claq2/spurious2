@@ -5,6 +5,7 @@ namespace Spurious2.Core2.Lcbo;
 
 public interface IImportingService
 {
+    Task<bool> AreAnyIncomingRecordsNotDone();
     public IAsyncEnumerable<string> GetProductPagesAndReturnIds(ProductType productType);
     public Task ProcessStoreBlob(BlobContainerClient storeBcc, string storeId);
     public Task ProcessInventoryBlob(BlobContainerClient invBcc,

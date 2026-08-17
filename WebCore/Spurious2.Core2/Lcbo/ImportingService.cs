@@ -174,6 +174,11 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         return Task.CompletedTask;
     }
 
+    public async Task<bool> AreAnyIncomingRecordsNotDone()
+    {
+        return await spuriousRepository.AreAnyIncomingRecordsNotDone().ConfigAwait();
+    }
+
     public async Task UpdateAll()
     {
         // UpdateStoresFromIncoming
