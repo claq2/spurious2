@@ -16,7 +16,7 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.AddServiceDefaults();
 builder.Services.AddHostedService<ScraperWorker>();
-builder.Services.AddHostedService<StoresWorker>();
+builder.Services.AddHostedService<UpdateWorker>();
 
 builder.AddAzureQueueServiceClient(connectionName: "queues", configureClientBuilder: clientBuilder =>
         clientBuilder.ConfigureOptions(options =>

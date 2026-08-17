@@ -573,7 +573,15 @@ OUTPUT inserted.Id;";
     {
         using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
         // Check that there are some records and they are all done
-        //dbContext.ProductIncomings.
+        var productsCount = dbContext.ProductIncomings.CountAsync();
+        var storesCount = dbContext.StoreIncomings.CountAsync();
+        var countResults = await Task.WhenAll(productsCount, storesCount).ConfigAwait();
+
+        if (countResults[0] == 0 || countResults[1] == 0)
+        {
+            // There are no records in one of the tables to check, return true because the scraper has just started.
+            return true;
+        }
 
         var checkProductsTask = dbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone);
         var checkStoresTask = dbContext.StoreIncomings.AnyAsync(si => !si.StoreDone);
