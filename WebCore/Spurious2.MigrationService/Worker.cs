@@ -25,7 +25,7 @@ public class Worker(IServiceProvider serviceProvider,
             var dbContext = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
 
             await RunMigrationAsync(dbContext, stoppingToken).ConfigureAwait(false);
-            await SeedDataAsync(dbContext, stoppingToken).ConfigureAwait(false);
+            await this.SeedDataAsync(dbContext, stoppingToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -40,9 +40,9 @@ public class Worker(IServiceProvider serviceProvider,
     private static async Task RunMigrationAsync(SpuriousContext dbContext, CancellationToken cancellationToken)
     {
         var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
+        await strategy.ExecuteAsync(async (ct) =>
             // Run migration in a transaction to avoid partial migration if it fails.
-            await dbContext.Database.MigrateAsync(cancellationToken).ConfigureAwait(false)).ConfigureAwait(false);
+            dbContext.Database.MigrateAsync(ct), cancellationToken).ConfigureAwait(false);
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
@@ -54,16 +54,16 @@ public class Worker(IServiceProvider serviceProvider,
         var importTasks = new List<Task>();
         using (var scope = serviceProvider.CreateScope())
         {
-            await strategy.ExecuteAsync(async () =>
+            await strategy.ExecuteAsync(async (ct) =>
             {
-                var subdivsWithBoundary = await dbContext.Subdivisions.CountAsync(sd => sd.Boundary != null, cancellationToken).ConfigureAwait(false);
+                var subdivsWithBoundary = await dbContext.Subdivisions.CountAsync(sd => sd.Boundary != null, ct).ConfigureAwait(false);
                 if (subdivsWithBoundary < 5161)
                 {
                     var subdivisionImportingService = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
                     // add from boundary file
                     importTasks.Add(subdivisionImportingService.ImportBoundaryFromCsvFile("subdiv.csv"));
                 }
-            }).ConfigureAwait(false);
+            }, cancellationToken).ConfigureAwait(false);
 
             var subdivsWithPopulation = await dbContext.Subdivisions.CountAsync(sd => sd.Population > 0, cancellationToken).ConfigAwait();
             if (subdivsWithPopulation < 4830)
