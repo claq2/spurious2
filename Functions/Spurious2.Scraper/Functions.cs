@@ -35,21 +35,22 @@ public class Functions(IImportingService importingService)
             storesClient,
             productsQueue,
             inventoriesQueue,
-            storesQueue).ConfigureAwait(false);
+            storesQueue,
+            CancellationToken.None).ConfigureAwait(false);
         //var client = bc.GetBlobClient("start-message");
         //await client.UploadAsync(BinaryData.FromString(message), overwrite: true).ConfigureAwait(false);
         logger.LogInformation("Starting because of {Message}", message);
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Beer).ConfigureAwait(false))
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Beer, CancellationToken.None).ConfigureAwait(false))
         {
             await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
         }
 
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Wine).ConfigureAwait(false))
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Wine, CancellationToken.None).ConfigureAwait(false))
         {
             await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
         }
 
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Spirits).ConfigureAwait(false))
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Spirits, CancellationToken.None).ConfigureAwait(false))
         {
             await productsQueue.SendMessageAsync(productId).ConfigureAwait(false);
         }
@@ -59,7 +60,7 @@ public class Functions(IImportingService importingService)
     {
         logger.LogInformation("Updating because of {Message}", message);
         logger.LogInformation("Updating all");
-        await importingService.UpdateAll().ConfigureAwait(false);
+        await importingService.UpdateAll(CancellationToken.None).ConfigureAwait(false);
         logger.LogInformation("Updated all");
     }
 }

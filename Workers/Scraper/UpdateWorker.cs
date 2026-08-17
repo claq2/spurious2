@@ -18,7 +18,7 @@ public class UpdateWorker(IServiceScopeFactory serviceScopeFactory,
             if (await importingService.AreAnyIncomingRecordsNotDone(stoppingToken).ConfigAwait())
             {
                 logger.LogInformation("Updating all");
-                await importingService.UpdateAll().ConfigureAwait(false);
+                await importingService.UpdateAll(stoppingToken).ConfigureAwait(false);
             }
             else
             {

@@ -23,9 +23,10 @@ public class ScraperWorker(IServiceScopeFactory serviceScopeFactory,
             storesBlobContainerClient,
             productsQueueClient,
             inventoryQueueClient,
-            storesQueueClient).ConfigureAwait(false);
+            storesQueueClient,
+            stoppingToken).ConfigureAwait(false);
         logger.LogInformation("Starting");
-        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Beer).ConfigureAwait(false))
+        await foreach (var productId in importingService.GetProductPagesAndReturnIds(ProductType.Beer, stoppingToken).ConfigureAwait(false))
         {
             await productsQueueClient.SendMessageAsync(productId, stoppingToken).ConfigureAwait(false);
         }

@@ -21,7 +21,7 @@ public class InventoriesWorker(IServiceScopeFactory serviceScopeFactory,
         {
             if (logger.IsEnabled(LogLevel.Information))
             {
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
             }
 
             try
@@ -42,7 +42,8 @@ public class InventoriesWorker(IServiceScopeFactory serviceScopeFactory,
                             await importingService.ProcessInventoryBlob(inventoriesBlobContainerClient,
                                       storesBlobContainerClient,
                                       storesQueueClient,
-                                      productId).ConfigureAwait(false);
+                                      productId,
+                                      stoppingToken).ConfigureAwait(false);
                         }
                         else
                         {

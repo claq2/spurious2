@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,8 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         BlobContainerClient storesClient,
         QueueClient productsQueue,
         QueueClient inventoriesQueue,
-        QueueClient storesQueue)
+        QueueClient storesQueue,
+        CancellationToken cancellationToken)
     {
         // Clear incoming tables
         await spuriousRepository.ClearIncomingStores().ConfigAwait();
@@ -27,15 +29,15 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ClearedForImporting();
     }
 
-    public async Task SignalLastProductDone(BlobContainerClient bcc)
+    public async Task SignalLastProductDone(BlobContainerClient bcc, CancellationToken cancellationToken)
     {
         await storageAdapter.WriteLastProduct(bcc, "Done products!").ConfigAwait();
         logger.SignalLastProductDone();
     }
 
-    public async Task GetProductPages(QueueClient qc, ProductType productType)
+    public async Task GetProductPages(QueueClient qc, ProductType productType, CancellationToken cancellationToken)
     {
-        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
+        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType, cancellationToken).ConfigAwait())
         {
             _ = await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
             foreach (var product in products)
@@ -46,9 +48,9 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         }
     }
 
-    public async IAsyncEnumerable<string> GetProductPagesAndReturnIds(ProductType productType)
+    public async IAsyncEnumerable<string> GetProductPagesAndReturnIds(ProductType productType, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType).ConfigAwait())
+        await foreach (var products in lcboAdapter.GetCategorizedProducts(productType, cancellationToken).ConfigAwait())
         {
             _ = await spuriousRepository.ImportAFewProducts(products).ConfigAwait();
             foreach (var product in products)
@@ -60,9 +62,9 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         }
     }
 
-    public async Task ProcessProductBlob(BlobContainerClient inventoryBcc, QueueClient inventoryQc, string productId)
+    public async Task ProcessProductBlob(BlobContainerClient inventoryBcc, QueueClient inventoryQc, string productId, CancellationToken cancellationToken)
     {
-        var contents = await lcboAdapter.GetAllStoresInventory(productId).ConfigAwait();
+        var contents = await lcboAdapter.GetAllStoresInventory(productId, cancellationToken).ConfigAwait();
         await storageAdapter.WriteInventory(inventoryBcc, productId, contents).ConfigAwait();
         await queueAdapter.WriteInventoryId(inventoryQc, productId).ConfigAwait();
         logger.ProcessedProduct(productId);
@@ -94,7 +96,8 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
     public async Task ProcessInventoryBlob(BlobContainerClient invBcc,
         BlobContainerClient storeBcc,
         QueueClient storesQueueClient,
-        string productId)
+        string productId,
+        CancellationToken cancellationToken)
     {
         // Add store info if blob doesn't exist
         // Mark prod-inv done
@@ -108,7 +111,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         var storeIdToStoreUrlMap = inventories.ToDictionary(i => i.Inventory.StoreId, i => i.Uri);
         foreach (var storeId in storeIdsToAdd)
         {
-            var storePage = await lcboAdapter.GetStorePage(storeIdToStoreUrlMap[storeId]).ConfigAwait();
+            var storePage = await lcboAdapter.GetStorePage(storeIdToStoreUrlMap[storeId], cancellationToken).ConfigAwait();
             await storageAdapter.WriteStore(storeBcc, storeId.ToString(CultureInfo.InvariantCulture), storePage).ConfigAwait();
             await queueAdapter.WriteStoreId(storesQueueClient, storeId.ToString(CultureInfo.InvariantCulture)).ConfigAwait();
         }
@@ -145,7 +148,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ProcessedStore(storeId);
     }
 
-    public async Task ProcessLastProductBlob(BlobContainerClient bcc, string contents)
+    public async Task ProcessLastProductBlob(BlobContainerClient bcc, string contents, CancellationToken cancellationToken)
     {
         // Get volume info and prod IDs, put in DB
         // Get inv contents, write to end prod-inv blob
@@ -154,7 +157,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         logger.ProcessedLastProduct(contents);
     }
 
-    public async Task ProcessLastInventoryBlob(string contents)
+    public async Task ProcessLastInventoryBlob(string contents, CancellationToken cancellationToken)
     {
         // Add store info if blob doesn't exist
         // Mark prod-inv done
@@ -179,7 +182,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         return await spuriousRepository.AreAnyIncomingRecordsNotDone(cancellationToken).ConfigAwait();
     }
 
-    public async Task UpdateAll()
+    public async Task UpdateAll(CancellationToken cancellationToken)
     {
         // UpdateStoresFromIncoming
         await spuriousRepository.UpdateStoresFromIncoming().ConfigAwait();

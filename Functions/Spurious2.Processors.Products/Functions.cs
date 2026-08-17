@@ -16,7 +16,7 @@ public class Functions(IImportingService importingService)
         ArgumentNullException.ThrowIfNullOrWhiteSpace(productId);
         ArgumentNullException.ThrowIfNull(inventoriesClient);
         ArgumentNullException.ThrowIfNull(importingService);
-        await importingService.ProcessProductBlob(inventoriesClient, inventoriesQueue, productId).ConfigureAwait(false);
+        await importingService.ProcessProductBlob(inventoriesClient, inventoriesQueue, productId, CancellationToken.None).ConfigureAwait(false);
         logger.LogInformation(productId);
     }
 }

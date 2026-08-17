@@ -67,7 +67,7 @@ public class LcboAdapterTests
 
                 await productRepository.ClearIncomingProducts().ConfigAwait();
 
-                await foreach (var s in adapter.GetCategorizedProducts(ProductType.Beer).ConfigAwait())
+                await foreach (var s in adapter.GetCategorizedProducts(ProductType.Beer, CancellationToken.None).ConfigAwait())
                 {
                     responses.AddRange(s);
                     _ = productRepository.ImportAFewProducts(s).ConfigAwait();
@@ -101,7 +101,7 @@ public class LcboAdapterTests
 
                 await productRepository.ClearIncomingProducts().ConfigAwait();
 
-                await foreach (var s in adapter.GetCategorizedProducts(ProductType.Wine).ConfigAwait())
+                await foreach (var s in adapter.GetCategorizedProducts(ProductType.Wine, CancellationToken.None).ConfigAwait())
                 {
                     responses.AddRange(s);
                     _ = productRepository.ImportAFewProducts(s).ConfigAwait();
@@ -130,7 +130,7 @@ public class LcboAdapterTests
                                             CreateInventoryClient(),
                                             CreateStoreClient());
             using var stream = File.OpenRead("80127Inventory.html");
-            var inventories = (await adapter.ExtractInventoriesAndStoreIds("80127", stream).ConfigAwait()).ToList();
+            var inventories = (await adapter.ExtractInventoriesAndStoreIds("80127", stream, CancellationToken.None).ConfigAwait()).ToList();
             Assert.That(inventories, Has.Count.EqualTo(619));
             Assert.Multiple(() =>
             {
@@ -153,7 +153,7 @@ public class LcboAdapterTests
                                             CreateInventoryClient(),
                                             CreateStoreClient());
             using var stream = File.OpenRead("store.html");
-            var store = await adapter.GetStoreInfo("80127", stream).ConfigAwait();
+            var store = await adapter.GetStoreInfo("80127", stream, CancellationToken.None).ConfigAwait();
             Assert.Multiple(() =>
             {
                 Assert.That(store.StoreName, Is.EqualTo("Airport & Bovaird"));

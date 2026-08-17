@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
@@ -83,11 +84,11 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         return result;
     }
 
-    public async Task<IEnumerable<(InventoryIncoming Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream)
+    public async Task<IEnumerable<(InventoryIncoming Inventory, Uri Uri)>> ExtractInventoriesAndStoreIds(string productId, Stream inventoryStream, CancellationToken cancellationToken)
     {
         string contents;
         using var sr = new StreamReader(inventoryStream, Encoding.UTF8);
-        contents = await sr.ReadToEndAsync().ConfigAwait();
+        contents = await sr.ReadToEndAsync(cancellationToken).ConfigAwait();
 
         return this.ExtractInventoriesAndStoreIds(productId, contents);
     }
@@ -96,7 +97,7 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
     /// Gets the products for the given product type
     /// </summary>
     /// <returns>IAsyncEnumerable<List<Product2>>></returns>
-    public async IAsyncEnumerable<IEnumerable<ProductIncoming>> GetCategorizedProducts(ProductType productType)
+    public async IAsyncEnumerable<IEnumerable<ProductIncoming>> GetCategorizedProducts(ProductType productType, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var subtypes = TypesAndSubTypes.ProductsToSubtypeMap[productType];
         foreach (var productSubtype in subtypes)
@@ -125,11 +126,11 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
 
     private static readonly char[] separators = ['\r', '\n'];
 
-    public async Task<StoreIncoming> GetStoreInfo(string storeId, Stream storeStream)
+    public async Task<StoreIncoming> GetStoreInfo(string storeId, Stream storeStream, CancellationToken cancellationToken)
     {
         string contents;
         using var sr = new StreamReader(storeStream, Encoding.UTF8);
-        contents = await sr.ReadToEndAsync().ConfigAwait();
+        contents = await sr.ReadToEndAsync(cancellationToken).ConfigAwait();
 
         return this.GetStoreInfo(storeId, contents);
     }
@@ -159,9 +160,9 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         return store;
     }
 
-    public Task<string> GetStorePage(Uri storeUri) => storeClient.GetStorePage(storeUri);
+    public Task<string> GetStorePage(Uri storeUri, CancellationToken cancellationToken) => storeClient.GetStorePage(storeUri);
 
-    public async Task<string> GetAllStoresInventory(string productId)
+    public async Task<string> GetAllStoresInventory(string productId, CancellationToken cancellationToken)
     {
         var inventoryPageContents = await inventoryClient.GetInventoryPage(productId).ConfigAwait();
         return inventoryPageContents;

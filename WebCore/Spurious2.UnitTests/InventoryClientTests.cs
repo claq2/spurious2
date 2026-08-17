@@ -28,7 +28,7 @@ public class InventoryClientTests
 
         var inventory = inventories.Single(i => i.Uri.ToString().EndsWith("-1", StringComparison.Ordinal));
 
-        var storeHtml = await adapter.GetStorePage(inventory.Uri).ConfigAwait();
+        var storeHtml = await adapter.GetStorePage(inventory.Uri, CancellationToken.None).ConfigAwait();
         var storeInfo = adapter.GetStoreInfo(inventory.Inventory.StoreId.ToString(CultureInfo.InvariantCulture),
             storeHtml);
         storeInfo.Id.Should().Be(1);
