@@ -160,11 +160,11 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         return store;
     }
 
-    public Task<string> GetStorePage(Uri storeUri, CancellationToken cancellationToken) => storeClient.GetStorePage(storeUri);
+    public Task<string> GetStorePage(Uri storeUri, CancellationToken cancellationToken) => storeClient.GetStorePage(storeUri, cancellationToken);
 
     public async Task<string> GetAllStoresInventory(string productId, CancellationToken cancellationToken)
     {
-        var inventoryPageContents = await inventoryClient.GetInventoryPage(productId).ConfigAwait();
+        var inventoryPageContents = await inventoryClient.GetInventoryPage(productId, cancellationToken).ConfigAwait();
         return inventoryPageContents;
     }
 }

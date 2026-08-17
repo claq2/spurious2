@@ -14,7 +14,7 @@ public class InventoryClientTests
     public async Task GetThatInventoryAndStores()
     {
         var client = CreateInventoryClient();
-        var html = await client.GetInventoryPage("80127").ConfigAwait();
+        var html = await client.GetInventoryPage("80127", CancellationToken.None).ConfigAwait();
 
         LcboAdapter adapter = new(CreateCategorizedProductListClient(),
                                         CreateInventoryClient(),

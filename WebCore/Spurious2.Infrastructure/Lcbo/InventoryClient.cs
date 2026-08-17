@@ -35,10 +35,10 @@ public class InventoryClient
         _ = this.httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36");
     }
 
-    public async Task<string> GetInventoryPage(string productId)
+    public async Task<string> GetInventoryPage(string productId, CancellationToken cancellationToken)
     {
         var inventoryUrl = new Uri(string.Format(CultureInfo.InvariantCulture, InventoryUrlFormat, productId));
-        var result = await this.httpClient.GetStringAsync(inventoryUrl).ConfigAwait();
+        var result = await this.httpClient.GetStringAsync(inventoryUrl, cancellationToken).ConfigAwait();
         return result;
     }
 }

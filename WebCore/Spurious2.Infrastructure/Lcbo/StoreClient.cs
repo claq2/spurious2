@@ -32,13 +32,13 @@ public class StoreClient
         _ = this.httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36");
     }
 
-    public async Task<string> GetStorePage(Uri storeUri)
+    public async Task<string> GetStorePage(Uri storeUri, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(storeUri);
         // Replace &amp;apos; with %27 in URL
         storeUri = new Uri(storeUri.ToString().Replace("&amp;apos;", "%27", StringComparison.Ordinal));
 
-        var result = await this.httpClient.GetStringAsync(storeUri).ConfigAwait();
+        var result = await this.httpClient.GetStringAsync(storeUri, cancellationToken).ConfigAwait();
         return result;
     }
 }
