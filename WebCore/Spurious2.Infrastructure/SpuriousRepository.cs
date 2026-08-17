@@ -405,7 +405,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
         var strat = dbContext.Database.CreateExecutionStrategy();
         await strat.ExecuteAsync(async () =>
             await dbContext.Database.ExecuteSqlRawAsync(@"
-                MERGE INTO StoreIncoming AS [target]
+                MERGE INTO StoreIncoming WITH (HOLDLOCK) AS [target]
                 USING @storeIds AS [source]
                 ON [target].[Id] = [source].[Id]
                 WHEN NOT MATCHED BY TARGET THEN
@@ -439,7 +439,7 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
             using var cmd = connection.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = @"
-MERGE INTO StoreIncoming AS [target]
+MERGE INTO StoreIncoming WITH (HOLDLOCK) AS [target]
 USING @storeIds AS [source]
 ON [target].[Id] = [source].[Id]
 WHEN NOT MATCHED BY TARGET THEN
@@ -504,10 +504,10 @@ OUTPUT inserted.Id;";
         //                from @inventories
         //                except select ProductId, StoreId, Quantity from InventoryIncoming", param).ConfigAwait();
         var strat = dbContext.Database.CreateExecutionStrategy();
-        
+
         await strat.ExecuteAsync(async () =>
             await dbContext.Database.ExecuteSqlRawAsync(@"
-                        merge into InventoryIncoming As [target]
+                        merge into InventoryIncoming WITH (HOLDLOCK) As [target]
                         using @inventories As [source]
                         on [target].ProductId = [source].ProductId and [target].StoreId = [source].StoreId and [target].Quantity = [source].Quantity
                         when not matched by target then

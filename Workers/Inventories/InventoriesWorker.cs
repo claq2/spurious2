@@ -92,7 +92,7 @@ public class InventoriesWorker(IServiceScopeFactory serviceScopeFactory,
         // Create a poison queue for messages that repeatedly fail
         var poisonClient = new QueueClient(
             this.connectionString,
-            "inventory-poison",
+            "inventories-poison",
             new QueueClientOptions
             {
                 MessageEncoding = QueueMessageEncoding.Base64
