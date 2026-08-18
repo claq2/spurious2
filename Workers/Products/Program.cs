@@ -1,4 +1,6 @@
 using Ardalis.Specification;
+using Azure.Core;
+using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +74,26 @@ builder.Services.AddDbContextFactory<SpuriousContext>(opt => opt.UseSqlServer(bu
             .MigrationsAssembly("Spurious2"))
 );
 builder.EnrichSqlServerDbContext<SpuriousContext>();
+
+var isProd = builder.Environment.IsProduction();
+
+// Register DefaultAzureCredential — the WebJobs storage extensions pick this up
+builder.Services.AddSingleton<TokenCredential>(new DefaultAzureCredential(new DefaultAzureCredentialOptions
+{
+    // Always exclude
+    ExcludeInteractiveBrowserCredential = true,
+    ExcludeBrokerCredential = true,
+    ExcludeWorkloadIdentityCredential = true,
+    ExcludeEnvironmentCredential = true,
+    // Use in prod only
+    ExcludeManagedIdentityCredential = !isProd,
+    // Use locally only
+    ExcludeVisualStudioCodeCredential = isProd,
+    ExcludeAzureCliCredential = isProd,
+    ExcludeAzureDeveloperCliCredential = isProd,
+    ExcludeVisualStudioCredential = isProd,
+    ExcludeAzurePowerShellCredential = isProd,
+}));
 
 builder.Services.AddScoped<ISpuriousRepository, SpuriousRepository>();
 builder.Services.AddScoped<ISubdivisionInMemImportingService, SubdivisionInMemImportingService>();
