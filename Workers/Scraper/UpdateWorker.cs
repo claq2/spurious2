@@ -19,12 +19,12 @@ public class UpdateWorker(IServiceScopeFactory serviceScopeFactory,
             {
                 // Wait 30 seconds and check again
                 await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken).ConfigureAwait(false);
-                break;
             }
             else
             {
                 logger.LogInformation("Updating all");
                 await importingService.UpdateAll(stoppingToken).ConfigureAwait(false);
+                break;
             }
         }
     }
