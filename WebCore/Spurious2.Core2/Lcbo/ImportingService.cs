@@ -177,9 +177,9 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         return Task.CompletedTask;
     }
 
-    public async Task<bool> AreAnyIncomingRecordsNotDone(CancellationToken cancellationToken)
+    public async Task<bool> AnyIncomingRecordsNotDone(CancellationToken cancellationToken)
     {
-        return await spuriousRepository.AreAnyIncomingRecordsNotDone(cancellationToken).ConfigAwait();
+        return await spuriousRepository.AnyIncomingRecordsNotDone(cancellationToken).ConfigAwait();
     }
 
     public async Task UpdateAll(CancellationToken cancellationToken)

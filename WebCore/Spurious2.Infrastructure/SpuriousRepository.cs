@@ -569,12 +569,13 @@ OUTPUT inserted.Id;";
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
-    public async Task<bool> AreAnyIncomingRecordsNotDone(CancellationToken cancellationToken)
+    public async Task<bool> AnyIncomingRecordsNotDone(CancellationToken cancellationToken)
     {
-        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
+        using var productsDbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
+        using var storesDbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         // Check that there are some records and they are all done
-        var productsCount = dbContext.ProductIncomings.CountAsync(cancellationToken);
-        var storesCount = dbContext.StoreIncomings.CountAsync(cancellationToken);
+        var productsCount = productsDbContext.ProductIncomings.CountAsync(cancellationToken);
+        var storesCount = storesDbContext.StoreIncomings.CountAsync(cancellationToken);
         var countResults = await Task.WhenAll(productsCount, storesCount).ConfigAwait();
 
         if (countResults[0] == 0 || countResults[1] == 0)
@@ -583,8 +584,8 @@ OUTPUT inserted.Id;";
             return true;
         }
 
-        var checkProductsTask = dbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone, cancellationToken);
-        var checkStoresTask = dbContext.StoreIncomings.AnyAsync(si => !si.StoreDone, cancellationToken);
+        var checkProductsTask = productsDbContext.ProductIncomings.AnyAsync(pi => !pi.ProductDone, cancellationToken);
+        var checkStoresTask = storesDbContext.StoreIncomings.AnyAsync(si => !si.StoreDone, cancellationToken);
         var results = await Task.WhenAll(checkProductsTask, checkStoresTask).ConfigAwait();
         return results[0] || results[1];
     }

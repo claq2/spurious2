@@ -7,7 +7,7 @@ namespace Spurious2.Core2;
 
 public interface ISpuriousRepository : IDisposable
 {
-    public Task<bool> AreAnyIncomingRecordsNotDone(CancellationToken cancellationToken);
+    public Task<bool> AnyIncomingRecordsNotDone(CancellationToken cancellationToken);
     public Task<List<int>> AddIncomingStoreIdsAndReturnAddedIds(IEnumerable<int> storeIds);
 #pragma warning disable CA1002 // Do not expose generic lists
     public Task<List<int>> GetStoresToBeAdded(List<int> storeIds);
