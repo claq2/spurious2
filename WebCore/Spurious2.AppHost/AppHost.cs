@@ -1,4 +1,3 @@
-using System.Collections;
 using Aspire.Hosting.Azure;
 using Azure.Provisioning.AppContainers;
 using Azure.Provisioning.Expressions;
@@ -8,7 +7,18 @@ using Spurious2.AppHost;
 var builder = DistributedApplication.CreateBuilder(args);
 builder.AddAzureContainerAppEnvironment("spurious-app");
 
-var db = builder.AddConnectionString("spuriousdb");
+IResourceBuilder<IResourceWithConnectionString> db;
+
+if (builder.ExecutionContext.IsRunMode)
+{
+    db = builder.AddConnectionString("spuriousdb");
+}
+else
+{
+    var sqlServer = builder.AddAzureSqlServer("spuriousdbsql");
+
+    db = sqlServer.AddDatabase("spuriousdb");
+}
 
 var storage = builder.AddAzureStorage("storage")
     .RunAsEmulator(az => az.WithDataVolume("spurious-storage"))

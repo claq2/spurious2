@@ -10,6 +10,7 @@
     <PackageVersion Include="Aspire.Azure.Storage.Queues" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.6" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.4.6" />
     <PackageVersion Include="AutoMapper" Version="14.0.0" />
