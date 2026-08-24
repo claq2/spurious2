@@ -146,13 +146,6 @@ if (builder.Environment.IsDevelopment())
 }
 
 var inventoriesBuilder = builder.AddProject<Projects.Inventories>("inventories")
-    .PublishAsAzureContainerAppJob((_, j) =>
-    {
-        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
-        j.Configuration.EventTriggerConfig.Parallelism = 3;
-        j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
-        j.Configuration.EventTriggerConfig.Scale.PollingIntervalInSeconds = 1;
-    })
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
@@ -167,12 +160,36 @@ if (builder.Environment.IsDevelopment())
     inventoriesBuilder.WithReplicas(3);
 }
 
-builder.AddProject<Projects.Stores>("stores")
-    .PublishAsAzureContainerAppJob((_, j) =>
+inventoriesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
+{
+    // Get storage account name for queue authentication
+    var accountNameParameter = queues.Resource.Parent.NameOutputReference.AsProvisioningParameter(infra);
+
+    // Resolve the identity annotation added to the worker app
+    if (!productsBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
     {
-        j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
-        j.Configuration.EventTriggerConfig.Scale.PollingIntervalInSeconds = 1;
-    })
+        throw new InvalidOperationException("Identity annotation not found.");
+    }
+
+    j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+    j.Configuration.EventTriggerConfig.Parallelism = 3;
+    j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
+    j.Configuration.EventTriggerConfig.Scale.PollingIntervalInSeconds = 1;
+    j.Configuration.EventTriggerConfig.Scale.Rules.Add(new ContainerAppJobScaleRule
+    {
+        Name = "inventories-queue-rule",
+        JobScaleRuleType = "azure-queue",
+        Metadata = new ObjectExpression(
+        // Bicep expressions - referencing other resources dynamically
+        new PropertyExpression("accountName", new IdentifierExpression(accountNameParameter.BicepIdentifier)),
+        new PropertyExpression("queueName", new StringLiteralExpression("inventories")),
+        new PropertyExpression("queueLength", new IntLiteralExpression(1)) // Start job when 1+ messages
+    ),
+        Identity = identityAnnotation.IdentityResource.Id.AsProvisioningParameter(infra) // Use managed identity
+    });
+});
+
+var storesBuilder = builder.AddProject<Projects.Stores>("stores")
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
@@ -180,5 +197,34 @@ builder.AddProject<Projects.Stores>("stores")
     .WaitFor(blobs)
     .WaitFor(queues)
     .WaitForCompletion(migrations);
+
+storesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
+{
+    // Get storage account name for queue authentication
+    var accountNameParameter = queues.Resource.Parent.NameOutputReference.AsProvisioningParameter(infra);
+
+    // Resolve the identity annotation added to the worker app
+    if (!productsBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
+    {
+        throw new InvalidOperationException("Identity annotation not found.");
+    }
+
+    j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
+    j.Configuration.EventTriggerConfig.Parallelism = 1;
+    j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
+    j.Configuration.EventTriggerConfig.Scale.PollingIntervalInSeconds = 1;
+    j.Configuration.EventTriggerConfig.Scale.Rules.Add(new ContainerAppJobScaleRule
+    {
+        Name = "stores-queue-rule",
+        JobScaleRuleType = "azure-queue",
+        Metadata = new ObjectExpression(
+        // Bicep expressions - referencing other resources dynamically
+        new PropertyExpression("accountName", new IdentifierExpression(accountNameParameter.BicepIdentifier)),
+        new PropertyExpression("queueName", new StringLiteralExpression("stores")),
+        new PropertyExpression("queueLength", new IntLiteralExpression(1)) // Start job when 1+ messages
+    ),
+        Identity = identityAnnotation.IdentityResource.Id.AsProvisioningParameter(infra) // Use managed identity
+    });
+});
 
 builder.Build().Run();
