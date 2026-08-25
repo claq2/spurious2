@@ -42,7 +42,7 @@ public class Worker(IServiceProvider serviceProvider,
         var strategy = dbContext.Database.CreateExecutionStrategy();
         await strategy.ExecuteAsync(async (ct) =>
             // Run migration in a transaction to avoid partial migration if it fails.
-            dbContext.Database.MigrateAsync(ct), cancellationToken).ConfigureAwait(false);
+            await dbContext.Database.MigrateAsync(ct).ConfigAwait(), cancellationToken).ConfigureAwait(false);
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
