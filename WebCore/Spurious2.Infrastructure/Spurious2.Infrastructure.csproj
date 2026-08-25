@@ -35,12 +35,6 @@
     <None Update="population.csv">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="stores.csv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="subdiv.csv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
