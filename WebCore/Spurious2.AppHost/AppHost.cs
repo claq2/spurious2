@@ -20,9 +20,12 @@ else
     db = sqlServer.AddDatabase("spuriousdb");
 }
 
-var storage = builder.AddAzureStorage("storage")
-    .RunAsEmulator(az => az.WithDataVolume("spurious-storage"))
-;
+var storage = builder.AddAzureStorage("storage");
+
+if (builder.ExecutionContext.IsRunMode)
+{
+    storage.RunAsEmulator(az => az.WithDataVolume("spurious-storage"));
+}
 
 var blobs = storage.AddBlobs("blobs");
 var queues = storage.AddQueues("queues");
@@ -176,7 +179,7 @@ inventoriesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
     var accountNameParameter = queues.Resource.Parent.NameOutputReference.AsProvisioningParameter(infra);
 
     // Resolve the identity annotation added to the worker app
-    if (!productsBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
+    if (!inventoriesBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
     {
         throw new InvalidOperationException("Identity annotation not found.");
     }
@@ -214,7 +217,7 @@ storesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
     var accountNameParameter = queues.Resource.Parent.NameOutputReference.AsProvisioningParameter(infra);
 
     // Resolve the identity annotation added to the worker app
-    if (!productsBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
+    if (!storesBuilder.Resource.TryGetLastAnnotation<AppIdentityAnnotation>(out var identityAnnotation))
     {
         throw new InvalidOperationException("Identity annotation not found.");
     }
