@@ -15,7 +15,23 @@ if (builder.ExecutionContext.IsRunMode)
 }
 else
 {
-    var sqlServer = builder.AddAzureSqlServer("spuriousdbsql");
+    var sqlServer = builder.AddAzureSqlServer("spuriousdbsql")
+         .ConfigureInfrastructure(infra =>
+         {
+             var resources = infra.GetProvisionableResources();
+
+             var dbRes = resources.OfType<Azure.Provisioning.Sql.SqlDatabase>()
+                   .Single();
+
+             dbRes.Sku = new Azure.Provisioning.Sql.SqlSku()
+             {
+                 //Tier = "Basic",
+                 Name = "GP_S_Gen5_2",
+                 //Capacity = 5
+             };
+
+             dbRes.UseFreeLimit = false;
+         });
 
     db = sqlServer.AddDatabase("spuriousdb");
 }
