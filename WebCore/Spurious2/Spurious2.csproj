@@ -74,7 +74,7 @@
     <None Remove="cachedstores.csv" />
     <None Remove="cachedsubdivs.csv" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Spurious2.Core2\Spurious2.Core2.csproj" />
     <ProjectReference Include="..\Spurious2.Infrastructure\Spurious2.Infrastructure.csproj" />
@@ -113,7 +113,7 @@
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
-  
+
   <Target Name="CompileClient" BeforeTargets="Publish">
     <Exec WorkingDirectory="./spurious2-vite" Command="npm install" />
     <Exec WorkingDirectory="./spurious2-vite" Command="npm run build" />

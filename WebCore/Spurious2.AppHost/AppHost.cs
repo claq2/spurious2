@@ -51,9 +51,11 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
     .WaitFor(db);
 
 var devFrontend = builder.AddJavaScriptApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
+    .ClearContainerFilesSources()
+    .WithContainerFilesSource("./wwwroot/client")
     ;
 
-builder.AddProject<Projects.Spurious2>("spurious2-webapp")
+var webApp = builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WithReference(db)
     .WaitFor(db)
     .WaitForCompletion(migrations)
@@ -63,6 +65,14 @@ builder.AddProject<Projects.Spurious2>("spurious2-webapp")
     .WithHttpsEndpoint()
     .WithExternalHttpEndpoints()
 ;
+
+webApp.PublishWithContainerFiles(devFrontend, "./wwwroot/client");
+
+webApp.PublishAsAzureContainerApp((_, app) =>
+{
+    app.Template.Scale.MinReplicas = 0; // scale to zero
+    app.Template.Scale.MaxReplicas = 9; // optional cap
+});
 
 var launchProfile = builder.Configuration["DOTNET_LAUNCH_PROFILE"];
 
