@@ -52,7 +52,7 @@ var migrations = builder.AddProject<Projects.Spurious2_MigrationService>("spurio
 
 var devFrontend = builder.AddJavaScriptApp("spurious2-vite", "../Spurious2/spurious2-vite", "dev")
     .ClearContainerFilesSources()
-    .WithContainerFilesSource("/wwwroot/client")
+    .WithContainerFilesSource("./wwwroot/client")
     ;
 
 var webApp = builder.AddProject<Projects.Spurious2>("spurious2-webapp")

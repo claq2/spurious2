@@ -83,6 +83,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\client\assets\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -114,10 +115,10 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
 
-  <Target Name="CompileClient" BeforeTargets="Publish">
+  <!--<Target Name="CompileClient" BeforeTargets="Publish">
     <Exec WorkingDirectory="./spurious2-vite" Command="npm install" />
     <Exec WorkingDirectory="./spurious2-vite" Command="npm run build" />
-  </Target>
+  </Target>-->
 
     <!--<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
         --><!-- As part of publishing, ensure the JS resources are freshly built in production mode --><!--
