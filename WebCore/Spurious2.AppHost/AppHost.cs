@@ -160,6 +160,9 @@ productsBuilder.PublishAsAzureContainerAppJob((infra, j) =>
         throw new InvalidOperationException("Identity annotation not found.");
     }
 
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
+
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 3;
     j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
@@ -210,6 +213,9 @@ inventoriesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
         throw new InvalidOperationException("Identity annotation not found.");
     }
 
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
+
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 3;
     j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
@@ -247,6 +253,9 @@ storesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
     {
         throw new InvalidOperationException("Identity annotation not found.");
     }
+
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
 
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 1;
