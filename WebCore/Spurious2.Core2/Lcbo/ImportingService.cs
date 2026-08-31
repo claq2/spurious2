@@ -184,7 +184,18 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
 
     public async Task UpdateAll(CancellationToken cancellationToken)
     {
-        await spuriousRepository.UpdateAllFromIncoming().ConfigAwait();
+        //await spuriousRepository.UpdateAllFromIncoming().ConfigAwait();
+        // UpdateStoresFromIncoming
+        await spuriousRepository.UpdateStoresFromIncoming().ConfigAwait();
+        // UpdateProductsFromIncoming
+        await spuriousRepository.UpdateProductsFromIncoming().ConfigAwait();
+        // UpdateInventoriesFromIncoming
+        await spuriousRepository.UpdateInventoriesFromIncoming().ConfigAwait();
+        // UpdateStoreVolumes
+        await spuriousRepository.UpdateStoreVolumes().ConfigAwait();
+        // UpdateSubdivisionVolumes
+        await spuriousRepository.UpdateSubdivisionVolumes().ConfigAwait();
+
         logger.EndedDbUpdate();
     }
 }
