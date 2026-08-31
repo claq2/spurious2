@@ -7,7 +7,8 @@ using Spurious2.Infrastructure;
 
 namespace Spurious2.MigrationService;
 
-public class Worker(IServiceProvider serviceProvider,
+public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
+    IServiceProvider serviceProvider,
     IHostApplicationLifetime hostApplicationLifetime) : BackgroundService
 {
     public const string ActivitySourceName = "Migrations";
@@ -21,8 +22,7 @@ public class Worker(IServiceProvider serviceProvider,
 
         try
         {
-            using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<SpuriousContext>();
+            using var dbContext = await dbContextFactory.CreateDbContextAsync(stoppingToken).ConfigureAwait(false);
 
             await RunMigrationAsync(dbContext, stoppingToken).ConfigureAwait(false);
             await this.SeedDataAsync(dbContext, stoppingToken).ConfigureAwait(false);
@@ -39,10 +39,19 @@ public class Worker(IServiceProvider serviceProvider,
 
     private static async Task RunMigrationAsync(SpuriousContext dbContext, CancellationToken cancellationToken)
     {
+        var pendingMigrations = (await dbContext.Database.GetPendingMigrationsAsync(cancellationToken).ConfigAwait()).ToList();
+        Console.WriteLine("Pending migrations count: {0}", pendingMigrations.Count);
+        if (pendingMigrations.Count > 0)
+        {
+            Console.WriteLine("Pending migrations: {0}", string.Join(", ", pendingMigrations));
+        }
+
         var strategy = dbContext.Database.CreateExecutionStrategy();
         await strategy.ExecuteAsync(async (ct) =>
-            // Run migration in a transaction to avoid partial migration if it fails.
             await dbContext.Database.MigrateAsync(ct).ConfigAwait(), cancellationToken).ConfigureAwait(false);
+
+        var appliedMigrations = (await dbContext.Database.GetAppliedMigrationsAsync(cancellationToken).ConfigAwait()).ToList();
+        Console.WriteLine("Applied migrations count after migrate: {0}", appliedMigrations.Count);
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]

@@ -1,10 +1,14 @@
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Spurious2.Infrastructure;
 
 #nullable disable
 
 namespace Spurious2.Migrations;
 
 /// <inheritdoc />
+[DbContext(typeof(SpuriousContext))]
+[Migration("20260831103000_OptimizeRecurringUpdateProcs")]
 public partial class OptimizeRecurringUpdateProcs : Migration
 {
     /// <inheritdoc />
