@@ -25,9 +25,9 @@ else
 
              dbRes.Sku = new Azure.Provisioning.Sql.SqlSku()
              {
-                 //Tier = "Basic",
-                 Name = "GP_S_Gen5_2",
-                 //Capacity = 5
+                 Tier = "Basic",
+                 Name = "Basic",
+                 Capacity = 5,
              };
 
              dbRes.UseFreeLimit = false;
