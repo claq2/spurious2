@@ -39,4 +39,5 @@ public interface ISpuriousRepository : IDisposable
     public Task UpdateInventoriesFromIncoming();
     public Task UpdateStoreVolumes();
     public Task UpdateSubdivisionVolumes();
+    public Task UpdateAllFromIncoming();
 }

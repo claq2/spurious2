@@ -569,6 +569,14 @@ OUTPUT inserted.Id;";
         _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
     }
 
+    public async Task UpdateAllFromIncoming()
+    {
+        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        dbContext.Database.SetCommandTimeout(300);
+
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateAllFromIncoming").ConfigAwait();
+    }
+
     public async Task<bool> AnyIncomingRecordsNotDone(CancellationToken cancellationToken)
     {
         using var productsDbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
