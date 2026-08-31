@@ -608,7 +608,7 @@ OUTPUT inserted.Id;";
         table.Columns.Add("ProductDone", typeof(bool));
         foreach (var product in products)
         {
-            table.Rows.Add(product.Id, product.ProductName, product.Category, product.Volume, true);
+            table.Rows.Add(product.Id, product.ProductName, product.Category, product.Volume, false);
         }
 
         return table;
