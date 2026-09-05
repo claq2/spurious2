@@ -104,7 +104,6 @@ else
 }
 
 var productsBuilder = builder.AddProject<Projects.Products>("products")
-
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
