@@ -25,10 +25,10 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
         static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
         {
             using var reader = new StreamReader(filenameAndPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            using var csv = CsvReader.Create(reader);
 
-            _ = await csv.ReadAsync().ConfigAwait();
-            _ = csv.ReadHeader();
+            //_ = await csv.ReadAsync().ConfigAwait();
+            //_ = csv.ReadHeader();
             while (await csv.ReadAsync().ConfigAwait())
             {
                 if (csv.TryGetField<int>("CSDUID", out var csduid)
@@ -58,67 +58,67 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
         //await spuriousRepository.ImportBoundaries(boundaries).ConfigAwait();
     }
 
-    public async Task ImportBoundaryFromCsvFileBulk(string filenameAndPath)
-    {
-        static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
-        {
-            using var reader = new StreamReader(filenameAndPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+    //public async Task ImportBoundaryFromCsvFileBulk(string filenameAndPath)
+    //{
+    //    static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
+    //    {
+    //        using var reader = new StreamReader(filenameAndPath);
+    //        using var csv = CsvReader.Create(reader);
 
-            _ = await csv.ReadAsync().ConfigAwait();
-            _ = csv.ReadHeader();
-            while (await csv.ReadAsync().ConfigAwait())
-            {
-                if (csv.TryGetField<int>("CSDUID", out var csduid)
-                    && csv.TryGetField<string>("WKT", out var wkt)
-                    && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    && csv.TryGetField<int>("PRUID", out _)
-                    )
-                {
-                    yield return new BoundaryIncoming
-                    {
-                        Id = csduid,
-                        BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname!,
-                        Province = string.Empty,
-                    };
-                }
-            }
-        }
+    //        //_ = await csv.ReadAsync().ConfigAwait();
+    //        //_ = csv.ReadHeader();
+    //        while (await csv.ReadAsync().ConfigAwait())
+    //        {
+    //            if (csv.TryGetField<int>("CSDUID", out var csduid)
+    //                && csv.TryGetField<string>("WKT", out var wkt)
+    //                && csv.TryGetField<string>("CSDNAME", out var csdname)
+    //                && csv.TryGetField<int>("PRUID", out _)
+    //                )
+    //            {
+    //                yield return new BoundaryIncoming
+    //                {
+    //                    Id = csduid,
+    //                    BoundaryWellKnownText = wkt,
+    //                    SubdivisionName = csdname!,
+    //                    Province = string.Empty,
+    //                };
+    //            }
+    //        }
+    //    }
 
-        var boundaries = ReadBoundaries(filenameAndPath);
+    //    var boundaries = ReadBoundaries(filenameAndPath);
 
-        await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
+    //    await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
 
-        var batch = new List<BoundaryIncoming>();
-        await foreach (var item in boundaries.ConfigAwait())
-        {
-            batch.Add(item);
-            if (batch.Count == 30)
-            {
-                // Bulk import
-                await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
-                batch.Clear();
-            }
-        }
+    //    var batch = new List<BoundaryIncoming>();
+    //    await foreach (var item in boundaries.ConfigAwait())
+    //    {
+    //        batch.Add(item);
+    //        if (batch.Count == 30)
+    //        {
+    //            // Bulk import
+    //            await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
+    //            batch.Clear();
+    //        }
+    //    }
 
-        // Import last < 30 items
-        await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
+    //    // Import last < 30 items
+    //    await spuriousRepository.ImportBoundaryBulk(batch).ConfigAwait();
 
-        await spuriousRepository.CalculateBoundaryGeogs().ConfigAwait();
-        await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
-    }
+    //    await spuriousRepository.CalculateBoundaryGeogs().ConfigAwait();
+    //    await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
+    //}
 
     public async Task ImportPopulationFrom98File(string filenameAndPath)
     {
         static async IAsyncEnumerable<(int id, string province)> ReadProvinces(string filenameAndPath)
         {
             using var provinceReader = new StreamReader(filenameAndPath, Encoding.UTF8);
-            using var provinceCsv = new CsvReader(provinceReader, CultureInfo.InvariantCulture);
+            using var provinceCsv = CsvReader.Create(provinceReader);
             {
 
-                _ = await provinceCsv.ReadAsync().ConfigAwait();
-                _ = provinceCsv.ReadHeader();
+                //_ = await provinceCsv.ReadAsync().ConfigAwait();
+                //_ = provinceCsv.ReadHeader();
                 while (await provinceCsv.ReadAsync().ConfigAwait())
                 {
                     if (provinceCsv.TryGetField<int>("ALT_GEO_CODE", out var id)
@@ -141,19 +141,24 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
         static async IAsyncEnumerable<PopulationIncoming> ReadPopulations(string filenameAndPath, Dictionary<int, string> provincesDict)
         {
             using var reader = new StreamReader(filenameAndPath, Encoding.UTF8);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            using var csv = CsvReader.Create(reader);
 
             var records = new List<PopulationIncoming>();
 
-            _ = await csv.ReadAsync().ConfigAwait();
-            _ = csv.ReadHeader();
+            //_ = await csv.ReadAsync().ConfigAwait();
+            //_ = csv.ReadHeader();
+            var geoCodeColumnIndex = csv.GetFieldIndex("ALT_GEO_CODE");
+            var geoNameColumnIndex = csv.GetFieldIndex("GEO_NAME");
+            var geoLevelColumnIndex = csv.GetFieldIndex("GEO_LEVEL");
+            var charIdColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_ID");
+            var charNameColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_NAME");
             while (await csv.ReadAsync().ConfigAwait())
             {
-                if (csv.TryGetField<int>("ALT_GEO_CODE", out var id)
-                    && csv.TryGetField<string>("GEO_NAME", out var name)
-                    && csv.TryGetField<string>("GEO_LEVEL", out var level)
-                    && csv.TryGetField<int>("CHARACTERISTIC_ID", out var charId)
-                    && csv.TryGetField<string>("CHARACTERISTIC_NAME", out var charName)
+                if (csv.TryParse<int>(geoCodeColumnIndex, out var id)
+                    && csv.TryParse<string>(geoNameColumnIndex, out var name)
+                    && csv.TryParse<string>(geoLevelColumnIndex, out var level)
+                    && csv.TryParse<int>(charIdColumnIndex, out var charId)
+                    && csv.TryParse<string>(charNameColumnIndex, out var charName)
                 )
                 {
                     if (string.Equals(level, "Census subdivision", StringComparison.Ordinal)

@@ -54,7 +54,7 @@ var subdivTextOnly = subdivs.Select(s => new
 }).ToList();
 
 using (var writer = new StreamWriter("cachedsubdivs.csv"))
-using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+using (var csv = CsvWriter.Create(writer))
 {
     csv.WriteRecords(subdivTextOnly);
 }
@@ -73,7 +73,7 @@ var storeTextOnly = stores.Select(s => new
 }).ToList();
 
 using (var writer = new StreamWriter("cachedstores.csv"))
-using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+using (var csv = CsvWriter.Create(writer))
 {
     csv.WriteRecords(storeTextOnly);
 }

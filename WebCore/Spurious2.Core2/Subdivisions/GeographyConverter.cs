@@ -1,15 +1,26 @@
 using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
+using NetTopologySuite.Geometries;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public class GeographyConverter : DefaultTypeConverter
+public class GeographyConverter : ICsvConverter<Point>, ICsvConverter<Geometry>
 {
-    public override object? ConvertFromString(string? text, IReaderRow row, MemberMapData memberMapData)
+    public Point Read(CsvReader reader, int index)
     {
+        ArgumentNullException.ThrowIfNull(reader, nameof(reader));
         var rdr = new NetTopologySuite.IO.WKTReader();
-        var geom = rdr.Read(text);
+        var geom = rdr.Read(reader.GetString(index).Trim());
+        return (Point)geom;
+    }
+
+    public void Write(CsvWriter writer, Point value) => throw new NotImplementedException();
+    public void Write(CsvWriter writer, Geometry value) => throw new NotImplementedException();
+    Geometry ICsvConverter<Geometry>.Read(CsvReader reader, int index)
+    {
+        ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+        var rdr = new NetTopologySuite.IO.WKTReader();
+        var geom = rdr.Read(reader.GetString(index).Trim());
         return geom;
     }
 }
+

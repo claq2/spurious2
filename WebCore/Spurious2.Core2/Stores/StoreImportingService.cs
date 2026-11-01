@@ -1,4 +1,3 @@
-using System.Globalization;
 using CsvHelper;
 
 namespace Spurious2.Core2.Stores;
@@ -12,19 +11,26 @@ public class StoreImportingService(ISpuriousRepository spuriousRepository) : ISt
         static async IAsyncEnumerable<StoreIncoming> ReadStores(string filenameAndPath)
         {
             using var reader = new StreamReader(filenameAndPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            using var csv = CsvReader.Create(reader);
 
-            _ = await csv.ReadAsync().ConfigAwait();
-            _ = csv.ReadHeader();
+            //_ = await csv.ReadAsync().ConfigAwait();
+            //_ = csv.ReadHeader();
+            var idColumnIndex = csv.GetFieldIndex("Id");
+            var wktColumnIndex = csv.GetFieldIndex("WKT");
+            var storeNameColumnIndex = csv.GetFieldIndex("StoreName");
+            var cityColumnIndex = csv.GetFieldIndex("City");
+            var beerVolumeColumnIndex = csv.GetFieldIndex("BeerVolume");
+            var wineVolumeColumnIndex = csv.GetFieldIndex("WineVolume");
+            var spiritsVolumeColumnIndex = csv.GetFieldIndex("SpiritsVolume");
             while (await csv.ReadAsync().ConfigAwait())
             {
-                if (csv.TryGetField<int>("Id", out var storeId)
-                    && csv.TryGetField<string>("WKT", out var wkt)
-                    && csv.TryGetField<string>("StoreName", out var storeName)
-                    && csv.TryGetField<string>("City", out var storeCity)
-                    && csv.TryGetField<int>("BeerVolume", out var beerVolume)
-                    && csv.TryGetField<int>("WineVolume", out var wineVolume)
-                    && csv.TryGetField<int>("SpiritsVolume", out var spiritsVolume)
+                if (csv.TryParse<int>(idColumnIndex, out var storeId)
+                    && csv.TryParse<string>(wktColumnIndex, out var wkt)
+                    && csv.TryParse<string>(storeNameColumnIndex, out var storeName)
+                    && csv.TryParse<string>(cityColumnIndex, out var storeCity)
+                    && csv.TryParse<int>(beerVolumeColumnIndex, out var beerVolume)
+                    && csv.TryParse<int>(wineVolumeColumnIndex, out var wineVolume)
+                    && csv.TryParse<int>(spiritsVolumeColumnIndex, out var spiritsVolume)
                     )
                 {
                     yield return new StoreIncoming
