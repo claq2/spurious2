@@ -184,6 +184,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
 
     public async Task UpdateAll(CancellationToken cancellationToken)
     {
+        //await spuriousRepository.UpdateAllFromIncoming().ConfigAwait();
         // UpdateStoresFromIncoming
         await spuriousRepository.UpdateStoresFromIncoming().ConfigAwait();
         // UpdateProductsFromIncoming
@@ -194,6 +195,7 @@ public class ImportingService(ISpuriousRepository spuriousRepository,
         await spuriousRepository.UpdateStoreVolumes().ConfigAwait();
         // UpdateSubdivisionVolumes
         await spuriousRepository.UpdateSubdivisionVolumes().ConfigAwait();
+
         logger.EndedDbUpdate();
     }
 }

@@ -25,9 +25,9 @@ else
 
              dbRes.Sku = new Azure.Provisioning.Sql.SqlSku()
              {
-                 //Tier = "Basic",
-                 Name = "GP_S_Gen5_2",
-                 //Capacity = 5
+                 Tier = "Basic",
+                 Name = "Basic",
+                 Capacity = 5,
              };
 
              dbRes.UseFreeLimit = false;
@@ -81,42 +81,6 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
     devFrontend.RunWithHttpsDevCertificate("HTTPS_CERT_FILE", "HTTPS_CERT_KEY_FILE");
 }
 
-//builder.AddProject<Projects.Spurious2_Processors_Products>("spurious2-processors-products")
-//    .WithReference(db)
-//    .WithReference(blobs)
-//    .WithReference(queues)
-//    .WaitFor(db)
-//    .WaitFor(blobs)
-//    .WaitFor(queues)
-//    .WaitForCompletion(migrations);
-
-//builder.AddProject<Projects.Spurious2_Scraper>("spurious2-scraper")
-//    .WithReference(db)
-//    .WithReference(blobs)
-//    .WithReference(queues)
-//    .WaitFor(db)
-//    .WaitFor(blobs)
-//    .WaitFor(queues)
-//    .WaitForCompletion(migrations);
-
-//builder.AddProject<Projects.Spurious2_Processors_Inventories>("spurious2-processors-inventories")
-//    .WithReference(db)
-//    .WithReference(blobs)
-//    .WithReference(queues)
-//    .WaitFor(db)
-//    .WaitFor(blobs)
-//    .WaitFor(queues)
-//    .WaitForCompletion(migrations);
-
-//builder.AddProject<Projects.Spurious2_Processors_Stores>("spurious2-processors-stores")
-//    .WithReference(db)
-//    .WithReference(blobs)
-//    .WithReference(queues)
-//    .WaitFor(db)
-//    .WaitFor(blobs)
-//    .WaitFor(queues)
-//    .WaitForCompletion(migrations);
-
 var scraper = builder.AddProject<Projects.Scraper>("scraper")
     .WithReference(db)
     .WithReference(blobs)
@@ -140,7 +104,6 @@ else
 }
 
 var productsBuilder = builder.AddProject<Projects.Products>("products")
-
     .WithReference(db)
     .WithReference(blobs)
     .WithReference(queues)
@@ -159,6 +122,9 @@ productsBuilder.PublishAsAzureContainerAppJob((infra, j) =>
     {
         throw new InvalidOperationException("Identity annotation not found.");
     }
+
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
 
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 3;
@@ -210,6 +176,9 @@ inventoriesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
         throw new InvalidOperationException("Identity annotation not found.");
     }
 
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
+
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 3;
     j.Configuration.EventTriggerConfig.ReplicaCompletionCount = 1;
@@ -247,6 +216,9 @@ storesBuilder.PublishAsAzureContainerAppJob((infra, j) =>
     {
         throw new InvalidOperationException("Identity annotation not found.");
     }
+
+    j.Configuration.EventTriggerConfig.Scale.MinExecutions = 0;
+    j.Configuration.EventTriggerConfig.Scale.MaxExecutions = 3;
 
     j.Configuration.TriggerType = ContainerAppJobTriggerType.Event;
     j.Configuration.EventTriggerConfig.Parallelism = 1;
