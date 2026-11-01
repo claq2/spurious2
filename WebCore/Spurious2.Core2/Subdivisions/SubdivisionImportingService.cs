@@ -29,12 +29,16 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
 
             //_ = await csv.ReadAsync().ConfigAwait();
             //_ = csv.ReadHeader();
+            var csduidColumnIndex = csv.GetFieldIndex("CSDUID");
+            var wktColumnIndex = csv.GetFieldIndex("WKT");
+            var csdnameColumnIndex = csv.GetFieldIndex("CSDNAME");
+            var pruidColumnIndex = csv.GetFieldIndex("PRUID");
             while (await csv.ReadAsync().ConfigAwait())
             {
-                if (csv.TryGetField<int>("CSDUID", out var csduid)
-                    && csv.TryGetField<string>("WKT", out var wkt)
-                    && csv.TryGetField<string>("CSDNAME", out var csdname)
-                    && csv.TryGetField<int>("PRUID", out _)
+                if (csv.TryParse<int>(csduidColumnIndex, out var csduid)
+                    && csv.TryParse<string>(wktColumnIndex, out var wkt)
+                    && csv.TryParse<string>(csdnameColumnIndex, out var csdname)
+                    && csv.TryParse<int>(pruidColumnIndex, out _)
                     )
                 {
                     yield return new BoundaryIncoming
@@ -119,11 +123,14 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
 
                 //_ = await provinceCsv.ReadAsync().ConfigAwait();
                 //_ = provinceCsv.ReadHeader();
+                var altGeoCodeColumnIndex = provinceCsv.GetFieldIndex("ALT_GEO_CODE");
+                var geoNameColumnIndex = provinceCsv.GetFieldIndex("GEO_NAME");
+                var geoLevelColumnIndex = provinceCsv.GetFieldIndex("GEO_LEVEL");
                 while (await provinceCsv.ReadAsync().ConfigAwait())
                 {
-                    if (provinceCsv.TryGetField<int>("ALT_GEO_CODE", out var id)
-                        && provinceCsv.TryGetField<string>("GEO_NAME", out var name)
-                        && provinceCsv.TryGetField<string>("GEO_LEVEL", out var level)
+                    if (provinceCsv.TryParse<int>(altGeoCodeColumnIndex, out var id)
+                        && provinceCsv.TryParse<string>(geoNameColumnIndex, out var name)
+                        && provinceCsv.TryParse<string>(geoLevelColumnIndex, out var level)
                     )
                     {
                         if (string.Equals(level, "Province", StringComparison.Ordinal)
@@ -167,7 +174,7 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
                         )
                     {
                         var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
-                        var populationString = csv.GetField("C1_COUNT_TOTAL");
+                        var populationString = csv.GetString("C1_COUNT_TOTAL");
                         var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
                         yield return new PopulationIncoming
                         {
