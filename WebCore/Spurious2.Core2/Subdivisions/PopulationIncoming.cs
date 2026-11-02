@@ -8,4 +8,8 @@ public partial class PopulationIncoming
 
     public string? SubdivisionName { get; set; }
     public string Province { get; set; }
+    public string GeoName { get; set; }
+    public string GeoLevel { get; set; }
+    public int CharacteristicId { get; set; }
+    public string CharacteristicName { get; set; }
 }

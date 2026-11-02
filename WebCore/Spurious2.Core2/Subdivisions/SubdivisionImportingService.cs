@@ -164,13 +164,13 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
                 if (csv.TryParse<int>(geoCodeColumnIndex, out var id)
                     && csv.TryParse<string>(geoNameColumnIndex, out var name)
                     && csv.TryParse<string>(geoLevelColumnIndex, out var level)
-                    && csv.TryParse<int>(charIdColumnIndex, out var charId)
-                    && csv.TryParse<string>(charNameColumnIndex, out var charName)
+                    && csv.TryParse<int>(charIdColumnIndex, out var characteristicId)
+                    && csv.TryParse<string>(charNameColumnIndex, out var characteristicName)
                 )
                 {
                     if (string.Equals(level, "Census subdivision", StringComparison.Ordinal)
                         // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
-                        && charId == 1 // Population, 2021
+                        && characteristicId == 1 // Population, 2021
                         )
                     {
                         var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);

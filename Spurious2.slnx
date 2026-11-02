@@ -36,5 +36,6 @@
   <Project Path="docker-compose.dcproj">
     <Build Solution="Release|*" />
   </Project>
+  <Project Path="ImportTester/ImportTester.csproj" Id="1ab1555e-440a-4d7c-b0fa-66f2e4df3b8e" />
   <Project Path="OneTimeExporter/OneTimeExporter.csproj" />
 </Solution>
