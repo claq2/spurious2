@@ -72,6 +72,10 @@ public partial class SpuriousContext : DbContext
             entity.Property(e => e.SubdivisionName).HasColumnType("nvarchar(255)");
             entity.Property(e => e.Province).HasColumnType("nvarchar(255)").IsRequired();
             entity.Property(e => e.Population).HasColumnType("int").IsRequired();
+            entity.Ignore(e => e.GeoName);
+            entity.Ignore(e => e.GeoLevel);
+            entity.Ignore(e => e.CharacteristicId);
+            entity.Ignore(e => e.CharacteristicName);
         });
 
         modelBuilder.Entity<Product>(entity =>

@@ -2,7 +2,7 @@ using NetTopologySuite.Geometries;
 
 namespace Spurious2.Core2.Stores;
 
-public partial class StoreIncoming
+public class StoreIncoming
 {
     public int Id { get; set; }
     public string? City { get; set; }

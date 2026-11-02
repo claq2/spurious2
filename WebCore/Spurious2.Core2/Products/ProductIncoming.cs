@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Spurious2.Core2.Products;
 
-public partial class ProductIncoming
+public class ProductIncoming
 {
     public int Id { get; set; }
 

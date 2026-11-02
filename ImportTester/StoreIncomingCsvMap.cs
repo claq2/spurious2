@@ -1,7 +1,6 @@
 using CsvHelper;
 using NetTopologySuite.Geometries;
 using Spurious2.Core2.Stores;
-using Spurious2.Core2.Subdivisions;
 namespace ImportTester;
 
 

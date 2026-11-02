@@ -2,7 +2,7 @@ using NetTopologySuite.Geometries;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public partial class BoundaryIncoming
+public class BoundaryIncoming
 {
     public int Id { get; set; }
 

@@ -1,6 +1,6 @@
 namespace Spurious2.Core2.Subdivisions;
 
-public partial class PopulationIncoming
+public class PopulationIncoming
 {
     public int Id { get; set; }
 
