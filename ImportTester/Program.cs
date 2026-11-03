@@ -35,3 +35,7 @@ foreach (var keyPair in provinceDict)
 
 // Subdivisions
 using var subdivisionReader = CsvHelper.CsvReader.FromFile("subdiv.csv");
+await foreach (var record in subdivisionReader.GetRecordsAsync<BoundaryIncoming>().ConfigureAwait(false))
+{
+    Console.WriteLine($"Id: {record.Id}, SubdivisionName: {record.SubdivisionName}, BoundaryWkt: {record.BoundaryWellKnownText?[..20]}");
+}
