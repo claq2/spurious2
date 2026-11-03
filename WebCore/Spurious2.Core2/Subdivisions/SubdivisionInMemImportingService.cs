@@ -13,7 +13,7 @@ public class SubdivisionInMemImportingService : ISubdivisionInMemImportingServic
         using var csv = CsvReader.Create(reader);
         //csv.Context.RegisterClassMap<SubdivMap>();
 
-        var subdivs = csv.GetRecords<Subdivision>().ToList();
+        var subdivs = new List<Subdivision>();// csv.GetRecords<Subdivision>().ToList();
         return subdivs;
     }
 
