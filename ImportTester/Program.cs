@@ -1,6 +1,10 @@
 using System.Globalization;
 using Spurious2.Core2.Stores;
 using Spurious2.Core2.Subdivisions;
+using Spurious2.Infrastructure.Importing;
+
+// Make sure Infrastructure assembly is loaded so that the CsvHelper maps are registered
+var _ = typeof(StoreIncomingCsvMap).Assembly;
 
 // Stores
 using var storeReader = CsvHelper.CsvReader.FromFile("stores.csv");
