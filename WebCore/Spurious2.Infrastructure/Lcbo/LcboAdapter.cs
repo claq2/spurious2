@@ -27,6 +27,11 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         if (table != null)
         {
             var bodyRows = table.SelectNodes("tbody/tr");
+            if (bodyRows == null)
+            {
+                return result;
+            }
+
             foreach (var row in bodyRows)
             {
                 Uri linkToStoreDetails = new("https://example.com");
@@ -60,20 +65,31 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
                  */
 
                 var rowDatas = row.SelectNodes("td");
+                if (rowDatas == null)
+                {
+                    continue;
+                }
+
                 foreach (var data in rowDatas)
                 {
                     if (data.InnerHtml.Contains("quantity_avail_txt", StringComparison.Ordinal))
                     {
                         var quantityP = data.SelectSingleNode("p");
-                        inv.Quantity = Convert.ToInt32(quantityP.InnerText, CultureInfo.InvariantCulture);
+                        if (quantityP != null)
+                        {
+                            inv.Quantity = Convert.ToInt32(quantityP.InnerText, CultureInfo.InvariantCulture);
+                        }
                     }
                     else if (data.InnerHtml.Contains("store_dets_txt", StringComparison.Ordinal))
                     {
                         var storeA = data.SelectSingleNode("p/a");
-                        var storeHref = storeA.Attributes["href"];
-                        linkToStoreDetails = new Uri(storeHref.Value);
-                        var storeId = storeHref.Value[(storeHref.Value.LastIndexOf('-') + 1)..];
-                        inv.StoreId = Convert.ToInt32(storeId, CultureInfo.InvariantCulture);
+                        var storeHref = storeA?.Attributes["href"]?.Value;
+                        if (!string.IsNullOrEmpty(storeHref))
+                        {
+                            linkToStoreDetails = new Uri(storeHref);
+                            var storeId = storeHref[(storeHref.LastIndexOf('-') + 1)..];
+                            inv.StoreId = Convert.ToInt32(storeId, CultureInfo.InvariantCulture);
+                        }
                     }
                 }
 
@@ -148,10 +164,14 @@ public class LcboAdapter(CategorizedProductListClient productListClient,
         var lat = latLine[(latLine.IndexOf('=', StringComparison.Ordinal) + 2)..][..^1]; // Remove space after = and ; at end.
         var longLine = splitScript.Single(l => l.Contains("var lonStore =", StringComparison.Ordinal));
         var lon = longLine[(longLine.IndexOf('=', StringComparison.Ordinal) + 2)..][..^1]; // Remove space after = and ; at end.
+        var cityText = cityDiv?.InnerText ?? string.Empty;
+        var city = cityText.Length > 2 ? cityText[..^2] : cityText;
+        var storeName = storeNameDiv?.Attributes["data-store-name"]?.Value ?? string.Empty;
+
         StoreIncoming store = new()
         {
-            City = WebUtility.HtmlDecode(cityDiv.InnerText[..^2]), // Ends with space and comma
-            StoreName = WebUtility.HtmlDecode(storeNameDiv.Attributes["data-store-name"].Value),
+            City = WebUtility.HtmlDecode(city), // Ends with space and comma
+            StoreName = WebUtility.HtmlDecode(storeName),
             Id = Convert.ToInt32(storeId, CultureInfo.InvariantCulture),
             Latitude = Convert.ToDecimal(lat, CultureInfo.InvariantCulture),
             Longitude = Convert.ToDecimal(lon, CultureInfo.InvariantCulture),
