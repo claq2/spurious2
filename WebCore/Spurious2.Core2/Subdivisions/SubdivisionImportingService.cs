@@ -6,20 +6,6 @@ namespace Spurious2.Core2.Subdivisions;
 
 public partial class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {
-    public void Dispose()
-    {
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            spuriousRepository?.Dispose();
-        }
-    }
-
     public async Task ImportBoundaryFromCsvFile(string filenameAndPath)
     {
         static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
@@ -145,7 +131,8 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
             }
         }
 
-        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations(string filenameAndPath, Dictionary<int, string> provincesDict)
+        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations(string filenameAndPath,
+            Dictionary<int, string> provincesDict)
         {
             using var reader = new StreamReader(filenameAndPath, Encoding.UTF8);
             using var csv = CsvReader.Create(reader);
@@ -189,6 +176,8 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
 
         // First pass is to extract province/territory names and IDs
         var provincesDict = new Dictionary<int, string>();
+        using var populationReader = CsvReader.FromFile(filenameAndPath);
+
         await foreach ((var id, var name) in ReadProvinces(filenameAndPath).ConfigAwait())
         {
             provincesDict[id] = name;
