@@ -101,95 +101,115 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
 
     public async Task ImportPopulationFrom98File(string filenameAndPath)
     {
-        static async IAsyncEnumerable<(int id, string province)> ReadProvinces(string filenameAndPath)
-        {
-            using var provinceReader = new StreamReader(filenameAndPath, Encoding.UTF8);
-            using var provinceCsv = CsvReader.Create(provinceReader);
-            {
+        //static async IAsyncEnumerable<(int id, string province)> ReadProvinces(string filenameAndPath)
+        //{
+        //    using var provinceReader = new StreamReader(filenameAndPath, Encoding.UTF8);
+        //    using var provinceCsv = CsvReader.Create(provinceReader);
+        //    {
 
-                //_ = await provinceCsv.ReadAsync().ConfigAwait();
-                //_ = provinceCsv.ReadHeader();
-                var altGeoCodeColumnIndex = provinceCsv.GetFieldIndex("ALT_GEO_CODE");
-                var geoNameColumnIndex = provinceCsv.GetFieldIndex("GEO_NAME");
-                var geoLevelColumnIndex = provinceCsv.GetFieldIndex("GEO_LEVEL");
-                while (await provinceCsv.ReadAsync().ConfigAwait())
+        //        //_ = await provinceCsv.ReadAsync().ConfigAwait();
+        //        //_ = provinceCsv.ReadHeader();
+        //        var altGeoCodeColumnIndex = provinceCsv.GetFieldIndex("ALT_GEO_CODE");
+        //        var geoNameColumnIndex = provinceCsv.GetFieldIndex("GEO_NAME");
+        //        var geoLevelColumnIndex = provinceCsv.GetFieldIndex("GEO_LEVEL");
+        //        while (await provinceCsv.ReadAsync().ConfigAwait())
+        //        {
+        //            if (provinceCsv.TryParse<int>(altGeoCodeColumnIndex, out var id)
+        //                && provinceCsv.TryParse<string>(geoNameColumnIndex, out var name)
+        //                && provinceCsv.TryParse<string>(geoLevelColumnIndex, out var level)
+        //            )
+        //            {
+        //                if (string.Equals(level, "Province", StringComparison.Ordinal)
+        //                    || string.Equals(level, "Territory", StringComparison.Ordinal)
+        //                // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
+        //                )
+        //                {
+        //                    yield return (id, name!);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        //static async IAsyncEnumerable<PopulationIncoming> ReadPopulations(string filenameAndPath,
+        //    Dictionary<int, string> provincesDict)
+        //{
+        //    using var reader = new StreamReader(filenameAndPath, Encoding.UTF8);
+        //    using var csv = CsvReader.Create(reader);
+
+        //    var records = new List<PopulationIncoming>();
+
+        //    //_ = await csv.ReadAsync().ConfigAwait();
+        //    //_ = csv.ReadHeader();
+        //    var geoCodeColumnIndex = csv.GetFieldIndex("ALT_GEO_CODE");
+        //    var geoNameColumnIndex = csv.GetFieldIndex("GEO_NAME");
+        //    var geoLevelColumnIndex = csv.GetFieldIndex("GEO_LEVEL");
+        //    var charIdColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_ID");
+        //    var charNameColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_NAME");
+        //    while (await csv.ReadAsync().ConfigAwait())
+        //    {
+        //        if (csv.TryParse<int>(geoCodeColumnIndex, out var id)
+        //            && csv.TryParse<string>(geoNameColumnIndex, out var name)
+        //            && csv.TryParse<string>(geoLevelColumnIndex, out var level)
+        //            && csv.TryParse<int>(charIdColumnIndex, out var characteristicId)
+        //            && csv.TryParse<string>(charNameColumnIndex, out var characteristicName)
+        //        )
+        //        {
+        //            if (string.Equals(level, "Census subdivision", StringComparison.Ordinal)
+        //                // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
+        //                && characteristicId == 1 // Population, 2021
+        //                )
+        //            {
+        //                var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
+        //                var populationString = csv.GetString("C1_COUNT_TOTAL");
+        //                var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
+        //                yield return new PopulationIncoming
+        //                {
+        //                    Id = id,
+        //                    Population = population,
+        //                    Province = provincesDict[provinceId]
+        //                };
+        //            }
+        //        }
+        //    }
+        //}
+
+        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations2(CsvReader populationReader)
+        {
+            var provincesDict = new Dictionary<int, string>();
+            await foreach (var record in populationReader.GetRecordsAsync<PopulationIncoming>().ConfigureAwait(false))
+            {
+                if (record.GeoLevel is "Province" or "Territory")
                 {
-                    if (provinceCsv.TryParse<int>(altGeoCodeColumnIndex, out var id)
-                        && provinceCsv.TryParse<string>(geoNameColumnIndex, out var name)
-                        && provinceCsv.TryParse<string>(geoLevelColumnIndex, out var level)
-                    )
-                    {
-                        if (string.Equals(level, "Province", StringComparison.Ordinal)
-                            || string.Equals(level, "Territory", StringComparison.Ordinal)
-                        // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
-                        )
-                        {
-                            yield return (id, name!);
-                        }
-                    }
+                    provincesDict[record.Id] = record.GeoName ?? string.Empty;
                 }
-            }
-        }
 
-        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations(string filenameAndPath,
-            Dictionary<int, string> provincesDict)
-        {
-            using var reader = new StreamReader(filenameAndPath, Encoding.UTF8);
-            using var csv = CsvReader.Create(reader);
-
-            var records = new List<PopulationIncoming>();
-
-            //_ = await csv.ReadAsync().ConfigAwait();
-            //_ = csv.ReadHeader();
-            var geoCodeColumnIndex = csv.GetFieldIndex("ALT_GEO_CODE");
-            var geoNameColumnIndex = csv.GetFieldIndex("GEO_NAME");
-            var geoLevelColumnIndex = csv.GetFieldIndex("GEO_LEVEL");
-            var charIdColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_ID");
-            var charNameColumnIndex = csv.GetFieldIndex("CHARACTERISTIC_NAME");
-            while (await csv.ReadAsync().ConfigAwait())
-            {
-                if (csv.TryParse<int>(geoCodeColumnIndex, out var id)
-                    && csv.TryParse<string>(geoNameColumnIndex, out var name)
-                    && csv.TryParse<string>(geoLevelColumnIndex, out var level)
-                    && csv.TryParse<int>(charIdColumnIndex, out var characteristicId)
-                    && csv.TryParse<string>(charNameColumnIndex, out var characteristicName)
-                )
+                if (record.GeoLevel is "Census subdivision" or "Census division" or "Province" or "Territory")
                 {
-                    if (string.Equals(level, "Census subdivision", StringComparison.Ordinal)
-                        // && string.Compare(charName, "Population, 2021", StringComparison.Ordinal) == 0
-                        && characteristicId == 1 // Population, 2021
-                        )
-                    {
-                        var provinceId = Convert.ToInt32(id.ToString(CultureInfo.InvariantCulture)[..2], CultureInfo.InvariantCulture);
-                        var populationString = csv.GetString("C1_COUNT_TOTAL");
-                        var population = !string.IsNullOrEmpty(populationString) ? Convert.ToInt32(populationString, CultureInfo.InvariantCulture) : 0;
-                        yield return new PopulationIncoming
-                        {
-                            Id = id,
-                            Population = population,
-                            Province = provincesDict[provinceId]
-                        };
-                    }
+                    var first2Chars = record.Id.ToString(CultureInfo.InvariantCulture)[..2];
+                    record.Province = provincesDict.TryGetValue(int.Parse(first2Chars, CultureInfo.InvariantCulture), out var provinceName) ? provinceName : string.Empty;
+                    yield return record;
                 }
             }
         }
 
         // First pass is to extract province/territory names and IDs
-        var provincesDict = new Dictionary<int, string>();
-        using var populationReader = CsvReader.FromFile(filenameAndPath);
+        //var provincesDict = new Dictionary<int, string>();
 
-        await foreach ((var id, var name) in ReadProvinces(filenameAndPath).ConfigAwait())
-        {
-            provincesDict[id] = name;
-        }
+        //await foreach ((var id, var name) in ReadProvinces(filenameAndPath).ConfigAwait())
+        //{
+        //    provincesDict[id] = name;
+        //}
 
         // Second pass is to read populations
-        var records = ReadPopulations(filenameAndPath, provincesDict);
-        //await spuriousRepository.ImportPopulations(records).ConfigAwait();
+        //var records = ReadPopulations(filenameAndPath, provincesDict);
+        using var populationReader = CsvReader.FromFile(filenameAndPath);
+        var records2 = ReadPopulations2(populationReader);
+        await spuriousRepository.ImportPopulations(records2).ConfigAwait();
 
-        await spuriousRepository.ClearPopulationIncoming().ConfigAwait();
-        await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
-            .ConfigAwait();
-        await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
+        //await spuriousRepository.ClearPopulationIncoming().ConfigAwait();
+        //await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
+        //    .ConfigAwait();
+        //await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
     }
 }
