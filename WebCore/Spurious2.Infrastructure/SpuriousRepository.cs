@@ -106,10 +106,10 @@ public class SpuriousRepository(IDbContextFactory<SpuriousContext> dbContextFact
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
     }
 
-    public async Task ImportBoundary(BoundaryIncoming boundary)
+    public async Task ImportBoundary(BoundaryIncoming boundary, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(boundary);
-        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
         //_ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM BoundaryIncoming").ConfigAwait();
@@ -121,12 +121,12 @@ SubdivisionName)
                                                 values ({boundary.Id}, 
 {boundary.BoundaryWellKnownText},
 geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid(), 
-{boundary.SubdivisionName})").ConfigAwait();
+{boundary.SubdivisionName})", cancellationToken).ConfigAwait();
 
         _ = await dbContext.Database.ExecuteSqlAsync($@"update BoundaryIncoming 
   set 
   ReorientedBoundary =OriginalBoundary.ReorientObject()
-where id = {boundary.Id}").ConfigAwait();
+where id = {boundary.Id}", cancellationToken).ConfigAwait();
         // Call sproc to update table and clear incoming table
         //_ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision disable").ConfigAwait();
         //_ = await dbContext.Database.ExecuteSqlAsync($"UpdateBoundariesFromIncoming").ConfigAwait();

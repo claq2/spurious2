@@ -66,7 +66,7 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
         {
             var subdivisionImportingService = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
             // add from boundary file
-            await subdivisionImportingService.ImportBoundaryFromCsvFile("subdiv.csv").ConfigureAwait(false);
+            await subdivisionImportingService.ImportBoundaryFromCsvFile("subdiv.csv", cancellationToken).ConfigureAwait(false);
         }
 
         var subdivsWithPopulation = await dbContext.Subdivisions.CountAsync(sd => sd.Population > 0, cancellationToken).ConfigAwait();
@@ -74,7 +74,7 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
         {
             // add from population file
             var subDivImporter = scope.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-            await subDivImporter.ImportPopulationFrom98File("population.csv").ConfigureAwait(false);
+            await subDivImporter.ImportPopulationFrom98File("population.csv", cancellationToken).ConfigureAwait(false);
         }
 
         //using (var scope = serviceProvider.CreateScope())

@@ -19,7 +19,7 @@ public interface ISpuriousRepository : IDisposable
     public Task UpdatePopulationsFromIncoming();
     public Task UpdateBoundariesFromIncoming();
     public Task ClearBoundaryIncoming();
-    public Task ImportBoundary(BoundaryIncoming boundary);
+    public Task ImportBoundary(BoundaryIncoming boundary, CancellationToken cancellationToken);
     public Task ImportStoresFromCsv(IAsyncEnumerable<StoreIncoming> stores);
     public Task ImportPopulations(IAsyncEnumerable<PopulationIncoming> populations);
     public Task ImportBoundaries(IAsyncEnumerable<BoundaryIncoming> boundaries);

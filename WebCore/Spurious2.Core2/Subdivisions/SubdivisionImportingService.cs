@@ -1,47 +1,59 @@
 using System.Globalization;
-using System.Text;
+using System.Runtime.CompilerServices;
+
+//using System.Text;
 using CsvHelper;
 
 namespace Spurious2.Core2.Subdivisions;
 
-public partial class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
+public class SubdivisionImportingService(ISpuriousRepository spuriousRepository) : ISubdivisionImportingService
 {
-    public async Task ImportBoundaryFromCsvFile(string filenameAndPath)
+    public async Task ImportBoundaryFromCsvFile(string filenameAndPath, CancellationToken cancellationToken)
     {
-        static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
-        {
-            using var reader = new StreamReader(filenameAndPath);
-            using var csv = CsvReader.Create(reader);
+        //static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries(string filenameAndPath)
+        //{
+        //    using var reader = new StreamReader(filenameAndPath);
+        //    using var csv = CsvReader.Create(reader);
 
-            //_ = await csv.ReadAsync().ConfigAwait();
-            //_ = csv.ReadHeader();
-            var csduidColumnIndex = csv.GetFieldIndex("CSDUID");
-            var wktColumnIndex = csv.GetFieldIndex("WKT");
-            var csdnameColumnIndex = csv.GetFieldIndex("CSDNAME");
-            var pruidColumnIndex = csv.GetFieldIndex("PRUID");
-            while (await csv.ReadAsync().ConfigAwait())
+        //    //_ = await csv.ReadAsync().ConfigAwait();
+        //    //_ = csv.ReadHeader();
+        //    var csduidColumnIndex = csv.GetFieldIndex("CSDUID");
+        //    var wktColumnIndex = csv.GetFieldIndex("WKT");
+        //    var csdnameColumnIndex = csv.GetFieldIndex("CSDNAME");
+        //    var pruidColumnIndex = csv.GetFieldIndex("PRUID");
+        //    while (await csv.ReadAsync().ConfigAwait())
+        //    {
+        //        if (csv.TryParse<int>(csduidColumnIndex, out var csduid)
+        //            && csv.TryParse<string>(wktColumnIndex, out var wkt)
+        //            && csv.TryParse<string>(csdnameColumnIndex, out var csdname)
+        //            && csv.TryParse<int>(pruidColumnIndex, out _)
+        //            )
+        //        {
+        //            yield return new BoundaryIncoming
+        //            {
+        //                Id = csduid,
+        //                BoundaryWellKnownText = wkt,
+        //                SubdivisionName = csdname!,
+        //                Province = string.Empty,
+        //            };
+        //        }
+        //    }
+        //}
+
+        static async IAsyncEnumerable<BoundaryIncoming> ReadBoundaries2(CsvReader boundariesReader, [EnumeratorCancellation] CancellationToken cancellationToken)
+        {
+            await foreach (var record in boundariesReader.GetRecordsAsync<BoundaryIncoming>(cancellationToken).ConfigureAwait(false))
             {
-                if (csv.TryParse<int>(csduidColumnIndex, out var csduid)
-                    && csv.TryParse<string>(wktColumnIndex, out var wkt)
-                    && csv.TryParse<string>(csdnameColumnIndex, out var csdname)
-                    && csv.TryParse<int>(pruidColumnIndex, out _)
-                    )
-                {
-                    yield return new BoundaryIncoming
-                    {
-                        Id = csduid,
-                        BoundaryWellKnownText = wkt,
-                        SubdivisionName = csdname!,
-                        Province = string.Empty,
-                    };
-                }
+                yield return record;
             }
         }
 
-        var boundaries = ReadBoundaries(filenameAndPath);
+        using var boundariesReader = CsvReader.FromFile(filenameAndPath);
+        //var boundaries = ReadBoundaries(filenameAndPath);
+        var boundaries = ReadBoundaries2(boundariesReader, cancellationToken);
 
         await spuriousRepository.ClearBoundaryIncoming().ConfigAwait();
-        await Parallel.ForEachAsync(boundaries, async (b, ct) => await spuriousRepository.ImportBoundary(b).ConfigAwait())
+        await Parallel.ForEachAsync(boundaries, async (b, ct) => await spuriousRepository.ImportBoundary(b, ct).ConfigAwait())
             .ConfigAwait();
         await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
 
@@ -99,7 +111,7 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
     //    await spuriousRepository.UpdateBoundariesFromIncoming().ConfigAwait();
     //}
 
-    public async Task ImportPopulationFrom98File(string filenameAndPath)
+    public async Task ImportPopulationFrom98File(string filenameAndPath, CancellationToken cancellationToken)
     {
         //static async IAsyncEnumerable<(int id, string province)> ReadProvinces(string filenameAndPath)
         //{
@@ -174,10 +186,10 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
         //    }
         //}
 
-        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations2(CsvReader populationReader)
+        static async IAsyncEnumerable<PopulationIncoming> ReadPopulations2(CsvReader populationReader, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             var provincesDict = new Dictionary<int, string>();
-            await foreach (var record in populationReader.GetRecordsAsync<PopulationIncoming>().ConfigureAwait(false))
+            await foreach (var record in populationReader.GetRecordsAsync<PopulationIncoming>(cancellationToken).ConfigureAwait(false))
             {
                 if (record.GeoLevel is "Province" or "Territory")
                 {
@@ -204,12 +216,12 @@ public partial class SubdivisionImportingService(ISpuriousRepository spuriousRep
         // Second pass is to read populations
         //var records = ReadPopulations(filenameAndPath, provincesDict);
         using var populationReader = CsvReader.FromFile(filenameAndPath);
-        var records2 = ReadPopulations2(populationReader);
-        await spuriousRepository.ImportPopulations(records2).ConfigAwait();
+        var records2 = ReadPopulations2(populationReader, cancellationToken);
+        //await spuriousRepository.ImportPopulations(records2).ConfigAwait();
 
-        //await spuriousRepository.ClearPopulationIncoming().ConfigAwait();
-        //await Parallel.ForEachAsync(records, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
-        //    .ConfigAwait();
-        //await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
+        await spuriousRepository.ClearPopulationIncoming().ConfigAwait();
+        await Parallel.ForEachAsync(records2, cancellationToken, async (b, ct) => await spuriousRepository.ImportPopulation(b).ConfigAwait())
+            .ConfigAwait();
+        await spuriousRepository.UpdatePopulationsFromIncoming().ConfigAwait();
     }
 }
