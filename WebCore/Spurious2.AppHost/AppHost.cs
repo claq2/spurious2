@@ -7,6 +7,9 @@ using Spurious2.AppHost;
 var builder = DistributedApplication.CreateBuilder(args);
 builder.AddAzureContainerAppEnvironment("spurious-app");
 
+var customDomain = builder.AddParameter("customDomain");
+var certificateName = builder.AddParameter("certificateName");
+
 IResourceBuilder<IResourceWithConnectionString> db;
 
 if (builder.ExecutionContext.IsRunMode)
@@ -72,6 +75,7 @@ webApp.PublishAsAzureContainerApp((_, app) =>
 {
     app.Template.Scale.MinReplicas = 0; // scale to zero
     app.Template.Scale.MaxReplicas = 9; // optional cap
+    app.ConfigureCustomDomain(customDomain, certificateName);
 });
 
 var launchProfile = builder.Configuration["DOTNET_LAUNCH_PROFILE"];
