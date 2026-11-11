@@ -77,37 +77,6 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
             await subDivImporter.ImportPopulationFrom98File("population.csv", cancellationToken).ConfigureAwait(false);
         }
 
-        //using (var scope = serviceProvider.CreateScope())
-        //{
-        //await strategy.ExecuteAsync(async (ct) =>
-        //{
-        //    using (var scopeX = serviceProvider.CreateScope())
-        //    {
-        //        var importTasks = new List<Task>();
-        //        var subdivsWithBoundary = await dbContext.Subdivisions.CountAsync(sd => sd.Boundary != null, ct).ConfigureAwait(false);
-        //        if (subdivsWithBoundary < 5161)
-        //        {
-        //            var subdivisionImportingService = scopeX.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-        //            // add from boundary file
-        //            importTasks.Add(subdivisionImportingService.ImportBoundaryFromCsvFile("subdiv.csv"));
-        //        }
-
-        //        var subdivsWithPopulation = await dbContext.Subdivisions.CountAsync(sd => sd.Population > 0, ct).ConfigAwait();
-        //        if (subdivsWithPopulation < 4830)
-        //        {
-        //            // add from population file
-        //            var subDivImporter = scopeX.ServiceProvider.GetRequiredService<ISubdivisionImportingService>();
-        //            importTasks.Add(subDivImporter.ImportPopulationFrom98File("population.csv"));
-        //        }
-
-        //        await Task.WhenAll(importTasks).ConfigAwait();
-        //    }
-        //}, cancellationToken).ConfigureAwait(false);
-
-
-
-
-
         Console.WriteLine("Took {0} to import subdiv data", sw.Elapsed);
 
         var storeCount = await dbContext.Stores.CountAsync(cancellationToken).ConfigAwait();
@@ -116,20 +85,6 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
             var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
             await storeImporter.ImportStoresFromCsvFile("stores.csv", cancellationToken).ConfigAwait();
         }
-
-        //await strategy.ExecuteAsync(async (ct) =>
-        //{
-        //    using (var scopeY = serviceProvider.CreateScope())
-        //    {
-        //        var storeCount = await dbContext.Stores.CountAsync(ct).ConfigAwait();
-        //        if (storeCount < 653)
-        //        {
-        //            var storeImporter = scopeY.ServiceProvider.GetRequiredService<IStoreImportingService>();
-        //            await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
-        //        }
-        //    }
-        //}, cancellationToken).ConfigureAwait(false);
-        //}
 
         sw.Stop();
         Console.WriteLine("Took {0} to set up DB", sw.Elapsed);
