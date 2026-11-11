@@ -2,5 +2,5 @@ namespace Spurious2.Core2.Stores;
 
 public interface IStoreImportingService
 {
-    public Task ImportStoresFromCsvFile(string filenameAndPath);
+    public Task ImportStoresFromCsvFile(string filenameAndPath, CancellationToken cancellationToken);
 }

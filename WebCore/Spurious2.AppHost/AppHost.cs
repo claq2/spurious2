@@ -81,27 +81,27 @@ if (builder.Environment.IsDevelopment() && launchProfile == "https")
     devFrontend.RunWithHttpsDevCertificate("HTTPS_CERT_FILE", "HTTPS_CERT_KEY_FILE");
 }
 
-var scraper = builder.AddProject<Projects.Scraper>("scraper")
-    .WithReference(db)
-    .WithReference(blobs)
-    .WithReference(queues)
-    .WaitFor(db)
-    .WaitFor(blobs)
-    .WaitFor(queues)
-    .WaitForCompletion(migrations);
+//var scraper = builder.AddProject<Projects.Scraper>("scraper")
+//    .WithReference(db)
+//    .WithReference(blobs)
+//    .WithReference(queues)
+//    .WaitFor(db)
+//    .WaitFor(blobs)
+//    .WaitFor(queues)
+//    .WaitForCompletion(migrations);
 
-if (builder.ExecutionContext.IsRunMode)
-{
-    scraper.PublishAsAzureContainerAppJob((_, j) => j.Configuration.TriggerType = ContainerAppJobTriggerType.Event);
-}
-else
-{
-    scraper.PublishAsAzureContainerAppJob((_, j) =>
-    {
-        j.Configuration.TriggerType = ContainerAppJobTriggerType.Manual;
-        //j.Configuration.ScheduleTriggerConfig.CronExpression = "0 0 * * *";
-    });
-}
+//if (builder.ExecutionContext.IsRunMode)
+//{
+//    scraper.PublishAsAzureContainerAppJob((_, j) => j.Configuration.TriggerType = ContainerAppJobTriggerType.Event);
+//}
+//else
+//{
+//    scraper.PublishAsAzureContainerAppJob((_, j) =>
+//    {
+//        j.Configuration.TriggerType = ContainerAppJobTriggerType.Manual;
+//        //j.Configuration.ScheduleTriggerConfig.CronExpression = "0 0 * * *";
+//    });
+//}
 
 var productsBuilder = builder.AddProject<Projects.Products>("products")
     .WithReference(db)

@@ -114,7 +114,7 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
         if (storeCount < 653)
         {
             var storeImporter = scope.ServiceProvider.GetRequiredService<IStoreImportingService>();
-            await storeImporter.ImportStoresFromCsvFile("stores.csv").ConfigAwait();
+            await storeImporter.ImportStoresFromCsvFile("stores.csv", cancellationToken).ConfigAwait();
         }
 
         //await strategy.ExecuteAsync(async (ct) =>

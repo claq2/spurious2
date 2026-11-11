@@ -205,15 +205,15 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
         _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Subdivision on subdivision rebuild").ConfigAwait();
     }
 
-    public async Task ImportStoresFromCsv(IAsyncEnumerable<StoreIncoming> stores)
+    public async Task ImportStoresFromCsv(IAsyncEnumerable<StoreIncoming> stores, CancellationToken cancellationToken)
     {
         // Stores in CSV file have volumes
 
         ArgumentNullException.ThrowIfNull(stores);
-        using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigAwait();
+        using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
         dbContext.Database.SetCommandTimeout(300);
 
-        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming", cancellationToken).ConfigAwait();
 
         await foreach (var store in stores.ConfigAwait())
         {
@@ -232,14 +232,14 @@ geography::STPointFromText({store.LocationWellKnownText}, 4326),
 {store.BeerVolume},
 {store.WineVolume},
 {store.SpiritsVolume},
-1)").ConfigAwait();
+1)", cancellationToken).ConfigAwait();
         }
 
         // Call sproc to update tables
-        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store disable").ConfigAwait();
-        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncomingCsv").ConfigAwait();
-        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store rebuild").ConfigAwait();
-        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes").ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store disable", cancellationToken).ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateStoresFromIncomingCsv", cancellationToken).ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"alter index SPATIAL_Store on store rebuild", cancellationToken).ConfigAwait();
+        _ = await dbContext.Database.ExecuteSqlAsync($"UpdateSubdivisionVolumes", cancellationToken).ConfigAwait();
     }
 
     public async Task ClearPopulationIncoming()
