@@ -10,7 +10,7 @@ var _ = typeof(StoreIncomingCsvMap).Assembly;
 using var storeReader = CsvHelper.CsvReader.FromFile("stores.csv");
 await foreach (var record in storeReader.GetRecordsAsync<StoreIncoming>().ConfigureAwait(false))
 {
-    Console.WriteLine($"Id: {record.Id}, StoreName: {record.StoreName}, City: {record.City}, LocationWkt: {record.LocationGeog?.X}, {record.LocationGeog?.Y} , BeerVolume: {record.BeerVolume}, WineVolume: {record.WineVolume}, SpiritsVolume: {record.SpiritsVolume}");
+    Console.WriteLine($"Id: {record.Id}, StoreName: {record.StoreName}, City: {record.City}, LocationWkt: {record.LocationWellKnownText}, BeerVolume: {record.BeerVolume}, WineVolume: {record.WineVolume}, SpiritsVolume: {record.SpiritsVolume}");
 }
 
 // Population

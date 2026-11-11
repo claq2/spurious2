@@ -19,7 +19,7 @@ public partial class StoreIncomingCsvMap
     public decimal? Longitude { get; set; }
     [CsvIgnore]
     public bool StoreDone { get; set; }
-    [CsvIgnore]
+    [CsvColumn("WKT")]
     public string? LocationWellKnownText { get; set; }
     [CsvColumn]
     public int? BeerVolume { get; set; }
@@ -27,7 +27,6 @@ public partial class StoreIncomingCsvMap
     public int? WineVolume { get; set; }
     [CsvColumn]
     public int? SpiritsVolume { get; set; }
-    [CsvColumn("WKT")]
-    [CsvConverter(typeof(GeographyConverter))]
+    [CsvIgnore]
     public Point? LocationGeog { get; set; } = Point.Empty;
 }

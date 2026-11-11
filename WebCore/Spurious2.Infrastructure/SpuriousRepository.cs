@@ -211,7 +211,7 @@ geography::STGeomFromText({boundary.BoundaryWellKnownText}, 4326).MakeValid().Re
 
         ArgumentNullException.ThrowIfNull(stores);
         using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigAwait();
-        dbContext.Database.SetCommandTimeout(300);
+        dbContext.Database.SetCommandTimeout(600);
 
         _ = await dbContext.Database.ExecuteSqlAsync($"DELETE FROM storeincoming", cancellationToken).ConfigAwait();
 
