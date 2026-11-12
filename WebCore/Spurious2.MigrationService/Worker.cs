@@ -7,6 +7,7 @@ using Spurious2.Infrastructure;
 
 namespace Spurious2.MigrationService;
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
 public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
     IServiceProvider serviceProvider,
     IHostApplicationLifetime hostApplicationLifetime) : BackgroundService
@@ -14,7 +15,6 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
     public const string ActivitySourceName = "Migrations";
     private static readonly ActivitySource s_activitySource = new(ActivitySourceName);
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         Console.WriteLine("Starting database migration...");
@@ -54,7 +54,6 @@ public class Worker(IDbContextFactory<SpuriousContext> dbContextFactory,
         Console.WriteLine("Applied migrations count after migrate: {0}", appliedMigrations.Count);
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     private async Task SeedDataAsync(SpuriousContext dbContext, CancellationToken cancellationToken)
     {
         var sw = new Stopwatch();
